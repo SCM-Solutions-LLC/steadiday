@@ -1,15 +1,797 @@
-/* Updated styles for the Steadiday project */
+/* ==========================================================================
+SteadiDay Landing Page Styles
+Optimized for accessibility and adults 50-65+
+========================================================================== */
+
+:root {
+/* Colors */
+–bg: #EEF5EF;
+–card: #FFFFFF;
+–border: rgba(0, 0, 0, 0.10);
+–shadow: 0 10px 28px rgba(0, 0, 0, 0.08);
+–shadowHover: 0 14px 36px rgba(0, 0, 0, 0.12);
+
+–text: #1a1a1a;
+–muted: #4a4a4a;
+
+–green: #6FAF93;
+–greenDark: #3d7a5a;
+–greenSoft: #DDEFE6;
+–greenHover: #5a9a7e;
+
+–focus: #2563eb;
+–error: #dc2626;
+
+–radius: 22px;
+–radiusSmall: 14px;
+
+/* Typography - larger for seniors */
+–fontBase: 18px;
+–fontSmall: 16px;
+–fontLarge: 20px;
+–fontXL: 24px;
+–font2XL: 32px;
+–font3XL: 42px;
+
+/* Spacing */
+–space-xs: 8px;
+–space-sm: 12px;
+–space-md: 18px;
+–space-lg: 24px;
+–space-xl: 32px;
+–space-2xl: 48px;
+}
+
+/* ==========================================================================
+Reset & Base
+========================================================================== */
+
+*, *::before, *::after {
+box-sizing: border-box;
+}
+
+html {
+scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+html {
+scroll-behavior: auto;
+}
+}
+
+html, body {
+margin: 0;
+padding: 0;
+}
+
 body {
-  background-color: #f0f0f0;
-  font-family: Arial, sans-serif;
+font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
+font-size: var(–fontBase);
+line-height: 1.6;
+background: var(–bg);
+color: var(–text);
+-webkit-font-smoothing: antialiased;
+-moz-osx-font-smoothing: grayscale;
 }
+
+/* ==========================================================================
+Accessibility
+========================================================================== */
+
+.skipLink {
+position: absolute;
+top: -100px;
+left: 50%;
+transform: translateX(-50%);
+background: var(–greenDark);
+color: white;
+padding: var(–space-sm) var(–space-lg);
+border-radius: var(–radiusSmall);
+text-decoration: none;
+font-weight: 600;
+z-index: 9999;
+transition: top 0.2s ease;
+}
+
+.skipLink:focus {
+top: var(–space-md);
+}
+
+.srOnly {
+position: absolute;
+width: 1px;
+height: 1px;
+padding: 0;
+margin: -1px;
+overflow: hidden;
+clip: rect(0, 0, 0, 0);
+white-space: nowrap;
+border: 0;
+}
+
+a:focus,
+button:focus,
+input:focus {
+outline: 3px solid var(–focus);
+outline-offset: 2px;
+}
+
+a:focus:not(:focus-visible),
+button:focus:not(:focus-visible) {
+outline: none;
+}
+
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+outline: 3px solid var(–focus);
+outline-offset: 2px;
+}
+
+/* ==========================================================================
+Layout
+========================================================================== */
+
+.wrap {
+max-width: 1100px;
+margin: 0 auto;
+padding: var(–space-md) var(–space-md) var(–space-2xl);
+}
+
+/* ==========================================================================
+Header & Navigation
+========================================================================== */
+
+.top {
+max-width: 1100px;
+margin: 0 auto;
+padding: var(–space-md) var(–space-md) 0;
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: var(–space-md);
+flex-wrap: wrap;
+}
+
+.brand {
+display: flex;
+align-items: center;
+gap: var(–space-sm);
+}
+
+.icon {
+width: 52px;
+height: 52px;
+border-radius: 16px;
+border: 1px solid rgba(0, 0, 0, 0.06);
+background: #fff;
+}
+
+.brandName {
+font-weight: 800;
+font-size: var(–fontLarge);
+color: var(–text);
+}
+
+.brandTag {
+font-size: var(–fontSmall);
+color: var(–muted);
+}
+
+.nav {
+display: flex;
+gap: var(–space-xs);
+flex-wrap: wrap;
+}
+
+.nav a {
+text-decoration: none;
+color: var(–text);
+font-size: var(–fontSmall);
+font-weight: 500;
+padding: var(–space-sm) var(–space-md);
+border-radius: 999px;
+background: rgba(255, 255, 255, 0.7);
+border: 1px solid rgba(0, 0, 0, 0.06);
+transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.nav a:hover {
+background: white;
+transform: translateY(-1px);
+}
+
+.nav a:active {
+transform: translateY(0);
+}
+
+/* ==========================================================================
+Hero Section
+========================================================================== */
+
+.hero {
+display: grid;
+grid-template-columns: 1.15fr 0.85fr;
+gap: var(–space-lg);
+margin-top: var(–space-md);
+align-items: center;
+}
+
+.heroCard {
+background: var(–card);
+border: 1px solid var(–border);
+border-radius: var(–radius);
+box-shadow: var(–shadow);
+padding: var(–space-xl);
+max-width: 580px;
+}
+
+.kicker {
+display: inline-block;
+font-size: var(–fontSmall);
+font-weight: 600;
+color: var(–greenDark);
+background: var(–greenSoft);
+padding: var(–space-xs) var(–space-sm);
+border-radius: 999px;
+margin-bottom: var(–space-md);
+}
+
 h1 {
-  color: #333;
+margin: 0 0 var(–space-sm);
+font-size: var(–font3XL);
+font-weight: 800;
+line-height: 1.15;
+color: var(–text);
 }
-a {
-  color: #007bff;
-  text-decoration: none;
+
+.sub {
+font-size: var(–fontLarge);
+color: var(–muted);
+line-height: 1.5;
+margin: 0 0 var(–space-lg);
 }
-a:hover {
-  text-decoration: underline;
+
+.pillRow {
+display: flex;
+gap: var(–space-sm);
+flex-wrap: wrap;
+list-style: none;
+padding: 0;
+margin: 0 0 var(–space-lg);
+}
+
+.pill {
+font-size: var(–fontSmall);
+font-weight: 500;
+color: var(–greenDark);
+background: rgba(221, 239, 230, 0.9);
+padding: var(–space-xs) var(–space-sm);
+border-radius: 999px;
+}
+
+.ctaRow {
+margin-bottom: var(–space-sm);
+}
+
+.btnPrimary {
+display: inline-block;
+background: var(–green);
+color: #fff;
+padding: var(–space-md) var(–space-lg);
+border-radius: var(–radiusSmall);
+font-size: var(–fontBase);
+font-weight: 700;
+text-decoration: none;
+border: none;
+cursor: pointer;
+transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btnPrimary:hover:not(.disabled) {
+background: var(–greenHover);
+transform: translateY(-2px);
+box-shadow: 0 6px 20px rgba(111, 175, 147, 0.35);
+}
+
+.btnPrimary:active:not(.disabled) {
+transform: translateY(0);
+}
+
+.disabled {
+background: #a8cdb9;
+cursor: default;
+opacity: 0.9;
+}
+
+.fine {
+font-size: var(–fontSmall);
+color: var(–muted);
+margin-top: var(–space-sm);
+}
+
+.phoneCard {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
+.phoneFrame {
+max-width: 320px;
+padding: var(–space-md);
+border-radius: 36px;
+background: #ffffff;
+border: 1px solid rgba(0, 0, 0, 0.08);
+box-shadow: var(–shadow);
+}
+
+.phoneInner img {
+width: 100%;
+border-radius: var(–radius);
+display: block;
+}
+
+/* ==========================================================================
+Sections
+========================================================================== */
+
+.section {
+margin-top: var(–space-2xl);
+}
+
+h2 {
+font-size: var(–font2XL);
+font-weight: 800;
+margin: 0 0 var(–space-sm);
+color: var(–text);
+}
+
+.sectionSub {
+font-size: var(–fontLarge);
+color: var(–muted);
+margin: 0 0 var(–space-lg);
+}
+
+/* ==========================================================================
+Cards Grid
+========================================================================== */
+
+.grid3 {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: var(–space-md);
+}
+
+.card {
+background: var(–card);
+border-radius: var(–radius);
+padding: var(–space-lg);
+border: 1px solid var(–border);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+transform: translateY(-3px);
+box-shadow: var(–shadowHover);
+}
+
+.cardIcon {
+font-size: 36px;
+margin-bottom: var(–space-sm);
+}
+
+.cardTitle {
+font-size: var(–fontLarge);
+font-weight: 700;
+margin-bottom: var(–space-xs);
+color: var(–text);
+}
+
+.cardText {
+font-size: var(–fontBase);
+color: var(–muted);
+line-height: 1.5;
+margin: 0;
+}
+
+.cardText + .cardText {
+margin-top: var(–space-sm);
+}
+
+/* ==========================================================================
+Screenshots
+========================================================================== */
+
+.shots {
+display: grid;
+grid-template-columns: repeat(3, 1fr);
+gap: var(–space-lg);
+margin-top: var(–space-md);
+}
+
+.shot {
+margin: 0;
+text-align: center;
+}
+
+.shot img {
+width: 100%;
+max-width: 280px;
+border-radius: var(–radius);
+box-shadow: var(–shadow);
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.shot:hover img {
+transform: translateY(-4px);
+box-shadow: var(–shadowHover);
+}
+
+.shot figcaption {
+margin-top: var(–space-sm);
+font-size: var(–fontBase);
+font-weight: 600;
+color: var(–text);
+}
+
+/* ==========================================================================
+Pricing
+========================================================================== */
+
+.pricingGrid {
+display: grid;
+grid-template-columns: repeat(2, 1fr);
+gap: var(–space-lg);
+max-width: 800px;
+margin: 0 auto;
+}
+
+.pricingCard {
+background: var(–card);
+border-radius: var(–radius);
+padding: var(–space-xl);
+border: 2px solid var(–border);
+position: relative;
+transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pricingCard:hover {
+transform: translateY(-3px);
+box-shadow: var(–shadowHover);
+}
+
+.pricingFeatured {
+border-color: var(–green);
+background: linear-gradient(to bottom, #f8fdf9, #ffffff);
+}
+
+.pricingBadge {
+position: absolute;
+top: -14px;
+left: 50%;
+transform: translateX(-50%);
+background: var(–green);
+color: white;
+font-size: 14px;
+font-weight: 700;
+padding: 6px 16px;
+border-radius: 999px;
+}
+
+.pricingHeader {
+text-align: center;
+margin-bottom: var(–space-lg);
+padding-bottom: var(–space-md);
+border-bottom: 1px solid var(–border);
+}
+
+.pricingName {
+font-size: var(–fontXL);
+font-weight: 700;
+margin: 0 0 var(–space-xs);
+color: var(–text);
+}
+
+.pricingPrice {
+font-size: var(–font3XL);
+font-weight: 800;
+color: var(–greenDark);
+}
+
+.pricingPeriod {
+font-size: var(–fontBase);
+color: var(–muted);
+}
+
+.pricingFeatures {
+list-style: none;
+padding: 0;
+margin: 0;
+}
+
+.pricingFeatures li {
+font-size: var(–fontBase);
+padding: var(–space-xs) 0;
+padding-left: 28px;
+position: relative;
+color: var(–text);
+}
+
+.pricingFeatures li::before {
+content: “✓”;
+position: absolute;
+left: 0;
+color: var(–green);
+font-weight: 700;
+}
+
+.pricingAlt {
+margin-top: var(–space-md);
+padding-top: var(–space-md);
+border-top: 1px solid var(–border);
+font-size: var(–fontSmall);
+color: var(–muted);
+text-align: center;
+}
+
+.pricingNote {
+text-align: center;
+margin-top: var(–space-lg);
+font-size: var(–fontBase);
+color: var(–muted);
+}
+
+/* ==========================================================================
+Privacy Card
+========================================================================== */
+
+.privacyCard {
+max-width: 700px;
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+gap: var(–space-sm);
+}
+
+.privacyCard .cardIcon {
+font-size: 42px;
+}
+
+/* ==========================================================================
+Waitlist Form
+========================================================================== */
+
+.waitlistCard {
+max-width: 550px;
+margin: 0 auto;
+text-align: center;
+}
+
+.waitlistForm {
+display: flex;
+gap: var(–space-sm);
+margin-top: var(–space-md);
+flex-wrap: wrap;
+justify-content: center;
+}
+
+.waitlistInput {
+flex: 1;
+min-width: 240px;
+padding: var(–space-md);
+font-size: var(–fontBase);
+border: 2px solid var(–border);
+border-radius: var(–radiusSmall);
+background: #fff;
+transition: border-color 0.2s ease;
+}
+
+.waitlistInput:focus {
+border-color: var(–green);
+}
+
+.waitlistInput::placeholder {
+color: #999;
+}
+
+.waitlistCard .fine {
+margin-top: var(–space-md);
+}
+
+/* ==========================================================================
+Footer
+========================================================================== */
+
+.footer {
+text-align: center;
+margin-top: var(–space-2xl);
+padding-top: var(–space-lg);
+border-top: 1px solid var(–border);
+}
+
+.footerContent p {
+margin: 0;
+font-size: var(–fontSmall);
+color: var(–muted);
+}
+
+.footerLinks {
+margin-top: var(–space-xs) !important;
+}
+
+.footerLinks a {
+color: var(–muted);
+text-decoration: none;
+transition: color 0.2s ease;
+}
+
+.footerLinks a:hover {
+color: var(–greenDark);
+text-decoration: underline;
+}
+
+.footerLinks span {
+margin: 0 var(–space-xs);
+color: var(–border);
+}
+
+/* ==========================================================================
+Responsive Design
+========================================================================== */
+
+@media (max-width: 900px) {
+:root {
+–font3XL: 34px;
+–font2XL: 28px;
+}
+
+.hero {
+grid-template-columns: 1fr;
+gap: var(–space-xl);
+}
+
+.heroCard {
+max-width: 100%;
+order: 1;
+}
+
+.phoneCard {
+order: 0;
+}
+
+.phoneFrame {
+max-width: 260px;
+}
+
+.grid3 {
+grid-template-columns: 1fr 1fr;
+}
+
+.shots {
+grid-template-columns: 1fr;
+max-width: 320px;
+margin-left: auto;
+margin-right: auto;
+}
+
+.pricingGrid {
+grid-template-columns: 1fr;
+max-width: 400px;
+}
+}
+
+@media (max-width: 600px) {
+:root {
+–font3XL: 28px;
+–font2XL: 24px;
+–fontXL: 20px;
+–fontLarge: 18px;
+}
+
+.top {
+flex-direction: column;
+align-items: flex-start;
+gap: var(–space-sm);
+}
+
+.nav {
+width: 100%;
+justify-content: flex-start;
+}
+
+.nav a {
+padding: var(–space-xs) var(–space-sm);
+font-size: 14px;
+}
+
+.heroCard {
+padding: var(–space-lg);
+}
+
+.pillRow {
+gap: var(–space-xs);
+}
+
+.pill {
+font-size: 14px;
+padding: 6px 10px;
+}
+
+.grid3 {
+grid-template-columns: 1fr;
+}
+
+.card {
+padding: var(–space-md);
+}
+
+.waitlistForm {
+flex-direction: column;
+}
+
+.waitlistInput {
+min-width: 100%;
+}
+
+.btnPrimary {
+width: 100%;
+text-align: center;
+}
+}
+
+/* ==========================================================================
+Reduced Motion
+========================================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+*,
+*::before,
+*::after {
+animation-duration: 0.01ms !important;
+animation-iteration-count: 1 !important;
+transition-duration: 0.01ms !important;
+}
+}
+
+/* ==========================================================================
+High Contrast Mode Support
+========================================================================== */
+
+@media (prefers-contrast: high) {
+:root {
+–border: rgba(0, 0, 0, 0.3);
+–muted: #333333;
+–greenDark: #2d5a42;
+}
+
+.nav a,
+.card,
+.pricingCard {
+border-width: 2px;
+}
+}
+
+/* ==========================================================================
+Print Styles
+========================================================================== */
+
+@media print {
+.top,
+.phoneCard,
+.waitlistCard,
+.ctaRow {
+display: none;
+}
+
+body {
+background: white;
+color: black;
+}
+
+.card,
+.pricingCard {
+box-shadow: none;
+border: 1px solid #ccc;
+}
 }
