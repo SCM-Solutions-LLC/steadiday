@@ -931,6 +931,68 @@
             color: rgba(255, 255, 255, 0.6);
         }
 
+        /* ==================== CONTACT FORM ==================== */
+        .contact-section {
+            padding: 6rem 0;
+            background: var(--cream-dark);
+        }
+
+        .contact-form {
+            max-width: 500px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            color: var(--navy);
+            margin-bottom: 0.5rem;
+            font-size: 1rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            border: 2px solid var(--cream-dark);
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-family: inherit;
+            background: var(--cream);
+            color: var(--charcoal);
+            transition: border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--teal);
+            background: var(--white);
+        }
+
+        .form-group input::placeholder,
+        .form-group textarea::placeholder {
+            color: var(--charcoal-light);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
         /* ==================== FOOTER ==================== */
         footer {
             padding: 3rem 0 2rem;
@@ -1599,6 +1661,39 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Get In Touch</span>
+                <h2>Have questions?</h2>
+                <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            </div>
+            <form class="contact-form" action="https://formsubmit.co/mehta.saawan@gmail.com" method="POST">
+                <!-- FormSubmit configuration - Replace YOUR_EMAIL_HERE with your email -->
+                <!-- After first submission, FormSubmit will give you an encoded URL to hide your email -->
+                <input type="hidden" name="_subject" value="SteadiDay Website Contact">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="text" name="_honey" style="display:none">
+                
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required placeholder="John Smith">
+                </div>
+                <div class="form-group">
+                    <label for="email">Your Email</label>
+                    <input type="email" id="email" name="email" required placeholder="john@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Message</button>
+            </form>
+        </div>
+    </section>
+
     <!-- Footer -->
     <footer>
         <div class="container">
@@ -1612,7 +1707,7 @@
                     <a href="#pricing">Pricing</a>
                     <a href="security.html">Security</a>
                     <a href="privacy.html">Privacy</a>
-                    <a href="mailto:support@steadiday.com">Contact</a>
+                    <a href="#contact">Contact</a>
                 </div>
             </div>
             <p class="footer-copy">© 2025 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
