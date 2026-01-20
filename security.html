@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Security & Data Protection – SteadiDay</title>
+    <meta name="description" content="Learn how SteadiDay protects your health data. All information stays on your device, encrypted and secure.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --cream: #FFF9ED;
+            --cream-dark: #F5EDE0;
+            --teal: #26A69A;
+            --teal-dark: #1E8A7E;
+            --teal-light: #E0F2F1;
+            --charcoal: #2D3436;
+            --charcoal-light: #4A5254;
+            --white: #FFFFFF;
+            --green: #4CAF50;
+            --red: #E57373;
+            --shadow-soft: 0 4px 20px rgba(45, 52, 54, 0.08);
+            --shadow-medium: 0 8px 30px rgba(45, 52, 54, 0.12);
+            --radius-md: 16px;
+            --radius-lg: 24px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 18px;
+            line-height: 1.7;
+            color: var(--charcoal);
+            background: var(--cream);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Fraunces', Georgia, serif;
+            font-weight: 500;
+            line-height: 1.3;
+            color: var(--charcoal);
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 1rem 2rem;
+            background: rgba(255, 249, 237, 0.95);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(45, 52, 54, 0.06);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+        }
+
+        .nav-logo img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .nav-logo span {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--charcoal);
+        }
+
+        .nav-back {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+            color: var(--teal);
+            font-weight: 500;
+            transition: color 0.2s ease;
+        }
+
+        .nav-back:hover {
+            color: var(--teal-dark);
+        }
+
+        .nav-back svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Hero */
+        .hero {
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            background: linear-gradient(180deg, var(--teal-light) 0%, var(--cream) 100%);
+        }
+
+        .hero-container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 2rem;
+            box-shadow: var(--shadow-medium);
+        }
+
+        .hero-icon svg {
+            width: 40px;
+            height: 40px;
+            color: var(--teal);
+        }
+
+        .hero h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--charcoal-light);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        .section {
+            margin-bottom: 4rem;
+        }
+
+        .section h2 {
+            font-size: 1.75rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .section h2 svg {
+            width: 28px;
+            height: 28px;
+            color: var(--teal);
+        }
+
+        .section p {
+            margin-bottom: 1rem;
+        }
+
+        /* Key Points Grid */
+        .key-points {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin: 3rem 0;
+        }
+
+        .key-point {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            text-align: center;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .key-point-icon {
+            width: 60px;
+            height: 60px;
+            background: var(--teal-light);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .key-point-icon svg {
+            width: 30px;
+            height: 30px;
+            color: var(--teal-dark);
+        }
+
+        .key-point h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .key-point p {
+            font-size: 0.95rem;
+            color: var(--charcoal-light);
+            margin: 0;
+        }
+
+        /* Data Table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 1rem 1.5rem;
+            text-align: left;
+            border-bottom: 1px solid var(--cream-dark);
+        }
+
+        .data-table th {
+            background: var(--charcoal);
+            color: var(--white);
+            font-weight: 600;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover {
+            background: var(--cream);
+        }
+
+        .status-yes {
+            color: var(--green);
+            font-weight: 600;
+        }
+
+        .status-no {
+            color: var(--red);
+            font-weight: 600;
+        }
+
+        /* Do/Don't Lists */
+        .do-dont-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .do-list,
+        .dont-list {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .do-list {
+            border-top: 4px solid var(--green);
+        }
+
+        .dont-list {
+            border-top: 4px solid var(--red);
+        }
+
+        .do-list h3,
+        .dont-list h3 {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .do-list h3 svg {
+            color: var(--green);
+        }
+
+        .dont-list h3 svg {
+            color: var(--red);
+        }
+
+        .do-list ul,
+        .dont-list ul {
+            list-style: none;
+            margin: 0;
+        }
+
+        .do-list li,
+        .dont-list li {
+            padding: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .do-list li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: var(--green);
+            font-weight: bold;
+        }
+
+        .dont-list li::before {
+            content: '✗';
+            position: absolute;
+            left: 0;
+            color: var(--red);
+            font-weight: bold;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: var(--teal-light);
+            padding: 1.5rem 2rem;
+            border-radius: var(--radius-md);
+            border-left: 4px solid var(--teal);
+            margin: 2rem 0;
+        }
+
+        .info-box h4 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .info-box h4 svg {
+            width: 20px;
+            height: 20px;
+            color: var(--teal-dark);
+        }
+
+        .info-box p {
+            margin: 0;
+            font-size: 0.95rem;
+        }
+
+        /* Photo Privacy Section */
+        .photo-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .photo-step {
+            flex: 1;
+            min-width: 150px;
+            text-align: center;
+            padding: 1.5rem 1rem;
+            background: var(--white);
+            border-radius: var(--radius-md);
+            box-shadow: var(--shadow-soft);
+        }
+
+        .photo-step-number {
+            width: 32px;
+            height: 32px;
+            background: var(--teal);
+            color: var(--white);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            margin: 0 auto 0.75rem;
+        }
+
+        .photo-step h4 {
+            font-size: 1rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .photo-step p {
+            font-size: 0.85rem;
+            color: var(--charcoal-light);
+            margin: 0;
+        }
+
+        .photo-arrow {
+            font-size: 1.5rem;
+            color: var(--teal);
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 3rem;
+            background: var(--charcoal);
+            border-radius: var(--radius-lg);
+            margin-top: 4rem;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 1rem 2rem;
+            border-radius: var(--radius-md);
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-decoration: none;
+            background: var(--teal);
+            color: var(--white);
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            background: var(--teal-dark);
+            transform: translateY(-2px);
+        }
+
+        /* Footer */
+        footer {
+            padding: 2rem;
+            background: var(--charcoal);
+            text-align: center;
+            margin-top: 0;
+        }
+
+        .footer-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-brand img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+        }
+
+        .footer-brand span {
+            font-family: 'Fraunces', Georgia, serif;
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--white);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            nav {
+                padding: 1rem;
+            }
+
+            .nav-logo span {
+                display: none;
+            }
+
+            .hero {
+                padding: 6rem 1.5rem 3rem;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            main {
+                padding: 3rem 1.5rem;
+            }
+
+            .key-points {
+                grid-template-columns: 1fr;
+            }
+
+            .do-dont-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .photo-flow {
+                flex-direction: column;
+            }
+
+            .photo-arrow {
+                transform: rotate(90deg);
+            }
+
+            .data-table {
+                font-size: 0.9rem;
+            }
+
+            .data-table th,
+            .data-table td {
+                padding: 0.75rem 1rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay</span>
+            </a>
+            <a href="index.html" class="nav-back">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                </svg>
+            </div>
+            <h1>Your Data Stays With You</h1>
+            <p>We built SteadiDay with privacy as the foundation, not an afterthought. Your health information never leaves your device.</p>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Key Points -->
+        <div class="key-points">
+            <div class="key-point">
+                <div class="key-point-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"/>
+                    </svg>
+                </div>
+                <h3>100% On-Device</h3>
+                <p>All your data is stored locally on your iPhone, encrypted by iOS security</p>
+            </div>
+            <div class="key-point">
+                <div class="key-point-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"/>
+                    </svg>
+                </div>
+                <h3>No Servers</h3>
+                <p>We don't have servers collecting your data. Zero cloud storage means zero exposure</p>
+            </div>
+            <div class="key-point">
+                <div class="key-point-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                    </svg>
+                </div>
+                <h3>Never Sold</h3>
+                <p>Your health data is never sold, shared, or used for advertising. Period.</p>
+            </div>
+        </div>
+
+        <!-- Where Data Is Stored -->
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4"/>
+                </svg>
+                Where Your Data Lives
+            </h2>
+            
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Data Type</th>
+                        <th>Stored On Your Phone</th>
+                        <th>Sent to Our Servers</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Medications & Schedules</td>
+                        <td class="status-yes">✓ Yes, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Tasks & Reminders</td>
+                        <td class="status-yes">✓ Yes, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Emergency Contacts</td>
+                        <td class="status-yes">✓ Yes, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Health Metrics</td>
+                        <td class="status-yes">✓ Yes, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Doctor Information</td>
+                        <td class="status-yes">✓ Yes, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Insurance Card Details</td>
+                        <td class="status-yes">✓ Text only, encrypted</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Insurance Card Photos</td>
+                        <td class="status-no">✗ Never saved</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                    <tr>
+                        <td>Prescription Photos</td>
+                        <td class="status-no">✗ Never saved</td>
+                        <td class="status-no">✗ Never</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- What We Do / Don't Do -->
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+                Our Privacy Commitments
+            </h2>
+            
+            <div class="do-dont-grid">
+                <div class="do-list">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                        What We DO
+                    </h3>
+                    <ul>
+                        <li>Process all data on your device</li>
+                        <li>Use iOS encryption for storage</li>
+                        <li>Delete photos immediately after reading</li>
+                        <li>Show generic notifications only</li>
+                        <li>Let you export your data anytime</li>
+                        <li>Let you delete everything instantly</li>
+                        <li>Keep safety features free for all</li>
+                    </ul>
+                </div>
+                <div class="dont-list">
+                    <h3>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                        </svg>
+                        What We DON'T Do
+                    </h3>
+                    <ul>
+                        <li>Send your data to our servers</li>
+                        <li>Sell or share your information</li>
+                        <li>Store photos of cards or prescriptions</li>
+                        <li>Show sensitive info in notifications</li>
+                        <li>Use third-party analytics trackers</li>
+                        <li>Connect to advertising networks</li>
+                        <li>Require an account to use the app</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Privacy -->
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"/>
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"/>
+                </svg>
+                How Photo Scanning Works
+            </h2>
+            <p>When you photograph an insurance card or prescription label, here's exactly what happens:</p>
+            
+            <div class="photo-flow">
+                <div class="photo-step">
+                    <div class="photo-step-number">1</div>
+                    <h4>Capture</h4>
+                    <p>You take a photo with your camera</p>
+                </div>
+                <span class="photo-arrow">→</span>
+                <div class="photo-step">
+                    <div class="photo-step-number">2</div>
+                    <h4>Read</h4>
+                    <p>App reads the text on your device</p>
+                </div>
+                <span class="photo-arrow">→</span>
+                <div class="photo-step">
+                    <div class="photo-step-number">3</div>
+                    <h4>Fill</h4>
+                    <p>Form fields are automatically filled</p>
+                </div>
+                <span class="photo-arrow">→</span>
+                <div class="photo-step">
+                    <div class="photo-step-number">4</div>
+                    <h4>Delete</h4>
+                    <p>Photo is immediately removed</p>
+                </div>
+            </div>
+
+            <div class="info-box">
+                <h4>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    Important
+                </h4>
+                <p>Photos are only used to read text and fill forms automatically. They're deleted within seconds and are never stored on your device or sent anywhere. Only the typed text (like your member ID) is saved.</p>
+            </div>
+        </div>
+
+        <!-- App Security Features -->
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 11c0 3.517-1.009 6.799-2.753 9.571m-3.44-2.04l.054-.09A13.916 13.916 0 008 11a4 4 0 118 0c0 1.017-.07 2.019-.203 3m-2.118 6.844A21.88 21.88 0 0015.171 17m3.839 1.132c.645-2.266.99-4.659.99-7.132A8 8 0 008 4.07M3 15.364c.64-1.319 1-2.8 1-4.364 0-1.457.39-2.823 1.07-4"/>
+                </svg>
+                Built-In Security Features
+            </h2>
+            
+            <div class="do-dont-grid">
+                <div class="do-list" style="border-top-color: var(--teal);">
+                    <h3 style="color: var(--teal);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--teal);">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
+                        </svg>
+                        App Protection
+                    </h3>
+                    <ul>
+                        <li>PIN code lock (required)</li>
+                        <li>Face ID / Touch ID support</li>
+                        <li>Auto-lock after 15 min idle</li>
+                        <li>Lock when app goes to background</li>
+                        <li>Secure PIN storage (SHA-256 hashed)</li>
+                    </ul>
+                </div>
+                <div class="do-list" style="border-top-color: var(--teal);">
+                    <h3 style="color: var(--teal);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--teal);">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        Privacy Notifications
+                    </h3>
+                    <ul>
+                        <li>Generic reminder text only</li>
+                        <li>No medication names shown</li>
+                        <li>No health info in alerts</li>
+                        <li>No sensitive data on lock screen</li>
+                        <li>Customizable notification content</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Compliance -->
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
+                </svg>
+                Compliance & Standards
+            </h2>
+            <p>Our privacy-first approach aligns with major privacy regulations:</p>
+            
+            <div class="key-points" style="margin-top: 1.5rem;">
+                <div class="key-point">
+                    <h3>Apple HealthKit</h3>
+                    <p>Full compliance with Apple's strict health data guidelines. Data never shared with third parties.</p>
+                </div>
+                <div class="key-point">
+                    <h3>HIPAA Aligned</h3>
+                    <p>Follows "minimum necessary" principle. Only essential data stored, no photos retained.</p>
+                </div>
+                <div class="key-point">
+                    <h3>GDPR/CCPA Ready</h3>
+                    <p>Export your data anytime. Delete everything instantly. Full transparency on data use.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CTA -->
+        <div class="cta-section">
+            <h2>Ready to Take Control?</h2>
+            <p>Download SteadiDay and keep your health information private and secure.</p>
+            <a href="index.html#download" class="btn">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="22" height="22">
+                    <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
+                </svg>
+                Get SteadiDay
+            </a>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay</span>
+            </div>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="index.html#features">Features</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="/cdn-cgi/l/email-protection#99eaece9e9f6ebedd9eaedfcf8fdf0fdf8e0b7faf6f4">Contact</a>
+            </div>
+            <p class="footer-copy">© 2025 SCM Solutions LLC. All rights reserved.</p>
