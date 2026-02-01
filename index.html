@@ -343,28 +343,11 @@
 
         /* ==================== NAVIGATION ==================== */
         nav {
-            position: fixed;
-            top: 44px;
-            left: 0;
-            right: 0;
+            position: relative;
             z-index: 1000;
             padding: 1rem 0;
-            background: rgba(255, 251, 245, 0.97);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background: var(--cream);
             border-bottom: 1px solid rgba(30, 58, 95, 0.08);
-            transition: all 0.3s ease;
-        }
-
-        @media (max-width: 768px) {
-            nav {
-                top: 40px;
-            }
-        }
-
-        nav.scrolled {
-            padding: 0.75rem 0;
-            box-shadow: var(--shadow-soft);
         }
 
         .nav-container {
@@ -483,16 +466,10 @@
 
         /* ==================== HERO ==================== */
         .hero {
-            padding: 12.5rem 0 6rem;
+            padding: 6rem 0;
             background: linear-gradient(180deg, var(--cream) 0%, var(--teal-light) 100%);
             position: relative;
             overflow: hidden;
-        }
-
-        @media (max-width: 768px) {
-            .hero {
-                padding: 10.5rem 0 4rem;
-            }
         }
 
         .hero::before {
@@ -2116,15 +2093,6 @@
     </footer>
 
     <script>
-        window.addEventListener('scroll', function() {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.classList.add('scrolled');
-            } else {
-                nav.classList.remove('scrolled');
-            }
-        });
-
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
         const navLinks = document.getElementById('navLinks');
         const navOverlay = document.getElementById('navOverlay');
