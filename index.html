@@ -277,10 +277,74 @@
             padding: 0 2rem;
         }
 
+        /* ==================== BETA BANNER ==================== */
+        .beta-banner {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 0.75rem 1.5rem;
+            text-align: center;
+            font-size: 0.95rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            position: relative;
+            z-index: 1001;
+        }
+
+        .beta-badge {
+            background: var(--gold);
+            color: var(--navy);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.75rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        .beta-banner-text {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        .beta-banner-link {
+            color: var(--gold);
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            transition: all 0.2s ease;
+        }
+
+        .beta-banner-link:hover {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .beta-banner-link svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @media (max-width: 768px) {
+            .beta-banner {
+                padding: 0.625rem 1rem;
+                font-size: 0.875rem;
+                gap: 0.5rem;
+            }
+            
+            .beta-badge {
+                font-size: 0.7rem;
+                padding: 0.2rem 0.6rem;
+            }
+        }
+
         /* ==================== NAVIGATION ==================== */
         nav {
             position: fixed;
-            top: 0;
+            top: 44px;
             left: 0;
             right: 0;
             z-index: 1000;
@@ -290,6 +354,12 @@
             -webkit-backdrop-filter: blur(12px);
             border-bottom: 1px solid rgba(30, 58, 95, 0.08);
             transition: all 0.3s ease;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                top: 40px;
+            }
         }
 
         nav.scrolled {
@@ -413,10 +483,16 @@
 
         /* ==================== HERO ==================== */
         .hero {
-            padding: 10rem 0 6rem;
+            padding: 12.5rem 0 6rem;
             background: linear-gradient(180deg, var(--cream) 0%, var(--teal-light) 100%);
             position: relative;
             overflow: hidden;
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 10.5rem 0 4rem;
+            }
         }
 
         .hero::before {
@@ -961,7 +1037,6 @@
             color: var(--gold);
         }
 
-        /* App Store Coming Soon */
         .pricing-cta {
             margin-top: 3rem;
             text-align: center;
@@ -1494,18 +1569,6 @@
                 display: block;
             }
 
-            .hero {
-                padding: 8rem 0 4rem;
-            }
-
-            .hero h1 {
-                font-size: 2.25rem;
-            }
-
-            .hero-phone {
-                width: 220px;
-            }
-
             .trust-grid {
                 grid-template-columns: 1fr;
             }
@@ -1568,6 +1631,18 @@
     </style>
 </head>
 <body>
+    <!-- Beta Banner -->
+    <div class="beta-banner">
+        <span class="beta-badge">Beta</span>
+        <span class="beta-banner-text">We're in beta! Be the first to try SteadiDay.</span>
+        <a href="#waitlist" class="beta-banner-link">
+            Sign up here
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
+            </svg>
+        </a>
+    </div>
+
     <div class="nav-overlay" id="navOverlay"></div>
 
     <nav id="navbar">
@@ -1798,25 +1873,25 @@
             <div class="screenshots-grid">
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
-                        <img src="assets/screenshot-home.png" alt="SteadiDay home screen showing daily overview with medication reminders, tasks, and health summary for adults 50+">
+                        <img src="assets/screenshot-home.png" alt="SteadiDay home screen">
                     </div>
                     <h4>Home</h4>
                 </div>
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
-                        <img src="assets/screenshot-medical.png" alt="SteadiDay health tracking screen with Apple Health integration showing wellness metrics for seniors">
+                        <img src="assets/screenshot-medical.png" alt="SteadiDay health tracking">
                     </div>
                     <h4>Medical Info</h4>
                 </div>
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
-                        <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen with one-tap emergency calling and fall detection for senior safety">
+                        <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS">
                     </div>
                     <h4>Emergency SOS</h4>
                 </div>
                 <div class="screenshot-item">
                     <div class="screenshot-frame">
-                        <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks feature with simple games, breathing exercises, and relaxation activities for seniors">
+                        <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks">
                     </div>
                     <h4>Mind Breaks</h4>
                 </div>
