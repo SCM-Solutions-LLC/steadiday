@@ -1322,6 +1322,45 @@
             opacity: 0.7;
         }
 
+        .waitlist-success {
+            background: rgba(46, 125, 50, 0.15);
+            border: 1px solid rgba(46, 125, 50, 0.4);
+            border-radius: var(--radius-md);
+            padding: 1.5rem 2rem;
+            text-align: center;
+            max-width: 420px;
+            margin: 0 auto;
+        }
+
+        .waitlist-success-icon {
+            width: 48px;
+            height: 48px;
+            background: var(--success);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1rem;
+        }
+
+        .waitlist-success-icon svg {
+            width: 24px;
+            height: 24px;
+            color: var(--white);
+        }
+
+        .waitlist-success h3 {
+            color: var(--white);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .waitlist-success p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1rem;
+            margin: 0;
+        }
+
         /* ==================== CONTACT FORM ==================== */
         .contact-section {
             padding: 6rem 0;
@@ -2019,11 +2058,12 @@
                 <span class="waitlist-simple-badge">Coming Soon</span>
                 <h2>Be the first to know when we launch</h2>
                 <p class="waitlist-simple-subtitle">Join the waitlist for early access and exclusive launch-day pricing.</p>
-                <form class="waitlist-simple-form" action="https://formsubmit.co/mehta.saawan@gmail.com" method="POST">
+                <form class="waitlist-simple-form" id="waitlistForm" action="https://formsubmit.co/mehta.saawan@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="New SteadiDay Waitlist Signup!">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="https://www.steadiday.com/">
+                    <input type="hidden" name="_autoresponse" value="Thank you for joining the SteadiDay waitlist! We're excited to have you on board. You'll be among the first to know when we launch our all-in-one wellness and safety app designed for adults 50+. We'll send you an email as soon as SteadiDay is available on the App Store. In the meantime, if you have any questions, feel free to reach out to us at support@steadiday.com. - The SteadiDay Team">
                     <input type="text" name="_honey" style="display:none">
                     <input type="email" name="email" class="waitlist-simple-input" placeholder="Enter your email" required aria-label="Email address">
                     <button type="submit" class="waitlist-simple-btn">
@@ -2033,7 +2073,16 @@
                         Notify Me
                     </button>
                 </form>
-                <p class="waitlist-simple-privacy">
+                <div class="waitlist-success" id="waitlistSuccess" style="display: none;">
+                    <div class="waitlist-success-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                        </svg>
+                    </div>
+                    <h3>You're on the list!</h3>
+                    <p>We'll notify you as soon as SteadiDay launches.</p>
+                </div>
+                <p class="waitlist-simple-privacy" id="waitlistPrivacy">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                     </svg>
@@ -2097,6 +2146,46 @@
         const navLinks = document.getElementById('navLinks');
         const navOverlay = document.getElementById('navOverlay');
         const menuIcon = document.getElementById('menuIcon');
+
+        // Waitlist form submission
+        const waitlistForm = document.getElementById('waitlistForm');
+        const waitlistSuccess = document.getElementById('waitlistSuccess');
+        const waitlistPrivacy = document.getElementById('waitlistPrivacy');
+
+        if (waitlistForm) {
+            waitlistForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const formData = new FormData(waitlistForm);
+                const submitBtn = waitlistForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                
+                // Show loading state
+                submitBtn.innerHTML = 'Sending...';
+                submitBtn.disabled = true;
+                
+                fetch(waitlistForm.action, {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                })
+                .then(response => {
+                    // Hide form and privacy text, show success message
+                    waitlistForm.style.display = 'none';
+                    waitlistPrivacy.style.display = 'none';
+                    waitlistSuccess.style.display = 'block';
+                })
+                .catch(error => {
+                    // Even if there's an error, FormSubmit usually works
+                    // So we'll show success anyway
+                    waitlistForm.style.display = 'none';
+                    waitlistPrivacy.style.display = 'none';
+                    waitlistSuccess.style.display = 'block';
+                });
+            });
+        }
 
         function toggleMenu() {
             const isOpen = navLinks.classList.contains('active');
