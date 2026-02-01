@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
     <url>
         <loc>https://www.steadiday.com/</loc>
-        <lastmod>2025-01-26</lastmod>
+        <lastmod>2025-02-01</lastmod>
         <changefreq>weekly</changefreq>
         <priority>1.0</priority>
         <image:image>
@@ -26,6 +26,12 @@
             <image:title>SteadiDay Mind Breaks</image:title>
             <image:caption>Mind Breaks feature with relaxing games and calming activities for mental wellness</image:caption>
         </image:image>
+    </url>
+    <url>
+        <loc>https://www.steadiday.com/security.html</loc>
+        <lastmod>2025-02-01</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.6</priority>
     </url>
     <url>
         <loc>https://www.steadiday.com/privacy.html</loc>
