@@ -1,217 +1,656 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8H890XTV"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-LF8H890XTV');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - SteadiDay | Health & Wellness Tips for Adults</title>
+    <title>Blog - SteadiDay | Health & Wellness Tips</title>
     <meta name="description" content="Practical health and wellness tips for older adults. Learn about medication management, healthy aging, and living your best life.">
     
-    <!-- Copy any existing stylesheets from your index.html here -->
+    <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg">
+    <link rel="apple-touch-icon" href="../assets/icon.jpeg">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    
     <style>
-        /* Base styles - you may want to match these to your main site */
+        :root {
+            --cream: #FFFBF5;
+            --cream-dark: #F7F3ED;
+            --teal: #1A8A7D;
+            --teal-dark: #147568;
+            --teal-light: #E8F5F3;
+            --navy: #1E3A5F;
+            --navy-light: #2D4A6F;
+            --charcoal: #2D3436;
+            --charcoal-light: #5A6266;
+            --white: #FFFFFF;
+            --gold: #D4A853;
+            --gold-light: #FBF6E9;
+            --shadow-soft: 0 2px 12px rgba(30, 58, 95, 0.08);
+            --shadow-medium: 0 4px 24px rgba(30, 58, 95, 0.12);
+            --shadow-strong: 0 8px 32px rgba(30, 58, 95, 0.16);
+            --radius-sm: 8px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
+        }
+        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
         
+        html {
+            scroll-behavior: smooth;
+        }
+        
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f8f9fa;
+            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-size: 1.125rem;
+            line-height: 1.8;
+            color: var(--charcoal);
+            background: var(--cream);
+            -webkit-font-smoothing: antialiased;
         }
         
-        .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 20px 0;
-            text-align: center;
+        h1, h2, h3, h4 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-weight: 700;
+            line-height: 1.3;
+            color: var(--navy);
         }
         
-        .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+        a {
+            color: var(--teal);
+            text-decoration: none;
+            transition: color 0.2s ease;
         }
         
-        .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+        a:hover {
+            color: var(--teal-dark);
         }
         
+        /* Navigation */
         .nav {
-            background: white;
-            padding: 15px 0;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            background: var(--cream);
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(30, 58, 95, 0.08);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
         
         .nav-container {
-            max-width: 1200px;
+            max-width: 1140px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 0 2rem;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
         
-        .nav a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        
-        .nav a:hover {
-            text-decoration: underline;
-        }
-        
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-        
-        .blog-list {
+        .nav-logo {
             display: flex;
-            flex-direction: column;
-            gap: 30px;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
         }
         
+        .nav-logo img {
+            width: 44px;
+            height: 44px;
+            border-radius: 10px;
+            box-shadow: var(--shadow-soft);
+        }
+        
+        .nav-logo span {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: var(--navy);
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-links a {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--charcoal);
+            padding: 0.5rem 0;
+            position: relative;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--teal);
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--teal);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+        
+        .nav-cta {
+            background: var(--teal) !important;
+            color: var(--white) !important;
+            padding: 0.75rem 1.5rem !important;
+            border-radius: var(--radius-md);
+            font-weight: 600;
+        }
+        
+        .nav-cta::after {
+            display: none !important;
+        }
+        
+        .nav-cta:hover {
+            background: var(--teal-dark) !important;
+            color: var(--white) !important;
+        }
+        
+        /* Header */
+        .header {
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            color: var(--white);
+            padding: 5rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1600&q=80') center/cover;
+            opacity: 0.1;
+        }
+        
+        .header-content {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        .header h1 {
+            font-size: 2.75rem;
+            margin-bottom: 1rem;
+            color: var(--white);
+        }
+        
+        .header p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+        }
+        
+        /* Main container */
+        .container {
+            max-width: 1140px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+        
+        /* Section title */
+        .section-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+        
+        .section-label {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--teal);
+            margin-bottom: 0.75rem;
+        }
+        
+        .section-header h2 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .section-header p {
+            color: var(--charcoal-light);
+            font-size: 1.1rem;
+        }
+        
+        /* Blog grid */
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+            gap: 2rem;
+        }
+        
+        /* Blog cards */
         .blog-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-            transition: transform 0.2s, box-shadow 0.2s;
+            background: var(--white);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-soft);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 1px solid rgba(30, 58, 95, 0.06);
         }
         
         .blog-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.12);
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-strong);
+        }
+        
+        /* Blog card image */
+        .blog-card-image {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+        
+        .blog-card-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0,0,0,0.4), transparent);
+        }
+        
+        .blog-card-tag {
+            position: absolute;
+            top: 1rem;
+            left: 1rem;
+            background: var(--teal);
+            color: var(--white);
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+        }
+        
+        .blog-card-content {
+            padding: 1.75rem;
         }
         
         .blog-card h2 {
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-            color: #333;
+            font-size: 1.25rem;
+            margin-bottom: 0.75rem;
+            line-height: 1.4;
         }
         
         .blog-card h2 a {
-            color: #667eea;
+            color: var(--navy);
             text-decoration: none;
+            transition: color 0.2s;
         }
-
+        
         .blog-card h2 a:hover {
-            text-decoration: underline;
+            color: var(--teal);
         }
-
+        
         .blog-meta {
             font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 15px;
+            color: var(--charcoal-light);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
         }
-
+        
         .blog-excerpt {
-            color: #555;
-            margin-bottom: 15px;
+            color: var(--charcoal-light);
+            margin-bottom: 1.25rem;
+            font-size: 1rem;
+            line-height: 1.7;
         }
-
+        
         .read-more {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 500;
-        }
-
-        .read-more:hover {
-            text-decoration: underline;
-        }
-
-        .cta-section {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 40px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 40px;
-        }
-
-        .cta-section h2 {
-            margin-bottom: 15px;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: white;
-            color: #667eea;
-            padding: 12px 30px;
-            border-radius: 25px;
+            color: var(--teal);
             text-decoration: none;
             font-weight: 600;
-            margin-top: 15px;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: gap 0.2s;
         }
-
-        .cta-button:hover {
-            opacity: 0.9;
+        
+        .read-more:hover {
+            gap: 0.75rem;
+            color: var(--teal-dark);
         }
-
-        .footer {
+        
+        .read-more svg {
+            width: 18px;
+            height: 18px;
+        }
+        
+        /* Featured post (first post) */
+        .blog-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1.1fr 1fr;
+        }
+        
+        .blog-card.featured .blog-card-image {
+            height: 100%;
+            min-height: 320px;
+        }
+        
+        .blog-card.featured .blog-card-content {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .blog-card.featured h2 {
+            font-size: 1.6rem;
+        }
+        
+        .blog-card.featured .blog-excerpt {
+            font-size: 1.05rem;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            color: var(--white);
+            padding: 4rem 3rem;
+            border-radius: var(--radius-lg);
             text-align: center;
-            padding: 30px;
-            color: #666;
+            margin-top: 3rem;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        
+        .cta-content {
+            position: relative;
+            z-index: 1;
+        }
+        
+        .cta-section h2 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+            color: var(--white);
+        }
+        
+        .cta-section p {
+            margin-bottom: 2rem;
+            opacity: 0.95;
+            font-size: 1.15rem;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--white);
+            color: var(--teal);
+            padding: 1rem 2.5rem;
+            border-radius: var(--radius-md);
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            color: var(--teal-dark);
+        }
+        
+        /* Footer */
+        .footer {
+            background: var(--charcoal);
+            padding: 2.5rem 2rem;
+            margin-top: 4rem;
+        }
+        
+        .footer-content {
+            max-width: 1140px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+        }
+        
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+        
+        .footer-brand img {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+        }
+        
+        .footer-brand span {
+            font-family: 'Merriweather', serif;
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--white);
+        }
+        
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+            transition: color 0.2s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--white);
+        }
+        
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            padding-top: 1.5rem;
+            margin-top: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.5);
             font-size: 0.9rem;
         }
-
-        .footer a {
-            color: #667eea;
+        
+        /* Responsive */
+        @media (max-width: 900px) {
+            .blog-card.featured {
+                grid-template-columns: 1fr;
+            }
+            
+            .blog-card.featured .blog-card-image {
+                min-height: 220px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .header p {
+                font-size: 1.1rem;
+            }
+            
+            .blog-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .cta-section {
+                padding: 3rem 2rem;
+            }
+            
+            .cta-section h2 {
+                font-size: 1.6rem;
+            }
+            
+            .footer-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .footer-links {
+                justify-content: center;
+            }
         }
     </style>
 </head>
 <body>
     <nav class="nav">
         <div class="nav-container">
-            <a href="../index.html">← Back to SteadiDay</a>
-            <a href="https://www.steadiday.com">Download the App</a>
+            <a href="../index.html" class="nav-logo">
+                <img src="../assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay</span>
+            </a>
+            <div class="nav-links">
+                <a href="../index.html#features">Features</a>
+                <a href="../index.html#pricing">Pricing</a>
+                <a href="../index.html#faq">FAQ</a>
+                <a href="https://www.steadiday.com" class="nav-cta">Download App</a>
+            </div>
         </div>
     </nav>
     
     <header class="header">
-        <h1>SteadiDay Blog</h1>
-        <p>Health & wellness tips for everyday wellness</p>
+        <div class="header-content">
+            <h1>SteadiDay Blog</h1>
+            <p>Health & wellness tips for everyday wellness</p>
+        </div>
     </header>
     
     <main class="container">
-        <div class="blog-list">
-            
-            <!-- BLOG POST ENTRIES GO HERE -->
-            <!-- The automation will add new entries at the top of this list -->
-            <!-- Each entry looks like this: -->
+        <div class="section-header">
+            <span class="section-label">Latest Articles</span>
+            <h2>Expert Advice for Healthier Living</h2>
+            <p>Practical tips and insights to help you thrive every day</p>
+        </div>
+        
+        <div class="blog-grid">
             
             <!--BLOG_ENTRIES_START-->
-            <article class="blog-card">
-                <h2><a href="2026-02-02-simple-mindfulness-for-seniors-a-beginner-s-guide-.html">Simple Mindfulness for Seniors: A Beginner's Guide to Finding Inner Calm</a></h2>
-                <div class="blog-meta">February 02, 2026 • 5 min read</div>
-                <p class="blog-excerpt">Discover gentle mindfulness practices perfect for beginners. Learn simple breathing exercises, body awareness techniques, and how to incorporate mindfulness into daily activities for better mental wellness and inner calm.</p>
-                <a href="2026-02-02-simple-mindfulness-for-seniors-a-beginner-s-guide-.html" class="read-more">Read more →</a>
+            <article class="blog-card featured">
+                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80');">
+                    <span class="blog-card-tag">Mental Wellness</span>
+                </div>
+                <div class="blog-card-content">
+                    <h2><a href="2026-02-02-simple-mindfulness-for-seniors-a-beginner-s-guide-.html">Simple Mindfulness for Seniors: A Beginner's Guide to Finding Inner Calm</a></h2>
+                    <div class="blog-meta">
+                        <span>February 02, 2026</span>
+                        <span>•</span>
+                        <span>5 min read</span>
+                    </div>
+                    <p class="blog-excerpt">Discover gentle mindfulness practices perfect for beginners. Learn simple breathing exercises, body awareness techniques, and how to incorporate mindfulness into daily activities for better mental wellness and inner calm.</p>
+                    <a href="2026-02-02-simple-mindfulness-for-seniors-a-beginner-s-guide-.html" class="read-more">
+                        Read full article
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
             </article>
             
             <article class="blog-card">
-                <h2><a href="2026-02-01-how-to-remember-to-take-medication.html">How to Remember to Take Medication Every Day (Even When Life Gets Busy)</a></h2>
-                <div class="blog-meta">February 1, 2026 • 6 min read</div>
-                <p class="blog-excerpt">Struggling to remember your daily medications? Learn proven strategies for how to remember to take medication every day, even with a busy schedule.</p>
-                <a href="2026-02-01-how-to-remember-to-take-medication.html" class="read-more">Read more →</a>
+                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80');">
+                    <span class="blog-card-tag">Medication Tips</span>
+                </div>
+                <div class="blog-card-content">
+                    <h2><a href="2026-02-01-how-to-remember-to-take-medication.html">How to Remember to Take Medication Every Day</a></h2>
+                    <div class="blog-meta">
+                        <span>February 01, 2026</span>
+                        <span>•</span>
+                        <span>6 min read</span>
+                    </div>
+                    <p class="blog-excerpt">Struggling to remember your daily medications? Learn proven strategies for how to remember to take medication every day, even with a busy schedule.</p>
+                    <a href="2026-02-01-how-to-remember-to-take-medication.html" class="read-more">
+                        Read full article
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
             </article>
             <!--BLOG_ENTRIES_END-->
             
         </div>
         
         <section class="cta-section">
-            <h2>Ready to Take Control of Your Health?</h2>
-            <p>SteadiDay helps you manage medications, track your wellness, and build healthy habits—all in one simple app designed for older adults.</p>
-            <a href="https://www.steadiday.com" class="cta-button">Download SteadiDay Free</a>
+            <div class="cta-content">
+                <h2>Ready to Take Control of Your Health?</h2>
+                <p>SteadiDay helps you manage medications, track your wellness, and build healthy habits—all in one simple app.</p>
+                <a href="https://www.steadiday.com" class="cta-button">Download SteadiDay Free</a>
+            </div>
         </section>
     </main>
     
     <footer class="footer">
-        <p>&copy; 2026 SteadiDay. All rights reserved. | <a href="../index.html">Home</a> | <a href="../liability.html">Terms</a></p>
+        <div class="footer-content">
+            <div class="footer-brand">
+                <img src="../assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay</span>
+            </div>
+            <div class="footer-links">
+                <a href="../index.html">Home</a>
+                <a href="../index.html#features">Features</a>
+                <a href="../security.html">Security</a>
+                <a href="../privacy.html">Privacy</a>
+                <a href="../terms.html">Terms</a>
+            </div>
+        </div>
+        <p class="footer-copy">© 2026 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
     </footer>
 </body>
 </html>
