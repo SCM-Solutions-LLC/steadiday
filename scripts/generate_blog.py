@@ -1,7 +1,13 @@
 #!/usr/bin/env python3
 """
 SteadiDay Blog Generator
-Generates SEO-optimized blog posts for steadiday.com with correct canonical URLs.
+Generates SEO-optimized blog posts and automatically updates blog/index.html
+
+Features:
+- Correct canonical URLs (uses custom domain)
+- Titles under 60 characters
+- Short, SEO-friendly filenames
+- Auto-updates blog/index.html with new entry
 """
 
 import anthropic
@@ -15,22 +21,36 @@ from datetime import datetime
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 
+# Stock image URLs for different categories
+CATEGORY_IMAGES = {
+    "Mental Wellness": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+    "Medication Tips": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80",
+    "Healthy Aging": "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=800&q=80",
+    "Exercise": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
+    "Nutrition": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
+    "Sleep": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80",
+    "Heart Health": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80",
+    "Brain Health": "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80",
+    "Safety": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+    "Wellness": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
+}
+
 TOPIC_CATEGORIES = [
-    {"topic": "Simple morning stretches for better mobility after 50", "keyword": "morning stretches seniors"},
-    {"topic": "How to build a medication routine that actually sticks", "keyword": "medication routine tips"},
-    {"topic": "Understanding your blood pressure numbers", "keyword": "blood pressure explained"},
-    {"topic": "5 brain exercises to keep your mind sharp", "keyword": "brain exercises seniors"},
-    {"topic": "The importance of staying hydrated as we age", "keyword": "hydration tips elderly"},
-    {"topic": "How to prevent falls at home", "keyword": "fall prevention seniors"},
-    {"topic": "Managing stress through simple breathing exercises", "keyword": "breathing exercises stress"},
-    {"topic": "Building stronger connections with family through technology", "keyword": "seniors technology family"},
-    {"topic": "Heart-healthy recipes that are easy to make", "keyword": "heart healthy recipes seniors"},
-    {"topic": "Sleep tips for a more restful night", "keyword": "sleep tips older adults"},
-    {"topic": "Walking for health: Getting started safely", "keyword": "walking exercise seniors"},
-    {"topic": "Understanding common medication side effects", "keyword": "medication side effects"},
-    {"topic": "Simple mindfulness practices for everyday calm", "keyword": "mindfulness seniors"},
-    {"topic": "Staying social: Why connection matters for health", "keyword": "social connection elderly"},
-    {"topic": "Managing chronic pain naturally", "keyword": "chronic pain management seniors"},
+    {"topic": "Simple morning stretches for better mobility", "keyword": "morning stretches seniors", "category": "Exercise"},
+    {"topic": "How to build a medication routine that sticks", "keyword": "medication routine tips", "category": "Medication Tips"},
+    {"topic": "Understanding your blood pressure numbers", "keyword": "blood pressure explained", "category": "Heart Health"},
+    {"topic": "5 brain exercises to keep your mind sharp", "keyword": "brain exercises seniors", "category": "Brain Health"},
+    {"topic": "The importance of staying hydrated as we age", "keyword": "hydration tips elderly", "category": "Nutrition"},
+    {"topic": "How to prevent falls at home", "keyword": "fall prevention seniors", "category": "Safety"},
+    {"topic": "Managing stress through breathing exercises", "keyword": "breathing exercises stress", "category": "Mental Wellness"},
+    {"topic": "Heart-healthy recipes that are easy to make", "keyword": "heart healthy recipes seniors", "category": "Nutrition"},
+    {"topic": "Sleep tips for a more restful night", "keyword": "sleep tips older adults", "category": "Sleep"},
+    {"topic": "Walking for health: Getting started safely", "keyword": "walking exercise seniors", "category": "Exercise"},
+    {"topic": "Understanding common medication side effects", "keyword": "medication side effects", "category": "Medication Tips"},
+    {"topic": "Staying social: Why connection matters", "keyword": "social connection elderly", "category": "Mental Wellness"},
+    {"topic": "Managing chronic pain naturally", "keyword": "chronic pain management seniors", "category": "Wellness"},
+    {"topic": "Simple memory improvement techniques", "keyword": "memory improvement seniors", "category": "Brain Health"},
+    {"topic": "Healthy snacks for sustained energy", "keyword": "healthy snacks seniors", "category": "Nutrition"},
 ]
 
 STEADIDAY_FEATURES = {
@@ -52,19 +72,15 @@ STEADIDAY_FEATURES = {
 
 
 def get_html_template():
-    """
-    Returns the HTML template with CORRECT canonical URL.
-    CRITICAL: Uses WEBSITE_URL (custom domain) not GitHub Pages URL.
-    """
+    """Returns the HTML template with correct canonical URL."""
     return '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Primary Meta Tags -->
-    <title>{title} | SteadiDay Blog</title>
-    <meta name="title" content="{title} | SteadiDay Blog">
+    <!-- Primary Meta Tags - TITLE MUST BE UNDER 60 CHARS -->
+    <title>{title} - SteadiDay Blog</title>
     <meta name="description" content="{meta_description}">
     <meta name="keywords" content="{keywords}">
     <meta name="author" content="SteadiDay Team">
@@ -73,17 +89,17 @@ def get_html_template():
     <!-- CRITICAL: Canonical URL must use custom domain -->
     <link rel="canonical" href="{canonical_url}">
     
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="article">
-    <meta property="og:url" content="{canonical_url}">
+    <!-- Open Graph - ALL URLs must use custom domain -->
     <meta property="og:title" content="{title}">
     <meta property="og:description" content="{meta_description}">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="{canonical_url}">
     <meta property="og:image" content="{website_url}/assets/og-image.png">
     <meta property="og:site_name" content="SteadiDay">
     <meta property="article:published_time" content="{iso_date}">
     <meta property="article:author" content="SteadiDay Team">
     
-    <!-- Twitter -->
+    <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="{canonical_url}">
     <meta name="twitter:title" content="{title}">
@@ -93,11 +109,6 @@ def get_html_template():
     <!-- Favicon -->
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg">
     <link rel="apple-touch-icon" href="../assets/icon.jpeg">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     
     <!-- Schema.org Article Markup -->
     <script type="application/ld+json">
@@ -130,192 +141,152 @@ def get_html_template():
     </script>
     
     <style>
-        :root {{
-            --cream: #FFFBF5;
-            --teal: #1A8A7D;
-            --teal-dark: #147568;
-            --teal-light: #E8F5F3;
-            --navy: #1E3A5F;
-            --charcoal: #2D3436;
-            --charcoal-light: #5A6266;
-            --white: #FFFFFF;
-            --gold: #D4A853;
-        }}
-        
-        * {{
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }}
+        * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         
         body {{
-            font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
-            font-size: 1.125rem;
-            line-height: 1.8;
-            color: var(--charcoal);
-            background: var(--cream);
-        }}
-        
-        h1, h2, h3, h4 {{
-            font-family: 'Merriweather', Georgia, serif;
-            font-weight: 700;
-            line-height: 1.3;
-            color: var(--navy);
-        }}
-        
-        a {{
-            color: var(--teal);
-            text-decoration: none;
-        }}
-        
-        a:hover {{
-            color: var(--teal-dark);
-            text-decoration: underline;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.7;
+            color: #333;
+            background-color: #f8f9fa;
         }}
         
         .nav {{
-            background: var(--white);
-            padding: 1rem 2rem;
-            border-bottom: 1px solid rgba(30, 58, 95, 0.1);
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }}
         
         .nav-container {{
             max-width: 800px;
             margin: 0 auto;
+            padding: 0 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }}
         
         .nav a {{
-            font-weight: 600;
-            color: var(--navy);
+            color: #1A8A7D;
+            text-decoration: none;
+            font-weight: 500;
         }}
         
-        .nav a:hover {{
-            color: var(--teal);
-        }}
+        .nav a:hover {{ text-decoration: underline; }}
         
         .article-header {{
-            background: linear-gradient(135deg, var(--navy) 0%, #2D4A6F 100%);
+            background: linear-gradient(135deg, #1E3A5F 0%, #2D4A6F 100%);
             color: white;
-            padding: 4rem 2rem;
+            padding: 60px 20px;
             text-align: center;
         }}
         
         .article-header h1 {{
-            color: white;
-            font-size: 2.5rem;
             max-width: 800px;
-            margin: 0 auto 1rem;
+            margin: 0 auto 15px;
+            font-size: 2.2rem;
+            line-height: 1.3;
         }}
         
         .article-meta {{
-            color: rgba(255, 255, 255, 0.8);
             font-size: 1rem;
+            opacity: 0.9;
         }}
         
         .article-container {{
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 3rem 2rem;
-            background: var(--white);
+            padding: 40px 20px;
+            background: white;
+            margin-top: -30px;
+            border-radius: 12px 12px 0 0;
+            position: relative;
         }}
         
         .article-content h2 {{
-            margin: 2.5rem 0 1rem;
-            font-size: 1.75rem;
-        }}
-        
-        .article-content h3 {{
-            margin: 2rem 0 0.75rem;
-            font-size: 1.35rem;
+            font-size: 1.5rem;
+            margin: 35px 0 15px;
+            color: #1E3A5F;
         }}
         
         .article-content p {{
-            margin-bottom: 1.5rem;
-            color: var(--charcoal);
+            margin-bottom: 20px;
+            font-size: 1.1rem;
+            color: #444;
         }}
         
+        .article-content a {{ color: #1A8A7D; }}
+        .article-content a:hover {{ text-decoration: none; }}
+        
         .article-content ul, .article-content ol {{
-            margin: 1.5rem 0;
-            padding-left: 2rem;
+            margin: 20px 0;
+            padding-left: 30px;
         }}
         
         .article-content li {{
-            margin-bottom: 0.75rem;
-        }}
-        
-        .article-content blockquote {{
-            border-left: 4px solid var(--teal);
-            padding-left: 1.5rem;
-            margin: 2rem 0;
-            font-style: italic;
-            color: var(--charcoal-light);
+            margin-bottom: 10px;
         }}
         
         .cta-box {{
-            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            background: linear-gradient(135deg, #1A8A7D 0%, #147568 100%);
             color: white;
-            padding: 2rem;
+            padding: 30px;
             border-radius: 12px;
-            margin: 3rem 0;
             text-align: center;
+            margin: 40px 0;
         }}
         
         .cta-box h3 {{
-            color: white;
-            margin-bottom: 0.75rem;
-            font-size: 1.5rem;
+            margin-bottom: 10px;
+            font-size: 1.3rem;
         }}
         
         .cta-box p {{
-            color: rgba(255, 255, 255, 0.9) !important;
-            margin-bottom: 1.5rem;
+            color: rgba(255,255,255,0.9) !important;
+            margin-bottom: 15px;
         }}
         
         .cta-button {{
             display: inline-block;
             background: white;
-            color: var(--teal);
-            padding: 0.875rem 2rem;
+            color: #1A8A7D;
+            padding: 12px 30px;
             border-radius: 8px;
-            font-weight: 600;
             text-decoration: none;
-            transition: all 0.3s ease;
+            font-weight: 600;
         }}
         
-        .cta-button:hover {{
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-            text-decoration: none;
-        }}
+        .cta-button:hover {{ opacity: 0.9; }}
         
         .back-to-blog {{
-            max-width: 800px;
+            max-width: 700px;
             margin: 0 auto;
-            padding: 2rem;
+            padding: 20px;
             text-align: center;
-            background: var(--white);
-            border-top: 1px solid rgba(30, 58, 95, 0.1);
+            background: white;
+        }}
+        
+        .back-to-blog a {{
+            color: #1A8A7D;
+            text-decoration: none;
+            font-weight: 500;
         }}
         
         .footer {{
             text-align: center;
-            padding: 2rem;
-            color: var(--charcoal-light);
+            padding: 30px;
+            color: #666;
             font-size: 0.9rem;
-            background: var(--cream);
+            background: white;
         }}
         
+        .footer a {{ color: #1A8A7D; }}
+        
         @media (max-width: 768px) {{
-            .article-header h1 {{
-                font-size: 1.75rem;
-            }}
-            
-            .article-container {{
-                padding: 2rem 1.5rem;
-            }}
+            .article-header h1 {{ font-size: 1.75rem; }}
+            .article-container {{ padding: 30px 15px; }}
         }}
     </style>
 </head>
@@ -356,17 +327,17 @@ def get_html_template():
 '''
 
 
-def generate_blog_post(topic: str = None) -> dict:
+def generate_blog_post(topic_data: dict = None) -> dict:
     """Generate a blog post using Claude API."""
     
     client = anthropic.Anthropic()
     
-    if not topic:
-        selected = random.choice(TOPIC_CATEGORIES)
-        topic = selected["topic"]
-        target_keyword = selected["keyword"]
-    else:
-        target_keyword = topic.lower()
+    if not topic_data:
+        topic_data = random.choice(TOPIC_CATEGORIES)
+    
+    topic = topic_data["topic"]
+    target_keyword = topic_data["keyword"]
+    category = topic_data.get("category", "Wellness")
     
     free_feature = random.choice(STEADIDAY_FEATURES["free"])
     premium_feature = random.choice(STEADIDAY_FEATURES["premium"])
@@ -382,12 +353,12 @@ TARGET AUDIENCE:
 - People who appreciate practical, actionable advice
 
 BLOG REQUIREMENTS:
-1. Title: Engaging, clear, SEO-friendly, and UNDER 60 CHARACTERS (this is critical for SEO)
+1. **TITLE: MUST be under 55 characters** (this is critical for SEO - count carefully!)
 2. Length: 800-1200 words
 3. Tone: Warm, encouraging, respectful (never condescending)
 4. Structure: 
    - Compelling introduction
-   - 3-5 main sections with clear subheadings (use ## for h2, ### for h3)
+   - 4-6 main sections with clear subheadings (use <h2> tags)
    - Practical, actionable tips
    - Natural mention of how SteadiDay's {free_feature} or {premium_feature} can help
    - Encouraging conclusion
@@ -398,13 +369,19 @@ BLOG REQUIREMENTS:
    - Simple, clear language
 
 FORMAT YOUR RESPONSE EXACTLY LIKE THIS:
-TITLE: Your Title Here (MUST be under 60 characters)
+TITLE: Your Title Here (MUST be under 55 characters - count them!)
 META_DESCRIPTION: 150-160 character description for SEO
-KEYWORDS: keyword1, keyword2, keyword3
+KEYWORDS: keyword1, keyword2, keyword3, {target_keyword}
 READ_TIME: X
 
 CONTENT:
-[Your blog post content in HTML format - use <h2>, <h3>, <p>, <ul>, <li>, <blockquote> tags]
+<h2>First Section Title</h2>
+<p>Paragraph text here...</p>
+
+<h2>Second Section Title</h2>
+<p>More content...</p>
+
+(Continue with more sections...)
 
 Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not the focus."""
 
@@ -431,12 +408,14 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
     read_time = read_time_match.group(1) if read_time_match else "5"
     content = content_match.group(1).strip() if content_match else response_text
     
-    # Ensure title is under 60 characters
-    if len(title) > 60:
-        title = title[:57] + "..."
+    # Ensure title is under 55 characters (leaves room for " - SteadiDay Blog")
+    if len(title) > 55:
+        # Try to cut at a natural break point
+        title = title[:52].rsplit(' ', 1)[0] + "..."
     
-    # Create slug from title
-    slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+    # Create SHORT slug from title (max 5-6 words)
+    slug_words = re.sub(r'[^a-z0-9\s]', '', title.lower()).split()[:5]
+    slug = '-'.join(slug_words)
     
     return {
         "title": title,
@@ -445,11 +424,12 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
         "read_time": read_time,
         "content": content,
         "slug": slug,
+        "category": category,
         "date": datetime.now().strftime('%Y-%m-%d')
     }
 
 
-def create_blog_html(post_data: dict) -> str:
+def create_blog_html(post_data: dict) -> tuple:
     """Create the final HTML file with correct canonical URL."""
     
     template = get_html_template()
@@ -468,8 +448,8 @@ def create_blog_html(post_data: dict) -> str:
         title=post_data['title'],
         meta_description=post_data['meta_description'],
         keywords=post_data['keywords'],
-        canonical_url=canonical_url,  # CRITICAL: Uses custom domain
-        website_url=WEBSITE_URL,      # CRITICAL: Uses custom domain
+        canonical_url=canonical_url,
+        website_url=WEBSITE_URL,
         iso_date=iso_date,
         formatted_date=formatted_date,
         read_time=post_data['read_time'],
@@ -480,10 +460,77 @@ def create_blog_html(post_data: dict) -> str:
     return html, filename
 
 
+def update_blog_index(post_data: dict, filename: str):
+    """Update blog/index.html with the new blog entry."""
+    
+    index_path = "blog/index.html"
+    
+    if not os.path.exists(index_path):
+        print(f"⚠️  Warning: {index_path} not found. Skipping index update.")
+        return False
+    
+    with open(index_path, 'r', encoding='utf-8') as f:
+        content = f.read()
+    
+    # Get image URL for category
+    category = post_data.get('category', 'Wellness')
+    image_url = CATEGORY_IMAGES.get(category, CATEGORY_IMAGES['Wellness'])
+    
+    # Format the date
+    date_obj = datetime.strptime(post_data['date'], '%Y-%m-%d')
+    formatted_date = date_obj.strftime('%B %d, %Y')
+    
+    # Create the new blog card entry
+    new_entry = f'''<article class="blog-card">
+                <div class="blog-card-image" style="background-image: url('{image_url}');">
+                    <span class="blog-card-tag">{category}</span>
+                </div>
+                <div class="blog-card-content">
+                    <h2><a href="{filename}">{post_data['title']}</a></h2>
+                    <div class="blog-meta">
+                        <span>{formatted_date}</span>
+                        <span>•</span>
+                        <span>{post_data['read_time']} min read</span>
+                    </div>
+                    <p class="blog-excerpt">{post_data['meta_description']}</p>
+                    <a href="{filename}" class="read-more">
+                        Read full article
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            
+            '''
+    
+    # Find the marker and insert the new entry
+    marker = "<!--BLOG_ENTRIES_START-->"
+    if marker in content:
+        # Check if there's already a featured post
+        if 'class="blog-card featured"' in content:
+            # Remove 'featured' from the current featured post (it will become a regular card)
+            content = content.replace('class="blog-card featured"', 'class="blog-card"', 1)
+        
+        # Make the new post the featured one
+        new_entry_featured = new_entry.replace('class="blog-card"', 'class="blog-card featured"')
+        
+        # Insert after the marker
+        content = content.replace(marker, marker + "\n            " + new_entry_featured)
+        
+        with open(index_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+        
+        print(f"✅ Updated {index_path} with new entry")
+        return True
+    else:
+        print(f"⚠️  Warning: Marker '{marker}' not found in {index_path}")
+        return False
+
+
 def save_blog_post(html: str, filename: str) -> str:
     """Save the blog post to the blog directory."""
     
-    # Create the blog directory if it doesn't exist
     blog_dir = "blog"
     os.makedirs(blog_dir, exist_ok=True)
     
@@ -508,30 +555,44 @@ def set_github_env(key: str, value: str):
 def main():
     topic_override = sys.argv[1] if len(sys.argv) > 1 and sys.argv[1] else None
     
-    print("🚀 Starting SteadiDay Blog Generator...")
+    print("=" * 60)
+    print("🚀 SteadiDay Blog Generator")
+    print("=" * 60)
     print(f"📅 Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"🌐 Website URL: {WEBSITE_URL}")
-    print(f"📁 Blog Base URL: {BLOG_BASE_URL}")
+    print()
     
+    # Find topic
     if topic_override:
         print(f"📝 Using custom topic: {topic_override}")
+        topic_data = {"topic": topic_override, "keyword": topic_override.lower(), "category": "Wellness"}
     else:
         print("🎲 Selecting random topic from pool...")
+        topic_data = random.choice(TOPIC_CATEGORIES)
+        print(f"📝 Selected: {topic_data['topic']}")
     
     # Generate the blog post
+    print()
     print("✨ Generating blog content with Claude...")
-    post_data = generate_blog_post(topic_override)
+    post_data = generate_blog_post(topic_data)
     
-    print(f"📰 Title: {post_data['title']} ({len(post_data['title'])} chars)")
+    print(f"📰 Title: {post_data['title']}")
+    print(f"   Length: {len(post_data['title'])} characters {'✅' if len(post_data['title']) <= 55 else '⚠️ TOO LONG'}")
     
     # Create HTML with correct canonical URL
     html, filename = create_blog_html(post_data)
     canonical_url = f"{BLOG_BASE_URL}/{filename}"
+    print(f"📄 Filename: {filename}")
     print(f"🔗 Canonical URL: {canonical_url}")
     
     # Save the post
     filepath = save_blog_post(html, filename)
     print(f"💾 Saved to: {filepath}")
+    
+    # Update blog/index.html
+    print()
+    print("📑 Updating blog index...")
+    update_blog_index(post_data, filename)
     
     # Set GitHub Actions environment variables
     set_github_env("BLOG_TITLE", post_data['title'])
@@ -539,10 +600,19 @@ def main():
     set_github_env("BLOG_DATE", post_data['date'])
     set_github_env("BLOG_FILENAME", filename)
     
+    print()
+    print("=" * 60)
     print("✅ Blog post generated successfully!")
-    print(f"   - Title under 60 chars: {'✓' if len(post_data['title']) <= 60 else '✗'}")
-    print(f"   - Canonical URL correct: ✓")
-    print(f"   - Custom domain used: ✓")
+    print("=" * 60)
+    print()
+    print("Summary:")
+    print(f"  • Title: {post_data['title']}")
+    print(f"  • File: {filename}")
+    print(f"  • Category: {post_data['category']}")
+    print(f"  • Read time: {post_data['read_time']} min")
+    print(f"  • Title length: {len(post_data['title'])} chars (max 55)")
+    print(f"  • Canonical URL: {canonical_url}")
+    print()
 
 
 if __name__ == "__main__":
