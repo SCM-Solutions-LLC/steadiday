@@ -12,11 +12,20 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Blog - SteadiDay | Health & Wellness Tips</title>
-    <meta name="description" content="Practical health and wellness tips for older adults. Learn about medication management, healthy aging, and living your best life.">
+    <title>Blog - SteadiDay | Health & Wellness Tips for Seniors</title>
+    <meta name="description" content="Practical health and wellness tips for adults 50+. Learn about medication management, healthy aging, and living your best life.">
+    <meta name="keywords" content="senior health blog, medication tips, healthy aging, wellness for seniors, medication reminder app">
+    <link rel="canonical" href="https://www.steadiday.com/blog/">
     
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg">
     <link rel="apple-touch-icon" href="../assets/icon.jpeg">
+    
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="SteadiDay Blog - Health & Wellness Tips for Seniors">
+    <meta property="og:description" content="Practical health and wellness tips for adults 50+. Learn about medication management, healthy aging, and living your best life.">
+    <meta property="og:url" content="https://www.steadiday.com/blog/">
+    <meta property="og:site_name" content="SteadiDay">
     
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -379,6 +388,20 @@
             font-size: 1.05rem;
         }
         
+        /* Featured badge */
+        .featured-badge {
+            display: inline-block;
+            background: var(--gold);
+            color: var(--navy);
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+        }
+        
         /* CTA Section */
         .cta-section {
             background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
@@ -560,7 +583,7 @@
                 <a href="../index.html#features">Features</a>
                 <a href="../index.html#pricing">Pricing</a>
                 <a href="../index.html#faq">FAQ</a>
-                <a href="https://www.steadiday.com" class="nav-cta">Download App</a>
+                <a href="https://www.steadiday.com/#waitlist" class="nav-cta">Join Waitlist</a>
             </div>
         </div>
     </nav>
@@ -568,7 +591,7 @@
     <header class="header">
         <div class="header-content">
             <h1>SteadiDay Blog</h1>
-            <p>Health & wellness tips for everyday wellness</p>
+            <p>Health & wellness tips for adults 50+</p>
         </div>
     </header>
     
@@ -580,16 +603,37 @@
         </div>
         
         <div class="blog-grid">
-            
             <!--BLOG_ENTRIES_START-->
             <article class="blog-card featured">
+                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80');">
+                    <span class="blog-card-tag">Comparison</span>
+                </div>
+                <div class="blog-card-content">
+                    <span class="featured-badge">Featured Guide</span>
+                    <h2><a href="best-medication-reminder-apps-seniors.html">Best Medication Reminder Apps for Seniors (2026)</a></h2>
+                    <div class="blog-meta">
+                        <span>February 5, 2026</span>
+                        <span>•</span>
+                        <span>12 min read</span>
+                    </div>
+                    <p class="blog-excerpt">A comprehensive comparison of the top medication reminder apps designed for adults 50+. We review Medisafe, Pill Reminder, CareZone, and more to help you find the best fit for your needs.</p>
+                    <a href="best-medication-reminder-apps-seniors.html" class="read-more">
+                        Read full guide
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                        </svg>
+                    </a>
+                </div>
+            </article>
+            
+            <article class="blog-card">
                 <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80');">
                     <span class="blog-card-tag">Nutrition</span>
                 </div>
                 <div class="blog-card-content">
                     <h2><a href="2026-02-05-easy-hearthealthy-recipes-for-adults.html">Easy Heart-Healthy Recipes for Adults 50+</a></h2>
                     <div class="blog-meta">
-                        <span>February 05, 2026</span>
+                        <span>February 5, 2026</span>
                         <span>•</span>
                         <span>7 min read</span>
                     </div>
@@ -603,7 +647,6 @@
                 </div>
             </article>
             
-            
             <article class="blog-card">
                 <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80');">
                     <span class="blog-card-tag">Mental Wellness</span>
@@ -611,11 +654,11 @@
                 <div class="blog-card-content">
                     <h2><a href="2026-02-02-simple-mindfulness-for-seniors.html">Simple Mindfulness for Seniors: A Beginner's Guide</a></h2>
                     <div class="blog-meta">
-                        <span>February 02, 2026</span>
+                        <span>February 2, 2026</span>
                         <span>•</span>
                         <span>5 min read</span>
                     </div>
-                    <p class="blog-excerpt">Discover gentle mindfulness practices perfect for beginners. Learn simple breathing exercises, body awareness techniques, and how to incorporate mindfulness into daily activities for better mental wellness and inner calm.</p>
+                    <p class="blog-excerpt">Discover gentle mindfulness practices perfect for beginners. Learn simple breathing exercises and body awareness techniques for better mental wellness.</p>
                     <a href="2026-02-02-simple-mindfulness-for-seniors.html" class="read-more">
                         Read full article
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -626,17 +669,17 @@
             </article>
             
             <article class="blog-card">
-                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80');">
+                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&q=80');">
                     <span class="blog-card-tag">Medication Tips</span>
                 </div>
                 <div class="blog-card-content">
-                    <h2><a href="2026-02-01-how-to-remember-to-take-medication.html">How to Remember to Take Medication Every Day</a></h2>
+                    <h2><a href="2026-02-01-how-to-remember-to-take-medication.html">How to Remember to Take Your Medication Every Day</a></h2>
                     <div class="blog-meta">
-                        <span>February 01, 2026</span>
+                        <span>February 1, 2026</span>
                         <span>•</span>
                         <span>6 min read</span>
                     </div>
-                    <p class="blog-excerpt">Struggling to remember your daily medications? Learn proven strategies for how to remember to take medication every day, even with a busy schedule.</p>
+                    <p class="blog-excerpt">Struggling to remember your daily medications? Learn proven strategies for building consistent medication habits that stick.</p>
                     <a href="2026-02-01-how-to-remember-to-take-medication.html" class="read-more">
                         Read full article
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -646,14 +689,13 @@
                 </div>
             </article>
             <!--BLOG_ENTRIES_END-->
-            
         </div>
         
         <section class="cta-section">
             <div class="cta-content">
                 <h2>Ready to Take Control of Your Health?</h2>
                 <p>SteadiDay helps you manage medications, track your wellness, and build healthy habits—all in one simple app.</p>
-                <a href="https://www.steadiday.com" class="cta-button">Download SteadiDay Free</a>
+                <a href="https://www.steadiday.com/#waitlist" class="cta-button">Join the Waitlist</a>
             </div>
         </section>
     </main>
