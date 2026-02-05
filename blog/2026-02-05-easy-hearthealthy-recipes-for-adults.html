@@ -70,6 +70,33 @@
     }
     </script>
     
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://www.steadiday.com"
+            },
+            {
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "https://www.steadiday.com/blog"
+            },
+            {
+                "@type": "ListItem",
+                "position": 3,
+                "name": "Easy Heart-Healthy Recipes for Adults 50+"
+            }
+        ]
+    }
+    </script>
+    
     <style>
         :root {
             --cream: #FFFBF5;
@@ -123,6 +150,32 @@
         
         .nav a {
             font-weight: 600;
+        }
+        
+        /* Breadcrumbs */
+        .breadcrumbs {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }
+        
+        .breadcrumbs a {
+            color: var(--charcoal-light);
+        }
+        
+        .breadcrumbs a:hover {
+            color: var(--teal);
+        }
+        
+        .breadcrumbs span {
+            color: var(--charcoal-light);
+            margin: 0 0.5rem;
+        }
+        
+        .breadcrumbs .current {
+            color: var(--navy);
+            font-weight: 500;
         }
         
         /* Hero Image */
@@ -308,6 +361,15 @@
             <a href="https://www.steadiday.com">SteadiDay Home</a>
         </div>
     </nav>
+    
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span>›</span>
+        <a href="index.html">Blog</a>
+        <span>›</span>
+        <span class="current">Easy Heart-Healthy Recipes for Adults 50+</span>
+    </div>
     
     <!-- Hero Image -->
     <img src="https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&q=80" alt="Easy Heart-Healthy Recipes for Adults 50+" class="hero-image" loading="eager">
