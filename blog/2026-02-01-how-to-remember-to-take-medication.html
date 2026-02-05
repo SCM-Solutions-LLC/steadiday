@@ -16,6 +16,7 @@
     <meta property="og:description" content="Practical strategies for adults 50+ to build consistent medication habits.">
     <meta property="og:url" content="https://www.steadiday.com/blog/2026-02-01-how-to-remember-to-take-medication.html">
     <meta property="og:site_name" content="SteadiDay">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80">
     
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg">
     
@@ -30,10 +31,10 @@
             --teal-dark: #147568;
             --teal-light: #E8F5F3;
             --navy: #1E3A5F;
+            --navy-light: #2D4A6F;
             --charcoal: #2D3436;
             --charcoal-light: #5A6266;
             --white: #FFFFFF;
-            --gold: #D4A853;
         }
         
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -66,7 +67,7 @@
         }
         
         .nav-container {
-            max-width: 1140px;
+            max-width: 900px;
             margin: 0 auto;
             padding: 0 2rem;
             display: flex;
@@ -101,17 +102,24 @@
             gap: 0.5rem;
         }
         
-        /* Header */
+        /* Hero Image */
+        .hero-image {
+            width: 100%;
+            max-height: 450px;
+            object-fit: cover;
+        }
+        
+        /* Header - Uses NAVY gradient */
         .article-header {
-            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-            padding: 4rem 0;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            padding: 3rem 2rem;
             color: var(--white);
+            text-align: center;
         }
         
         .header-container {
             max-width: 800px;
             margin: 0 auto;
-            padding: 0 2rem;
         }
         
         .article-meta {
@@ -121,22 +129,23 @@
         }
         
         .article-header h1 {
-            font-size: 2.5rem;
+            font-size: 2.25rem;
             color: var(--white);
             margin-bottom: 1rem;
         }
         
         .article-excerpt {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             opacity: 0.95;
             line-height: 1.6;
         }
         
         /* Article Content */
         .article-container {
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
             padding: 3rem 2rem;
+            background: var(--white);
         }
         
         .article-content p {
@@ -144,7 +153,7 @@
         }
         
         .article-content h2 {
-            font-size: 1.75rem;
+            font-size: 1.6rem;
             margin: 2.5rem 0 1rem;
         }
         
@@ -172,11 +181,11 @@
             color: var(--charcoal-light);
             text-align: center;
             padding: 0.75rem 1rem;
-            background: var(--white);
+            background: var(--cream);
             font-style: italic;
         }
         
-        /* CTA Box */
+        /* CTA Box - Uses TEAL */
         .cta-box {
             background: var(--teal-light);
             border-left: 4px solid var(--teal);
@@ -195,7 +204,7 @@
         
         /* Sources */
         .sources {
-            background: var(--white);
+            background: var(--cream);
             border: 1px solid rgba(30, 58, 95, 0.1);
             border-radius: 12px;
             padding: 1.5rem 2rem;
@@ -216,10 +225,10 @@
             font-size: 0.95rem;
         }
         
-        /* Footer CTA */
+        /* Footer CTA - Uses NAVY */
         .footer-cta {
             background: var(--navy);
-            padding: 4rem 0;
+            padding: 4rem 2rem;
             text-align: center;
             color: var(--white);
         }
@@ -237,6 +246,7 @@
             margin-right: auto;
         }
         
+        /* Button uses TEAL */
         .btn {
             display: inline-block;
             background: var(--teal);
@@ -285,9 +295,10 @@
         }
         
         @media (max-width: 768px) {
-            .article-header h1 { font-size: 2rem; }
-            .article-header { padding: 3rem 0; }
-            .header-container, .article-container { padding: 0 1.5rem; }
+            .article-header h1 { font-size: 1.75rem; }
+            .article-header { padding: 2rem 1.5rem; }
+            .article-container { padding: 2rem 1.5rem; }
+            .hero-image { max-height: 280px; }
         }
     </style>
 </head>
@@ -302,6 +313,9 @@
         </div>
     </nav>
     
+    <!-- Hero Image -->
+    <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80" alt="Medication pills and bottles organized on a clean surface" class="hero-image" loading="eager">
+    
     <header class="article-header">
         <div class="header-container">
             <div class="article-meta">February 1, 2026 · 6 min read</div>
@@ -312,11 +326,6 @@
     
     <article class="article-container">
         <div class="article-content">
-            <figure class="article-image">
-                <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80" alt="Medication pills and bottles organized on a clean surface" loading="lazy">
-                <figcaption>Staying on top of your medications doesn't have to be complicated</figcaption>
-            </figure>
-            
             <p>If you've ever found yourself staring at your pill bottle wondering whether you already took today's dose, you're not alone. According to the CDC, approximately one in five new prescriptions are never filled, and among those filled, about half are taken incorrectly in terms of timing, dosage, or frequency. For adults over 50 managing multiple medications, keeping track of everything can feel like a part-time job.</p>
             
             <p>The good news is that building reliable medication habits doesn't require superhuman memory. With the right strategies and tools, you can create a system that works with your daily life rather than against it.</p>
@@ -361,6 +370,11 @@
             <p>While visual cues and habit stacking work well for routine situations, technology provides an important safety net for those off-schedule days. Simple phone alarms are a good start, but dedicated medication reminder apps offer features specifically designed for this purpose.</p>
             
             <p>Look for apps that let you track multiple medications with different schedules, send persistent reminders until you confirm you've taken your dose, and provide a history so you can check whether you took yesterday's evening pills. Many pharmacies also offer medication synchronization services that align all your refills to the same date each month, reducing the mental load of tracking multiple prescriptions.</p>
+            
+            <figure class="article-image">
+                <img src="https://images.unsplash.com/photo-1516307365426-bea591f05011?w=800&q=80" alt="Two people having a supportive conversation" loading="lazy">
+                <figcaption>Your support network can help keep you on track</figcaption>
+            </figure>
             
             <h2>Involve Your Support Network</h2>
             
