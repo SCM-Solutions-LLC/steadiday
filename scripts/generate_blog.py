@@ -337,6 +337,33 @@ def get_html_template():
     }}
     </script>
     
+    <!-- Breadcrumb Schema -->
+    <script type="application/ld+json">
+    {{
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+            {{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "{website_url}"
+            }},
+            {{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Blog",
+                "item": "{website_url}/blog"
+            }},
+            {{
+                "@type": "ListItem",
+                "position": 3,
+                "name": "{title}"
+            }}
+        ]
+    }}
+    </script>
+    
     <style>
         :root {{
             --cream: #FFFBF5;
@@ -390,6 +417,32 @@ def get_html_template():
         
         .nav a {{
             font-weight: 600;
+        }}
+        
+        /* Breadcrumbs */
+        .breadcrumbs {{
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem 2rem;
+            font-size: 0.9rem;
+        }}
+        
+        .breadcrumbs a {{
+            color: var(--charcoal-light);
+        }}
+        
+        .breadcrumbs a:hover {{
+            color: var(--teal);
+        }}
+        
+        .breadcrumbs span {{
+            color: var(--charcoal-light);
+            margin: 0 0.5rem;
+        }}
+        
+        .breadcrumbs .current {{
+            color: var(--navy);
+            font-weight: 500;
         }}
         
         /* Hero Image */
@@ -575,6 +628,15 @@ def get_html_template():
             <a href="{website_url}">SteadiDay Home</a>
         </div>
     </nav>
+    
+    <!-- Breadcrumbs -->
+    <div class="breadcrumbs">
+        <a href="../index.html">Home</a>
+        <span>›</span>
+        <a href="index.html">Blog</a>
+        <span>›</span>
+        <span class="current">{title}</span>
+    </div>
     
     <!-- Hero Image -->
     <img src="{hero_image}" alt="{title}" class="hero-image" loading="eager">
