@@ -18,6 +18,16 @@
             <image:title>SteadiDay Home Screen</image:title>
             <image:caption>SteadiDay app home screen showing daily overview</image:caption>
         </image:image>
+        <image:image>
+            <image:loc>https://www.steadiday.com/assets/screenshot-sos.png</image:loc>
+            <image:title>SteadiDay Emergency SOS</image:title>
+            <image:caption>Emergency SOS feature with fall detection for senior safety</image:caption>
+        </image:image>
+        <image:image>
+            <image:loc>https://www.steadiday.com/assets/screenshot-mindbreaks.png</image:loc>
+            <image:title>SteadiDay Mind Breaks</image:title>
+            <image:caption>Mind Breaks feature with relaxing games for mental wellness</image:caption>
+        </image:image>
     </url>
     
     <!-- Core Pages -->
@@ -48,7 +58,7 @@
         <priority>0.8</priority>
     </url>
     
-    <!-- Blog Posts -->
+    <!-- Blog Posts - Comparison/Pillar Content (Higher Priority) -->
     <url>
         <loc>https://www.steadiday.com/blog/best-medication-reminder-apps-seniors.html</loc>
         <lastmod>2026-02-05</lastmod>
@@ -56,10 +66,24 @@
         <priority>0.9</priority>
         <image:image>
             <image:loc>https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&amp;q=80</image:loc>
-            <image:title>Best Medication Reminder Apps for Seniors</image:title>
-            <image:caption>Comparison guide of top medication reminder apps for adults 50+</image:caption>
+            <image:title>Best Medication Reminder Apps for Seniors 2026</image:title>
+            <image:caption>Comprehensive comparison of top medication reminder apps for adults 50+</image:caption>
         </image:image>
     </url>
+    
+    <!-- Blog Posts - Regular Articles -->
+    <url>
+        <loc>https://www.steadiday.com/blog/2026-02-05-easy-hearthealthy-recipes-for-adults.html</loc>
+        <lastmod>2026-02-05</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+        <image:image>
+            <image:loc>https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&amp;q=80</image:loc>
+            <image:title>Easy Heart-Healthy Recipes for Adults 50+</image:title>
+            <image:caption>Simple and delicious heart-healthy recipes for seniors</image:caption>
+        </image:image>
+    </url>
+    
     <url>
         <loc>https://www.steadiday.com/blog/2026-02-02-simple-mindfulness-for-seniors.html</loc>
         <lastmod>2026-02-02</lastmod>
@@ -71,6 +95,7 @@
             <image:caption>Beginner's guide to mindfulness for adults over 50</image:caption>
         </image:image>
     </url>
+    
     <url>
         <loc>https://www.steadiday.com/blog/2026-02-01-how-to-remember-to-take-medication.html</loc>
         <lastmod>2026-02-05</lastmod>
