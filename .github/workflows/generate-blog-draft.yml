@@ -2,7 +2,9 @@ name: Generate Weekly Blog Post
 
 on:
   schedule:
+    # Twice a week: Monday and Thursday at 9 AM UTC (5 AM EST)
     - cron: '0 9 * * 1'
+    - cron: '0 9 * * 4'
   workflow_dispatch:
     inputs:
       topic_override:
@@ -44,3 +46,26 @@ jobs:
           git add blog/
           git diff --cached --quiet || git commit -m "📝 Auto-publish blog: ${{ env.BLOG_TITLE }}"
           git push
+
+      - name: Send email notification
+        if: success()
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.gmail.com
+          server_port: 465
+          username: ${{ secrets.EMAIL_USERNAME }}
+          password: ${{ secrets.EMAIL_PASSWORD }}
+          subject: "📝 New SteadiDay Blog Published: ${{ env.BLOG_TITLE }}"
+          to: mehta.saawan@gmail.com
+          from: SteadiDay Blog Bot <${{ secrets.EMAIL_USERNAME }}>
+          body: |
+            A new blog post has been automatically published to SteadiDay!
+
+            📰 Title: ${{ env.BLOG_TITLE }}
+            📅 Date: ${{ env.BLOG_DATE }}
+            🔗 URL: https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
+
+            The post is now live on your website. Review it at the link above.
+
+            ---
+            This is an automated notification from your SteadiDay Blog Generator.
