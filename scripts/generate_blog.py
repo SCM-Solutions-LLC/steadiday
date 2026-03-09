@@ -250,10 +250,7 @@ STEADIDAY_FEATURES = {
         "Emergency SOS button",
         "Fall Detection",
         "Trusted Contacts management",
-        "Basic medication reminders (up to 5)",
-    ],
-    "premium": [
-        "Unlimited medication tracking",
+        "Medication reminders",
         "Apple Health integration",
         "Food and water logging",
         "Mind Breaks games",
@@ -528,6 +525,7 @@ def get_html_template():
             position: relative;
             width: 100%;
             padding-bottom: 56.25%; /* 16:9 aspect ratio */
+            height: 0;
             margin: 2rem 0;
             border-radius: 12px;
             overflow: hidden;
@@ -540,7 +538,7 @@ def get_html_template():
             left: 0;
             width: 100%;
             height: 100%;
-            border: none;
+            border: 0;
         }}
         
         .video-caption {{
@@ -652,8 +650,8 @@ def get_html_template():
             
             <div class="cta-box">
                 <h3>Ready to Take Control of Your Daily Wellness?</h3>
-                <p>SteadiDay helps you manage medications, track your health, and stay connected with loved ones—all designed for adults 50+.</p>
-                <a href="{website_url}/#waitlist" class="cta-button">Join the Waitlist</a>
+                <p>SteadiDay helps you manage medications, track your health, and stay connected with loved ones—all designed for adults 50+. Every feature is free during our beta.</p>
+                <a href="{website_url}/#waitlist" class="cta-button">Get Early Access</a>
             </div>
         </div>
     </article>
@@ -709,7 +707,6 @@ def generate_blog_post(topic_data: dict = None) -> dict:
     num_images = len(images["inline"])
     
     free_feature = random.choice(STEADIDAY_FEATURES["free"])
-    premium_feature = random.choice(STEADIDAY_FEATURES["premium"])
     
     # Build image insertion instructions
     image_placeholders = "\n".join([f"After section {i+2}, insert exactly: [IMAGE_{i+1}]" for i in range(num_images)])
@@ -732,7 +729,7 @@ BLOG REQUIREMENTS:
    - Compelling introduction paragraph
    - 6-7 main sections with clear subheadings (use <h2> tags)
    - Practical, actionable tips
-   - Natural mention of how SteadiDay's {free_feature} or {premium_feature} can help
+   - Natural mention of how SteadiDay's {free_feature} can help (all features are free during beta)
    - Encouraging conclusion
 
 IMPORTANT - MEDIA PLACEHOLDERS:
@@ -831,12 +828,18 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
         content = content.replace(placeholder, img_html)
     
     # Replace video placeholder with YouTube embed
+    # FIX: Use youtube-nocookie.com for privacy-enhanced mode (works on GitHub Pages)
+    # FIX: Add frameborder="0", loading="lazy", referrerpolicy for cross-origin compat
+    # FIX: Add web-share to allow attribute
     video_html = f'''
             <div class="video-container">
                 <iframe 
-                    src="https://www.youtube.com/embed/{video['id']}" 
+                    src="https://www.youtube-nocookie.com/embed/{video['id']}" 
                     title="{video['title']}"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                    frameborder="0"
+                    loading="lazy"
+                    referrerpolicy="no-referrer-when-downgrade"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
                     allowfullscreen>
                 </iframe>
             </div>
@@ -1056,7 +1059,7 @@ def main():
     print(f"  • Title length: {len(post_data['title'])} chars (max 55)")
     print(f"  • Hero image: ✅ Included")
     print(f"  • Inline images: ✅ {post_data['num_images']} images embedded")
-    print(f"  • Video embed: ✅ YouTube video included")
+    print(f"  • Video embed: ✅ YouTube video included (privacy-enhanced)")
     print(f"  • Canonical URL: {canonical_url}")
     print()
     print("Design system colors applied:")
