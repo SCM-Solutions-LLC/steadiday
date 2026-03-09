@@ -15,7 +15,7 @@
     
     <!-- Primary SEO Meta Tags -->
     <title>SteadiDay – Wellness & Safety App for Older Adults</title>
-    <meta name="description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for older adults. Free safety features.">
+    <meta name="description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for older adults. 100% free during our feedback period.">
     <meta name="keywords" content="daily wellness app for seniors, all-in-one senior app, medication reminder app, task manager for elderly, health tracking app seniors, fall detection app, senior safety app, daily organizer for older adults, pill reminder, brain games for seniors, independent living app, wellness companion app, simple app for elderly, daily routine app seniors, senior health management, food tracker seniors, water intake app, magnifier app, find my iphone, apple health app, calendar sync app seniors">
     <meta name="author" content="SCM Solutions LLC">
     <meta name="robots" content="index, follow">
@@ -30,7 +30,7 @@
     <meta property="og:url" content="https://www.steadiday.com/">
     <meta property="og:site_name" content="SteadiDay">
     <meta property="og:title" content="SteadiDay – Wellness & Safety App for Adults">
-    <meta property="og:description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for adults.">
+    <meta property="og:description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for adults. 100% free.">
     <meta property="og:image" content="https://www.steadiday.com/assets/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
@@ -40,7 +40,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://www.steadiday.com/">
     <meta name="twitter:title" content="SteadiDay – Wellness & Safety App for Adults">
-    <meta name="twitter:description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for adults.">
+    <meta name="twitter:description" content="One app for your entire day. Medication reminders, health tracking, emergency SOS, and helpful tools—all designed for adults. 100% free.">
     <meta name="twitter:image" content="https://www.steadiday.com/assets/og-image.png">
     
     <!-- Additional SEO Meta Tags -->
@@ -64,14 +64,14 @@
         "@type": "SoftwareApplication",
         "name": "SteadiDay",
         "alternateName": "SteadiDay App",
-        "description": "All-in-one daily companion app for adults. Combines medication reminders, task management, Apple Calendar and Reminders sync, health tracking with Apple Health integration, food and water logging, helpful tools like magnifier and Find My iPhone, relaxing mind games, and emergency SOS with fall detection—all in one simple, senior-friendly app.",
+        "description": "All-in-one daily companion app for adults. Combines medication reminders, task management, Apple Calendar and Reminders sync, health tracking with Apple Health integration, food and water logging, helpful tools like magnifier and Find My iPhone, relaxing mind games, and emergency SOS with fall detection—all in one simple, senior-friendly app. 100% free during our feedback period.",
         "applicationCategory": "HealthApplication",
         "operatingSystem": "iOS",
         "offers": {
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
-            "description": "Free with optional premium features"
+            "description": "100% free — all features included during our feedback period"
         },
         "aggregateRating": {
             "@type": "AggregateRating",
@@ -105,7 +105,7 @@
         ],
         "screenshot": "https://www.steadiday.com/assets/screenshot-home.png",
         "softwareVersion": "1.0",
-        "releaseNotes": "Initial release featuring medication reminders, task management, health tracking, emergency SOS, fall detection, and mind games - all in one easy-to-use app."
+        "releaseNotes": "Initial release featuring medication reminders, task management, health tracking, emergency SOS, fall detection, and mind games - all in one easy-to-use app. All features free during feedback period."
     }
     </script>
     
@@ -151,10 +151,10 @@
             },
             {
                 "@type": "Question",
-                "name": "Is the Emergency SOS feature really free?",
+                "name": "Is SteadiDay really free?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Yes. Safety features including Emergency SOS and fall detection are always free for everyone."
+                    "text": "Yes! Every feature in SteadiDay is completely free right now. We're gathering feedback from early users to make the app even better."
                 }
             },
             {
@@ -175,24 +175,24 @@
             },
             {
                 "@type": "Question",
-                "name": "Can I try SteadiDay before paying?",
+                "name": "Why is everything free?",
                 "acceptedAnswer": {
                     "@type": "Answer",
-                    "text": "Absolutely. Core features including medication reminders, tasks, and emergency SOS are free forever."
+                    "text": "We want early users to experience every feature and share their feedback so we can make SteadiDay the best it can be. All features are unlocked at no cost during this period."
                 }
             }
         ]
     }
     </script>
     
-    <!-- Schema.org Structured Data - WebSite with SearchAction -->
+    <!-- Schema.org Structured Data - WebSite -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
         "@type": "WebSite",
         "name": "SteadiDay",
         "url": "https://www.steadiday.com/",
-        "description": "All-in-one daily companion app for older adults. Medications, tasks, calendar sync, health tracking, helpful tools, mind games, and emergency safety in one simple app.",
+        "description": "All-in-one daily companion app for older adults. Medications, tasks, calendar sync, health tracking, helpful tools, mind games, and emergency safety in one simple app. 100% free.",
         "publisher": {
             "@type": "Organization",
             "name": "SCM Solutions LLC"
@@ -906,112 +906,90 @@
             background: var(--teal-light);
         }
 
-        .pricing-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            max-width: 1000px;
+        .pricing-free-banner {
+            max-width: 700px;
             margin: 0 auto;
-        }
-
-        .pricing-card {
-            background: var(--white);
-            padding: 2rem 1.5rem;
-            border-radius: var(--radius-lg);
             text-align: center;
-            box-shadow: var(--shadow-soft);
-            transition: all 0.3s ease;
-            position: relative;
         }
 
-        .pricing-card:hover {
-            transform: translateY(-4px);
+        .pricing-free-card {
+            background: var(--white);
+            border-radius: var(--radius-xl);
+            padding: 3.5rem 3rem;
             box-shadow: var(--shadow-medium);
+            position: relative;
+            overflow: hidden;
         }
 
-        .pricing-card.featured {
-            background: var(--navy);
-            transform: scale(1.05);
-            box-shadow: var(--shadow-strong);
-        }
-
-        .pricing-card.featured:hover {
-            transform: scale(1.05) translateY(-4px);
-        }
-
-        .pricing-badge {
+        .pricing-free-card::before {
+            content: '';
             position: absolute;
-            top: -12px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: var(--gold);
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 6px;
+            background: linear-gradient(90deg, var(--teal) 0%, var(--gold) 100%);
+        }
+
+        .pricing-free-badge {
+            display: inline-block;
+            background: var(--gold-light);
+            border: 1px solid var(--gold);
             color: var(--navy);
-            padding: 0.35rem 1rem;
-            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 700;
-            white-space: nowrap;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 0.4rem 1rem;
+            border-radius: 20px;
+            margin-bottom: 1.5rem;
         }
 
-        .pricing-card h3 {
-            font-size: 1.25rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .pricing-card.featured h3 {
-            color: var(--white);
-        }
-
-        .pricing-price {
+        .pricing-free-price {
             font-family: 'Merriweather', serif;
-            font-size: 2.5rem;
+            font-size: 4rem;
             font-weight: 700;
             color: var(--teal);
             margin-bottom: 0.25rem;
         }
 
-        .pricing-card.featured .pricing-price {
-            color: var(--gold);
-        }
-
-        .pricing-period {
-            font-size: 0.95rem;
+        .pricing-free-subtitle {
+            font-size: 1.15rem;
             color: var(--charcoal-light);
-            margin-bottom: 1.5rem;
+            margin-bottom: 2rem;
         }
 
-        .pricing-card.featured .pricing-period {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        .pricing-features {
+        .pricing-free-features {
             list-style: none;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.75rem 2rem;
             text-align: left;
+            max-width: 520px;
+            margin: 0 auto 2.5rem;
         }
 
-        .pricing-features li {
+        .pricing-free-features li {
             display: flex;
             align-items: flex-start;
             gap: 0.5rem;
-            padding: 0.5rem 0;
-            font-size: 0.95rem;
+            font-size: 1rem;
             color: var(--charcoal);
         }
 
-        .pricing-card.featured .pricing-features li {
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .pricing-features svg {
+        .pricing-free-features svg {
             width: 20px;
             height: 20px;
             color: var(--success);
             flex-shrink: 0;
-            margin-top: 2px;
+            margin-top: 3px;
         }
 
-        .pricing-card.featured .pricing-features svg {
-            color: var(--gold);
+        .pricing-free-note {
+            font-size: 0.95rem;
+            color: var(--charcoal-light);
+            font-style: italic;
+            margin-top: 1rem;
         }
 
         .pricing-cta {
@@ -1057,6 +1035,16 @@
 
         .pricing-cta-subtext a:hover {
             text-decoration: underline;
+        }
+
+        @media (max-width: 600px) {
+            .pricing-free-features {
+                grid-template-columns: 1fr;
+            }
+
+            .pricing-free-card {
+                padding: 2.5rem 1.5rem;
+            }
         }
 
         /* ==================== FAQ ==================== */
@@ -1526,19 +1514,6 @@
             .screenshots-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
-
-            .pricing-grid {
-                grid-template-columns: repeat(2, 1fr);
-                max-width: 600px;
-            }
-
-            .pricing-card.featured {
-                transform: none;
-            }
-
-            .pricing-card.featured:hover {
-                transform: translateY(-4px);
-            }
         }
 
         @media (max-width: 768px) {
@@ -1602,11 +1577,6 @@
                 gap: 1rem;
             }
 
-            .pricing-grid {
-                grid-template-columns: 1fr;
-                max-width: 380px;
-            }
-
             .faq-grid {
                 grid-template-columns: 1fr;
             }
@@ -1650,9 +1620,9 @@
     <!-- Beta Banner -->
     <div class="beta-banner">
         <span class="beta-badge">Beta</span>
-        <span class="beta-banner-text">We're in beta! Be the first to try SteadiDay.</span>
+        <span class="beta-banner-text">All features are 100% free during our beta! Try everything and share your feedback.</span>
         <a href="#waitlist" class="beta-banner-link">
-            Sign up here
+            Get early access
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
@@ -1670,10 +1640,9 @@
             <div class="nav-links" id="navLinks">
     <a href="#features">Features</a>
     <a href="#how-it-works">How It Works</a>
-    <a href="#pricing">Pricing</a>
     <a href="#faq">FAQ</a>
     <a href="blog/index.html">Blog</a>
-    <a href="#waitlist" class="nav-cta">Join Waitlist</a>
+    <a href="#waitlist" class="nav-cta">Get Early Access</a>
 </div>
             <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menuIcon">
@@ -1690,7 +1659,7 @@
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
                     </svg>
-                    Safety Features Always Free
+                    100% Free During Beta
                 </div>
                 <h1>Daily support for <span>independent</span> living</h1>
                 <p class="hero-description">Your all-in-one daily companion. Medications, tasks synced with your calendar, Apple Health tracking, food and water logs, helpful tools like magnifier and Find My iPhone, relaxing mind games, and emergency safety—everything in one simple app.</p>
@@ -1699,7 +1668,7 @@
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
-                        Join Waitlist
+                        Get Early Access
                     </a>
                     <a href="#features" class="btn btn-secondary">See Features</a>
                 </div>
@@ -1740,12 +1709,12 @@
                 <div class="trust-item">
                     <div class="trust-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                     </div>
                     <div class="trust-text">
-                        <h4>Free SOS</h4>
-                        <p>Emergency help always free</p>
+                        <h4>100% Free</h4>
+                        <p>Every feature, no cost</p>
                     </div>
                 </div>
                 <div class="trust-item">
@@ -1768,7 +1737,7 @@
             <div class="section-header">
                 <span class="section-label">Features</span>
                 <h2>One app for your entire day</h2>
-                <p>Medications, tasks, health, tools, and more—all designed for clarity with large buttons and simple navigation.</p>
+                <p>Medications, tasks, health, tools, and more—all designed for clarity with large buttons and simple navigation. Every feature is free.</p>
             </div>
             <div class="features-grid">
                 <div class="feature-card">
@@ -1789,7 +1758,7 @@
                     <h3>Daily Tasks</h3>
                     <p>Simple, easy-to-read task lists for your daily routines, errands, and appointments. Check off items as you go.</p>
                 </div>
-                <div class="feature-card highlight">
+                <div class="feature-card">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
@@ -1797,7 +1766,6 @@
                     </div>
                     <h3>Emergency SOS</h3>
                     <p>One tap to alert your trusted contacts. Quick access when you need help fast.</p>
-                    <span class="free-badge">Always Free</span>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -1928,58 +1896,36 @@
         </div>
     </section>
 
+    <!-- PRICING: Everything Free During Beta -->
     <section class="pricing" id="pricing">
         <div class="container">
             <div class="section-header">
                 <span class="section-label">Pricing</span>
-                <h2>Safety features free for everyone</h2>
-                <p>Core safety tools are always free. Upgrade for unlimited features.</p>
+                <h2>Everything is free</h2>
+                <p>Every feature in SteadiDay is completely free during our beta. No catches, no credit card required.</p>
             </div>
-            <div class="pricing-grid">
-                <div class="pricing-card">
-                    <h3>Free</h3>
-                    <div class="pricing-price">$0</div>
-                    <div class="pricing-period">Forever free</div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Emergency SOS</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Fall Detection</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>5 Medications</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>3 Trusted Contacts</li>
-                    </ul>
-                </div>
-                <div class="pricing-card">
-                    <h3>Monthly</h3>
-                    <div class="pricing-price">$3.99</div>
-                    <div class="pricing-period">per month</div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Everything in Free</li>
+            <div class="pricing-free-banner">
+                <div class="pricing-free-card">
+                    <span class="pricing-free-badge">Beta Access</span>
+                    <div class="pricing-free-price">$0</div>
+                    <div class="pricing-free-subtitle">All features included — no limits, no upgrades needed</div>
+                    <ul class="pricing-free-features">
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Emergency SOS & Fall Detection</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Medications</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Tasks</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Cancel Anytime</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Tasks & Reminders</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Trusted Contacts</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Apple Health Integration</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Food & Water Tracking</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Calendar & Reminders Sync</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Mind Breaks & Helpful Tools</li>
                     </ul>
-                </div>
-                <div class="pricing-card featured">
-                    <span class="pricing-badge">Best Value</span>
-                    <h3>Annual</h3>
-                    <div class="pricing-price">$29.99</div>
-                    <div class="pricing-period">per year (save 37%)</div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Everything in Monthly</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Save $17.89/year</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Priority Support</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Early New Features</li>
-                    </ul>
-                </div>
-                <div class="pricing-card">
-                    <h3>Lifetime</h3>
-                    <div class="pricing-price">$59.99</div>
-                    <div class="pricing-period">one-time purchase</div>
-                    <ul class="pricing-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Premium Features</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Pay Once, Yours Forever</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>All Future Updates</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>No Subscriptions</li>
-                    </ul>
+                    <a href="#waitlist" class="btn btn-primary">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
+                        </svg>
+                        Get Early Access
+                    </a>
+                    <p class="pricing-free-note">We're gathering feedback to make SteadiDay the best it can be. Your input shapes the app.</p>
                 </div>
             </div>
             <div class="pricing-cta">
@@ -2012,8 +1958,8 @@
                     <p>No account needed. Just download and start using it right away. Your data is stored safely on your device.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Is the Emergency SOS really free?</h3>
-                    <p>Yes, always. Emergency SOS and fall detection are free for everyone, forever. We believe safety should never have a price tag.</p>
+                    <h3>Is SteadiDay really free?</h3>
+                    <p>Yes! Every feature is completely free during our beta period. We want early users to experience everything and share feedback so we can make the app even better.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Can my family see my information?</h3>
@@ -2024,8 +1970,8 @@
                     <p>SteadiDay is designed for simplicity. Large buttons, clear text, and straightforward navigation. No tech skills needed.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Can I try before paying?</h3>
-                    <p>The free version includes all safety features plus 5 medications and 3 contacts—enough to fully experience the app before upgrading.</p>
+                    <h3>Why is everything free?</h3>
+                    <p>We're in beta and want your honest feedback. Every feature is unlocked so you can try the full experience and help us improve before our official launch.</p>
                 </div>
             </div>
         </div>
@@ -2070,13 +2016,13 @@
             <div class="waitlist-simple-content">
                 <span class="waitlist-simple-badge">Coming Soon</span>
                 <h2>Be the first to know when we launch</h2>
-                <p class="waitlist-simple-subtitle">Join the waitlist for early access and exclusive launch-day pricing.</p>
+                <p class="waitlist-simple-subtitle">Join the waitlist for early access. Every feature is free—we just want your feedback.</p>
                 <form class="waitlist-simple-form" id="waitlistForm" action="https://formsubmit.co/mehta.saawan@gmail.com" method="POST">
                     <input type="hidden" name="_subject" value="New SteadiDay Waitlist Signup!">
                     <input type="hidden" name="_captcha" value="false">
                     <input type="hidden" name="_template" value="table">
                     <input type="hidden" name="_next" value="https://www.steadiday.com/">
-                    <input type="hidden" name="_autoresponse" value="Thank you for joining the SteadiDay waitlist! We're excited to have you on board. You'll be among the first to know when we launch our all-in-one wellness and safety app designed for older adults. We'll send you an email as soon as SteadiDay is available on the App Store. In the meantime, if you have any questions, feel free to reach out to us at support@steadiday.com. - The SteadiDay Team">
+                    <input type="hidden" name="_autoresponse" value="Thank you for joining the SteadiDay waitlist! We're excited to have you on board. You'll be among the first to know when we launch our all-in-one wellness and safety app designed for older adults. Every feature will be completely free — we just want your honest feedback. We'll send you an email as soon as SteadiDay is available on the App Store. In the meantime, if you have any questions, feel free to reach out to us at support@steadiday.com. - The SteadiDay Team">
                     <input type="text" name="_honey" style="display:none">
                     <input type="email" name="email" class="waitlist-simple-input" placeholder="Enter your email" required aria-label="Email address">
                     <button type="submit" class="waitlist-simple-btn">
@@ -2143,7 +2089,6 @@
                 </div>
                 <div class="footer-links">
     <a href="#features">Features</a>
-    <a href="#pricing">Pricing</a>
     <a href="blog/index.html">Blog</a>
     <a href="security.html">Security</a>
     <a href="privacy.html">Privacy</a>
@@ -2151,7 +2096,7 @@
     <a href="#contact">Contact</a>
 </div>
             </div>
-            <p class="footer-copy">© 2025 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
+            <p class="footer-copy">&copy; 2025 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
         </div>
     </footer>
 
