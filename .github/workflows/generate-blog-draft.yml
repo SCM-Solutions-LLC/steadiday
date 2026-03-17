@@ -1,5 +1,4 @@
 name: Generate Twice-Weekly Blog Post
-
 on:
   schedule:
     # Twice a week: Monday and Thursday at 9 AM UTC (5 AM EST)
@@ -11,34 +10,27 @@ on:
         description: 'Optional: Specify a blog topic'
         required: false
         type: string
-
 permissions:
   contents: write
-
 env:
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-
+  FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
 jobs:
   generate-blog:
     runs-on: ubuntu-latest
-
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-
       - name: Install dependencies
         run: |
           pip install anthropic python-dateutil
-
       - name: Generate blog post
         run: |
           python scripts/generate_blog.py "${{ github.event.inputs.topic_override }}"
-
       - name: Commit and push to main
         run: |
           git config user.name "github-actions[bot]"
@@ -46,7 +38,6 @@ jobs:
           git add blog/
           git diff --cached --quiet || git commit -m "📝 Auto-publish blog: ${{ env.BLOG_TITLE }}"
           git push
-
       - name: Send email notification
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -60,12 +51,9 @@ jobs:
           from: SteadiDay Blog Bot <${{ secrets.EMAIL_USERNAME }}>
           body: |
             A new blog post has been auto-published to steadiday.com!
-
             Title: ${{ env.BLOG_TITLE }}
             Date: ${{ env.BLOG_DATE }}
             URL: https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
-
             The post is now live on your website.
-
             ---
             This is an automated notification from your SteadiDay blog workflow.
