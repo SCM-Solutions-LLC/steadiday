@@ -11,9 +11,9 @@
 name: Update Sitemap & Index
 
 on:
-  # Trigger after blog generator completes
+  # Trigger after blog generator completes — must match exact workflow name
   workflow_run:
-    workflows: ["Generate Blog Post"]
+    workflows: ["Generate Twice-Weekly Blog Post"]
     types: [completed]
     branches: [main]
   
