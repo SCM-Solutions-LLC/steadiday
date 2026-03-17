@@ -1,0 +1,36 @@
+name: Inject Google Ads Tag
+
+# Run manually, or automatically when new blog posts are merged
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'blog/*.html'
+      - '*.html'
+
+permissions:
+  contents: write
+
+jobs:
+  inject-gtag:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Run Google tag injection
+        run: python scripts/inject_gtag.py .
+
+      - name: Commit changes
+        run: |
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git config --local user.name "github-actions[bot]"
+          git add -A
+          git diff --staged --quiet || git commit -m "🏷️ Inject Google Ads conversion tracking tag"
+          git push
