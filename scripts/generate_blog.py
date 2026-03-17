@@ -169,7 +169,6 @@ INLINE_IMAGES = {
 }
 
 # YouTube videos for each category (senior-friendly, reputable sources)
-# These are from trusted channels: Mayo Clinic, Harvard Health, AARP, SilverSneakers, etc.
 CATEGORY_VIDEOS = {
     "Mental Wellness": [
         {"id": "inpok4MKVLM", "title": "5-Minute Meditation You Can Do Anywhere", "channel": "Goodful"},
@@ -262,7 +261,12 @@ STEADIDAY_FEATURES = {
 
 
 def get_html_template():
-    """Returns the HTML template with correct canonical URL, image support, and video embeds."""
+    """Returns the HTML template with correct canonical URL, image support, and video embeds.
+    
+    NOTE: This template uses Python .format() for variable substitution.
+    - CSS braces must be doubled: {{ and }}
+    - Template variables use single braces: {title}, {content}, {year}, etc.
+    """
     return '''<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -394,224 +398,38 @@ def get_html_template():
         a {{ color: var(--teal); text-decoration: none; }}
         a:hover {{ color: var(--teal-dark); text-decoration: underline; }}
         
-        /* Navigation */
-        .nav {{
-            background: var(--white);
-            padding: 1rem 0;
-            border-bottom: 1px solid rgba(30, 58, 95, 0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }}
+        .nav {{ background: var(--white); padding: 1rem 0; border-bottom: 1px solid rgba(30, 58, 95, 0.1); position: sticky; top: 0; z-index: 100; }}
+        .nav-container {{ max-width: 900px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }}
+        .nav a {{ font-weight: 600; }}
+        .breadcrumbs {{ max-width: 900px; margin: 0 auto; padding: 1rem 2rem; font-size: 0.9rem; }}
+        .breadcrumbs a {{ color: var(--charcoal-light); }}
+        .breadcrumbs a:hover {{ color: var(--teal); }}
+        .breadcrumbs span {{ color: var(--charcoal-light); margin: 0 0.5rem; }}
+        .breadcrumbs .current {{ color: var(--navy); font-weight: 500; }}
+        .hero-image {{ width: 100%; max-height: 450px; object-fit: cover; }}
+        .article-header {{ background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%); color: var(--white); padding: 3rem 2rem; text-align: center; }}
+        .article-header h1 {{ max-width: 800px; margin: 0 auto 1rem; font-size: 2.25rem; color: var(--white); }}
+        .article-meta {{ font-size: 1rem; opacity: 0.9; }}
+        .article-container {{ max-width: 750px; margin: 0 auto; padding: 3rem 2rem; background: var(--white); }}
+        .article-content h2 {{ font-size: 1.6rem; margin: 2.5rem 0 1rem; color: var(--navy); }}
+        .article-content p {{ margin-bottom: 1.5rem; color: var(--charcoal); }}
+        .article-content ul, .article-content ol {{ margin: 1.5rem 0; padding-left: 2rem; }}
+        .article-content li {{ margin-bottom: 0.75rem; }}
+        .article-image {{ width: 100%; margin: 2rem 0; border-radius: 12px; overflow: hidden; }}
+        .article-image img {{ width: 100%; height: auto; display: block; }}
+        .article-image figcaption {{ font-size: 0.9rem; color: var(--charcoal-light); text-align: center; padding: 0.75rem 1rem; background: var(--cream); font-style: italic; }}
+        .video-container {{ position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); }}
+        .video-container iframe {{ position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }}
+        .video-caption {{ font-size: 0.9rem; color: var(--charcoal-light); text-align: center; padding: 0.75rem; font-style: italic; }}
+        .cta-box {{ background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%); color: var(--white); padding: 2rem; border-radius: 12px; text-align: center; margin: 2.5rem 0; }}
+        .cta-box h3 {{ margin-bottom: 0.75rem; font-size: 1.35rem; color: var(--white); }}
+        .cta-box p {{ color: rgba(255,255,255,0.9) !important; margin-bottom: 1rem; }}
+        .cta-button {{ display: inline-block; background: var(--white); color: var(--teal); padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; transition: all 0.3s ease; }}
+        .cta-button:hover {{ opacity: 0.9; text-decoration: none; transform: translateY(-2px); }}
+        .back-to-blog {{ max-width: 750px; margin: 0 auto; padding: 1.5rem 2rem; text-align: center; background: var(--white); }}
+        .back-to-blog a {{ font-weight: 600; }}
+        .footer {{ text-align: center; padding: 2rem; color: var(--charcoal-light); font-size: 0.9rem; background: var(--white); border-top: 1px solid rgba(30, 58, 95, 0.1); }}
         
-        .nav-container {{
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }}
-        
-        .nav a {{
-            font-weight: 600;
-        }}
-        
-        /* Breadcrumbs */
-        .breadcrumbs {{
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 1rem 2rem;
-            font-size: 0.9rem;
-        }}
-        
-        .breadcrumbs a {{
-            color: var(--charcoal-light);
-        }}
-        
-        .breadcrumbs a:hover {{
-            color: var(--teal);
-        }}
-        
-        .breadcrumbs span {{
-            color: var(--charcoal-light);
-            margin: 0 0.5rem;
-        }}
-        
-        .breadcrumbs .current {{
-            color: var(--navy);
-            font-weight: 500;
-        }}
-        
-        /* Hero Image */
-        .hero-image {{
-            width: 100%;
-            max-height: 450px;
-            object-fit: cover;
-        }}
-        
-        /* Article Header */
-        .article-header {{
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
-            color: var(--white);
-            padding: 3rem 2rem;
-            text-align: center;
-        }}
-        
-        .article-header h1 {{
-            max-width: 800px;
-            margin: 0 auto 1rem;
-            font-size: 2.25rem;
-            color: var(--white);
-        }}
-        
-        .article-meta {{
-            font-size: 1rem;
-            opacity: 0.9;
-        }}
-        
-        /* Article Content */
-        .article-container {{
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 3rem 2rem;
-            background: var(--white);
-        }}
-        
-        .article-content h2 {{
-            font-size: 1.6rem;
-            margin: 2.5rem 0 1rem;
-            color: var(--navy);
-        }}
-        
-        .article-content p {{
-            margin-bottom: 1.5rem;
-            color: var(--charcoal);
-        }}
-        
-        .article-content ul, .article-content ol {{
-            margin: 1.5rem 0;
-            padding-left: 2rem;
-        }}
-        
-        .article-content li {{
-            margin-bottom: 0.75rem;
-        }}
-        
-        /* Inline Images */
-        .article-image {{
-            width: 100%;
-            margin: 2rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-        }}
-        
-        .article-image img {{
-            width: 100%;
-            height: auto;
-            display: block;
-        }}
-        
-        .article-image figcaption {{
-            font-size: 0.9rem;
-            color: var(--charcoal-light);
-            text-align: center;
-            padding: 0.75rem 1rem;
-            background: var(--cream);
-            font-style: italic;
-        }}
-        
-        /* Video Embed */
-        .video-container {{
-            position: relative;
-            width: 100%;
-            padding-bottom: 56.25%; /* 16:9 aspect ratio */
-            height: 0;
-            margin: 2rem 0;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }}
-        
-        .video-container iframe {{
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border: 0;
-        }}
-        
-        .video-caption {{
-            font-size: 0.9rem;
-            color: var(--charcoal-light);
-            text-align: center;
-            padding: 0.75rem;
-            font-style: italic;
-        }}
-        
-        /* CTA Box */
-        .cta-box {{
-            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
-            color: var(--white);
-            padding: 2rem;
-            border-radius: 12px;
-            text-align: center;
-            margin: 2.5rem 0;
-        }}
-        
-        .cta-box h3 {{
-            margin-bottom: 0.75rem;
-            font-size: 1.35rem;
-            color: var(--white);
-        }}
-        
-        .cta-box p {{
-            color: rgba(255,255,255,0.9) !important;
-            margin-bottom: 1rem;
-        }}
-        
-        .cta-button {{
-            display: inline-block;
-            background: var(--white);
-            color: var(--teal);
-            padding: 0.875rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }}
-        
-        .cta-button:hover {{
-            opacity: 0.9;
-            text-decoration: none;
-            transform: translateY(-2px);
-        }}
-        
-        /* Back to Blog */
-        .back-to-blog {{
-            max-width: 750px;
-            margin: 0 auto;
-            padding: 1.5rem 2rem;
-            text-align: center;
-            background: var(--white);
-        }}
-        
-        .back-to-blog a {{
-            font-weight: 600;
-        }}
-        
-        /* Footer */
-        .footer {{
-            text-align: center;
-            padding: 2rem;
-            color: var(--charcoal-light);
-            font-size: 0.9rem;
-            background: var(--white);
-            border-top: 1px solid rgba(30, 58, 95, 0.1);
-        }}
-        
-        /* Responsive */
         @media (max-width: 768px) {{
             .article-header h1 {{ font-size: 1.75rem; }}
             .article-header {{ padding: 2rem 1.5rem; }}
@@ -628,7 +446,6 @@ def get_html_template():
         </div>
     </nav>
     
-    <!-- Breadcrumbs -->
     <div class="breadcrumbs">
         <a href="../index.html">Home</a>
         <span>›</span>
@@ -637,7 +454,6 @@ def get_html_template():
         <span class="current">{title}</span>
     </div>
     
-    <!-- Hero Image -->
     <img src="{hero_image}" alt="{title}" class="hero-image" loading="eager">
     
     <header class="article-header">
@@ -647,7 +463,7 @@ def get_html_template():
     
     <article class="article-container">
         <div class="article-content">
-            {{content}}
+            {content}
             
             <div class="cta-box">
                 <h3>Ready to Take Control of Your Daily Wellness?</h3>
@@ -662,7 +478,7 @@ def get_html_template():
     </div>
     
     <footer class="footer">
-        <p>&copy; {{year}} SCM Solutions LLC. All rights reserved. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p>
+        <p>&copy; {year} SCM Solutions LLC. All rights reserved. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p>
     </footer>
 </body>
 </html>
@@ -674,7 +490,6 @@ def get_images_for_category(category: str) -> dict:
     hero_options = HERO_IMAGES.get(category, HERO_IMAGES['Wellness'])
     inline_options = INLINE_IMAGES.get(category, INLINE_IMAGES['Wellness'])
     
-    # Select 4-5 inline images (randomly choose 4 or 5)
     num_images = random.choice([4, 5])
     selected_inline = random.sample(inline_options, min(num_images, len(inline_options)))
     
@@ -702,14 +517,12 @@ def generate_blog_post(topic_data: dict = None) -> dict:
     target_keyword = topic_data["keyword"]
     category = topic_data.get("category", "Wellness")
     
-    # Get images and video for this category
     images = get_images_for_category(category)
     video = get_video_for_category(category)
     num_images = len(images["inline"])
     
     free_feature = random.choice(STEADIDAY_FEATURES["free"])
     
-    # Build image insertion instructions
     image_placeholders = "\n".join([f"After section {i+2}, insert exactly: [IMAGE_{i+1}]" for i in range(num_images)])
     
     prompt = f"""You are a health and wellness content writer for SteadiDay, a mobile app for adults 50+.
@@ -800,7 +613,6 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
     
     response_text = message.content[0].text
     
-    # Parse the response
     title_match = re.search(r'TITLE:\s*(.+?)(?:\n|$)', response_text)
     meta_match = re.search(r'META_DESCRIPTION:\s*(.+?)(?:\n|$)', response_text)
     keywords_match = re.search(r'KEYWORDS:\s*(.+?)(?:\n|$)', response_text)
@@ -813,11 +625,9 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
     read_time = read_time_match.group(1) if read_time_match else "7"
     content = content_match.group(1).strip() if content_match else response_text
     
-    # Ensure title is under 55 characters
     if len(title) > 55:
         title = title[:52].rsplit(' ', 1)[0] + "..."
     
-    # Replace image placeholders with actual images
     for i, img_data in enumerate(images["inline"]):
         placeholder = f"[IMAGE_{i+1}]"
         img_html = f'''
@@ -828,10 +638,6 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
 '''
         content = content.replace(placeholder, img_html)
     
-    # Replace video placeholder with YouTube embed
-    # FIX: Use youtube-nocookie.com for privacy-enhanced mode (works on GitHub Pages)
-    # FIX: Add frameborder="0", loading="lazy", referrerpolicy for cross-origin compat
-    # FIX: Add web-share to allow attribute
     video_html = f'''
             <div class="video-container">
                 <iframe 
@@ -848,11 +654,9 @@ Remember: Help the reader genuinely, position SteadiDay as a helpful tool—not 
 '''
     content = content.replace("[VIDEO]", video_html)
     
-    # Remove any remaining placeholders that weren't replaced
     content = re.sub(r'\[IMAGE_\d+\]', '', content)
     content = content.replace("[VIDEO]", '')
     
-    # Create SHORT slug from title (max 5-6 words)
     slug_words = re.sub(r'[^a-z0-9\s]', '', title.lower()).split()[:5]
     slug = '-'.join(slug_words)
     
@@ -876,16 +680,13 @@ def create_blog_html(post_data: dict) -> tuple:
     
     template = get_html_template()
     
-    # Generate the filename and canonical URL
     filename = f"{post_data['date']}-{post_data['slug']}.html"
     canonical_url = f"{BLOG_BASE_URL}/{filename}"
     
-    # Format the date nicely
     date_obj = datetime.strptime(post_data['date'], '%Y-%m-%d')
     formatted_date = date_obj.strftime('%B %d, %Y')
     iso_date = date_obj.isoformat()
     
-    # Fill in the template
     html = template.format(
         title=post_data['title'],
         meta_description=post_data['meta_description'],
@@ -915,15 +716,12 @@ def update_blog_index(post_data: dict, filename: str):
     with open(index_path, 'r', encoding='utf-8') as f:
         content = f.read()
     
-    # Get image URL for category (thumbnail version)
     category = post_data.get('category', 'Wellness')
     image_url = CATEGORY_IMAGES.get(category, CATEGORY_IMAGES['Wellness'])
     
-    # Format the date
     date_obj = datetime.strptime(post_data['date'], '%Y-%m-%d')
     formatted_date = date_obj.strftime('%B %d, %Y')
     
-    # Create the new blog card entry
     new_entry = f'''<article class="blog-card">
                 <div class="blog-card-image" style="background-image: url('{image_url}');">
                     <span class="blog-card-tag">{category}</span>
@@ -947,18 +745,12 @@ def update_blog_index(post_data: dict, filename: str):
             
             '''
     
-    # Find the marker and insert the new entry
     marker = "<!--BLOG_ENTRIES_START-->"
     if marker in content:
-        # Check if there's already a featured post
         if 'class="blog-card featured"' in content:
-            # Remove 'featured' from the current featured post
             content = content.replace('class="blog-card featured"', 'class="blog-card"', 1)
         
-        # Make the new post the featured one
         new_entry_featured = new_entry.replace('class="blog-card"', 'class="blog-card featured"')
-        
-        # Insert after the marker
         content = content.replace(marker, marker + "\n            " + new_entry_featured)
         
         with open(index_path, 'w', encoding='utf-8') as f:
@@ -973,15 +765,11 @@ def update_blog_index(post_data: dict, filename: str):
 
 def save_blog_post(html: str, filename: str) -> str:
     """Save the blog post to the blog directory."""
-    
     blog_dir = "blog"
     os.makedirs(blog_dir, exist_ok=True)
-    
     filepath = os.path.join(blog_dir, filename)
-    
     with open(filepath, 'w', encoding='utf-8') as f:
         f.write(html)
-    
     return filepath
 
 
@@ -1005,7 +793,6 @@ def main():
     print(f"🌐 Website URL: {WEBSITE_URL}")
     print()
     
-    # Find topic
     if topic_override:
         print(f"📝 Using custom topic: {topic_override}")
         topic_data = {"topic": topic_override, "keyword": topic_override.lower(), "category": "Wellness"}
@@ -1015,7 +802,6 @@ def main():
         print(f"📝 Selected: {topic_data['topic']}")
         print(f"🏷️  Category: {topic_data['category']}")
     
-    # Generate the blog post
     print()
     print("✨ Generating blog content with Claude...")
     post_data = generate_blog_post(topic_data)
@@ -1026,22 +812,18 @@ def main():
     print(f"🖼️  Inline images: ✅ {post_data['num_images']} images")
     print(f"🎬 Video: ✅ \"{post_data['video']['title']}\" by {post_data['video']['channel']}")
     
-    # Create HTML with correct canonical URL
     html, filename = create_blog_html(post_data)
     canonical_url = f"{BLOG_BASE_URL}/{filename}"
     print(f"📄 Filename: {filename}")
     print(f"🔗 Canonical URL: {canonical_url}")
     
-    # Save the post
     filepath = save_blog_post(html, filename)
     print(f"💾 Saved to: {filepath}")
     
-    # Update blog/index.html
     print()
     print("📑 Updating blog index...")
     update_blog_index(post_data, filename)
     
-    # Set GitHub Actions environment variables
     set_github_env("BLOG_TITLE", post_data['title'])
     set_github_env("BLOG_SLUG", post_data['slug'])
     set_github_env("BLOG_DATE", post_data['date'])
@@ -1062,11 +844,6 @@ def main():
     print(f"  • Inline images: ✅ {post_data['num_images']} images embedded")
     print(f"  • Video embed: ✅ YouTube video included (privacy-enhanced)")
     print(f"  • Canonical URL: {canonical_url}")
-    print()
-    print("Design system colors applied:")
-    print("  • Teal: #1A8A7D (links, buttons)")
-    print("  • Navy: #1E3A5F (headings, header)")
-    print("  • Cream: #FFFBF5 (background)")
     print()
 
 
