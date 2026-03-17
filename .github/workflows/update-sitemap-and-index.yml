@@ -1,0 +1,95 @@
+# .github/workflows/update-sitemap-and-index.yml
+#
+# Automatically regenerates sitemap.xml and notifies search engines
+# whenever the site is updated (new blog posts, page changes, etc.)
+#
+# Triggers:
+#   - After the blog generator workflow completes
+#   - After any push to main that changes HTML files
+#   - Manual trigger
+
+name: Update Sitemap & Index
+
+on:
+  # Trigger after blog generator completes
+  workflow_run:
+    workflows: ["Generate Blog Post"]
+    types: [completed]
+    branches: [main]
+  
+  # Trigger on direct HTML changes pushed to main
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'blog/*.html'
+  
+  # Manual trigger
+  workflow_dispatch:
+
+# Prevent concurrent runs
+concurrency:
+  group: sitemap-update
+  cancel-in-progress: false
+
+jobs:
+  update-sitemap:
+    runs-on: ubuntu-latest
+    # Only run if the triggering workflow succeeded (or if triggered by push/manual)
+    if: >
+      github.event_name != 'workflow_run' || 
+      github.event.workflow_run.conclusion == 'success'
+    
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Full history for git log dates
+      
+      # ── Step 1: Regenerate sitemap.xml ──
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      
+      - name: Generate sitemap
+        run: python scripts/generate_sitemap.py
+      
+      - name: Commit updated sitemap
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          
+          git add sitemap.xml
+          
+          # Only commit if there are actual changes
+          if git diff --cached --quiet; then
+            echo "ℹ️  No sitemap changes to commit."
+          else
+            git commit -m "chore: auto-update sitemap.xml [skip ci]"
+            git push
+            echo "✅ Sitemap committed and pushed."
+          fi
+      
+      # ── Step 2: Submit sitemap to Google Search Console ──
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      
+      - name: Install Node dependencies
+        run: |
+          cd scripts
+          npm init -y > /dev/null 2>&1
+          npm install googleapis google-auth-library
+      
+      - name: Submit sitemap to Google
+        env:
+          GOOGLE_SEARCH_CONSOLE_JSON_KEY: ${{ secrets.GOOGLE_SEARCH_CONSOLE_JSON_KEY }}
+        run: node scripts/submit_to_google.js
+      
+      # ── Step 3: Submit to IndexNow (Bing, DuckDuckGo, Yandex) ──
+      - name: Submit to IndexNow
+        env:
+          INDEX_NOW_API_KEY: ${{ secrets.INDEXNOW_KEY }}
+        run: python scripts/submit_to_indexnow.py --days 2
