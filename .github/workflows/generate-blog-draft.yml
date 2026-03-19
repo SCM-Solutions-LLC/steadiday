@@ -1,43 +1,106 @@
 name: Generate Twice-Weekly Blog Post
 on:
   schedule:
-    # Twice a week: Monday and Thursday at 9 AM UTC (5 AM EST)
+    # Monday: news-driven topic (timely, current events)
     - cron: '0 9 * * 1'
+    # Thursday: topic pool (evergreen content)
     - cron: '0 9 * * 4'
   workflow_dispatch:
     inputs:
       topic_override:
-        description: 'Optional: Specify a blog topic'
+        description: 'Optional: Specify a blog topic (leave empty for auto)'
         required: false
         type: string
+      use_news:
+        description: 'Use news-driven topic generation (with web search)'
+        required: false
+        type: boolean
+        default: false
+
 permissions:
   contents: write
+
 env:
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
+
 jobs:
   generate-blog:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          # Fetch latest to avoid push conflicts
+          fetch-depth: 0
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
+
       - name: Install dependencies
         run: |
           pip install anthropic python-dateutil
+
+      - name: Determine generation mode
+        id: mode
+        run: |
+          # For scheduled runs: Monday = news, Thursday = pool
+          DAY_OF_WEEK=$(date +%u)
+          TOPIC="${{ github.event.inputs.topic_override }}"
+          USE_NEWS="${{ github.event.inputs.use_news }}"
+          
+          if [ -n "$TOPIC" ]; then
+            echo "args=$TOPIC" >> $GITHUB_OUTPUT
+            echo "Mode: Custom topic - $TOPIC"
+          elif [ "$USE_NEWS" = "true" ]; then
+            echo "args=--news" >> $GITHUB_OUTPUT
+            echo "Mode: News-driven (manual trigger)"
+          elif [ "$DAY_OF_WEEK" = "1" ]; then
+            echo "args=--news" >> $GITHUB_OUTPUT
+            echo "Mode: News-driven (Monday schedule)"
+          else
+            echo "args=" >> $GITHUB_OUTPUT
+            echo "Mode: Topic pool (Thursday schedule)"
+          fi
+
       - name: Generate blog post
         run: |
-          python scripts/generate_blog.py "${{ github.event.inputs.topic_override }}"
+          if [ -n "${{ steps.mode.outputs.args }}" ]; then
+            python scripts/generate_blog.py "${{ steps.mode.outputs.args }}"
+          else
+            python scripts/generate_blog.py
+          fi
+
       - name: Commit and push to main
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add blog/
-          git diff --cached --quiet || git commit -m "📝 Auto-publish blog: ${{ env.BLOG_TITLE }}"
-          git push
+          
+          # Check if there are changes to commit
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          
+          git commit -m "📝 Auto-publish blog: ${{ env.BLOG_TITLE }}"
+          
+          # Pull with rebase to handle any concurrent commits (e.g., inject workflow)
+          git pull --rebase origin main
+          
+          # Retry push up to 3 times in case of race conditions
+          for i in 1 2 3; do
+            if git push; then
+              echo "Push successful on attempt $i"
+              break
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            sleep 5
+            git pull --rebase origin main
+          done
+
       - name: Send email notification
         if: success()
         uses: dawidd6/action-send-mail@v3
@@ -51,9 +114,12 @@ jobs:
           from: SteadiDay Blog Bot <${{ secrets.EMAIL_USERNAME }}>
           body: |
             A new blog post has been auto-published to steadiday.com!
+            
             Title: ${{ env.BLOG_TITLE }}
             Date: ${{ env.BLOG_DATE }}
             URL: https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
+            
             The post is now live on your website.
+            
             ---
             This is an automated notification from your SteadiDay blog workflow.
