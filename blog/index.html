@@ -364,6 +364,29 @@
             text-decoration: underline;
         }
         
+        .newsletter-message {
+            margin-top: 1rem;
+            padding: 0.85rem 1.25rem;
+            border-radius: var(--radius-md);
+            font-size: 1rem;
+            font-weight: 500;
+            display: none;
+        }
+        
+        .newsletter-message.success {
+            display: block;
+            background: var(--teal-light);
+            color: var(--teal-dark);
+            border: 1px solid rgba(26, 138, 125, 0.25);
+        }
+        
+        .newsletter-message.error {
+            display: block;
+            background: #FFF0F0;
+            color: #C0392B;
+            border: 1px solid rgba(192, 57, 43, 0.2);
+        }
+        
         /* Blog grid */
         .blog-grid {
             display: grid;
@@ -740,13 +763,7 @@
                 <div class="newsletter-icon">📬</div>
                 <h3>Stay in the Loop</h3>
                 <p>Get our latest health and wellness articles delivered to your inbox — every Monday and Thursday. No spam, unsubscribe anytime.</p>
-                <form
-                    action="https://buttondown.com/api/emails/embed-subscribe/steadiday"
-                    method="post"
-                    target="popupwindow"
-                    onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/steadiday', 'popupwindow')"
-                    class="newsletter-form"
-                >
+                <form id="newsletter-form" class="newsletter-form">
                     <div class="form-row">
                         <input
                             type="email"
@@ -756,9 +773,10 @@
                             required
                             aria-label="Email address"
                         />
-                        <button type="submit">Subscribe</button>
+                        <button type="submit" id="subscribe-btn">Subscribe</button>
                     </div>
                 </form>
+                <div id="newsletter-message" class="newsletter-message"></div>
                 <p class="newsletter-note">📡 Prefer RSS? <a href="rss.xml">Grab our feed here</a></p>
             </div>
         </section>
@@ -766,15 +784,6 @@
         <div class="blog-grid">
             <!--BLOG_ENTRIES_START-->
             <article class="blog-card featured">
-                <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80');"><span class="blog-card-tag">Nutrition</span></div>
-                <div class="blog-card-content">
-                    <h2><a href="2026-03-21-foods-that-fight-joint-pain.html">Foods That Fight Joint Pain: Natural Relief at 50+</a></h2>
-                    <div class="blog-meta"><span>March 21, 2026</span><span>•</span><span>7 min read</span></div>
-                    <p class="blog-excerpt">Discover powerful anti-inflammatory foods that can help reduce joint pain naturally. Expert tips and practical meal ideas for adults over 50.</p>
-                    <a href="2026-03-21-foods-that-fight-joint-pain.html" class="read-more">Read full article<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
-                </div></article>
-            
-            <article class="blog-card">
                 <div class="blog-card-image" style="background-image: url('https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80');"><span class="blog-card-tag">Heart Health</span></div>
                 <div class="blog-card-content">
                     <h2><a href="2026-03-19-blood-pressure-numbers-your-complete.html">Blood Pressure Numbers: Your Complete Guide</a></h2>
@@ -1002,6 +1011,42 @@
         </div>
         <p class="footer-copy">&copy; 2026 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
     </footer>
+<!-- Newsletter subscription (inline, no redirect) -->
+<script>
+  document.getElementById('newsletter-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    var email = document.getElementById('bd-email').value.trim();
+    var btn = document.getElementById('subscribe-btn');
+    var msg = document.getElementById('newsletter-message');
+    
+    if (!email) return;
+    
+    // Disable button and show loading state
+    btn.disabled = true;
+    btn.textContent = 'Subscribing...';
+    msg.className = 'newsletter-message';
+    msg.style.display = 'none';
+    
+    fetch('https://buttondown.com/api/emails/embed-subscribe/steadiday', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: 'email=' + encodeURIComponent(email),
+      mode: 'no-cors'
+    }).then(function() {
+      // With no-cors we can't read the response, but the request was sent
+      msg.textContent = '✅ Thanks for subscribing! Please check your email to confirm.';
+      msg.className = 'newsletter-message success';
+      document.getElementById('bd-email').value = '';
+      btn.textContent = 'Subscribed!';
+    }).catch(function() {
+      msg.textContent = 'Something went wrong. Please try again or email us at support@steadiday.com.';
+      msg.className = 'newsletter-message error';
+      btn.disabled = false;
+      btn.textContent = 'Subscribe';
+    });
+  });
+</script>
 <!-- Google Ads: App Store click conversion tracking -->
 <script>
   document.addEventListener('DOMContentLoaded', function() {
