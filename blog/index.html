@@ -24,6 +24,7 @@
     <meta name="description" content="Health and wellness tips for adults 50+. Expert advice on medication management, heart health, sleep, exercise, nutrition & mental wellness from the SteadiDay team.">
     <meta name="keywords" content="senior health blog, medication tips, healthy aging, wellness for seniors, medication reminder app, health tips adults 50+">
     <link rel="canonical" href="https://www.steadiday.com/blog/index.html">
+    <link rel="alternate" type="application/rss+xml" title="SteadiDay Blog RSS" href="https://www.steadiday.com/blog/rss.xml">
     <meta name="apple-itunes-app" content="app-id=6758526744">
     
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg">
@@ -238,7 +239,7 @@
         /* Section title */
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: 1.5rem;
         }
         
         .section-label {
@@ -259,6 +260,108 @@
         .section-header p {
             color: var(--charcoal-light);
             font-size: 1.1rem;
+        }
+        
+        /* Newsletter Signup */
+        .newsletter-signup {
+            max-width: 680px;
+            margin: 0 auto 3rem;
+            padding: 0;
+        }
+        
+        .newsletter-inner {
+            background: linear-gradient(135deg, var(--teal-light) 0%, var(--gold-light) 100%);
+            border: 1px solid rgba(26, 138, 125, 0.15);
+            border-radius: var(--radius-lg);
+            padding: 2.5rem 2rem;
+            text-align: center;
+        }
+        
+        .newsletter-icon {
+            font-size: 2.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .newsletter-inner h3 {
+            font-family: 'Merriweather', Georgia, serif;
+            color: var(--navy);
+            font-size: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        
+        .newsletter-inner > p {
+            color: var(--charcoal-light);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            max-width: 480px;
+            margin: 0 auto 1.5rem;
+        }
+        
+        .newsletter-form {
+            max-width: 460px;
+            margin: 0 auto;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 0.75rem;
+            align-items: stretch;
+        }
+        
+        .form-row input[type="email"] {
+            flex: 1;
+            padding: 0.85rem 1.1rem;
+            font-size: 1.05rem;
+            font-family: 'Source Sans 3', sans-serif;
+            border: 2px solid rgba(30, 58, 95, 0.15);
+            border-radius: var(--radius-md);
+            background: var(--white);
+            color: var(--charcoal);
+            outline: none;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+            min-width: 0;
+        }
+        
+        .form-row input[type="email"]:focus {
+            border-color: var(--teal);
+            box-shadow: 0 0 0 3px rgba(26, 138, 125, 0.15);
+        }
+        
+        .form-row input[type="email"]::placeholder {
+            color: #999;
+        }
+        
+        .form-row button {
+            padding: 0.85rem 1.75rem;
+            font-size: 1.05rem;
+            font-weight: 600;
+            font-family: 'Source Sans 3', sans-serif;
+            background: var(--teal);
+            color: var(--white);
+            border: none;
+            border-radius: var(--radius-md);
+            cursor: pointer;
+            transition: background 0.2s ease, transform 0.1s ease;
+            white-space: nowrap;
+        }
+        
+        .form-row button:hover {
+            background: var(--teal-dark);
+        }
+        
+        .form-row button:active {
+            transform: scale(0.97);
+        }
+        
+        .newsletter-note {
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: var(--charcoal-light);
+        }
+        
+        .newsletter-note a {
+            color: var(--teal);
+            text-decoration: underline;
         }
         
         /* Blog grid */
@@ -579,6 +682,26 @@
                 justify-content: center;
             }
         }
+        
+        @media (max-width: 520px) {
+            .newsletter-inner {
+                padding: 2rem 1.25rem;
+            }
+            
+            .form-row {
+                flex-direction: column;
+            }
+            
+            .form-row button {
+                padding: 1rem;
+                min-height: 52px;
+            }
+            
+            .form-row input[type="email"] {
+                padding: 1rem;
+                min-height: 52px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -610,6 +733,35 @@
             <h2>Expert Advice for Healthier Living</h2>
             <p>Practical tips and insights to help you thrive every day</p>
         </div>
+        
+        <!-- Newsletter Signup Section -->
+        <section class="newsletter-signup" id="subscribe">
+            <div class="newsletter-inner">
+                <div class="newsletter-icon">📬</div>
+                <h3>Stay in the Loop</h3>
+                <p>Get our latest health and wellness articles delivered to your inbox — every Monday and Thursday. No spam, unsubscribe anytime.</p>
+                <form
+                    action="https://buttondown.com/api/emails/embed-subscribe/steadiday"
+                    method="post"
+                    target="popupwindow"
+                    onsubmit="window.open('https://buttondown.com/api/emails/embed-subscribe/steadiday', 'popupwindow')"
+                    class="newsletter-form"
+                >
+                    <div class="form-row">
+                        <input
+                            type="email"
+                            name="email"
+                            id="bd-email"
+                            placeholder="Enter your email address"
+                            required
+                            aria-label="Email address"
+                        />
+                        <button type="submit">Subscribe</button>
+                    </div>
+                </form>
+                <p class="newsletter-note">📡 Prefer RSS? <a href="rss.xml">Grab our feed here</a></p>
+            </div>
+        </section>
         
         <div class="blog-grid">
             <!--BLOG_ENTRIES_START-->
