@@ -1,6 +1,10 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v3.1
+SteadiDay Blog Generator v3.2
+Changes from v3.1:
+- Fixed: YouTube videos now found dynamically via web search (no more stale hardcoded IDs)
+- Kept: CATEGORY_VIDEOS as fallback if dynamic search fails
+- Added: find_youtube_video() function using Claude web_search tool
 Changes from v3.0:
 - Added: RSS feed generation (blog/rss.xml) — auto-updates on every blog post
 - Added: Buttondown email newsletter draft creation via API
@@ -456,6 +460,65 @@ def get_video_for_category(category):
     return random.choice(CATEGORY_VIDEOS.get(category, CATEGORY_VIDEOS['Wellness']))
 
 
+def find_youtube_video(client, topic, category):
+    """Use Claude with web search to find a current, working YouTube video for the blog post.
+
+    Returns a dict with id, title, channel — or None if search fails.
+    Falls back gracefully so the caller can use the hardcoded list instead.
+    """
+
+    prompt = f"""Find ONE YouTube video that is relevant to this blog topic: "{topic}"
+Category: {category}
+
+The video should be:
+- From a reputable health/wellness channel (e.g., Mayo Clinic, Cleveland Clinic, AARP, SilverSneakers, Bob & Brad, Harvard Health, WebMD, Physiotutors, HASfit)
+- Educational and appropriate for adults 50+
+- Currently available on YouTube (not removed or private)
+- Under 15 minutes long
+
+Search YouTube for a relevant video and return ONLY this format with no other text:
+VIDEO_ID: [the 11-character YouTube video ID from the URL]
+VIDEO_TITLE: [exact title of the video]
+VIDEO_CHANNEL: [channel name]
+
+If you cannot find a suitable video, return exactly:
+VIDEO_ID: NONE"""
+
+    try:
+        msg = client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=500,
+            tools=[{"type": "web_search_20250305", "name": "web_search"}],
+            messages=[{"role": "user", "content": prompt}]
+        )
+
+        response_text = ""
+        for block in msg.content:
+            if hasattr(block, 'text'):
+                response_text += block.text
+
+        vid_match = re.search(r'VIDEO_ID:\s*(\S+)', response_text)
+        title_match = re.search(r'VIDEO_TITLE:\s*(.+?)(?:\n|$)', response_text)
+        channel_match = re.search(r'VIDEO_CHANNEL:\s*(.+?)(?:\n|$)', response_text)
+
+        if vid_match and vid_match.group(1).strip() != "NONE":
+            video_id = vid_match.group(1).strip()
+            # Basic validation: YouTube video IDs are 11 characters
+            # (may contain letters, digits, hyphens, underscores)
+            if 10 <= len(video_id) <= 12:
+                return {
+                    "id": video_id,
+                    "title": title_match.group(1).strip() if title_match else "Health & Wellness Tips",
+                    "channel": channel_match.group(1).strip() if channel_match else "Health Channel"
+                }
+
+        print("  Could not find a dynamic video, using fallback")
+    except Exception as e:
+        print(f"  Video search failed: {e}, using fallback")
+
+    return None
+
+
 def select_unique_topic(existing_posts):
     """Select a topic from the pool that hasn't been covered yet."""
     random.shuffle(TOPIC_CATEGORIES)
@@ -476,7 +539,14 @@ def generate_blog_post(topic_data, existing_posts, client):
     category = topic_data.get("category", "Wellness")
 
     images = get_images_for_category(category)
-    video = get_video_for_category(category)
+    # Try to find a fresh, working YouTube video via web search
+    print("  Searching for relevant YouTube video...")
+    video = find_youtube_video(client, topic, category)
+    if video is None:
+        video = get_video_for_category(category)
+        print(f"  Using fallback video: {video['title']}")
+    else:
+        print(f"  Found video: {video['title']} by {video['channel']}")
     num_images = len(images["inline"])
     feature = random.choice(STEADIDAY_FEATURES["free"])
 
@@ -843,7 +913,7 @@ def main():
         use_news = True
 
     print("=" * 60)
-    print("SteadiDay Blog Generator v3.1")
+    print("SteadiDay Blog Generator v3.2")
     print("=" * 60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"Mode: {'Custom topic' if topic_override else 'News-driven' if use_news else 'Topic pool'}")
