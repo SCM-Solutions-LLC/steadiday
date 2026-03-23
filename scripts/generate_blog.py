@@ -1,6 +1,9 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v3.3
+SteadiDay Blog Generator v3.4
+Changes from v3.3:
+- Fixed: call_with_retry() now handles 429 rate limit errors (not just 529/5xx)
+- Increased max_retries from 3 to 5 for better resilience
 Changes from v3.2:
 - Added: Retry logic with exponential backoff for transient API errors (529 Overloaded, 5xx)
 - Added: call_with_retry() helper wrapping all client.messages.create() calls
@@ -9,7 +12,7 @@ Changes from v3.1:
 - Kept: CATEGORY_VIDEOS as fallback if dynamic search fails
 - Added: find_youtube_video() function using Claude web_search tool
 Changes from v3.0:
-- Added: RSS feed generation (blog/rss.xml) — auto-updates on every blog post
+- Added: RSS feed generation (blog/rss.xml) -- auto-updates on every blog post
 - Added: Buttondown email newsletter draft creation via API
 - Added: RSS <link> tag in blog post HTML template <head>
 """
@@ -33,16 +36,16 @@ APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
 
 
 # ============================================================
-# RETRY HELPER — handles 529 Overloaded and 5xx errors
+# RETRY HELPER -- handles 429 Rate Limit, 529 Overloaded, 5xx
 # ============================================================
 
-def call_with_retry(func, max_retries=3, base_delay=30):
+def call_with_retry(func, max_retries=5, base_delay=30):
     """Call func() with exponential backoff on transient API errors."""
     for attempt in range(max_retries + 1):
         try:
             return func()
         except APIStatusError as e:
-            if e.status_code in (529,) or e.status_code >= 500:
+            if e.status_code in (429, 529) or e.status_code >= 500:
                 if attempt == max_retries:
                     raise
                 delay = base_delay * (2 ** attempt)
@@ -286,7 +289,7 @@ TOPIC_CATEGORIES = [
     {"topic": "How social connection protects your brain", "keyword": "social connection brain health", "category": "Brain Health"},
     {"topic": "Crossword puzzles and games for cognitive health", "keyword": "brain games seniors", "category": "Brain Health"},
 
-    # Nutrition (distinct angles — no more generic "heart-healthy recipes")
+    # Nutrition (distinct angles)
     {"topic": "The importance of staying hydrated as we age", "keyword": "hydration tips elderly", "category": "Nutrition"},
     {"topic": "Healthy snacks for sustained energy after 50", "keyword": "healthy snacks seniors", "category": "Nutrition"},
     {"topic": "Anti-inflammatory foods for joint pain relief", "keyword": "anti inflammatory foods seniors", "category": "Nutrition"},
@@ -488,7 +491,7 @@ def get_video_for_category(category):
 def find_youtube_video(client, topic, category):
     """Use Claude with web search to find a current, working YouTube video for the blog post.
 
-    Returns a dict with id, title, channel — or None if search fails.
+    Returns a dict with id, title, channel -- or None if search fails.
     Falls back gracefully so the caller can use the hardcoded list instead.
     """
 
@@ -598,7 +601,7 @@ REQUIREMENTS:
 2. 1000-1500 words, warm conversational tone, 6-7 sections with <h2> tags
 3. Mention SteadiDay's {feature} feature naturally (all features are free)
 4. Include at least one specific statistic with its source
-5. Write for adults 50+ — practical, respectful, empowering
+5. Write for adults 50+ -- practical, respectful, empowering
 
 MEDIA PLACEHOLDERS:
 {img_ph}
@@ -651,7 +654,7 @@ CONTENT:
     # Replace video placeholder
     content = content.replace(
         "[VIDEO]",
-        f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} — {video["channel"]}</p>'
+        f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>'
     )
 
     # Clean up any remaining placeholders
@@ -716,7 +719,7 @@ def update_blog_index(post_data, filename):
                 <div class="blog-card-image" style="background-image: url('{img}');"><span class="blog-card-tag">{cat}</span></div>
                 <div class="blog-card-content">
                     <h2><a href="{filename}">{post_data['title']}</a></h2>
-                    <div class="blog-meta"><span>{d}</span><span>•</span><span>{post_data['read_time']} min read</span></div>
+                    <div class="blog-meta"><span>{d}</span><span>*</span><span>{post_data['read_time']} min read</span></div>
                     <p class="blog-excerpt">{post_data['meta_description']}</p>
                     <a href="{filename}" class="read-more">Read full article<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
                 </div></article>\n            '''
@@ -820,7 +823,7 @@ def generate_rss_feed(blog_dir="blog"):
     rss_xml = f"""<?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>SteadiDay Blog — Health &amp; Wellness for Adults 50+</title>
+        <title>SteadiDay Blog -- Health &amp; Wellness for Adults 50+</title>
         <link>{WEBSITE_URL}/blog/index.html</link>
         <description>Health and wellness tips for adults 50+. Expert advice on medication management, heart health, sleep, exercise, nutrition and mental wellness from the SteadiDay team.</description>
         <language>en-us</language>
@@ -847,7 +850,7 @@ def generate_rss_feed(blog_dir="blog"):
 def notify_buttondown(post_data, filename):
     """Draft a Buttondown email notification for the new blog post.
 
-    Creates a DRAFT by default — you review and send from buttondown.com.
+    Creates a DRAFT by default -- you review and send from buttondown.com.
     To auto-send instead, change "status": "draft" to "status": "about_to_send".
     """
 
@@ -863,7 +866,7 @@ def notify_buttondown(post_data, filename):
 
 {post_data['meta_description']}
 
-**[Read the full article →]({canonical_url})**
+**[Read the full article ->]({canonical_url})**
 
 ---
 
@@ -938,7 +941,7 @@ def main():
         use_news = True
 
     print("=" * 60)
-    print("SteadiDay Blog Generator v3.3")
+    print("SteadiDay Blog Generator v3.4")
     print("=" * 60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"Mode: {'Custom topic' if topic_override else 'News-driven' if use_news else 'Topic pool'}")
