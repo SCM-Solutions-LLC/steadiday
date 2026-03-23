@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
     <channel>
-        <title>SteadiDay Blog — Health &amp; Wellness for Adults 50+</title>
+        <title>SteadiDay Blog -- Health &amp; Wellness for Adults 50+</title>
         <link>https://www.steadiday.com/blog/index.html</link>
         <description>Health and wellness tips for adults 50+. Expert advice on medication management, heart health, sleep, exercise, nutrition and mental wellness from the SteadiDay team.</description>
         <language>en-us</language>
-        <lastBuildDate>Sat, 21 Mar 2026 20:28:05 GMT</lastBuildDate>
+        <lastBuildDate>Mon, 23 Mar 2026 14:31:44 GMT</lastBuildDate>
         <atom:link href="https://www.steadiday.com/blog/rss.xml" rel="self" type="application/rss+xml" />
         <image>
             <url>https://www.steadiday.com/assets/icon.jpeg</url>
@@ -18,6 +18,13 @@
             <guid isPermaLink="true">https://www.steadiday.com/blog/best-medication-reminder-apps-seniors.html</guid>
             <description>Compare the top medication reminder apps for seniors in 2026. We review Medisafe, Pill Reminder, CareZone, and more to help you find the best fit.</description>
             <pubDate></pubDate>
+        </item>
+        <item>
+            <title>Why Vaccination Rates Are Dropping for Adults 50+</title>
+            <link>https://www.steadiday.com/blog/2026-03-23-why-vaccination-rates-are-dropping.html</link>
+            <guid isPermaLink="true">https://www.steadiday.com/blog/2026-03-23-why-vaccination-rates-are-dropping.html</guid>
+            <description>New CDC data reveals concerning drops in flu, COVID, and pneumonia vaccination rates among older adults. Learn why this matters and how to stay protected.</description>
+            <pubDate>Mon, 23 Mar 2026 00:00:00 GMT</pubDate>
         </item>
         <item>
             <title>Foods That Fight Joint Pain: Natural Relief at 50+</title>
