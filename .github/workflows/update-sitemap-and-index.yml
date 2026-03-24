@@ -24,10 +24,8 @@ on:
   
   # Manual trigger
   workflow_dispatch:
-
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 # Prevent concurrent runs
 concurrency:
   group: sitemap-update
@@ -64,11 +62,20 @@ jobs:
           
           # Only commit if there are actual changes
           if git diff --cached --quiet; then
-            echo "ℹ️  No sitemap changes to commit."
+            echo "No sitemap changes to commit."
           else
             git commit -m "chore: auto-update sitemap.xml [skip ci]"
-            git push
-            echo "✅ Sitemap committed and pushed."
+            git pull --rebase origin main
+            for i in 1 2 3; do
+              if git push; then
+                echo "Push successful on attempt $i"
+                break
+              fi
+              echo "Push failed on attempt $i, retrying..."
+              sleep 5
+              git pull --rebase origin main
+            done
+            echo "Sitemap committed and pushed."
           fi
       
       # ── Step 2: Submit sitemap to Google Search Console ──
