@@ -2,40 +2,43 @@
 # Automatically injects Google Ads gtag + App Store conversion tracking
 # into all HTML files whenever new .html files are pushed.
 # Can also be triggered manually from the Actions tab.
-
 name: Inject Google Ads Tag
-
 on:
   push:
     paths:
       - '**.html'
   workflow_dispatch:  # Manual trigger
-
 permissions:
   contents: write
-
 env:
   FORCE_JAVASCRIPT_ACTIONS_TO_NODE24: true
-
 jobs:
   inject:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
-
+        with:
+          fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.x'
-
       - name: Run injection script
         run: python scripts/inject_gtag.py .
-
       - name: Commit changes
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
           git diff --cached --quiet || git commit -m "Auto-inject Google Ads gtag + conversion tracking"
-          git push
+          git pull --rebase origin main
+          for i in 1 2 3; do
+            if git push; then
+              echo "Push successful on attempt $i"
+              break
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            sleep 5
+            git pull --rebase origin main
+          done
