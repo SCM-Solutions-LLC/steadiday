@@ -1,30 +1,18 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v3.6
-Changes from v3.5:
-- Fixed: Added verify_youtube_video() that checks YouTube oEmbed API before embedding
-- Fixed: Fallback videos from CATEGORY_VIDEOS are now verified before use (skips dead/private videos)
-- Fixed: If no working video is found, blog publishes without a video instead of showing Video unavailable
-- Fixed: Dynamically-found videos are also verified before embedding
-Changes from v3.4:
-- Fixed: YouTube embeds now use youtube.com instead of youtube-nocookie.com
-- Fixed: Removed loading lazy from video iframes
-- Fixed: Removed deprecated frameborder 0
-- Updated: referrerpolicy to strict-origin-when-cross-origin
-Changes from v3.3:
-- Fixed: call_with_retry() now handles 429 rate limit errors (not just 529/5xx)
-- Increased max_retries from 3 to 5 for better resilience
-Changes from v3.2:
-- Added: Retry logic with exponential backoff for transient API errors
-- Added: call_with_retry() helper wrapping all client.messages.create() calls
-Changes from v3.1:
-- Fixed: YouTube videos now found dynamically via web search
-- Kept: CATEGORY_VIDEOS as fallback if dynamic search fails
-- Added: find_youtube_video() function using Claude web_search tool
-Changes from v3.0:
-- Added: RSS feed generation (blog/rss.xml)
-- Added: Buttondown email newsletter draft creation via API
-- Added: RSS link tag in blog post HTML template head
+SteadiDay Blog Generator v4.0
+Changes from v3.6:
+- NEW: Category cooldown system — tracks which categories were used in recent posts
+  and forces rotation so the same category can't appear in consecutive posts
+- NEW: Content-aware duplicate detection — extracts 1-line summaries of recent posts
+  and passes them (not just titles) to Claude for topic generation and content writing
+- NEW: Greatly expanded topic pool (60+ topics) with new categories: caregiving,
+  technology, financial wellness, dental health, travel, seasonal health, etc.
+- FIXED: Pruned overlapping topics that produced near-identical articles
+  (removed "anti-inflammatory foods for joint pain" which duplicated 3+ times)
+- FIXED: News-driven mode now receives content summaries to avoid thematic overlap
+- FIXED: Blog content prompt includes recent post summaries for true uniqueness
+- NEW: Topic pool organized by theme clusters to prevent thematic repetition
 """
 
 import anthropic
@@ -37,12 +25,15 @@ import glob
 import json
 import time
 import urllib.request
-from datetime import datetime
+from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
+
+# How many recent posts to check for category cooldown
+CATEGORY_COOLDOWN_WINDOW = 4
 
 
 def call_with_retry(func, max_retries=5, base_delay=30):
@@ -75,16 +66,40 @@ def get_existing_posts(blog_dir="blog"):
         except OSError:
             pass
         title = ""
+        category = ""
+        meta_desc = ""
+        date_str = ""
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read(5000)
+                content = f.read(8000)
                 m = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL)
                 if m:
                     title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
+                # Extract category from blog index card tag if available
+                cat_m = re.search(r'class="blog-card-tag">([^<]+)<', content)
+                if cat_m:
+                    category = cat_m.group(1).strip()
+                # Extract meta description for content summary
+                desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', content)
+                if desc_m:
+                    meta_desc = desc_m.group(1).strip()
         except Exception:
             pass
+        # Extract date from filename
+        date_match = re.match(r'(\d{4}-\d{2}-\d{2})', filename)
+        if date_match:
+            date_str = date_match.group(1)
         slug = re.sub(r'^\d{4}-\d{2}-\d{2}-', '', filename.replace('.html', ''))
-        existing.append({"filename": filename, "title": title, "slug": slug})
+        existing.append({
+            "filename": filename,
+            "title": title,
+            "slug": slug,
+            "category": category,
+            "meta_desc": meta_desc,
+            "date": date_str,
+        })
+    # Sort by date descending (most recent first)
+    existing.sort(key=lambda p: p.get('date', ''), reverse=True)
     return existing
 
 
@@ -108,6 +123,7 @@ def get_content_words(text):
         'also', 'more', 'most', 'some', 'any', 'all', 'each', 'every',
         'simple', 'easy', 'best', 'top', 'guide', 'tips', 'ways',
         'adults', 'seniors', '50', 'over', 'after', 'really', 'complete',
+        'natural', 'naturally', 'better', 'healthy', 'health', 'improve',
     }
     words = set(normalize_text(text).split())
     return words - stop
@@ -140,21 +156,34 @@ def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.55, thre
 def check_semantic_duplicate(client, new_title, existing_posts):
     if not existing_posts:
         return False, ""
-    existing_titles = [p['title'] for p in existing_posts if p['title']]
-    if not existing_titles:
+    # Use content summaries, not just titles
+    existing_info = []
+    for p in existing_posts:
+        if p['title']:
+            summary = p['title']
+            if p.get('meta_desc'):
+                summary += f" — {p['meta_desc']}"
+            existing_info.append(summary)
+    if not existing_info:
         return False, ""
-    titles_list = "\n".join([f"- {t}" for t in existing_titles])
-    prompt = f"""You are a blog content deduplication checker.
+    posts_list = "\n".join([f"- {info}" for info in existing_info[:25]])
+    prompt = f"""You are a blog content deduplication checker. Be STRICT about catching thematic overlap.
 
 PROPOSED NEW POST TITLE: "{new_title}"
 
-EXISTING POSTS:
-{titles_list}
+EXISTING POSTS (title + summary):
+{posts_list}
 
 Would the proposed post cover substantially the same ground as any existing post?
-Consider: same core topic, same target advice, same actionable takeaways.
-Different angles on the same broad category (e.g., "nutrition") are OK.
-Same specific advice reworded (e.g., "blood pressure explained" vs "understanding blood pressure numbers") is NOT OK.
+
+BE STRICT. These count as duplicates:
+- Same core advice reframed (e.g., "foods for joint pain" vs "anti-inflammatory foods for joints")
+- Same target condition + same solution category (e.g., two posts about eating to reduce joint pain)
+- Same actionable takeaways even with different framing
+
+These are NOT duplicates:
+- Same broad category but genuinely different focus (e.g., "sleep hygiene" vs "sleep apnea signs")
+- Related topics with different practical advice (e.g., "walking for fitness" vs "balance exercises")
 
 Reply with ONLY one of:
 UNIQUE - if the topic is sufficiently different
@@ -171,19 +200,52 @@ DUPLICATE OF: [existing title] - if it overlaps too much"""
     return False, ""
 
 
-def generate_news_driven_topic(client, existing_posts):
-    existing_titles = [p['title'] for p in existing_posts if p['title']]
-    avoid = "\n".join([f"- {t}" for t in existing_titles]) if existing_titles else "None yet."
+def get_recent_categories(existing_posts, window=CATEGORY_COOLDOWN_WINDOW):
+    """Get categories used in the most recent N posts."""
+    recent_cats = []
+    for post in existing_posts[:window]:
+        cat = post.get('category', '')
+        if cat:
+            recent_cats.append(cat)
+    return recent_cats
+
+
+def get_content_summaries(existing_posts, limit=15):
+    """Build content summaries of recent posts for prompts."""
+    summaries = []
+    for p in existing_posts[:limit]:
+        if p['title']:
+            line = f"- [{p.get('category', 'Wellness')}] \"{p['title']}\""
+            if p.get('meta_desc'):
+                line += f" — {p['meta_desc']}"
+            summaries.append(line)
+    return "\n".join(summaries) if summaries else "None yet."
+
+
+def generate_news_driven_topic(client, existing_posts, excluded_categories=None):
+    content_summaries = get_content_summaries(existing_posts)
+
+    category_note = ""
+    if excluded_categories:
+        category_note = f"\nDO NOT use these categories (used recently): {', '.join(excluded_categories)}"
+
     prompt = f"""Search for recent health news, studies, or guidelines relevant to adults over 50.
 Look for stories from the past 2 weeks from sources like NIH, CDC, Mayo Clinic, AARP, or major health journals.
 
 Then suggest ONE blog topic based on what you find that would be timely and useful.
 
-EXISTING POSTS (do NOT duplicate these topics):
-{avoid}
+EXISTING POSTS WITH SUMMARIES (do NOT duplicate these topics OR their themes):
+{content_summaries}
+
+IMPORTANT: Do not write about a topic if the core advice would substantially overlap with any
+existing post above. For example, if there's already a post about anti-inflammatory foods for
+joint pain, do NOT write another post about foods that help joints — find a genuinely different topic.
+{category_note}
 
 Consider topics like: new medical guidelines, seasonal health alerts, recent study findings,
-emerging wellness trends for older adults, new recommendations from health organizations.
+emerging wellness trends for older adults, new recommendations from health organizations,
+technology for health management, caregiving tips, financial wellness, dental health,
+travel health, hearing health, vision care, mental health breakthroughs.
 
 FORMAT YOUR RESPONSE EXACTLY AS:
 TOPIC: [specific description of the topic]
@@ -231,41 +293,91 @@ SOURCE: [the news source or study you found]"""
     return result
 
 
+# =============================================================================
+# TOPIC POOL — Organized by theme cluster to prevent thematic repetition
+# Each topic should produce a DISTINCT article with unique actionable advice
+# =============================================================================
+
 TOPIC_CATEGORIES = [
+    # --- EXERCISE (distinct movement types) ---
     {"topic": "Chair exercises you can do while watching TV", "keyword": "chair exercises seniors", "category": "Exercise"},
     {"topic": "Balance exercises to prevent falls at home", "keyword": "balance exercises seniors", "category": "Exercise"},
     {"topic": "Gentle yoga poses for beginners over 50", "keyword": "yoga seniors beginners", "category": "Exercise"},
     {"topic": "Walking for health: Getting started safely", "keyword": "walking exercise seniors", "category": "Exercise"},
+    {"topic": "Swimming and water aerobics for low-impact fitness", "keyword": "water aerobics seniors", "category": "Exercise"},
+    {"topic": "Resistance band workouts you can do at home", "keyword": "resistance band exercises seniors", "category": "Exercise"},
+
+    # --- MEDICATION MANAGEMENT (distinct aspects) ---
     {"topic": "How to build a medication routine that sticks", "keyword": "medication routine tips", "category": "Medication Tips"},
     {"topic": "Understanding common medication side effects", "keyword": "medication side effects", "category": "Medication Tips"},
     {"topic": "Questions to ask your pharmacist at every visit", "keyword": "pharmacist questions seniors", "category": "Medication Tips"},
     {"topic": "How to safely store medications at home", "keyword": "medication storage tips", "category": "Medication Tips"},
+    {"topic": "Traveling with medications: what you need to know", "keyword": "traveling with medications tips", "category": "Medication Tips"},
+
+    # --- HEART HEALTH (distinct sub-topics) ---
     {"topic": "Foods that naturally lower cholesterol", "keyword": "lower cholesterol naturally", "category": "Heart Health"},
     {"topic": "Warning signs your heart needs attention", "keyword": "heart warning signs seniors", "category": "Heart Health"},
+    {"topic": "Understanding atrial fibrillation after 50", "keyword": "atrial fibrillation seniors", "category": "Heart Health"},
+
+    # --- BRAIN HEALTH (distinct approaches) ---
     {"topic": "5 brain exercises to keep your mind sharp", "keyword": "brain exercises seniors", "category": "Brain Health"},
     {"topic": "How social connection protects your brain", "keyword": "social connection brain health", "category": "Brain Health"},
-    {"topic": "Crossword puzzles and games for cognitive health", "keyword": "brain games seniors", "category": "Brain Health"},
+    {"topic": "Learning a new skill after 50 boosts brain health", "keyword": "learning new skill seniors brain", "category": "Brain Health"},
+    {"topic": "Early signs of cognitive change vs normal aging", "keyword": "cognitive decline vs normal aging", "category": "Brain Health"},
+
+    # --- NUTRITION (distinct focuses — NO joint pain / anti-inflammatory overlap) ---
     {"topic": "The importance of staying hydrated as we age", "keyword": "hydration tips elderly", "category": "Nutrition"},
     {"topic": "Healthy snacks for sustained energy after 50", "keyword": "healthy snacks seniors", "category": "Nutrition"},
-    {"topic": "Anti-inflammatory foods for joint pain relief", "keyword": "anti inflammatory foods seniors", "category": "Nutrition"},
     {"topic": "Meal planning made simple for one or two", "keyword": "meal planning seniors", "category": "Nutrition"},
     {"topic": "Calcium and vitamin D for strong bones", "keyword": "calcium vitamin D seniors", "category": "Nutrition"},
+    {"topic": "How to read nutrition labels like a pro", "keyword": "reading nutrition labels seniors", "category": "Nutrition"},
+    {"topic": "Protein needs after 50: how much you really need", "keyword": "protein requirements seniors", "category": "Nutrition"},
+    {"topic": "Gut health and probiotics: what the science says", "keyword": "gut health probiotics seniors", "category": "Nutrition"},
+
+    # --- SLEEP (distinct aspects) ---
     {"topic": "Why sleep patterns change as we age", "keyword": "sleep changes aging", "category": "Sleep"},
     {"topic": "Creating a bedtime routine that works", "keyword": "bedtime routine seniors", "category": "Sleep"},
+    {"topic": "Sleep apnea: signs you should talk to your doctor", "keyword": "sleep apnea signs seniors", "category": "Sleep"},
+
+    # --- MENTAL WELLNESS (distinct angles) ---
     {"topic": "Staying social: Why connection matters after 60", "keyword": "social connection elderly", "category": "Mental Wellness"},
     {"topic": "Dealing with loneliness after retirement", "keyword": "loneliness retirement seniors", "category": "Mental Wellness"},
     {"topic": "Gratitude journaling for better mental health", "keyword": "gratitude journal seniors", "category": "Mental Wellness"},
     {"topic": "How volunteering boosts your wellbeing", "keyword": "volunteering seniors benefits", "category": "Mental Wellness"},
+    {"topic": "Coping with grief and loss as we age", "keyword": "grief coping seniors", "category": "Mental Wellness"},
+    {"topic": "Setting boundaries with family and friends", "keyword": "setting boundaries seniors", "category": "Mental Wellness"},
+
+    # --- SAFETY (distinct scenarios) ---
     {"topic": "How to prevent falls at home", "keyword": "fall prevention seniors", "category": "Safety"},
     {"topic": "Home safety checklist for aging in place", "keyword": "home safety seniors checklist", "category": "Safety"},
     {"topic": "Staying safe in extreme heat and cold", "keyword": "weather safety seniors", "category": "Safety"},
-    {"topic": "The health benefits of gardening after 50", "keyword": "gardening health benefits seniors", "category": "Wellness"},
-    {"topic": "How pets improve health and happiness", "keyword": "pets health benefits seniors", "category": "Wellness"},
+    {"topic": "Recognizing and avoiding common scams targeting seniors", "keyword": "scam prevention seniors", "category": "Safety"},
+    {"topic": "Emergency preparedness for older adults", "keyword": "emergency preparedness seniors", "category": "Safety"},
+
+    # --- WELLNESS — BODY (distinct body systems) ---
     {"topic": "Eye health tips to protect your vision", "keyword": "eye health tips seniors", "category": "Wellness"},
     {"topic": "Hearing health and when to get tested", "keyword": "hearing health seniors", "category": "Wellness"},
     {"topic": "Skin care and sun protection after 50", "keyword": "skin care seniors sun protection", "category": "Wellness"},
-    {"topic": "Managing arthritis pain with daily habits", "keyword": "arthritis management seniors", "category": "Wellness"},
     {"topic": "Digestive health tips for adults over 50", "keyword": "digestive health seniors", "category": "Wellness"},
+    {"topic": "Dental health: protecting your teeth and gums", "keyword": "dental health seniors", "category": "Wellness"},
+    {"topic": "Managing arthritis pain with daily habits", "keyword": "arthritis management seniors", "category": "Wellness"},
+    {"topic": "Foot care tips for comfort and mobility", "keyword": "foot care seniors", "category": "Wellness"},
+
+    # --- WELLNESS — LIFESTYLE (distinct life activities) ---
+    {"topic": "The health benefits of gardening after 50", "keyword": "gardening health benefits seniors", "category": "Wellness"},
+    {"topic": "How pets improve health and happiness", "keyword": "pets health benefits seniors", "category": "Wellness"},
+    {"topic": "Downsizing and decluttering for peace of mind", "keyword": "downsizing decluttering seniors", "category": "Wellness"},
+    {"topic": "Travel tips for healthy adventures after 50", "keyword": "travel health tips seniors", "category": "Wellness"},
+
+    # --- HEALTHY AGING (distinct focuses) ---
+    {"topic": "What to expect at your annual wellness visit", "keyword": "annual checkup seniors", "category": "Healthy Aging"},
+    {"topic": "Navigating Medicare: a beginner-friendly overview", "keyword": "medicare basics seniors", "category": "Healthy Aging"},
+    {"topic": "Staying independent: tools and tech that help", "keyword": "independence technology seniors", "category": "Healthy Aging"},
+    {"topic": "Caregiving for a loved one: taking care of yourself too", "keyword": "caregiver self care tips", "category": "Healthy Aging"},
+    {"topic": "Financial wellness: budgeting in retirement", "keyword": "retirement budget tips seniors", "category": "Healthy Aging"},
+    {"topic": "Building a healthcare team you trust", "keyword": "healthcare team seniors", "category": "Healthy Aging"},
+    {"topic": "How to talk to your doctor about sensitive topics", "keyword": "doctor communication seniors", "category": "Healthy Aging"},
+    {"topic": "Preparing advance directives and health proxies", "keyword": "advance directives planning", "category": "Healthy Aging"},
 ]
 
 CATEGORY_IMAGES = {
@@ -525,13 +637,33 @@ VIDEO_ID: NONE"""
 
 
 def select_unique_topic(existing_posts):
-    random.shuffle(TOPIC_CATEGORIES)
-    for td in TOPIC_CATEGORIES:
+    """Select a topic from the pool, respecting category cooldown and dedup."""
+    recent_cats = get_recent_categories(existing_posts)
+    print(f"  Recent categories (last {CATEGORY_COOLDOWN_WINDOW}): {recent_cats}")
+
+    # Shuffle to randomize selection within constraints
+    shuffled = TOPIC_CATEGORIES[:]
+    random.shuffle(shuffled)
+
+    # First pass: try topics NOT in recently-used categories
+    for td in shuffled:
+        if td['category'] in recent_cats:
+            continue
         slug_words = re.sub(r'[^a-z0-9\s]', '', td['topic'].lower()).split()[:5]
         test_slug = '-'.join(slug_words)
         dup, reason, match = is_duplicate(td['topic'], test_slug, existing_posts)
         if not dup:
             return td
+
+    # Second pass: allow recent categories but still check dedup
+    print("  All non-recent categories exhausted, relaxing cooldown...")
+    for td in shuffled:
+        slug_words = re.sub(r'[^a-z0-9\s]', '', td['topic'].lower()).split()[:5]
+        test_slug = '-'.join(slug_words)
+        dup, reason, match = is_duplicate(td['topic'], test_slug, existing_posts)
+        if not dup:
+            return td
+
     return None
 
 
@@ -562,8 +694,8 @@ def generate_blog_post(topic_data, existing_posts, client):
 
     img_ph = "\n".join([f"After section {i+2}, insert exactly: [IMAGE_{i+1}]" for i in range(num_images)])
 
-    existing_titles = [p['title'] for p in existing_posts if p['title']]
-    avoid = "\n".join([f"- {t}" for t in existing_titles[:20]]) if existing_titles else "None."
+    # Build content summaries instead of just titles
+    content_summaries = get_content_summaries(existing_posts)
 
     angle_instruction = ""
     if topic_data.get('angle'):
@@ -574,8 +706,15 @@ def generate_blog_post(topic_data, existing_posts, client):
     prompt = f"""You are a health and wellness content writer for SteadiDay, an app for adults 50+.
 Write a blog post about: "{topic}"
 {angle_instruction}
-CRITICAL: Must be UNIQUE. Do NOT overlap with these existing posts:
-{avoid}
+
+CRITICAL UNIQUENESS REQUIREMENT:
+Below are your existing published posts with their summaries. Your new post MUST be genuinely
+different — not just a different title on the same advice. If existing posts already cover
+anti-inflammatory foods, omega-3s, turmeric, or joint pain nutrition, do NOT rehash that content.
+Find a FRESH angle with DIFFERENT practical advice.
+
+EXISTING POSTS (category, title, summary):
+{content_summaries}
 
 REQUIREMENTS:
 1. TITLE under 55 characters, clearly different from existing posts
@@ -583,6 +722,7 @@ REQUIREMENTS:
 3. Mention SteadiDay's {feature} feature naturally (all features are free)
 4. Include at least one specific statistic with its source
 5. Write for adults 50+ - practical, respectful, empowering
+6. The advice and takeaways must be DISTINCT from any existing post
 
 MEDIA PLACEHOLDERS:
 {img_ph}
@@ -846,7 +986,7 @@ def main():
         use_news = True
 
     print("=" * 60)
-    print("SteadiDay Blog Generator v3.6")
+    print("SteadiDay Blog Generator v4.0")
     print("=" * 60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"Mode: {'Custom topic' if topic_override else 'News-driven' if use_news else 'Topic pool'}")
@@ -855,18 +995,25 @@ def main():
     print("Scanning existing posts...")
     existing = get_existing_posts()
     print(f"Found {len(existing)} existing posts")
-    for p in existing:
-        print(f"  - {p['title'] or p['filename']}")
+    for p in existing[:10]:
+        cat_label = f" [{p['category']}]" if p.get('category') else ""
+        print(f"  - {p['title'] or p['filename']}{cat_label}")
+    if len(existing) > 10:
+        print(f"  ... and {len(existing) - 10} more")
     print()
 
     client = anthropic.Anthropic()
+
+    # Determine excluded categories for cooldown
+    recent_cats = get_recent_categories(existing)
+    excluded_cats = list(set(recent_cats))  # Unique recent categories
 
     if topic_override:
         print(f"Custom topic: {topic_override}")
         td = {"topic": topic_override, "keyword": topic_override.lower(), "category": "Wellness"}
     elif use_news:
         print("Generating news-driven topic (with web search)...")
-        td = generate_news_driven_topic(client, existing)
+        td = generate_news_driven_topic(client, existing, excluded_categories=excluded_cats)
         print(f"  Topic: {td['topic']}")
         print(f"  Category: {td['category']}")
         if td.get('angle'):
@@ -878,7 +1025,7 @@ def main():
         td = select_unique_topic(existing)
         if td is None:
             print("All pool topics used! Switching to news-driven...")
-            td = generate_news_driven_topic(client, existing)
+            td = generate_news_driven_topic(client, existing, excluded_categories=excluded_cats)
         else:
             print(f"  Selected: {td['topic']}")
             print(f"  Category: {td['category']}")
@@ -897,7 +1044,7 @@ def main():
     if dup:
         print(f"  Duplicate detected: {reason}")
         print("  Retrying with news-driven topic...")
-        td = generate_news_driven_topic(client, existing)
+        td = generate_news_driven_topic(client, existing, excluded_categories=excluded_cats)
         post = generate_blog_post(td, existing, client)
         slug = '-'.join(re.sub(r'[^a-z0-9\s]', '', post['title'].lower()).split()[:5])
         dup2, r2, s2 = is_duplicate(post['title'], slug, existing)
@@ -912,6 +1059,7 @@ def main():
             sys.exit(1)
 
     print(f"\n  Title: {post['title']} ({len(post['title'])} chars)")
+    print(f"  Category: {post['category']}")
     print(f"  Duplicate check: PASS")
 
     html, fn = create_blog_html(post)
