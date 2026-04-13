@@ -1,18 +1,22 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v4.0
-Changes from v3.6:
-- NEW: Category cooldown system — tracks which categories were used in recent posts
-  and forces rotation so the same category can't appear in consecutive posts
-- NEW: Content-aware duplicate detection — extracts 1-line summaries of recent posts
-  and passes them (not just titles) to Claude for topic generation and content writing
-- NEW: Greatly expanded topic pool (60+ topics) with new categories: caregiving,
-  technology, financial wellness, dental health, travel, seasonal health, etc.
-- FIXED: Pruned overlapping topics that produced near-identical articles
-  (removed "anti-inflammatory foods for joint pain" which duplicated 3+ times)
-- FIXED: News-driven mode now receives content summaries to avoid thematic overlap
-- FIXED: Blog content prompt includes recent post summaries for true uniqueness
-- NEW: Topic pool organized by theme clusters to prevent thematic repetition
+SteadiDay Blog Generator v4.1
+Changes from v4.0:
+- NEW: Expanded image library — HERO_IMAGES now has 8-10 per category (was 2-3),
+  INLINE_IMAGES has 12-15 per category (was 5). Dramatically reduces image repetition.
+- NEW: Image usage tracking — tracks which hero/inline images have been used across
+  posts in a single run to guarantee no repeats within a batch.
+- NEW: Dynamic image search via find_unsplash_images() — uses Claude + web search
+  to find topic-specific Unsplash images at generation time. Falls back to expanded
+  hardcoded library on failure.
+- NEW: Cross-category image fallback — when a category's images are exhausted,
+  pulls from visually related categories instead of repeating.
+- NEW: CATEGORY_IMAGES is now a list per category with random.choice() for index
+  thumbnail rotation.
+- FIXED: Blog index thumbnails no longer show the same image for every post in
+  a category.
+All v4.0 features retained: category cooldown, content-aware dedup, semantic
+similarity checks, expanded topic pool (60+), news-driven mode.
 """
 
 import anthropic
@@ -75,17 +79,14 @@ def get_existing_posts(blog_dir="blog"):
                 m = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL)
                 if m:
                     title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-                # Extract category from blog index card tag if available
                 cat_m = re.search(r'class="blog-card-tag">([^<]+)<', content)
                 if cat_m:
                     category = cat_m.group(1).strip()
-                # Extract meta description for content summary
                 desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', content)
                 if desc_m:
                     meta_desc = desc_m.group(1).strip()
         except Exception:
             pass
-        # Extract date from filename
         date_match = re.match(r'(\d{4}-\d{2}-\d{2})', filename)
         if date_match:
             date_str = date_match.group(1)
@@ -98,7 +99,6 @@ def get_existing_posts(blog_dir="blog"):
             "meta_desc": meta_desc,
             "date": date_str,
         })
-    # Sort by date descending (most recent first)
     existing.sort(key=lambda p: p.get('date', ''), reverse=True)
     return existing
 
@@ -156,7 +156,6 @@ def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.55, thre
 def check_semantic_duplicate(client, new_title, existing_posts):
     if not existing_posts:
         return False, ""
-    # Use content summaries, not just titles
     existing_info = []
     for p in existing_posts:
         if p['title']:
@@ -325,7 +324,7 @@ TOPIC_CATEGORIES = [
     {"topic": "Learning a new skill after 50 boosts brain health", "keyword": "learning new skill seniors brain", "category": "Brain Health"},
     {"topic": "Early signs of cognitive change vs normal aging", "keyword": "cognitive decline vs normal aging", "category": "Brain Health"},
 
-    # --- NUTRITION (distinct focuses — NO joint pain / anti-inflammatory overlap) ---
+    # --- NUTRITION (distinct focuses) ---
     {"topic": "The importance of staying hydrated as we age", "keyword": "hydration tips elderly", "category": "Nutrition"},
     {"topic": "Healthy snacks for sustained energy after 50", "keyword": "healthy snacks seniors", "category": "Nutrition"},
     {"topic": "Meal planning made simple for one or two", "keyword": "meal planning seniors", "category": "Nutrition"},
@@ -380,43 +379,322 @@ TOPIC_CATEGORIES = [
     {"topic": "Preparing advance directives and health proxies", "keyword": "advance directives planning", "category": "Healthy Aging"},
 ]
 
+
+# =============================================================================
+# CATEGORY THUMBNAIL IMAGES (for blog index cards)
+# Now a list per category — randomly selected for variety on the index page
+# =============================================================================
 CATEGORY_IMAGES = {
-    "Mental Wellness": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
-    "Medication Tips": "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80",
-    "Healthy Aging": "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=800&q=80",
-    "Exercise": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
-    "Nutrition": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
-    "Sleep": "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80",
-    "Heart Health": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80",
-    "Brain Health": "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80",
-    "Safety": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
-    "Wellness": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
+    "Mental Wellness": [
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+        "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80",
+        "https://images.unsplash.com/photo-1474418397713-7ede21d49118?w=800&q=80",
+    ],
+    "Medication Tips": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&q=80",
+        "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=800&q=80",
+    ],
+    "Healthy Aging": [
+        "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=800&q=80",
+        "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=800&q=80",
+        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80",
+    ],
+    "Exercise": [
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80",
+        "https://images.unsplash.com/photo-1486218119243-13883505764c?w=800&q=80",
+        "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&q=80",
+    ],
+    "Nutrition": [
+        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80",
+        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80",
+        "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=80",
+    ],
+    "Sleep": [
+        "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=800&q=80",
+        "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=800&q=80",
+        "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=800&q=80",
+    ],
+    "Heart Health": [
+        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80",
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80",
+        "https://images.unsplash.com/photo-1628348070889-cb656235b4eb?w=800&q=80",
+    ],
+    "Brain Health": [
+        "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=800&q=80",
+        "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=80",
+        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80",
+    ],
+    "Safety": [
+        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80",
+        "https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=800&q=80",
+        "https://images.unsplash.com/photo-1584515933487-779824d29309?w=800&q=80",
+    ],
+    "Wellness": [
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80",
+        "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80",
+    ],
 }
 
+# =============================================================================
+# HERO IMAGES — 8-10 per category to minimize repetition across posts
+# =============================================================================
 HERO_IMAGES = {
-    "Mental Wellness": ["https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80", "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200&q=80", "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1200&q=80"],
-    "Medication Tips": ["https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80", "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=1200&q=80", "https://images.unsplash.com/photo-1550572017-edd951aa8f72?w=1200&q=80"],
-    "Healthy Aging": ["https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=1200&q=80", "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=1200&q=80", "https://images.unsplash.com/photo-1454418747937-bd95bb945625?w=1200&q=80"],
-    "Exercise": ["https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80", "https://images.unsplash.com/photo-1486218119243-13883505764c?w=1200&q=80", "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=1200&q=80"],
-    "Nutrition": ["https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&q=80", "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80", "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=1200&q=80"],
-    "Sleep": ["https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1200&q=80", "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=1200&q=80", "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=1200&q=80"],
-    "Heart Health": ["https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=1200&q=80", "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&q=80", "https://images.unsplash.com/photo-1628348070889-cb656235b4eb?w=1200&q=80"],
-    "Brain Health": ["https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1200&q=80", "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=1200&q=80", "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80"],
-    "Safety": ["https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80", "https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=1200&q=80"],
-    "Wellness": ["https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80", "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80", "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1200&q=80"],
+    "Mental Wellness": [
+        "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1200&q=80",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+        "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200&q=80",
+        "https://images.unsplash.com/photo-1474418397713-7ede21d49118?w=1200&q=80",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+        "https://images.unsplash.com/photo-1529693662653-9d480530a697?w=1200&q=80",
+        "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200&q=80",
+        "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200&q=80",
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80",
+    ],
+    "Medication Tips": [
+        "https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80",
+        "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=1200&q=80",
+        "https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=1200&q=80",
+        "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=1200&q=80",
+        "https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=1200&q=80",
+        "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1200&q=80",
+        "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=1200&q=80",
+        "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=1200&q=80",
+    ],
+    "Healthy Aging": [
+        "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=1200&q=80",
+        "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=1200&q=80",
+        "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=1200&q=80",
+        "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=1200&q=80",
+        "https://images.unsplash.com/photo-1454418747937-bd95bb945625?w=1200&q=80",
+        "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=1200&q=80",
+        "https://images.unsplash.com/photo-1559234938-b60fff04894d?w=1200&q=80",
+        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=1200&q=80",
+        "https://images.unsplash.com/photo-1581579438747-104c53d7fbc4?w=1200&q=80",
+    ],
+    "Exercise": [
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1486218119243-13883505764c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=1200&q=80",
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=1200&q=80",
+        "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&q=80",
+        "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=1200&q=80",
+        "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=1200&q=80",
+    ],
+    "Nutrition": [
+        "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=1200&q=80",
+        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80",
+        "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&q=80",
+        "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=1200&q=80",
+        "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=1200&q=80",
+        "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=1200&q=80",
+        "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=1200&q=80",
+        "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=1200&q=80",
+        "https://images.unsplash.com/photo-1547592180-85f173990554?w=1200&q=80",
+        "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=1200&q=80",
+    ],
+    "Sleep": [
+        "https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=1200&q=80",
+        "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=1200&q=80",
+        "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=1200&q=80",
+        "https://images.unsplash.com/photo-1455642305367-68834a1da7ab?w=1200&q=80",
+        "https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=1200&q=80",
+        "https://images.unsplash.com/photo-1495197359483-d092478c170a?w=1200&q=80",
+        "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=1200&q=80",
+        "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=1200&q=80",
+    ],
+    "Heart Health": [
+        "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=1200&q=80",
+        "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=1200&q=80",
+        "https://images.unsplash.com/photo-1628348070889-cb656235b4eb?w=1200&q=80",
+        "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=1200&q=80",
+        "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=1200&q=80",
+        "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=1200&q=80",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+        "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=1200&q=80",
+    ],
+    "Brain Health": [
+        "https://images.unsplash.com/photo-1559757175-5700dde675bc?w=1200&q=80",
+        "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=1200&q=80",
+        "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=1200&q=80",
+        "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=1200&q=80",
+        "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=1200&q=80",
+        "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=1200&q=80",
+        "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=1200&q=80",
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=1200&q=80",
+    ],
+    "Safety": [
+        "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=1200&q=80",
+        "https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=1200&q=80",
+        "https://images.unsplash.com/photo-1584515933487-779824d29309?w=1200&q=80",
+        "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80",
+        "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=1200&q=80",
+        "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1612531386530-97286d97c2d2?w=1200&q=80",
+        "https://images.unsplash.com/photo-1530497610245-94d3c16cda28?w=1200&q=80",
+    ],
+    "Wellness": [
+        "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80",
+        "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=1200&q=80",
+        "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200&q=80",
+        "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200&q=80",
+        "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80",
+        "https://images.unsplash.com/photo-1529693662653-9d480530a697?w=1200&q=80",
+        "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80",
+        "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200&q=80",
+    ],
 }
 
+# =============================================================================
+# INLINE IMAGES — 12-15 per category for variety within posts
+# =============================================================================
 INLINE_IMAGES = {
-    "Mental Wellness": [{"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Person relaxing peacefully"}, {"url": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&q=80", "alt": "Peaceful beach scene"}, {"url": "https://images.unsplash.com/photo-1545205597-3d9d02c29547?w=800&q=80", "alt": "Meditation hands"}, {"url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80", "alt": "Sunlight through trees"}, {"url": "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800&q=80", "alt": "Calm space with plants"}],
-    "Medication Tips": [{"url": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&q=80", "alt": "Pill organizer"}, {"url": "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=800&q=80", "alt": "Healthcare professional"}, {"url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80", "alt": "Healthy lifestyle"}, {"url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80", "alt": "Morning routine"}, {"url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80", "alt": "Doctor consultation"}],
-    "Healthy Aging": [{"url": "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=800&q=80", "alt": "Active senior outdoors"}, {"url": "https://images.unsplash.com/photo-1559234938-b60fff04894d?w=800&q=80", "alt": "Healthy choices"}, {"url": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80", "alt": "Couple walking"}, {"url": "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=800&q=80", "alt": "Family moment"}, {"url": "https://images.unsplash.com/photo-1454418747937-bd95bb945625?w=800&q=80", "alt": "Active aging"}],
-    "Exercise": [{"url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80", "alt": "Stretching at home"}, {"url": "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=800&q=80", "alt": "Resistance training"}, {"url": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&q=80", "alt": "Walking outdoors"}, {"url": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80", "alt": "Group fitness"}, {"url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80", "alt": "Yoga exercises"}],
-    "Nutrition": [{"url": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80", "alt": "Meal preparation"}, {"url": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=80", "alt": "Fresh produce"}, {"url": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80", "alt": "Balanced meal"}, {"url": "https://images.unsplash.com/photo-1606923829579-0cb981a83e2e?w=800&q=80", "alt": "Salmon dish"}, {"url": "https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80", "alt": "Cooking at home"}],
-    "Sleep": [{"url": "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=800&q=80", "alt": "Peaceful bedroom"}, {"url": "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=800&q=80", "alt": "Bedtime routine"}, {"url": "https://images.unsplash.com/photo-1495197359483-d092478c170a?w=800&q=80", "alt": "Comfortable bed"}, {"url": "https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=800&q=80", "alt": "Herbal tea"}, {"url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80", "alt": "Morning light"}],
-    "Heart Health": [{"url": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80", "alt": "Healthy lifestyle"}, {"url": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80", "alt": "Fresh vegetables"}, {"url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", "alt": "Cardio exercise"}, {"url": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80", "alt": "Jogging outdoors"}, {"url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80", "alt": "Heart-healthy meal"}],
-    "Brain Health": [{"url": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80", "alt": "Learning and education"}, {"url": "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&q=80", "alt": "Reading"}, {"url": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=80", "alt": "Puzzles and games"}, {"url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80", "alt": "Social connection"}, {"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Relaxation"}],
-    "Safety": [{"url": "https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=800&q=80", "alt": "Home safety"}, {"url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80", "alt": "Medical guidance"}, {"url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", "alt": "Well-lit home"}, {"url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80", "alt": "Accessible design"}, {"url": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&q=80", "alt": "Clear pathways"}],
-    "Wellness": [{"url": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80", "alt": "Mindfulness"}, {"url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80", "alt": "Yoga"}, {"url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80", "alt": "Morning wellness"}, {"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Self-care"}, {"url": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80", "alt": "Nature walk"}],
+    "Mental Wellness": [
+        {"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Person relaxing peacefully"},
+        {"url": "https://images.unsplash.com/photo-1508672019048-805c876b67e2?w=800&q=80", "alt": "Peaceful beach scene"},
+        {"url": "https://images.unsplash.com/photo-1545205597-3d9d02c29547?w=800&q=80", "alt": "Meditation hands"},
+        {"url": "https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=800&q=80", "alt": "Sunlight through trees"},
+        {"url": "https://images.unsplash.com/photo-1528715471579-d1bcf0ba5e83?w=800&q=80", "alt": "Calm space with plants"},
+        {"url": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80", "alt": "Journaling with tea"},
+        {"url": "https://images.unsplash.com/photo-1506252374453-ef5237291d83?w=800&q=80", "alt": "Peaceful garden path"},
+        {"url": "https://images.unsplash.com/photo-1517021897933-0e0319cfbc28?w=800&q=80", "alt": "Sunrise over calm water"},
+        {"url": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=80", "alt": "Tropical tranquility"},
+        {"url": "https://images.unsplash.com/photo-1500904156668-a21764a29575?w=800&q=80", "alt": "Cozy reading corner"},
+        {"url": "https://images.unsplash.com/photo-1484627147104-f5197bcd6651?w=800&q=80", "alt": "Gentle morning light"},
+        {"url": "https://images.unsplash.com/photo-1446511437394-d789541e7f95?w=800&q=80", "alt": "Walking in nature"},
+    ],
+    "Medication Tips": [
+        {"url": "https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=800&q=80", "alt": "Pill organizer"},
+        {"url": "https://images.unsplash.com/photo-1576602976047-174e57a47881?w=800&q=80", "alt": "Healthcare professional"},
+        {"url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80", "alt": "Healthy lifestyle"},
+        {"url": "https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&q=80", "alt": "Morning routine"},
+        {"url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80", "alt": "Doctor consultation"},
+        {"url": "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=800&q=80", "alt": "Pharmacy shelves"},
+        {"url": "https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=800&q=80", "alt": "Daily health routine"},
+        {"url": "https://images.unsplash.com/photo-1585435557343-3b092031a831?w=800&q=80", "alt": "Medication and water"},
+        {"url": "https://images.unsplash.com/photo-1583912267550-d974311a9a6e?w=800&q=80", "alt": "Healthcare checklist"},
+        {"url": "https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?w=800&q=80", "alt": "Mobile health app"},
+        {"url": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=800&q=80", "alt": "Patient care"},
+        {"url": "https://images.unsplash.com/photo-1559234938-b60fff04894d?w=800&q=80", "alt": "Healthy choices"},
+    ],
+    "Healthy Aging": [
+        {"url": "https://images.unsplash.com/photo-1516307365426-bea591f05011?w=800&q=80", "alt": "Active senior outdoors"},
+        {"url": "https://images.unsplash.com/photo-1559234938-b60fff04894d?w=800&q=80", "alt": "Healthy choices"},
+        {"url": "https://images.unsplash.com/photo-1517457373958-b7bdd4587205?w=800&q=80", "alt": "Couple walking"},
+        {"url": "https://images.unsplash.com/photo-1447452001602-7090c7ab2db3?w=800&q=80", "alt": "Family moment"},
+        {"url": "https://images.unsplash.com/photo-1454418747937-bd95bb945625?w=800&q=80", "alt": "Active aging"},
+        {"url": "https://images.unsplash.com/photo-1511632765486-a01980e01a18?w=800&q=80", "alt": "Laughing together"},
+        {"url": "https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=800&q=80", "alt": "Casual conversation"},
+        {"url": "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&q=80", "alt": "Confident smile"},
+        {"url": "https://images.unsplash.com/photo-1581579438747-104c53d7fbc4?w=800&q=80", "alt": "Morning stretch"},
+        {"url": "https://images.unsplash.com/photo-1530268729831-4b0b9e170218?w=800&q=80", "alt": "Community gathering"},
+        {"url": "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=800&q=80", "alt": "Friends enjoying outdoors"},
+        {"url": "https://images.unsplash.com/photo-1517048676732-d65bc937f952?w=800&q=80", "alt": "Group discussion"},
+    ],
+    "Exercise": [
+        {"url": "https://images.unsplash.com/photo-1571019614242-c5c5dee9f50b?w=800&q=80", "alt": "Stretching at home"},
+        {"url": "https://images.unsplash.com/photo-1607962837359-5e7e89f86776?w=800&q=80", "alt": "Resistance training"},
+        {"url": "https://images.unsplash.com/photo-1552196563-55cd4e45efb3?w=800&q=80", "alt": "Walking outdoors"},
+        {"url": "https://images.unsplash.com/photo-1518611012118-696072aa579a?w=800&q=80", "alt": "Group fitness"},
+        {"url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80", "alt": "Yoga exercises"},
+        {"url": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80", "alt": "Jogging outdoors"},
+        {"url": "https://images.unsplash.com/photo-1486218119243-13883505764c?w=800&q=80", "alt": "Morning jog"},
+        {"url": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&q=80", "alt": "Trail walking"},
+        {"url": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?w=800&q=80", "alt": "Swimming laps"},
+        {"url": "https://images.unsplash.com/photo-1574680096145-d05b474e2155?w=800&q=80", "alt": "Balance exercises"},
+        {"url": "https://images.unsplash.com/photo-1599058945522-28d584b6f0ff?w=800&q=80", "alt": "Outdoor tai chi"},
+        {"url": "https://images.unsplash.com/photo-1545389336-cf090694435e?w=800&q=80", "alt": "Gentle stretching"},
+    ],
+    "Nutrition": [
+        {"url": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80", "alt": "Meal preparation"},
+        {"url": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=80", "alt": "Fresh produce"},
+        {"url": "https://images.unsplash.com/photo-1540189549336-e6e99c3679fe?w=800&q=80", "alt": "Balanced meal"},
+        {"url": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=800&q=80", "alt": "Home-cooked meal"},
+        {"url": "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=800&q=80", "alt": "Green smoothie bowl"},
+        {"url": "https://images.unsplash.com/photo-1467003909585-2f8a72700288?w=800&q=80", "alt": "Grilled salmon"},
+        {"url": "https://images.unsplash.com/photo-1543362906-acfc16c67564?w=800&q=80", "alt": "Mediterranean spread"},
+        {"url": "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80", "alt": "Spices and herbs"},
+        {"url": "https://images.unsplash.com/photo-1505253716362-afaea1d3d1af?w=800&q=80", "alt": "Farmers market"},
+        {"url": "https://images.unsplash.com/photo-1606787366850-de6330128bfc?w=800&q=80", "alt": "Breakfast spread"},
+        {"url": "https://images.unsplash.com/photo-1546069901-ba9599a7e63c?w=800&q=80", "alt": "Avocado toast"},
+        {"url": "https://images.unsplash.com/photo-1484980972926-edee96e0960d?w=800&q=80", "alt": "Berry bowl"},
+        {"url": "https://images.unsplash.com/photo-1455619452474-d2be8b1e70cd?w=800&q=80", "alt": "Warm soup"},
+    ],
+    "Sleep": [
+        {"url": "https://images.unsplash.com/photo-1515894203077-9cd36032142f?w=800&q=80", "alt": "Peaceful bedroom"},
+        {"url": "https://images.unsplash.com/photo-1531353826977-0941b4779a1c?w=800&q=80", "alt": "Bedtime routine"},
+        {"url": "https://images.unsplash.com/photo-1495197359483-d092478c170a?w=800&q=80", "alt": "Comfortable bed"},
+        {"url": "https://images.unsplash.com/photo-1455642305367-68834a1da7ab?w=800&q=80", "alt": "Calm evening"},
+        {"url": "https://images.unsplash.com/photo-1520206183501-b80df61043c2?w=800&q=80", "alt": "Moonlit scene"},
+        {"url": "https://images.unsplash.com/photo-1507652313519-d4e9174996dd?w=800&q=80", "alt": "Evening reading"},
+        {"url": "https://images.unsplash.com/photo-1522771739844-6a9f6d5f14af?w=800&q=80", "alt": "Bedside table"},
+        {"url": "https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?w=800&q=80", "alt": "Herbal tea at night"},
+        {"url": "https://images.unsplash.com/photo-1540518614846-7eded433c457?w=800&q=80", "alt": "Soft pillows"},
+        {"url": "https://images.unsplash.com/photo-1445991842772-097fea258e7b?w=800&q=80", "alt": "Sunset transition"},
+        {"url": "https://images.unsplash.com/photo-1513694203232-719a280e022f?w=800&q=80", "alt": "Relaxing bath"},
+    ],
+    "Heart Health": [
+        {"url": "https://images.unsplash.com/photo-1559757148-5c350d0d3c56?w=800&q=80", "alt": "Healthy lifestyle"},
+        {"url": "https://images.unsplash.com/photo-1505576399279-565b52d4ac71?w=800&q=80", "alt": "Fresh vegetables"},
+        {"url": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=800&q=80", "alt": "Cardio exercise"},
+        {"url": "https://images.unsplash.com/photo-1476480862126-209bfaa8edc8?w=800&q=80", "alt": "Jogging outdoors"},
+        {"url": "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=800&q=80", "alt": "Heart-healthy meal"},
+        {"url": "https://images.unsplash.com/photo-1498837167922-ddd27525d352?w=800&q=80", "alt": "Fruit and vegetables"},
+        {"url": "https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=800&q=80", "alt": "Meal preparation"},
+        {"url": "https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=800&q=80", "alt": "Green smoothie"},
+        {"url": "https://images.unsplash.com/photo-1547592180-85f173990554?w=800&q=80", "alt": "Cooking with herbs"},
+        {"url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80", "alt": "Peaceful meditation"},
+        {"url": "https://images.unsplash.com/photo-1538805060514-97d9cc17730c?w=800&q=80", "alt": "Active walk"},
+    ],
+    "Brain Health": [
+        {"url": "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=800&q=80", "alt": "Learning and education"},
+        {"url": "https://images.unsplash.com/photo-1456406644174-8ddd4cd52a06?w=800&q=80", "alt": "Reading"},
+        {"url": "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=800&q=80", "alt": "Puzzles and games"},
+        {"url": "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=800&q=80", "alt": "Social connection"},
+        {"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Relaxation"},
+        {"url": "https://images.unsplash.com/photo-1507413245164-6160d8298b31?w=800&q=80", "alt": "Science and learning"},
+        {"url": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80", "alt": "Study and focus"},
+        {"url": "https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?w=800&q=80", "alt": "Creative writing"},
+        {"url": "https://images.unsplash.com/photo-1488190211105-8b0e65b80b4e?w=800&q=80", "alt": "Taking notes"},
+        {"url": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80", "alt": "Group learning"},
+        {"url": "https://images.unsplash.com/photo-1516321497487-e288fb19713f?w=800&q=80", "alt": "Digital literacy"},
+        {"url": "https://images.unsplash.com/photo-1453928582365-b6ad33cbcf64?w=800&q=80", "alt": "Focused thinking"},
+    ],
+    "Safety": [
+        {"url": "https://images.unsplash.com/photo-1581093458791-9d42e3c7e117?w=800&q=80", "alt": "Home safety"},
+        {"url": "https://images.unsplash.com/photo-1576091160550-2173dba999ef?w=800&q=80", "alt": "Medical guidance"},
+        {"url": "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80", "alt": "Well-lit home"},
+        {"url": "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800&q=80", "alt": "Accessible design"},
+        {"url": "https://images.unsplash.com/photo-1494438639946-1ebd1d20bf85?w=800&q=80", "alt": "Clear pathways"},
+        {"url": "https://images.unsplash.com/photo-1584515933487-779824d29309?w=800&q=80", "alt": "Emergency kit"},
+        {"url": "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=800&q=80", "alt": "Health checkup"},
+        {"url": "https://images.unsplash.com/photo-1550831107-1553da8c8464?w=800&q=80", "alt": "Pharmacy visit"},
+        {"url": "https://images.unsplash.com/photo-1584432810601-6c7f27d2362b?w=800&q=80", "alt": "Protective measures"},
+        {"url": "https://images.unsplash.com/photo-1505751172876-fa1923c5c528?w=800&q=80", "alt": "Doctor visit"},
+        {"url": "https://images.unsplash.com/photo-1573883431205-98b5f10aaedb?w=800&q=80", "alt": "Health tracking app"},
+    ],
+    "Wellness": [
+        {"url": "https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=800&q=80", "alt": "Mindfulness"},
+        {"url": "https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=800&q=80", "alt": "Yoga"},
+        {"url": "https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=800&q=80", "alt": "Morning wellness"},
+        {"url": "https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=800&q=80", "alt": "Self-care"},
+        {"url": "https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=800&q=80", "alt": "Nature walk"},
+        {"url": "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80", "alt": "Nature landscape"},
+        {"url": "https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=800&q=80", "alt": "Golden hour walk"},
+        {"url": "https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=800&q=80", "alt": "Morning mist"},
+        {"url": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=800&q=80", "alt": "Forest path"},
+        {"url": "https://images.unsplash.com/photo-1518459031867-a89b944bffe4?w=800&q=80", "alt": "Outdoor wellness"},
+        {"url": "https://images.unsplash.com/photo-1510414842594-a61c69b5ae57?w=800&q=80", "alt": "Ocean calm"},
+        {"url": "https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=800&q=80", "alt": "Journaling"},
+    ],
 }
 
 CATEGORY_VIDEOS = {
@@ -558,14 +836,161 @@ def get_html_template():
 '''
 
 
-def get_images_for_category(category):
-    hero_options = HERO_IMAGES.get(category, HERO_IMAGES['Wellness'])
-    inline_options = INLINE_IMAGES.get(category, INLINE_IMAGES['Wellness'])
+# =============================================================================
+# IMAGE SELECTION — with usage tracking and dynamic search
+# =============================================================================
+
+# Track which images have been used (persists within a single run/session)
+_used_hero_images = set()
+_used_inline_images = set()
+
+# Related categories for cross-category image fallback
+_RELATED_CATEGORIES = {
+    "Mental Wellness": ["Wellness", "Sleep", "Brain Health"],
+    "Medication Tips": ["Safety", "Wellness", "Healthy Aging"],
+    "Healthy Aging": ["Exercise", "Wellness", "Nutrition"],
+    "Exercise": ["Healthy Aging", "Heart Health", "Wellness"],
+    "Nutrition": ["Heart Health", "Healthy Aging", "Wellness"],
+    "Sleep": ["Mental Wellness", "Wellness"],
+    "Heart Health": ["Exercise", "Nutrition", "Wellness"],
+    "Brain Health": ["Mental Wellness", "Healthy Aging"],
+    "Safety": ["Medication Tips", "Healthy Aging"],
+    "Wellness": ["Mental Wellness", "Exercise", "Nutrition"],
+}
+
+
+def find_unsplash_images(client, topic, category, count=6):
+    """Use Claude + web search to find topic-specific Unsplash images.
+
+    Returns a list of dicts: [{"url": "...", "alt": "..."}, ...]
+    Returns None on failure so caller can fall back to hardcoded library.
+    """
+    prompt = f"""Find {count} different Unsplash photo URLs relevant to this blog topic: "{topic}"
+Category: {category}
+Target audience: adults 50+
+
+Requirements:
+- Each must be from images.unsplash.com
+- Varied subjects, angles, settings — not all the same scene
+- Warm, positive, appropriate for a health/wellness audience age 50+
+- Use URL format: https://images.unsplash.com/photo-XXXXX?w=800&q=80
+
+Search Unsplash for relevant photos and return ONLY a JSON array, no other text:
+[
+  {{"url": "https://images.unsplash.com/photo-XXXXX?w=800&q=80", "alt": "Brief description"}},
+  ...
+]
+
+If you cannot find suitable images, return exactly: NONE"""
+
+    try:
+        msg = call_with_retry(lambda: client.messages.create(
+            model="claude-sonnet-4-20250514",
+            max_tokens=1000,
+            tools=[{"type": "web_search_20250305", "name": "web_search"}],
+            messages=[{"role": "user", "content": prompt}]
+        ))
+        response_text = ""
+        for block in msg.content:
+            if hasattr(block, 'text'):
+                response_text += block.text
+
+        if "NONE" in response_text:
+            return None
+
+        json_match = re.search(r'\[[\s\S]*?\]', response_text)
+        if json_match:
+            images = json.loads(json_match.group())
+            valid = []
+            for img in images:
+                if isinstance(img, dict) and "url" in img and "alt" in img:
+                    if "unsplash.com" in img["url"]:
+                        valid.append(img)
+            if len(valid) >= 3:
+                return valid
+
+        return None
+    except Exception as e:
+        print(f"  ⚠ Dynamic image search failed: {e}")
+        return None
+
+
+def get_images_for_category(category, topic=None, client=None):
+    """Get hero + inline images for a blog post.
+
+    Strategy:
+    1. Hero: pick from expanded library, track usage to avoid repeats
+    2. Inline: if client provided, try dynamic Unsplash search first
+    3. Fall back to hardcoded library with usage tracking
+    4. If category exhausted, pull from related categories
+    """
+    global _used_hero_images, _used_inline_images
+
+    # --- HERO IMAGE (from expanded hardcoded library with tracking) ---
+    hero_options = HERO_IMAGES.get(category, HERO_IMAGES["Wellness"])
+    available_heroes = [h for h in hero_options if h not in _used_hero_images]
+    if not available_heroes:
+        # All exhausted for this category — pull from ALL categories
+        all_heroes = [h for cat_heroes in HERO_IMAGES.values() for h in cat_heroes]
+        available_heroes = [h for h in all_heroes if h not in _used_hero_images]
+    if not available_heroes:
+        _used_hero_images.clear()
+        available_heroes = hero_options
+
+    hero = random.choice(available_heroes)
+    _used_hero_images.add(hero)
+
+    # --- INLINE IMAGES ---
     n = random.choice([4, 5])
-    return {
-        "hero": random.choice(hero_options),
-        "inline": random.sample(inline_options, min(n, len(inline_options)))
-    }
+
+    # Try dynamic search first if client is available
+    dynamic_images = None
+    if client and topic:
+        print(f"  🔍 Searching for topic-specific images...")
+        dynamic_images = find_unsplash_images(client, topic, category, count=n + 2)
+        if dynamic_images:
+            print(f"  ✅ Found {len(dynamic_images)} topic-specific images")
+
+    if dynamic_images:
+        inline = random.sample(dynamic_images, min(n, len(dynamic_images)))
+    else:
+        if client and topic:
+            print(f"  📚 Using expanded image library (fallback)")
+        # Fall back to hardcoded library with tracking
+        inline_options = INLINE_IMAGES.get(category, INLINE_IMAGES["Wellness"])
+        available_inline = [
+            img for img in inline_options if img["url"] not in _used_inline_images
+        ]
+        # If not enough unused, pull from related categories
+        if len(available_inline) < n:
+            for rel_cat in _RELATED_CATEGORIES.get(category, ["Wellness"]):
+                for img in INLINE_IMAGES.get(rel_cat, []):
+                    if img["url"] not in _used_inline_images and img not in available_inline:
+                        available_inline.append(img)
+                    if len(available_inline) >= n + 3:
+                        break
+                if len(available_inline) >= n + 3:
+                    break
+
+        if len(available_inline) < n:
+            _used_inline_images.clear()
+            available_inline = inline_options
+
+        inline = random.sample(available_inline, min(n, len(available_inline)))
+
+    # Track usage
+    for img in inline:
+        _used_inline_images.add(img["url"])
+
+    return {"hero": hero, "inline": inline}
+
+
+def get_category_thumbnail(category):
+    """Get a thumbnail image for the blog index card, with rotation."""
+    options = CATEGORY_IMAGES.get(category, CATEGORY_IMAGES["Wellness"])
+    if isinstance(options, list):
+        return random.choice(options)
+    return options  # backward compat if still a string
 
 
 def get_video_for_category(category):
@@ -641,7 +1066,6 @@ def select_unique_topic(existing_posts):
     recent_cats = get_recent_categories(existing_posts)
     print(f"  Recent categories (last {CATEGORY_COOLDOWN_WINDOW}): {recent_cats}")
 
-    # Shuffle to randomize selection within constraints
     shuffled = TOPIC_CATEGORIES[:]
     random.shuffle(shuffled)
 
@@ -672,7 +1096,8 @@ def generate_blog_post(topic_data, existing_posts, client):
     keyword = topic_data["keyword"]
     category = topic_data.get("category", "Wellness")
 
-    images = get_images_for_category(category)
+    # v4.1: Pass topic and client for dynamic image search
+    images = get_images_for_category(category, topic=topic, client=client)
     print("  Searching for relevant YouTube video...")
     video = find_youtube_video(client, topic, category)
     if video is None:
@@ -694,7 +1119,6 @@ def generate_blog_post(topic_data, existing_posts, client):
 
     img_ph = "\n".join([f"After section {i+2}, insert exactly: [IMAGE_{i+1}]" for i in range(num_images)])
 
-    # Build content summaries instead of just titles
     content_summaries = get_content_summaries(existing_posts)
 
     angle_instruction = ""
@@ -768,7 +1192,7 @@ CONTENT:
     if video:
         content = content.replace(
             "[VIDEO]",
-            f'<div class="video-container"><iframe src="https://www.youtube.com/embed/{video["id"]}" title="{video["title"]}" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>'
+            f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>'
         )
 
     content = re.sub(r'\[IMAGE_\d+\]', '', content)
@@ -821,7 +1245,8 @@ def update_blog_index(post_data, filename):
     with open(path, 'r', encoding='utf-8') as f:
         content = f.read()
     cat = post_data.get('category', 'Wellness')
-    img = CATEGORY_IMAGES.get(cat, CATEGORY_IMAGES['Wellness'])
+    # v4.1: Use rotating thumbnail instead of fixed single image
+    img = get_category_thumbnail(cat)
     d = datetime.strptime(post_data['date'], '%Y-%m-%d').strftime('%B %d, %Y')
     entry = f'''<article class="blog-card">
                 <div class="blog-card-image" style="background-image: url('{img}');"><span class="blog-card-tag">{cat}</span></div>
@@ -986,7 +1411,7 @@ def main():
         use_news = True
 
     print("=" * 60)
-    print("SteadiDay Blog Generator v4.0")
+    print("SteadiDay Blog Generator v4.1")
     print("=" * 60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"Mode: {'Custom topic' if topic_override else 'News-driven' if use_news else 'Topic pool'}")
@@ -1006,7 +1431,7 @@ def main():
 
     # Determine excluded categories for cooldown
     recent_cats = get_recent_categories(existing)
-    excluded_cats = list(set(recent_cats))  # Unique recent categories
+    excluded_cats = list(set(recent_cats))
 
     if topic_override:
         print(f"Custom topic: {topic_override}")
