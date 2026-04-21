@@ -88,13 +88,6 @@ gtag('config', 'G-LF8H890XTV');
         "priceCurrency": "USD",
         "description": "Free — all features included"
     },
-    "aggregateRating": {
-        "@type": "AggregateRating",
-        "ratingValue": "5",
-        "ratingCount": "1",
-        "bestRating": "5",
-        "worstRating": "1"
-    },
     "author": {
         "@type": "Organization",
         "name": "SCM Solutions LLC",
@@ -610,49 +603,34 @@ gtag('config', 'G-LF8H890XTV');
         transform: translateY(-2px);
     }
 
-    .btn-appstore {
-        background: #000;
-        color: var(--white);
-        padding: 0.875rem 1.75rem;
-        border-radius: var(--radius-md);
-        font-size: 1.125rem;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.75rem;
-        transition: all 0.3s ease;
-        text-decoration: none;
-        min-height: 56px;
+    /* Official App Store badge wrapper — per Apple Marketing Guidelines.
+       The badge artwork itself is the official black SVG from Apple's Marketing Tools
+       (https://tools.applemediaservices.com/app-store/). Do not modify, animate, or
+       restyle the badge. Minimum height 40px onscreen; clear space = 1/4 badge height. */
+    .app-store-badge {
+        display: inline-block;
+        line-height: 0;
+        transition: opacity 0.2s ease;
+        /* Clear space: no other content should be placed within 1/4 badge height on any side */
     }
 
-    .btn-appstore:hover {
-        background: #333;
-        color: var(--white);
-        transform: translateY(-2px);
-        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+    .app-store-badge:hover {
+        opacity: 0.88;
     }
 
-    .btn-appstore svg {
-        width: 24px;
-        height: 24px;
+    .app-store-badge img,
+    .app-store-badge svg {
+        height: 56px;      /* well above the 40px minimum */
+        width: auto;
+        display: block;
     }
 
-    .btn-appstore-text {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-start;
-        line-height: 1.2;
-    }
-
-    .btn-appstore-text .small {
-        font-size: 0.7rem;
-        font-weight: 400;
-        opacity: 0.9;
-    }
-
-    .btn-appstore-text .large {
-        font-size: 1.1rem;
-        font-weight: 600;
+    /* On very tight mobile layouts, drop to legible minimum */
+    @media (max-width: 420px) {
+        .app-store-badge img,
+        .app-store-badge svg {
+            height: 48px;
+        }
     }
 
     .hero-image {
@@ -1600,9 +1578,9 @@ gtag('config', 'G-LF8H890XTV');
     <!-- Launch Banner -->
     <div class="launch-banner">
         <span class="launch-badge">Now Live</span>
-        <span class="launch-banner-text">SteadiDay™ is now available on the App Store — free with every feature included!</span>
+        <span class="launch-banner-text">SteadiDay is now on the App Store — every feature included.</span>
         <a href="https://apps.apple.com/app/steadiday/id6758526744" class="launch-banner-link">
-            Download Now
+            View on the App Store
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
             </svg>
@@ -1644,14 +1622,8 @@ gtag('config', 'G-LF8H890XTV');
                 <h1>Daily support for <span>independent</span> living</h1>
                 <p class="hero-description">Your all-in-one daily companion. Medications, tasks synced with your calendar, Apple Health tracking, food and water logs, helpful tools like magnifier and Find My iPhone, relaxing mind games, and emergency safety—everything in one simple app.</p>
                 <div class="hero-buttons">
-                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="btn-appstore">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                        </svg>
-                        <span class="btn-appstore-text">
-                            <span class="small">Download on the</span>
-                            <span class="large">App Store</span>
-                        </span>
+                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
+                        <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
                     </a>
                     <a href="#features" class="btn btn-secondary">See Features</a>
                 </div>
@@ -1707,8 +1679,8 @@ gtag('config', 'G-LF8H890XTV');
                         </svg>
                     </div>
                     <div class="trust-text">
-                        <h4>Made in USA</h4>
-                        <p>Virginia-based company</p>
+                        <h4>Built in Virginia</h4>
+                        <p>US-based small team</p>
                     </div>
                 </div>
             </div>
@@ -1830,7 +1802,7 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="step">
                     <div class="step-number">1</div>
                     <h3>Download</h3>
-                    <p>Get SteadiDay™ free from the App Store. Open it right away.</p>
+                    <p>Get SteadiDay free from the App Store. Open it right away.</p>
                 </div>
                 <div class="step">
                     <div class="step-number">2</div>
@@ -1899,7 +1871,24 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- NEW: Testimonials Section -->
+    <!--
+    ========================================================================
+    TESTIMONIALS SECTION — TEMPORARILY REMOVED
+    ========================================================================
+    The previous content contained fabricated testimonials (Margaret/David/Robert).
+    Fabricated testimonials violate FTC Endorsement Guides (16 CFR Part 255) and
+    expose SCM Solutions LLC to enforcement action + civil penalties.
+
+    DO NOT re-enable this section until you have:
+      1. Real quotes from real users (your beta reader is a candidate)
+      2. Signed written permission from each person to use their name + quote
+      3. If a reviewer received anything of value (free premium features, early
+         access, discount), disclose that with the testimonial
+
+    Suggested replacement copy for each card is pre-filled below — just fill in
+    the real quotes/names and uncomment.
+    ========================================================================
+
     <section class="testimonials" id="testimonials">
         <div class="container">
             <div class="section-header">
@@ -1908,23 +1897,24 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="testimonials-grid">
                 <div class="testimonial-card">
-                    <p class="testimonial-quote">I finally stopped worrying about forgetting my medications. The reminders are gentle and I can mark each one as I take it.</p>
-                    <p class="testimonial-author">Margaret, 67</p>
-                    <p class="testimonial-detail">Virginia</p>
+                    <p class="testimonial-quote">[REAL QUOTE]</p>
+                    <p class="testimonial-author">[First name, age if they consent]</p>
+                    <p class="testimonial-detail">[City/context]</p>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-quote">I set this up on my mom's phone in about ten minutes. She loves the big buttons and the daily task lists. The Care Summary lets me check in without being overbearing.</p>
-                    <p class="testimonial-author">David, 41</p>
-                    <p class="testimonial-detail">Set up for his mother</p>
+                    <p class="testimonial-quote">[REAL QUOTE]</p>
+                    <p class="testimonial-author">[First name]</p>
+                    <p class="testimonial-detail">[Context]</p>
                 </div>
                 <div class="testimonial-card">
-                    <p class="testimonial-quote">The magnifier alone was worth the download. I use it at the grocery store every time. And knowing that SOS button is there gives me peace of mind.</p>
-                    <p class="testimonial-author">Robert, 72</p>
-                    <p class="testimonial-detail">North Carolina</p>
+                    <p class="testimonial-quote">[REAL QUOTE]</p>
+                    <p class="testimonial-author">[First name]</p>
+                    <p class="testimonial-detail">[Context]</p>
                 </div>
             </div>
         </div>
     </section>
+    -->
 
     <!-- UPDATED: Pricing — Reframed (removed $0, community phase messaging) -->
     <section class="pricing" id="pricing">
@@ -1932,7 +1922,7 @@ gtag('config', 'G-LF8H890XTV');
             <div class="section-header">
                 <span class="section-label">Pricing</span>
                 <h2>All features included from day one</h2>
-                <p>We're building SteadiDay™ with our community. Your feedback makes it better for everyone.</p>
+                <p>We're building SteadiDay with our community. Your feedback makes it better for everyone.</p>
             </div>
             <div class="pricing-free-banner">
                 <div class="pricing-free-card">
@@ -1949,16 +1939,10 @@ gtag('config', 'G-LF8H890XTV');
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Care Summary for Family</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Mind Breaks & Helpful Tools</li>
                     </ul>
-                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="btn-appstore" style="display: inline-flex;">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                        </svg>
-                        <span class="btn-appstore-text">
-                            <span class="small">Download on the</span>
-                            <span class="large">App Store</span>
-                        </span>
+                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="pricing-text-link" style="display: inline-block; padding: 1rem 1.75rem; background: var(--teal); color: var(--white); border-radius: var(--radius-md); font-weight: 600; font-size: 1.1rem; text-decoration: none; transition: all 0.3s ease;">
+                        Get SteadiDay on the App Store &rarr;
                     </a>
-                    <p class="pricing-free-note">We'd love your feedback to make SteadiDay™ even better. Your input shapes the app.</p>
+                    <p class="pricing-free-note">We'd love your feedback to make SteadiDay better. Your input shapes the app.</p>
                 </div>
             </div>
         </div>
@@ -1980,7 +1964,7 @@ gtag('config', 'G-LF8H890XTV');
                     <p>No account needed. Just download and start using it right away. Your data is stored safely on your device.</p>
                 </div>
                 <div class="faq-item">
-                    <h3>Is SteadiDay™ really free?</h3>
+                    <h3>Is SteadiDay really free?</h3>
                     <p>Yes! Every feature is completely free. We want everyone to experience the full app and share feedback so we can make it even better.</p>
                 </div>
                 <div class="faq-item">
@@ -1989,7 +1973,7 @@ gtag('config', 'G-LF8H890XTV');
                 </div>
                 <div class="faq-item">
                     <h3>What if I'm not tech-savvy?</h3>
-                    <p>SteadiDay™ is designed for simplicity. Large buttons, clear text, and straightforward navigation. No tech skills needed.</p>
+                    <p>SteadiDay is designed for simplicity. Large buttons, clear text, and straightforward navigation. No tech skills needed.</p>
                 </div>
                 <div class="faq-item">
                     <h3>Why is everything free?</h3>
@@ -2008,7 +1992,7 @@ gtag('config', 'G-LF8H890XTV');
                     </svg>
                 </div>
                 <h2>Your data stays yours</h2>
-                <p>SteadiDay™ stores everything on your device—not our servers. Your health information is never sold, shared, or used for advertising. We believe privacy is a right, not a feature.</p>
+                <p>SteadiDay stores everything on your device—not our servers. Your health information is never sold, shared, or used for advertising. We believe privacy is a right, not a feature.</p>
                 <div class="privacy-links">
                     <a href="security.html" class="privacy-link">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -2050,16 +2034,10 @@ gtag('config', 'G-LF8H890XTV');
             <div class="download-cta-content">
                 <span class="download-cta-badge">Available Now</span>
                 <h2>Start your day with confidence</h2>
-                <p class="download-cta-subtitle">Download SteadiDay™ free from the App Store. Every feature included — medications, tasks, health tracking, safety, and more.</p>
+                <p class="download-cta-subtitle">Download SteadiDay free from the App Store. Every feature included — medications, tasks, health tracking, safety, and more.</p>
                 <div class="download-cta-buttons">
-                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="btn-appstore">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
-                        </svg>
-                        <span class="btn-appstore-text">
-                            <span class="small">Download on the</span>
-                            <span class="large">App Store</span>
-                        </span>
+                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
+                        <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
                     </a>
                 </div>
                 <p class="download-cta-privacy">
@@ -2106,7 +2084,7 @@ gtag('config', 'G-LF8H890XTV');
             <div class="footer-content">
                 <div class="footer-brand">
                     <img src="assets/icon.jpeg" alt="SteadiDay">
-                    <span>SteadiDay™</span>
+                    <span>SteadiDay</span>
                 </div>
                 <div class="footer-links">
                     <a href="#features">Features</a>
@@ -2117,7 +2095,10 @@ gtag('config', 'G-LF8H890XTV');
                     <a href="#contact">Contact</a>
                 </div>
             </div>
-            <p class="footer-copy">&copy; 2026 SCM Solutions LLC. All rights reserved. Made with care in Virginia, USA.</p>
+            <p class="footer-copy">
+                &copy; 2026 SCM Solutions LLC. All rights reserved. Built in Virginia, USA.<br>
+                <span style="font-size: 0.8rem; opacity: 0.85; display: inline-block; margin-top: 0.75rem; line-height: 1.5;">Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.</span>
+            </p>
         </div>
     </footer>
 
