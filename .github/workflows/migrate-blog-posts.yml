@@ -1,12 +1,11 @@
-name: Migrate existing blog posts
+name: Fix blog index
 
 on:
   workflow_dispatch:
 
 jobs:
-  migrate:
+  fix:
     runs-on: ubuntu-latest
-    timeout-minutes: 90
     steps:
       - uses: actions/checkout@v4
 
@@ -14,18 +13,13 @@ jobs:
         with:
           python-version: '3.11'
 
-      - name: Install dependencies
-        run: pip install anthropic
+      - name: Fix index
+        run: python scripts/fix_blog_index.py
 
-      - name: Apply migration
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: python scripts/update_existing_posts.py --apply
-
-      - name: Commit changes
+      - name: Commit
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add blog/
-          git diff --staged --quiet || git commit -m "Migrate blog posts: topic-specific images, dynamic layouts"
+          git diff --staged --quiet || git commit -m "Fix broken thumbnail URLs and remove deleted post"
           git push
