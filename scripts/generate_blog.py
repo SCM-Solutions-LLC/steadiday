@@ -503,10 +503,28 @@ _used_hero_images = set()
 _used_inline_images = set()
 
 def find_unsplash_images(client, topic, category, count=6):
-    prompt = f"""Find {count} different Unsplash photo URLs relevant to: "{topic}" (Category: {category})
-Requirements: from images.unsplash.com, varied, warm/positive, for adults 50+.
-URL format: https://images.unsplash.com/photo-XXXXX?w=800&q=80
-Return ONLY a JSON array: [{{"url":"...","alt":"..."}}] or NONE if no results."""
+    prompt = f"""Search Unsplash for {count} photos that SPECIFICALLY match this blog topic:
+"{topic}"
+
+CRITICAL: The images must visually represent THIS topic. Examples:
+- "Photo sharing with grandchildren" -> grandparents on tablet, video call, looking at phone together
+- "Dental health" -> smiling person, dental checkup, toothbrush, healthy teeth
+- "Blood pressure" -> blood pressure monitor, doctor visit, heart health
+- "Medication routine" -> pill organizer, pharmacy, medicine bottles
+- "Balance exercises" -> person doing balance exercises, yoga, physical therapy
+- "Sleep tips" -> peaceful bedroom, person sleeping, nighttime routine
+
+NEVER return generic nature, yoga, or meditation photos unless the topic is literally about those things.
+
+Requirements:
+- Each URL from images.unsplash.com
+- Each alt text must describe what the photo ACTUALLY shows
+- Varied subjects, not all the same scene
+- Warm and positive for adults 50+
+- URL format: https://images.unsplash.com/photo-XXXXX?w=800&q=80
+
+Return ONLY a JSON array: [{{"url":"https://images.unsplash.com/photo-XXXXX?w=800&q=80","alt":"What this photo actually shows"}}]
+Or NONE if you cannot find good topic-specific matches."""
     try:
         msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=1000, tools=[{"type":"web_search_20250305","name":"web_search"}], messages=[{"role":"user","content":prompt}]))
         response_text = "".join(block.text for block in msg.content if hasattr(block,'text'))
@@ -520,37 +538,68 @@ Return ONLY a JSON array: [{{"url":"...","alt":"..."}}] or NONE if no results.""
         print(f"  ⚠ Dynamic image search failed: {e}")
         return None
 
+def search_hero_image(client, topic):
+    """Search for a topic-specific hero image. Returns URL or None."""
+    prompt = f"""Find ONE high-quality Unsplash landscape photo for the hero banner of a blog about:
+"{topic}"
+
+The image MUST visually represent this specific topic. Examples:
+- "Dental Care" -> someone smiling, dental office, healthy teeth
+- "Heart Health" -> cardiovascular, active lifestyle, heart-healthy food
+- "Photo Sharing" -> grandparents with tablet, family video call, sharing photos
+
+Do NOT return generic yoga/nature/meditation unless the topic is literally about that.
+Format: https://images.unsplash.com/photo-XXXXX?w=1200&q=80
+Return ONLY the URL or NONE."""
+    try:
+        msg = call_with_retry(lambda: client.messages.create(
+            model=CLAUDE_MODEL, max_tokens=500,
+            tools=[{"type":"web_search_20250305","name":"web_search"}],
+            messages=[{"role":"user","content":prompt}]))
+        response = "".join(b.text for b in msg.content if hasattr(b,'text'))
+        if "NONE" in response: return None
+        m = re.search(r'https://images\.unsplash\.com/photo-[^\s"\']+', response)
+        return m.group(0) if m else None
+    except Exception as e:
+        print(f"  ⚠ Hero search failed: {e}")
+        return None
+
+# A single verified safe default hero (abstract teal gradient - matches brand)
+DEFAULT_HERO = "https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&q=80"
+
 def get_images_for_category(category, topic=None, client=None):
+    """Get images for a blog post. Dynamic search is the ONLY source for inline images.
+    If dynamic search fails, the post is published without inline images."""
     global _used_hero_images, _used_inline_images
-    hero_options = HERO_IMAGES.get(category, HERO_IMAGES["Wellness"])
-    available_heroes = [h for h in hero_options if h not in _used_hero_images]
-    if not available_heroes:
-        all_heroes = [h for v in HERO_IMAGES.values() for h in v]
-        available_heroes = [h for h in all_heroes if h not in _used_hero_images]
-    if not available_heroes:
-        _used_hero_images.clear(); available_heroes = hero_options
-    hero = random.choice(available_heroes); _used_hero_images.add(hero)
-    n = random.choice([4,5])
-    dynamic_images = None
+
+    # --- HERO: try dynamic topic-specific search first ---
+    hero = None
     if client and topic:
-        print(f"  🔍 Searching for topic-specific images...")
-        dynamic_images = find_unsplash_images(client, topic, category, count=n+2)
-        if dynamic_images: print(f"  ✅ Found {len(dynamic_images)} topic-specific images")
-    if dynamic_images:
-        inline = random.sample(dynamic_images, min(n, len(dynamic_images)))
-    else:
-        if client and topic: print(f"  📚 Using expanded image library (fallback)")
-        inline_options = INLINE_IMAGES.get(category, INLINE_IMAGES["Wellness"])
-        available_inline = [img for img in inline_options if img["url"] not in _used_inline_images]
-        if len(available_inline) < n:
-            for rel_cat in _RELATED_CATEGORIES.get(category, ["Wellness"]):
-                for img in INLINE_IMAGES.get(rel_cat, []):
-                    if img["url"] not in _used_inline_images and img not in available_inline: available_inline.append(img)
-                    if len(available_inline) >= n+3: break
-                if len(available_inline) >= n+3: break
-        if len(available_inline) < n: _used_inline_images.clear(); available_inline = inline_options
-        inline = random.sample(available_inline, min(n, len(available_inline)))
-    for img in inline: _used_inline_images.add(img["url"])
+        print(f"  🔍 Searching for topic-specific hero image...")
+        hero = search_hero_image(client, topic)
+        if hero:
+            print(f"  ✅ Found topic-specific hero")
+            _used_hero_images.add(hero)
+
+    if not hero:
+        # Fall back to default safe hero
+        print(f"  📎 Using default hero image")
+        hero = DEFAULT_HERO
+
+    # --- INLINE: dynamic search only, no hardcoded fallback ---
+    inline = []
+    if client and topic:
+        print(f"  🔍 Searching for topic-specific inline images...")
+        n = random.choice([3, 4, 5])
+        dynamic_images = find_unsplash_images(client, topic, category, count=n + 2)
+        if dynamic_images:
+            inline = random.sample(dynamic_images, min(n, len(dynamic_images)))
+            print(f"  ✅ Found {len(inline)} topic-specific inline images")
+            for img in inline:
+                _used_inline_images.add(img["url"])
+        else:
+            print(f"  ⚠ No topic-specific images found. Publishing without inline images.")
+
     return {"hero": hero, "inline": inline}
 
 def get_category_thumbnail(category):
@@ -660,12 +709,7 @@ def generate_blog_post(topic_data, existing_posts, client):
     print("  Searching for relevant YouTube video...")
     video = find_youtube_video(client, topic, category)
     if video is None:
-        fallback_videos = CATEGORY_VIDEOS.get(category, CATEGORY_VIDEOS['Wellness'])[:]
-        random.shuffle(fallback_videos)
-        for fb in fallback_videos:
-            if verify_youtube_video(fb["id"]): video = fb; print(f"  Using fallback video: {video['title']}"); break
-            else: print(f"  Fallback '{fb['title']}' unavailable")
-        if video is None: print("  No working video. Publishing without video.")
+        print("  No verified video found. Publishing without video.")
     else: print(f"  Found video: {video['title']} by {video['channel']}")
 
     # Search for relevant studies to link in the article
@@ -925,7 +969,7 @@ def main():
         elif arg: topic_override = arg
     if len(sys.argv) > 2 and sys.argv[2].strip() == "--news": use_news = True
 
-    print("="*60); print("SteadiDay Blog Generator v5.1"); print("="*60)
+    print("="*60); print("SteadiDay Blog Generator v5.2"); print("="*60)
     print(f"Date: {datetime.now().strftime('%Y-%m-%d')}")
     print(f"Mode: {'Custom' if topic_override else 'News' if use_news else 'Pool'}")
     print(f"Model: {CLAUDE_MODEL} | Topics: {len(TOPIC_CATEGORIES)} | Categories: {len(VALID_CATEGORIES)}\n")
