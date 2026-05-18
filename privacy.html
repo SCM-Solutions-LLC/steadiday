@@ -172,7 +172,7 @@
         <p>Welcome to SteadiDay™ ("we," "our," or "us"), operated by SCM Solutions LLC. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we handle your information when you use our mobile application and visit our website.</p>
         <p>By using SteadiDay™, you agree to the practices described in this policy.</p>
         <div class="highlight-box">
-            <p><strong>The short version:</strong> Your health data stays on your device. We don't have servers that store your personal information. The app does not require an account. The app contains no third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics to improve the app experience.</p>
+            <p><strong>The short version:</strong> Your health data stays on your device. We don't have servers that store your personal information. The only exception: if fall detection triggers and you don't respond, a stateless relay sends an emergency text to your trusted contacts — nothing is stored. The app does not require an account. The app contains no third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics to improve the app experience.</p>
         </div>
     </div>
 
@@ -210,7 +210,7 @@
         </ul>
 
         <h3>2.4 Location Data</h3>
-        <p>If you enable location-based features (such as weather or emergency SOS location sharing), your location is processed on your device. Location data is only shared when you explicitly trigger the Emergency SOS feature, and only with your designated trusted contacts.</p>
+        <p>If you enable location-based features (such as weather or emergency SOS location sharing), your location is processed on your device. Location data is only shared in two cases: (1) when you explicitly trigger the Emergency SOS feature, and (2) if fall detection activates and you do not respond within the countdown period. In both cases, your location is shared only with your designated trusted contacts via SMS.</p>
 
         <h3>2.5 Anonymous App Analytics</h3>
         <p>SteadiDay™ collects minimal, anonymous usage data to help us understand how the app is used and to measure the effectiveness of our advertising campaigns. This includes:</p>
@@ -279,8 +279,8 @@
         <h3>5.2 Third-Party Services</h3>
         <p>SteadiDay™ sends anonymous, non-personal analytics data (app open events and session starts) to Google Analytics for the purpose of measuring app usage and advertising effectiveness. This data cannot be used to identify you. No health data, medication information, personal content, or identifiable information is ever shared.</p>
 
-        <h3>5.3 Emergency SOS</h3>
-        <p>When you activate Emergency SOS, the app will share your location and alert message with your designated trusted contacts. This only happens when you explicitly trigger this feature.</p>
+        <h3>5.3 Emergency SOS &amp; Fall Detection Alerts</h3>
+        <p>When you activate Emergency SOS, the app will share your location and alert message with your designated trusted contacts. Additionally, if fall detection activates and you do not respond within the countdown period, the app automatically sends your name, GPS location, and an alert message to all your trusted contacts via a secure, stateless SMS relay service (Twilio). The relay transmits only the minimum information needed to deliver the text — your display name, trusted contact phone numbers, and GPS coordinates. No data is stored on the relay server after the message is sent.</p>
 
         <h3>5.4 Legal Requirements</h3>
         <p>Since we don't have access to your personal data (it's on your device), we cannot provide it in response to legal requests. If required by law, we would disclose only business records we maintain (such as contact form submissions from our website).</p>
