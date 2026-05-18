@@ -99,10 +99,13 @@ BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
 
 # E-E-A-T signals for medical/health content. Replace with a real named
-# clinician (e.g. {"name": "Dr. Jane Doe, MD", "jobTitle": "Geriatric Medicine"})
-# when one is engaged — Google's health-content ranking weighs identifiable
-# expert reviewers heavily, and a generic team name is the floor not the ceiling.
+# clinician when one is engaged (set "type" to "Person" and use their real
+# name + credential, e.g. "Dr. Jane Doe, MD"). Google's health-content
+# ranking weighs identifiable expert reviewers heavily; an Organization-
+# typed editorial team is the honest floor (and validates cleanly against
+# schema.org, which expects Person names to actually be a person's name).
 EDITORIAL_REVIEWER = {
+    "type": "Organization",
     "name": "SteadiDay Health Editorial Team",
     "jobTitle": "Editorial Review",
     "url": f"{WEBSITE_URL}/#about",
@@ -1080,6 +1083,20 @@ def _json_escape(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
+def build_reviewer_jsonld(reviewer=EDITORIAL_REVIEWER):
+    """Inner JSON object for the Article's reviewedBy field. Person and
+    Organization carry different valid properties under schema.org —
+    jobTitle is a Person property and would be a soft-warning on an
+    Organization. This builds the right shape per type so Google's
+    Rich Results test stays clean."""
+    obj = {"@type": reviewer["type"], "name": reviewer["name"]}
+    if reviewer.get("url"):
+        obj["url"] = reviewer["url"]
+    if reviewer["type"] == "Person" and reviewer.get("jobTitle"):
+        obj["jobTitle"] = reviewer["jobTitle"]
+    return json.dumps(obj, ensure_ascii=False)
+
+
 def pick_related_posts(category, existing_posts, current_filename=None, n=RELATED_POSTS_COUNT):
     """Choose up to n related posts for the footer block. Preference order:
     same category, then categories from _RELATED_CATEGORIES, then recency.
@@ -1306,7 +1323,7 @@ def get_html_template():
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
-    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{{"@type":"Person","name":"{reviewer_name}","jobTitle":"{reviewer_title}","url":"{reviewer_url}"}},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
+    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{reviewer_jsonld},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
     {faq_jsonld}
     <style>
@@ -1378,8 +1395,8 @@ def create_blog_html(post_data):
         content=post_data['content'],
         year=datetime.now().year,
         reviewer_name=EDITORIAL_REVIEWER["name"],
-        reviewer_title=EDITORIAL_REVIEWER["jobTitle"],
         reviewer_url=EDITORIAL_REVIEWER["url"],
+        reviewer_jsonld=build_reviewer_jsonld(),
         faq_jsonld=build_faq_jsonld(post_data.get("faqs", [])),
         related_posts_block=render_related_posts_block(post_data.get("related_posts", [])),
     )

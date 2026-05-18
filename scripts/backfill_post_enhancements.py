@@ -35,6 +35,7 @@ from generate_blog import (  # noqa: E402
     EDITORIAL_REVIEWER,
     RELATED_POSTS_COUNT,
     build_faq_jsonld,
+    build_reviewer_jsonld,
     pick_related_posts,
     render_related_posts_block,
     _RELATED_CATEGORIES,
@@ -166,27 +167,38 @@ def add_reviewer_css(content: str) -> str:
 def upgrade_article_jsonld(content: str) -> str:
     """Convert the existing Article JSON-LD into a multi-typed
     MedicalWebPage/Article block with reviewedBy + lastReviewed.
-    Idempotent — no-op if MedicalWebPage is already in the JSON-LD."""
-    if 'MedicalWebPage' in content:
-        return content
+    Idempotent — no-op if MedicalWebPage is already in the JSON-LD.
+    Re-runnable when EDITORIAL_REVIEWER changes: the existing
+    reviewedBy + lastReviewed fields are stripped first, then the
+    fresh ones are inserted, so swapping in a named clinician later
+    just requires re-running the backfill."""
+    is_first_run = 'MedicalWebPage' not in content
 
-    # Find the Article JSON-LD line (it's emitted as one line in the
-    # current template, which makes the substitution straightforward).
-    pattern = re.compile(
-        r'("@type"\s*:\s*)"Article"',
-    )
-    if not pattern.search(content):
-        return content
-    content = pattern.sub(r'\1["MedicalWebPage","Article"]', content, count=1)
+    if is_first_run:
+        # Convert "@type":"Article" to multi-type. Only on first run —
+        # re-runs would otherwise double-wrap.
+        pattern = re.compile(r'("@type"\s*:\s*)"Article"')
+        if not pattern.search(content):
+            return content
+        content = pattern.sub(r'\1["MedicalWebPage","Article"]', content, count=1)
+    else:
+        # Re-run: strip any previously-injected reviewedBy + lastReviewed
+        # so the freshly-built fragment can replace them. Robust against
+        # both Person and Organization shapes from earlier runs.
+        content = re.sub(
+            r'"reviewedBy"\s*:\s*\{[^{}]*\}\s*,',
+            '',
+            content,
+            count=1,
+        )
+        content = re.sub(
+            r'"lastReviewed"\s*:\s*"[^"]*"\s*,',
+            '',
+            content,
+            count=1,
+        )
 
-    reviewer_obj = (
-        f'"reviewedBy":{{"@type":"Person",'
-        f'"name":"{EDITORIAL_REVIEWER["name"]}",'
-        f'"jobTitle":"{EDITORIAL_REVIEWER["jobTitle"]}",'
-        f'"url":"{EDITORIAL_REVIEWER["url"]}"}},'
-    )
-    # Insert reviewedBy + lastReviewed before publisher in the same JSON.
-    # The publisher field is present in every post; use it as the anchor.
+    reviewer_obj = f'"reviewedBy":{build_reviewer_jsonld()},'
     date_m = re.search(r'"datePublished"\s*:\s*"([^"]+)"', content)
     iso_date = date_m.group(1) if date_m else ""
     extra = reviewer_obj + (f'"lastReviewed":"{iso_date}",' if iso_date else "")
@@ -252,11 +264,15 @@ def process_file(path: Path, index_map: dict, existing_posts: list[dict]) -> dic
         content = add_reviewer_to_header(content)
         actions["reviewer"] = True
 
-    if 'MedicalWebPage' not in content:
-        content = upgrade_article_jsonld(content)
+    # Always run — upgrade_article_jsonld handles first-run vs re-run
+    # internally so changes to EDITORIAL_REVIEWER propagate without
+    # needing to revert files first.
+    before = content
+    content = upgrade_article_jsonld(content)
+    if content != before:
         actions["schema"] = True
 
-    if FAQ_MARKER not in content:
+    if FAQ_MARKER not in content and '"@type": "FAQPage"' not in content:
         faqs = extract_faqs_from_h2s(content)
         if len(faqs) >= 2:
             content = inject_faq_jsonld(content, faqs)
