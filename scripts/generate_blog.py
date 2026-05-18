@@ -1,6 +1,22 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v5.6
+SteadiDay Blog Generator v5.7
+
+v5.7 changes (SEO / E-E-A-T enhancements):
+- FAQPage JSON-LD on every post. The content prompt now asks for an
+  explicit "Common Questions" section with 3-4 <h3>Question?</h3>
+  followed by <p>Answer.</p> pairs. Those Q&As stay rendered on the
+  page AND are emitted as a separate FAQPage JSON-LD block in <head>.
+  Earns rich-result / AI-Overview eligibility without duplicating
+  content for users.
+- MedicalWebPage typing + reviewedBy on the Article schema. Health
+  content (YMYL) is ranked partly on whether an identifiable reviewer
+  stands behind it. The EDITORIAL_REVIEWER constant is the seam to
+  swap in a real named clinician once one is engaged.
+- "Related from the blog" footer block. Each post now surfaces up to
+  3 same-category posts (falling back to the curated _RELATED_CATEGORIES
+  graph, then most-recent) before the CTA. Compounds crawl depth and
+  topical-authority signals across the blog.
 
 v5.6 changes (duplicate-theme + dead-image fixes):
 - Recent-theme dedup: is_duplicate() now uses a tighter rule for posts within
@@ -81,6 +97,21 @@ CLAUDE_MODEL = "claude-sonnet-4-6"
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
+
+# E-E-A-T signals for medical/health content. Replace with a real named
+# clinician (e.g. {"name": "Dr. Jane Doe, MD", "jobTitle": "Geriatric Medicine"})
+# when one is engaged — Google's health-content ranking weighs identifiable
+# expert reviewers heavily, and a generic team name is the floor not the ceiling.
+EDITORIAL_REVIEWER = {
+    "name": "SteadiDay Health Editorial Team",
+    "jobTitle": "Editorial Review",
+    "url": f"{WEBSITE_URL}/#about",
+}
+
+# How many same-category posts to surface in the "Related from the blog"
+# footer block. 3 is enough to spread internal-link weight without
+# crowding the CTA.
+RELATED_POSTS_COUNT = 3
 CATEGORY_COOLDOWN_WINDOW = 4
 # Posts within this many days are treated as "recent" for thematic dedup.
 # Any 2+ distinctive-keyword overlap with a recent post is a duplicate,
@@ -996,6 +1027,113 @@ IMAGE_LAYOUT_PATTERNS = [
 ]
 
 
+# Lifted out so backfill scripts can reuse the same regex without duplicating it.
+FAQ_PAIR_PATTERN = re.compile(
+    r'<h3[^>]*>(.*?)</h3>\s*<p[^>]*>(.*?)</p>',
+    re.DOTALL | re.IGNORECASE,
+)
+
+
+def extract_faqs_from_content(content_html):
+    """Pull <h3>Q?</h3><p>A.</p> pairs the LLM emitted in the Common Questions
+    section. Returns a list of {"q": str, "a": str} dicts (HTML-stripped)."""
+    faqs = []
+    for q_html, a_html in FAQ_PAIR_PATTERN.findall(content_html):
+        q = re.sub(r'<[^>]+>', '', q_html).strip()
+        a = re.sub(r'<[^>]+>', '', a_html).strip()
+        if q and a and len(q) > 5 and len(a) > 20:
+            faqs.append({"q": q, "a": a})
+    return faqs
+
+
+def build_faq_jsonld(faqs):
+    """Return a FAQPage JSON-LD <script> block, or empty string if no FAQs.
+    Output is single-line JSON to keep the rendered HTML compact."""
+    if not faqs:
+        return ""
+    entities = [
+        {
+            "@type": "Question",
+            "name": _json_escape(faq["q"]),
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": _json_escape(faq["a"]),
+            },
+        }
+        for faq in faqs
+    ]
+    payload = {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": entities,
+    }
+    return (
+        '<script type="application/ld+json">'
+        + json.dumps(payload, ensure_ascii=False)
+        + '</script>'
+    )
+
+
+def _json_escape(s):
+    """Strip control chars and collapse whitespace so JSON-LD stays valid
+    even when content has stray newlines or smart quotes."""
+    return re.sub(r'\s+', ' ', s).strip()
+
+
+def pick_related_posts(category, existing_posts, current_filename=None, n=RELATED_POSTS_COUNT):
+    """Choose up to n related posts for the footer block. Preference order:
+    same category, then categories from _RELATED_CATEGORIES, then recency.
+    Excludes the current post and any post missing a title."""
+    candidates = [
+        p for p in existing_posts
+        if p.get('title') and p.get('filename') != current_filename
+    ]
+    seen, ordered = set(), []
+
+    def take_from(cat_list):
+        for p in candidates:
+            if p['filename'] in seen:
+                continue
+            if p.get('category') in cat_list:
+                seen.add(p['filename'])
+                ordered.append(p)
+                if len(ordered) >= n:
+                    return True
+        return False
+
+    if take_from({category}):
+        return ordered[:n]
+    related_cats = _RELATED_CATEGORIES.get(category, [])
+    if related_cats and take_from(set(related_cats)):
+        return ordered[:n]
+    # Final fallback: most recent, regardless of category. Posts already
+    # arrive sorted by date desc from get_existing_posts().
+    for p in candidates:
+        if p['filename'] in seen:
+            continue
+        ordered.append(p)
+        if len(ordered) >= n:
+            break
+    return ordered[:n]
+
+
+def render_related_posts_block(related_posts):
+    """Inline HTML for the "Related from the blog" footer block.
+    Returns empty string if no related posts (e.g. very early in blog life)."""
+    if not related_posts:
+        return ""
+    items = "".join(
+        f'<li><a href="{p["filename"]}">{p["title"]}</a></li>'
+        for p in related_posts
+    )
+    return (
+        '<aside class="related-posts" aria-label="Related posts">'
+        '<h3>Related from the SteadiDay Blog</h3>'
+        f'<ul class="related-posts-list">{items}</ul>'
+        '</aside>'
+    )
+
+
 def generate_blog_post(topic_data, existing_posts, client):
     topic, keyword, category = topic_data["topic"], topic_data["keyword"], topic_data.get("category","Wellness")
     images = get_images_for_category(category, topic=topic, client=client)
@@ -1071,6 +1209,17 @@ CONTENT REQUIREMENTS:
 2. Mention SteadiDay's {feature} feature naturally (it's free)
 3. Include at least 2 specific statistics with their sources
 4. Advice must be DISTINCT from existing posts
+5. END the article with a section titled "Common Questions" using exactly this format:
+   <h2>Common Questions</h2>
+   <h3>First question, phrased as a real question and ending with a question mark?</h3>
+   <p>Direct, useful answer in 2-4 sentences. No filler.</p>
+   <h3>Second question?</h3>
+   <p>Answer.</p>
+   <h3>Third question?</h3>
+   <p>Answer.</p>
+   Write 3-4 questions a 50+ reader would actually ask after reading this post.
+   These will be emitted as FAQPage schema, so the questions must be
+   self-contained (understandable without the article context).
 
 MEDIA PLACEHOLDERS:
 {img_ph}
@@ -1084,7 +1233,10 @@ READ_TIME: X
 CONTENT:
 <p>Opening...</p>
 <h2>Section Title</h2>
-<p>Content...</p>"""
+<p>Content...</p>
+<h2>Common Questions</h2>
+<h3>Question?</h3>
+<p>Answer.</p>"""
     msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=4500, messages=[{"role":"user","content":prompt}]))
     r = msg.content[0].text
     title_match = re.search(r'TITLE:\s*(.+?)(?:\n|$)', r)
@@ -1119,7 +1271,15 @@ CONTENT:
         content = content.replace("[VIDEO]", f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>')
     content = re.sub(r'\[IMAGE_\d+\]','',content).replace("[VIDEO]",'')
     slug = '-'.join(re.sub(r'[^a-z0-9\s]','',title.lower()).split()[:5])
-    return {"title":title,"meta_description":meta,"keywords":kws,"read_time":rt,"content":content,"slug":slug,"category":category,"hero_image":images["hero"],"video":video,"num_images":num_images,"date":datetime.now().strftime('%Y-%m-%d')}
+    faqs = extract_faqs_from_content(content)
+    if faqs:
+        print(f"  📋 Extracted {len(faqs)} FAQ pairs for FAQPage schema")
+    else:
+        print("  ⚠ No FAQ pairs found in content — FAQPage schema will be omitted")
+    related = pick_related_posts(category, existing_posts, current_filename=None)
+    if related:
+        print(f"  🔗 Related posts: {', '.join(p['filename'] for p in related)}")
+    return {"title":title,"meta_description":meta,"keywords":kws,"read_time":rt,"content":content,"slug":slug,"category":category,"hero_image":images["hero"],"video":video,"num_images":num_images,"date":datetime.now().strftime('%Y-%m-%d'),"faqs":faqs,"related_posts":related}
 
 
 def get_html_template():
@@ -1146,8 +1306,9 @@ def get_html_template():
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script type="application/ld+json">
-    {{"@context":"https://schema.org","@type":"Article","headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
+    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{{"@type":"Person","name":"{reviewer_name}","jobTitle":"{reviewer_title}","url":"{reviewer_url}"}},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
+    {faq_jsonld}
     <style>
         :root{{--cream:#FFFBF5;--teal:#1A8A7D;--teal-dark:#147568;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}}
         *{{margin:0;padding:0;box-sizing:border-box;}}
@@ -1161,6 +1322,9 @@ def get_html_template():
         .hero-image{{width:100%;max-height:450px;object-fit:cover;}}
         .article-header{{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-light) 100%);color:var(--white);padding:3rem 2rem;text-align:center;}}
         .article-header h1{{max-width:800px;margin:0 auto 1rem;font-size:2.25rem;color:var(--white);}}.article-meta{{font-size:1rem;opacity:0.9;}}
+        .article-reviewer{{font-size:0.9rem;opacity:0.8;font-style:italic;margin-top:0.5rem;}}.article-reviewer a{{color:rgba(255,255,255,0.95);text-decoration:underline;}}
+        .related-posts{{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--teal-light);border-radius:12px;}}
+        .related-posts h3{{margin:0 0 0.75rem;font-size:1.2rem;}}.related-posts-list{{list-style:none;padding:0;margin:0;}}.related-posts-list li{{padding:0.5rem 0;border-bottom:1px solid rgba(30,58,95,0.08);font-size:1rem;}}.related-posts-list li:last-child{{border-bottom:none;}}
         .article-container{{max-width:750px;margin:0 auto;padding:3rem 2rem;background:var(--white);}}
         .article-content h2{{font-size:1.6rem;margin:2.5rem 0 1rem;}}.article-content p{{margin-bottom:1.5rem;}}
         .article-content ul,.article-content ol{{margin:1.5rem 0;padding-left:2rem;}}.article-content li{{margin-bottom:0.75rem;}}
@@ -1184,11 +1348,12 @@ def get_html_template():
     <nav class="nav"><div class="nav-container"><a href="index.html">&larr; Back to Blog</a><a href="{website_url}">SteadiDay Home</a></div></nav>
     <div class="breadcrumbs"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">{title}</span></div>
     <img src="{hero_image}" alt="{title}" class="hero-image" loading="eager">
-    <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div></header>
+    <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div><div class="article-reviewer">Editorially reviewed by <a href="{reviewer_url}">{reviewer_name}</a></div></header>
     <article class="article-container"><div class="article-content">
         {content}
         <div class="cta-box"><h3>Ready to Take Control of Your Daily Wellness?</h3><p>SteadiDay helps you manage medications, track your health, and stay connected with loved ones. Every feature is completely free.</p><a href="{app_store_url}" class="cta-button">Download Free on the App Store</a></div>
     </div></article>
+    {related_posts_block}
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
     <footer class="footer"><p>&copy; {year} SCM Solutions LLC. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p></footer>
 <!-- GTAG_CONVERSION_INJECTED -->
@@ -1199,7 +1364,25 @@ def get_html_template():
 def create_blog_html(post_data):
     fn = f"{post_data['date']}-{post_data['slug']}.html"
     d = datetime.strptime(post_data['date'], '%Y-%m-%d')
-    html = get_html_template().format(title=post_data['title'],meta_description=post_data['meta_description'],keywords=post_data['keywords'],canonical_url=f"{BLOG_BASE_URL}/{fn}",website_url=WEBSITE_URL,app_store_url=APP_STORE_URL,hero_image=post_data['hero_image'],iso_date=d.isoformat(),formatted_date=d.strftime('%B %d, %Y'),read_time=post_data['read_time'],content=post_data['content'],year=datetime.now().year)
+    html = get_html_template().format(
+        title=post_data['title'],
+        meta_description=post_data['meta_description'],
+        keywords=post_data['keywords'],
+        canonical_url=f"{BLOG_BASE_URL}/{fn}",
+        website_url=WEBSITE_URL,
+        app_store_url=APP_STORE_URL,
+        hero_image=post_data['hero_image'],
+        iso_date=d.isoformat(),
+        formatted_date=d.strftime('%B %d, %Y'),
+        read_time=post_data['read_time'],
+        content=post_data['content'],
+        year=datetime.now().year,
+        reviewer_name=EDITORIAL_REVIEWER["name"],
+        reviewer_title=EDITORIAL_REVIEWER["jobTitle"],
+        reviewer_url=EDITORIAL_REVIEWER["url"],
+        faq_jsonld=build_faq_jsonld(post_data.get("faqs", [])),
+        related_posts_block=render_related_posts_block(post_data.get("related_posts", [])),
+    )
     return html, fn
 
 def update_blog_index(post_data, filename):
