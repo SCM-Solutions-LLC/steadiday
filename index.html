@@ -98,7 +98,7 @@ gtag('config', 'G-LF8H890XTV');
         "Daily Task Management & To-Do Lists",
         "Apple Calendar & Reminders Sync",
         "General Reminders & Scheduling",
-        "Emergency SOS with One-Tap Calling",
+        "Emergency SOS with Quick Calling",
         "Fall Detection",
         "Apple Health Integration",
         "Food & Water Intake Tracking",
@@ -605,15 +605,10 @@ gtag('config', 'G-LF8H890XTV');
         transform: translateY(-2px);
     }
 
-    /* Official App Store badge wrapper — per Apple Marketing Guidelines.
-       The badge artwork itself is the official black SVG from Apple's Marketing Tools
-       (https://tools.applemediaservices.com/app-store/). Do not modify, animate, or
-       restyle the badge. Minimum height 40px onscreen; clear space = 1/4 badge height. */
     .app-store-badge {
         display: inline-block;
         line-height: 0;
         transition: opacity 0.2s ease;
-        /* Clear space: no other content should be placed within 1/4 badge height on any side */
     }
 
     .app-store-badge:hover {
@@ -622,12 +617,11 @@ gtag('config', 'G-LF8H890XTV');
 
     .app-store-badge img,
     .app-store-badge svg {
-        height: 56px;      /* well above the 40px minimum */
+        height: 56px;
         width: auto;
         display: block;
     }
 
-    /* On very tight mobile layouts, drop to legible minimum */
     @media (max-width: 420px) {
         .app-store-badge img,
         .app-store-badge svg {
@@ -635,7 +629,6 @@ gtag('config', 'G-LF8H890XTV');
         }
     }
 
-    /* Microcopy under the hero CTA */
     .hero-cta-microcopy {
         font-size: 0.95rem;
         color: var(--charcoal-light);
@@ -643,12 +636,8 @@ gtag('config', 'G-LF8H890XTV');
         font-style: italic;
     }
 
-    /* ========== DESKTOP QR CODE (hero) ==========
-       Hidden on mobile/tablet — useless when the user is already on their phone.
-       On desktop, sits next to the App Store badge so a laptop visitor
-       can install directly on their iPhone without typing a URL. */
     .hero-qr {
-        display: none;  /* hidden by default; shown only on desktop via media query */
+        display: none;
         align-items: center;
         gap: 0.875rem;
         padding: 0.75rem 1rem;
@@ -687,7 +676,6 @@ gtag('config', 'G-LF8H890XTV');
         max-width: 140px;
     }
 
-    /* Show QR only on true desktop layouts */
     @media (min-width: 1025px) {
         .hero-qr {
             display: inline-flex;
@@ -782,7 +770,7 @@ gtag('config', 'G-LF8H890XTV');
         line-height: 1.4;
     }
 
-    /* ==================== WHY FAMILIES CHOOSE (problem/solution cards) ==================== */
+    /* ==================== WHY FAMILIES CHOOSE ==================== */
     .why-families {
         padding: 5rem 0;
         background: var(--cream-dark);
@@ -1750,8 +1738,8 @@ gtag('config', 'G-LF8H890XTV');
                     </svg>
                     Built for the parent you worry about
                 </div>
-                <h1>Help, <span>one tap away</span>.</h1>
-                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. A single tap brings up 911 and a pre-written SOS text to a trusted contact — with location ready to send. Automatic fall detection runs in the background. Plus medication reminders and a Care Summary so you know they're okay. No account. Free forever.</p>
+                <h1>Help, <span>right when you need it</span>.</h1>
+                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. The SOS button on the home screen quickly connects to 911, texts a trusted contact your location, or calls them directly. Start a Safety Session to enable fall detection while the app is open. Plus medication reminders and a Care Summary so you know they're okay. No account. Free forever.</p>
                 <div class="hero-buttons">
                     <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                         <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
@@ -1770,7 +1758,7 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="hero-image">
                 <div class="hero-phone">
-                    <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen — one tap to call 911, send SOS text with location to a trusted contact, or call a trusted contact directly">
+                    <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen — call 911, send SOS text with location to a trusted contact, or call a trusted contact directly">
                 </div>
             </div>
         </div>
@@ -1827,7 +1815,7 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- NEW: Why families choose SteadiDay (problem/solution cards) -->
+    <!-- Why families choose SteadiDay (problem/solution cards) -->
     <section class="why-families">
         <div class="container">
             <div class="section-header">
@@ -1838,7 +1826,7 @@ gtag('config', 'G-LF8H890XTV');
             <div class="why-grid">
                 <div class="why-card alert-accent">
                     <p class="why-card-question">"What if she falls and needs help?"</p>
-                    <p class="why-card-answer">A single tap from her home screen brings up 911 and a pre-written SOS text to you — with her exact GPS location ready to send. Automatic fall detection also runs in the background: if a hard fall is detected and she doesn't respond to the check-in, the phone surfaces 911 ready to call.</p>
+                    <p class="why-card-answer">The SOS button on her home screen quickly connects to 911, texts you her exact GPS location, or calls you directly. She can also start a Safety Session to enable fall detection while the app is open: if a hard fall is detected and she doesn't respond within 30 seconds, the app automatically texts her trusted contacts with her location.</p>
                 </div>
                 <div class="why-card">
                     <p class="why-card-question">"Did she take her medication today?"</p>
@@ -1860,7 +1848,7 @@ gtag('config', 'G-LF8H890XTV');
                 <p>Designed for clarity with large buttons and straightforward navigation. Every feature is free.</p>
             </div>
             <div class="features-grid">
-                <!-- Emergency SOS — first, as the lead feature -->
+                <!-- Emergency SOS -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1868,9 +1856,9 @@ gtag('config', 'G-LF8H890XTV');
                         </svg>
                     </div>
                     <h3>Emergency SOS</h3>
-                    <p>One tap to call 911, or send a pre-written SOS text with location to a trusted contact. Designed to be reachable in the moments that matter most.</p>
+                    <p>Quickly call 911, send an SOS text with your location to a trusted contact, or call them directly. Designed to be reachable in the moments that matter most.</p>
                 </div>
-                <!-- Fall Detection — corrected to match actual app behavior -->
+                <!-- Fall Detection -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -1878,7 +1866,7 @@ gtag('config', 'G-LF8H890XTV');
                         </svg>
                     </div>
                     <h3>Fall Detection</h3>
-                    <p>Runs automatically in the background. If a hard fall is detected, the app prompts a 30-second check-in. If there's no response, the phone surfaces a 911 call ready to place — making the most important action one tap away in a moment when finding the SOS button would be hard.</p>
+                    <p>Start a Safety Session from the home screen to enable fall detection while the app is open. If a hard fall is detected, the app prompts a 30-second check-in with options to call 911, text your trusted contacts, or call them. If there's no response within 30 seconds, the app automatically texts all trusted contacts with your name and GPS location.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">
@@ -1991,7 +1979,7 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="step">
                     <div class="step-number">4</div>
                     <h3>Live Confidently</h3>
-                    <p>Go about your day knowing help is one tap away if needed.</p>
+                    <p>Go about your day knowing help is right there when you need it.</p>
                 </div>
             </div>
         </div>
@@ -2090,7 +2078,7 @@ gtag('config', 'G-LF8H890XTV');
     </section>
     -->
 
-    <!-- UPDATED: Pricing — Reframed (removed $0, community phase messaging) -->
+    <!-- Pricing -->
     <section class="pricing" id="pricing">
         <div class="container">
             <div class="section-header">
@@ -2191,7 +2179,6 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- UPDATED: About / Founder Section — name removed per request, attribution to SCM Solutions LLC team -->
     <section class="about-founder" id="about">
         <div class="container">
             <div class="about-founder-content">
@@ -2328,7 +2315,6 @@ gtag('config', 'G-LF8H890XTV');
     <!-- Google Ads: App Store click conversion tracking -->
     <script>
       document.addEventListener('DOMContentLoaded', function() {
-        // Track clicks on all App Store links as conversions
         var links = document.querySelectorAll('a[href*="apps.apple.com"]');
         for (var i = 0; i < links.length; i++) {
           links[i].addEventListener('click', function() {
@@ -2336,7 +2322,6 @@ gtag('config', 'G-LF8H890XTV');
               gtag('event', 'conversion', {
                 'send_to': 'AW-17929124014/gDbcCLbkio4cEK7xouVC',
                 'event_callback': function() {
-                  // Allow the link to proceed after tracking
                 }
               });
             }
