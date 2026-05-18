@@ -1,6 +1,29 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v5.5
+SteadiDay Blog Generator v5.6
+
+v5.6 changes (duplicate-theme + dead-image fixes):
+- Recent-theme dedup: is_duplicate() now uses a tighter rule for posts within
+  the last 30 days — any 2+ distinctive-keyword overlap is a duplicate,
+  regardless of the old 0.6 ratio. Previously two Alzheimer's-drug posts
+  shipped 14 days apart because their content-word overlap was {alzheimers,
+  2026} = 2 words but ratio only 0.4, slipping past the threshold. Same gap
+  let two "daytime naps" posts ship 14 days apart.
+- Light stem normalization in get_content_words() folds plurals and -ing
+  forms together (naps/napping -> nap), so the naps/napping case now
+  registers 2 overlapping keywords instead of 1.
+- News-driven topic generator now receives an explicit FORBIDDEN_THEMES list
+  built from titles in the last 30 days — Claude is told to avoid any topic
+  whose primary subject overlaps that list. This catches thematic duplicates
+  before generation, not just after.
+- Semantic-dup prompt tightened to flag any post sharing the primary medical
+  condition / drug / disease as recent posts.
+- Live Unsplash HEAD-check: hallucinated photo IDs (e.g. the May 18 hero
+  photo-1727188222430-b5fa53a1faa6) pass the format regex but 404 in
+  browsers, so the page renders without a banner. We now HEAD-check each
+  candidate URL before accepting it and reject confirmed 404s. Inconclusive
+  errors (network, 403 from sandbox) fall through to format-only validation
+  so dev environments aren't blocked.
 
 v5.5 changes (sitemap automation):
 - After every blog publish, automatically invoke generate_sitemap.py to
@@ -59,6 +82,11 @@ WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
 CATEGORY_COOLDOWN_WINDOW = 4
+# Posts within this many days are treated as "recent" for thematic dedup.
+# Any 2+ distinctive-keyword overlap with a recent post is a duplicate,
+# regardless of overall ratio. Catches cases like back-to-back Alzheimer's
+# drug posts that share {alzheimers, 2026} but no other vocabulary.
+RECENT_THEME_WINDOW_DAYS = 30
 
 VALID_CATEGORIES = [
     "Mental Wellness", "Medication Tips", "Healthy Aging", "Exercise",
@@ -92,6 +120,32 @@ UNSPLASH_URL_PATTERN = re.compile(
 def is_valid_unsplash_url(url):
     """Return True only if `url` is a properly-formed Unsplash photo URL."""
     return bool(url and UNSPLASH_URL_PATTERN.match(url))
+
+
+def unsplash_url_is_live(url, timeout=10):
+    """HEAD-check an Unsplash URL. Returns False on a confirmed 404 (the photo
+    ID doesn't exist — almost always an LLM hallucination that happened to
+    match the format regex). Returns True for 200s, and also True on
+    inconclusive errors (sandbox blocks, transient network) so that dev
+    environments don't strip every image. The May 18 hero
+    photo-1727188222430-b5fa53a1faa6 is the canonical failure mode this
+    catches: format-valid but the photo doesn't exist."""
+    if not url:
+        return False
+    try:
+        req = urllib.request.Request(
+            url, method="HEAD", headers={"User-Agent": "Mozilla/5.0"}
+        )
+        with urllib.request.urlopen(req, timeout=timeout) as resp:
+            return 200 <= getattr(resp, 'status', 200) < 400
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            return False
+        # 403 from a proxy, 5xx from Unsplash, etc. — inconclusive, accept.
+        return True
+    except Exception:
+        # Network failure / DNS / timeout — inconclusive, fall through.
+        return True
 
 
 def call_with_retry(func, max_retries=7, base_delay=30):
@@ -148,13 +202,45 @@ def normalize_text(text):
     return re.sub(r'\s+', ' ', text)
 
 
+def _stem(word):
+    """Fold simple plural / -ing / -ed variants together so naps/napping/napped
+    all normalize to one form. Not a full stemmer — just enough to catch the
+    most common back-to-back-post duplicate patterns."""
+    if len(word) <= 3:
+        return word
+    if word.endswith("ies") and len(word) > 4:
+        return word[:-3] + "y"
+    # -ing strip + drop doubled consonant: napping -> napp -> nap.
+    if word.endswith("ing") and len(word) > 5:
+        stem = word[:-3]
+        if len(stem) >= 3 and stem[-1] == stem[-2] and stem[-1] not in "aeiou":
+            stem = stem[:-1]
+        return stem
+    for suf in ("ers", "er", "ed", "es", "s"):
+        if word.endswith(suf) and len(word) > len(suf) + 2:
+            return word[:-len(suf)]
+    return word
+
+
 def get_content_words(text):
     stop = {'the','a','an','for','and','or','to','of','in','your','how','that','with','after','from','is','are','was','were','be','been','being','have','has','had','do','does','did','will','would','could','should','may','might','can','this','these','those','it','its','you','we','they','them','our','my','me','what','which','who','whom','when','where','why','not','no','so','if','but','as','at','by','on','up','about','into','over','than','then','too','very','just','also','more','most','some','any','all','each','every','simple','easy','best','top','guide','tips','ways','adults','seniors','50','over','after','really','complete','natural','naturally','better','healthy','health','improve'}
-    return set(normalize_text(text).split()) - stop
+    raw = set(normalize_text(text).split()) - stop
+    return {_stem(w) for w in raw}
+
+
+def _days_between(date_str_a, date_str_b):
+    """Days between two YYYY-MM-DD strings. Returns None if either is invalid."""
+    try:
+        a = datetime.strptime(date_str_a, '%Y-%m-%d').date()
+        b = datetime.strptime(date_str_b, '%Y-%m-%d').date()
+    except (ValueError, TypeError):
+        return None
+    return abs((a - b).days)
 
 
 def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.55, threshold_slug=0.65):
     ntl, nsl = normalize_text(new_title), normalize_text(new_slug)
+    today_str = datetime.now().strftime('%Y-%m-%d')
     for post in existing_posts:
         etl, esl = normalize_text(post['title']), normalize_text(post['slug'])
         if SequenceMatcher(None, ntl, etl).ratio() >= threshold_title:
@@ -165,9 +251,37 @@ def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.55, thre
         if new_words and existing_words:
             overlap = new_words & existing_words
             min_len = min(len(new_words), len(existing_words))
+            # Tighter rule for recent posts: any 2+ distinctive-keyword overlap
+            # is a thematic duplicate, regardless of ratio. This catches cases
+            # like back-to-back Alzheimer's drug posts that share only
+            # {alzheimers, 2026} but cover the same subject.
+            days = _days_between(today_str, post.get('date', ''))
+            if days is not None and days <= RECENT_THEME_WINDOW_DAYS and len(overlap) >= 2:
+                return (True, f"Recent-post theme overlap ({overlap}, {days}d ago)", post['filename'])
+            # Original looser check applies to older posts.
             if min_len > 0 and len(overlap) >= 2 and len(overlap) / min_len >= 0.6:
                 return (True, f"Keyword overlap ({overlap})", post['filename'])
     return (False, "", "")
+
+
+def get_recent_theme_keywords(existing_posts, days=RECENT_THEME_WINDOW_DAYS):
+    """Distinctive content words from titles + meta descriptions of posts
+    within the last `days` days. Used to tell the topic generator which
+    themes are off-limits because we've already covered them recently."""
+    today_str = datetime.now().strftime('%Y-%m-%d')
+    words = set()
+    for p in existing_posts:
+        d = _days_between(today_str, p.get('date', ''))
+        if d is None or d > days:
+            continue
+        for source in (p.get('title', ''), p.get('meta_desc', '')):
+            if not source:
+                continue
+            # Keep words that look distinctive: alpha-only, 4+ chars.
+            for w in get_content_words(source):
+                if len(w) >= 4 and w.isalpha():
+                    words.add(w)
+    return sorted(words)
 
 
 def check_semantic_duplicate(client, new_title, existing_posts):
@@ -184,7 +298,15 @@ PROPOSED NEW POST TITLE: "{new_title}"
 EXISTING POSTS (title + summary):
 {posts_list}
 
-Would the proposed post cover substantially the same ground as any existing post?
+Flag as DUPLICATE if the proposed post would:
+- Cover the same primary medical condition, disease, drug, or treatment as a
+  recent post (e.g., two posts both centered on Alzheimer's drugs, even if
+  one is about a new injection and the other about a clinical trial debate).
+- Share the same primary news hook or organization (FDA decision, Cochrane
+  review, AHA guideline update) with an existing post.
+- Be a slightly different angle on a topic already covered (e.g.,
+  "daytime naps and mortality" vs "morning naps as a warning sign").
+
 Reply with ONLY: UNIQUE or DUPLICATE OF: [existing title]"""
 
     msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=200, messages=[{"role": "user", "content": prompt}]))
@@ -206,6 +328,17 @@ def generate_news_driven_topic(client, existing_posts, excluded_categories=None)
     month, year = datetime.now().strftime('%B'), datetime.now().strftime('%Y')
     category_note = f"\nDO NOT use these categories (used recently): {', '.join(excluded_categories)}" if excluded_categories else ""
 
+    forbidden = get_recent_theme_keywords(existing_posts)
+    if forbidden:
+        forbidden_note = (
+            "\nFORBIDDEN THEMES (these subjects appeared in posts within the last "
+            f"{RECENT_THEME_WINDOW_DAYS} days — pick a topic whose PRIMARY subject is NOT in this list):\n"
+            f"{', '.join(forbidden)}\n"
+            "If the news story you find primarily covers any of these subjects, reject it and find a different story."
+        )
+    else:
+        forbidden_note = ""
+
     prompt = f"""Search for health news, medical studies, or updated clinical guidelines published
 in the last 2 weeks (it is currently {month} {year}) that are relevant to adults over 50.
 
@@ -217,7 +350,7 @@ updated treatment guidelines, seasonal health alerts, new FDA actions, public he
 
 EXISTING POSTS (do NOT duplicate):
 {content_summaries}
-{category_note}
+{category_note}{forbidden_note}
 
 Frame the topic through "what this means for your daily life." Present only evidence-based,
 factual information — no political opinions or editorial commentary.
@@ -638,7 +771,8 @@ Or NONE if you cannot find good topic-specific matches."""
                 img for img in parsed
                 if isinstance(img, dict)
                 and "url" in img and "alt" in img
-                and is_valid_unsplash_url(img["url"])  # reject hallucinated IDs
+                and is_valid_unsplash_url(img["url"])  # reject format-bad IDs
+                and unsplash_url_is_live(img["url"])   # reject 404 hallucinations
             ]
             if len(valid) < 3:
                 return None
@@ -677,13 +811,18 @@ Return ONLY the URL or NONE."""
         m = re.search(r'https://images\.unsplash\.com/[^\s"\']+', response)
         url = m.group(0) if m else None
         if not is_valid_unsplash_url(url):
-            # Reject hallucinated IDs (e.g. photo-nUQIh8RH2XQ from the
+            # Reject format-broken IDs (e.g. photo-nUQIh8RH2XQ from the
             # testosterone post). The looser legacy regex passed these through.
             if url:
                 print(f"  ⚠ Hero search returned invalid URL format: {url}")
             return None
         if _base_unsplash_url(url) in _used_images:
             print(f"  ⚠ Hero search returned a URL already in use, skipping")
+            return None
+        if not unsplash_url_is_live(url):
+            # Reject format-valid but 404 IDs (e.g. the May 18
+            # photo-1727188222430-b5fa53a1faa6 that shipped a blank hero).
+            print(f"  ⚠ Hero search returned a 404 URL, skipping: {url}")
             return None
         return url
     except Exception as e:
