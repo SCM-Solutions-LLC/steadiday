@@ -1093,4 +1093,556 @@
       }
 
       .screenshots-grid {
-        grid
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .pricing-card,
+      .privacy-card {
+        padding: 2rem 1.25rem;
+      }
+
+      .pricing-list {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .footer-links {
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="launch-banner">
+    <span class="launch-badge">Now Live</span>
+    <span>SteadiDay is now on the App Store — every feature included.</span>
+    <a href="https://apps.apple.com/app/steadiday/id6758526744">View on the App Store →</a>
+  </div>
+
+  <nav>
+    <div class="container nav-container">
+      <a href="#" class="nav-logo">
+        <img src="assets/icon.jpeg" alt="SteadiDay">
+        <span>SteadiDay™</span>
+      </a>
+
+      <div class="nav-links" id="navLinks">
+        <a href="#features">Features</a>
+        <a href="#how-it-works">How It Works</a>
+        <a href="#faq">FAQ</a>
+        <a href="blog/index.html">Blog</a>
+        <a href="https://apps.apple.com/app/steadiday/id6758526744" class="nav-cta">Download Free</a>
+      </div>
+
+      <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" id="menuIcon">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+        </svg>
+      </button>
+    </div>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div class="container hero-inner">
+        <div class="hero-copy">
+          <div class="hero-badge">Built for older adults and the families who care about them</div>
+          <h1>Stay safer, remember more, and <span>keep family close.</span></h1>
+          <p class="hero-description">
+            A simple iPhone app that helps older adults stay safer, remember medications, and keep trusted family close — without accounts, passwords, or complicated setup.
+          </p>
+
+          <div class="hero-actions">
+            <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
+              <img src="assets/app-store-badge.svg" alt="Download on the App Store">
+            </a>
+            <a href="#features" class="btn">See How It Works</a>
+          </div>
+
+          <p class="hero-microcopy">Free on the App Store. Set up in about 5 minutes.</p>
+
+          <div class="hero-proof" aria-label="Key benefits">
+            <span>100% free</span>
+            <span>No account</span>
+            <span>Data stays private</span>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <div class="phone-card">
+            <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen">
+          </div>
+
+          <div class="qr-card">
+            <div>
+              <strong>On a computer?</strong>
+              <span>Scan with your iPhone camera to install.</span>
+            </div>
+            <img src="assets/qr-code.jpg" alt="QR code to open SteadiDay on the App Store">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="trust-section" aria-label="Trust highlights">
+      <div class="container">
+        <div class="trust-grid">
+          <div class="trust-item">
+            <div class="trust-icon">🔒</div>
+            <div class="trust-text">
+              <h4>100% Private</h4>
+              <p>Data stays on the device.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">✓</div>
+            <div class="trust-text">
+              <h4>Built for Simplicity</h4>
+              <p>Large buttons and clear text.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">♥</div>
+            <div class="trust-text">
+              <h4>Trusted Contacts</h4>
+              <p>Family is one tap away.</p>
+            </div>
+          </div>
+          <div class="trust-item">
+            <div class="trust-icon">$</div>
+            <div class="trust-text">
+              <h4>100% Free</h4>
+              <p>Every feature included.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section why">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Why Families Choose SteadiDay</span>
+          <h2>The everyday worries SteadiDay helps with</h2>
+          <p>Designed around real questions families ask when a parent wants independence, but still needs a safety net.</p>
+        </div>
+
+        <div class="why-grid">
+          <article class="why-card featured">
+            <div class="why-kicker">Safety</div>
+            <h3>“What if they fall or need help?”</h3>
+            <p>
+              The SOS button can quickly call 911, text trusted contacts with location, or call family directly. Safety Sessions can enable fall detection while the app is open, with automatic contact alerts if there is no response.
+            </p>
+          </article>
+
+          <article class="why-card">
+            <div class="why-kicker">Medications</div>
+            <h3>“Did they take their medication?”</h3>
+            <p>
+              Gentle reminders and a clear log help make daily medications easier to manage.
+            </p>
+          </article>
+
+          <article class="why-card">
+            <div class="why-kicker">Setup</div>
+            <h3>“I don’t want another account.”</h3>
+            <p>
+              No passwords, no subscriptions, and no complicated onboarding. Install it, add contacts, and start using it.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section features" id="features">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Features</span>
+          <h2>The essentials, all in one simple app</h2>
+          <p>Focused on the tools families ask for most: safety, medications, trusted contacts, and daily confidence.</p>
+        </div>
+
+        <div class="features-grid">
+          <article class="feature-card">
+            <div class="feature-icon">SOS</div>
+            <h3>Emergency SOS</h3>
+            <p>Quickly call 911, send location to trusted contacts, or call family directly.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">↯</div>
+            <h3>Fall Detection</h3>
+            <p>Start a Safety Session to enable fall detection while the app is open.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">💊</div>
+            <h3>Medication Reminders</h3>
+            <p>Gentle reminders and clear logs for medications, refills, and routines.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">♥</div>
+            <h3>Trusted Contacts</h3>
+            <p>Keep family, neighbors, doctors, and caregivers easy to reach.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">☑</div>
+            <h3>Daily Tasks</h3>
+            <p>Simple checklists for routines, errands, appointments, and reminders.</p>
+          </article>
+
+          <article class="feature-card">
+            <div class="feature-icon">📄</div>
+            <h3>Care Summary</h3>
+            <p>Share helpful updates with family without constant check-ins or nagging.</p>
+          </article>
+        </div>
+
+        <div class="included">
+          <h3>Also included</h3>
+          <div class="included-list">
+            <span>Apple Health</span>
+            <span>Food tracking</span>
+            <span>Water tracking</span>
+            <span>Calendar sync</span>
+            <span>Magnifier</span>
+            <span>Flashlight</span>
+            <span>Find My iPhone access</span>
+            <span>Mind Breaks</span>
+            <span>Slow Mode</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section how" id="how-it-works">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">How It Works</span>
+          <h2>Set up in minutes</h2>
+          <p>No account required. No complicated setup. Just download and start.</p>
+        </div>
+
+        <div class="steps">
+          <article class="step">
+            <div class="step-number">1</div>
+            <h3>Download</h3>
+            <p>Get SteadiDay free from the App Store and open it right away.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">2</div>
+            <h3>Add Info</h3>
+            <p>Add medications, trusted contacts, and daily reminders.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">3</div>
+            <h3>Choose Reminders</h3>
+            <p>Set gentle notifications for the routines that matter most.</p>
+          </article>
+
+          <article class="step">
+            <div class="step-number">4</div>
+            <h3>Feel Prepared</h3>
+            <p>Keep safety tools and family contacts close when needed.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section screenshots" id="screens">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">App Preview</span>
+          <h2>Clear screens. Large buttons. Simple choices.</h2>
+          <p>Designed to be easier to read and easier to use.</p>
+        </div>
+
+        <div class="screenshots-grid">
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS">
+            </div>
+            <h4>Emergency SOS</h4>
+          </div>
+
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-home.png" alt="SteadiDay home screen">
+            </div>
+            <h4>Home</h4>
+          </div>
+
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-medical.png" alt="SteadiDay medical information">
+            </div>
+            <h4>Medical Info</h4>
+          </div>
+
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-food-tracker.png" alt="SteadiDay food tracker">
+            </div>
+            <h4>Food Tracker</h4>
+          </div>
+
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-watertracker.png" alt="SteadiDay water tracker">
+            </div>
+            <h4>Water Tracker</h4>
+          </div>
+
+          <div class="screenshot-item">
+            <div class="screenshot-frame">
+              <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks">
+            </div>
+            <h4>Mind Breaks</h4>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section pricing" id="pricing">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Pricing</span>
+          <h2>Every feature included</h2>
+          <p>SteadiDay is free to use during our community phase.</p>
+        </div>
+
+        <div class="pricing-card">
+          <span class="pricing-badge">Community Phase</span>
+          <div class="pricing-headline">No credit card. No account. No catches.</div>
+          <p class="pricing-description">
+            Every feature is unlocked so families can try the full experience and share feedback.
+          </p>
+
+          <ul class="pricing-list">
+            <li>Emergency SOS</li>
+            <li>Fall Detection</li>
+            <li>Medication Reminders</li>
+            <li>Trusted Contacts</li>
+            <li>Care Summary</li>
+            <li>Apple Health Integration</li>
+            <li>Food & Water Tracking</li>
+            <li>Helpful Tools</li>
+          </ul>
+
+          <a href="https://apps.apple.com/app/steadiday/id6758526744" class="pricing-cta">
+            Get SteadiDay on the App Store →
+          </a>
+
+          <p class="pricing-note">Your feedback helps shape what we build next.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section faq" id="faq">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Questions?</span>
+          <h2>Frequently asked questions</h2>
+        </div>
+
+        <div class="faq-grid">
+          <article class="faq-item">
+            <h3>Is my information private?</h3>
+            <p>Yes. Most data stays on the iPhone and is protected by the phone’s security. Emergency alerts may send location to trusted contacts when needed.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Do I need to create an account?</h3>
+            <p>No. SteadiDay does not require an account or password to get started.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Is SteadiDay really free?</h3>
+            <p>Yes. Every feature is currently included for free during our community phase.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Can my family see my information?</h3>
+            <p>You choose who to add as trusted contacts and what information to share.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>What if I’m not tech-savvy?</h3>
+            <p>SteadiDay is designed with large text, large buttons, and simple navigation.</p>
+          </article>
+
+          <article class="faq-item">
+            <h3>Why is everything free?</h3>
+            <p>We are building SteadiDay with feedback from real families and older adults.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section privacy" id="privacy">
+      <div class="container">
+        <div class="privacy-card">
+          <h2>Your data stays yours</h2>
+          <p>
+            SteadiDay was built with privacy in mind. Health information is not sold, shared for advertising, or used to create marketing profiles.
+          </p>
+
+          <div class="privacy-links">
+            <a href="security.html" class="privacy-link">How We Protect Your Data</a>
+            <a href="privacy.html" class="privacy-link">Privacy Policy</a>
+            <a href="terms.html" class="privacy-link">Terms of Service</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section about" id="about">
+      <div class="container">
+        <div class="about-content">
+          <span class="section-label">About</span>
+          <h2>Built by a small team in Virginia</h2>
+          <p>
+            SteadiDay was built after watching family members juggle medications, appointments, and daily routines without one simple place to manage it all.
+          </p>
+          <p>
+            We are a small, independent team building the app we wished existed for our own families.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section download" id="download">
+      <div class="container">
+        <div class="download-content">
+          <span class="section-label">Available Now</span>
+          <h2>Set it up for the parent you worry about</h2>
+          <p>
+            Free on the App Store. Emergency SOS, fall detection, medication reminders, Care Summary, and more.
+          </p>
+
+          <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
+            <img src="assets/app-store-badge.svg" alt="Download on the App Store">
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact" id="contact">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-label">Get In Touch</span>
+          <h2>Have questions?</h2>
+          <p>Send us a message and we’ll respond as soon as possible.</p>
+        </div>
+
+        <form class="contact-form" action="https://formsubmit.co/support@steadiday.com" method="POST">
+          <input type="hidden" name="_subject" value="SteadiDay Website Contact">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_template" value="table">
+          <input type="text" name="_honey" style="display:none">
+
+          <div class="form-group">
+            <label for="name">Your Name</label>
+            <input type="text" id="name" name="name" required placeholder="John Smith">
+          </div>
+
+          <div class="form-group">
+            <label for="email">Your Email</label>
+            <input type="email" id="email" name="email" required placeholder="john@example.com">
+          </div>
+
+          <div class="form-group">
+            <label for="message">Message</label>
+            <textarea id="message" name="message" rows="5" required placeholder="How can we help you?"></textarea>
+          </div>
+
+          <button type="submit" class="form-submit">Send Message</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-brand">
+          <img src="assets/icon.jpeg" alt="SteadiDay">
+          <span>SteadiDay</span>
+        </div>
+
+        <div class="footer-links">
+          <a href="#features">Features</a>
+          <a href="blog/index.html">Blog</a>
+          <a href="security.html">Security</a>
+          <a href="privacy.html">Privacy</a>
+          <a href="terms.html">Terms</a>
+          <a href="#contact">Contact</a>
+        </div>
+      </div>
+
+      <p class="footer-copy">
+        &copy; 2026 SCM Solutions LLC. All rights reserved. Built in Virginia, USA.<br>
+        Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+    const menuIcon = document.getElementById('menuIcon');
+
+    mobileMenuBtn.addEventListener('click', function () {
+      const isOpen = navLinks.classList.toggle('active');
+      mobileMenuBtn.setAttribute('aria-expanded', String(isOpen));
+
+      menuIcon.innerHTML = isOpen
+        ? '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>'
+        : '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+    });
+
+    navLinks.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        navLinks.classList.remove('active');
+        mobileMenuBtn.setAttribute('aria-expanded', 'false');
+        menuIcon.innerHTML = '<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>';
+      });
+    });
+
+    document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
+      anchor.addEventListener('click', function (e) {
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          e.preventDefault();
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      var links = document.querySelectorAll('a[href*="apps.apple.com"]');
+      for (var i = 0; i < links.length; i++) {
+        links[i].addEventListener('click', function () {
+          if (typeof gtag === 'function') {
+            gtag('event', 'conversion', {
+              'send_to': 'AW-17929124014/gDbcCLbkio4cEK7xouVC'
+            });
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>
