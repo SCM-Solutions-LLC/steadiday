@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17929124014"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17929124014');
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8H890XTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LF8H890XTV');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Breach Response – SteadiDay</title>
+<meta name="description" content="SteadiDay Data Breach Response Plan. Learn how we protect your data and what happens if a security incident occurs.">
+<link rel="canonical" href="https://www.steadiday.com/data-breach.html">
+<meta name="apple-itunes-app" content="app-id=6758526744">
+
+<!-- Favicons -->
+<link rel="icon" type="image/jpeg" href="assets/icon.jpeg">
+<link rel="apple-touch-icon" href="assets/icon.jpeg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --cream: #FFFBF5;
+        --cream-dark: #F7F3ED;
+        --teal: #1A8A7D;
+        --teal-dark: #147568;
+        --teal-light: #E8F5F3;
+        --navy: #1E3A5F;
+        --navy-light: #2D4A6F;
+        --charcoal: #2D3436;
+        --charcoal-light: #5A6266;
+        --white: #FFFFFF;
+        --gold: #D4A853;
+        --shadow-soft: 0 2px 12px rgba(30, 58, 95, 0.08);
+        --shadow-medium: 0 4px 24px rgba(30, 58, 95, 0.12);
+        --radius-md: 12px;
+        --radius-lg: 20px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body {
+        font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 1.125rem; line-height: 1.8; color: var(--charcoal); background: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: 'Merriweather', Georgia, serif; font-weight: 700; line-height: 1.3; color: var(--navy); }
+    a { color: var(--teal); text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--teal-dark); }
+
+    nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0;
+        background: rgba(255, 251, 245, 0.97); backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(30, 58, 95, 0.08); box-shadow: var(--shadow-soft);
+    }
+    .nav-container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { width: 48px; height: 48px; border-radius: 12px; box-shadow: var(--shadow-soft); }
+    .nav-logo span { font-family: 'Merriweather', Georgia, serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--teal); font-weight: 600; }
+    .nav-back:hover { color: var(--teal-dark); }
+
+    main { max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+    .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--teal); }
+    .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .last-updated { color: var(--charcoal-light); font-size: 1rem; }
+
+    .toc { background: var(--white); padding: 1.5rem 2rem; border-radius: var(--radius-md); margin-bottom: 3rem; box-shadow: var(--shadow-soft); }
+    .toc h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--navy); }
+    .toc ul { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .toc li { margin: 0; }
+    .toc a { font-size: 0.95rem; }
+
+    .section { margin-bottom: 2.5rem; }
+    .section h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--navy); }
+    .section h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; color: var(--navy-light); }
+    .section p { margin-bottom: 1rem; color: var(--charcoal); }
+    .section ul { margin: 1rem 0 1rem 1.5rem; }
+    .section li { margin-bottom: 0.5rem; color: var(--charcoal); }
+
+    .highlight-box {
+        background: var(--teal-light); border-left: 4px solid var(--teal);
+        padding: 1.25rem 1.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; color: var(--navy); }
+
+    .contact-box { background: var(--white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-medium); margin-top: 3rem; }
+    .contact-box h2 { margin-bottom: 1rem; }
+    .contact-box p { margin-bottom: 0.5rem; }
+
+    footer { padding: 2rem 0; background: var(--charcoal); text-align: center; margin-top: 4rem; }
+    .footer-content { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+        html { font-size: 16px; }
+        main { padding: 7rem 1.5rem 3rem; }
+        .page-header h1 { font-size: 2rem; }
+        .toc ul { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay&trade;</span>
+            </a>
+            <a href="index.html" class="nav-back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1>Data Breach Response Plan</h1>
+            <p class="last-updated">Last Updated: May 21, 2026</p>
+        </div>
+
+        <div class="toc">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#commitment">1. Our Commitment</a></li>
+                <li><a href="#architecture">2. Our Architecture</a></li>
+                <li><a href="#what-could-be-affected">3. What Could Be Affected</a></li>
+                <li><a href="#detection">4. Detection &amp; Assessment</a></li>
+                <li><a href="#immediate-response">5. Immediate Response</a></li>
+                <li><a href="#notification">6. User Notification</a></li>
+                <li><a href="#health-data">7. Health Data Protection</a></li>
+                <li><a href="#your-steps">8. Your Steps After an Incident</a></li>
+                <li><a href="#law-enforcement">9. Law Enforcement</a></li>
+                <li><a href="#prevention">10. Prevention Measures</a></li>
+                <li><a href="#contact">11. Questions or Concerns</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="commitment">
+            <h2>1. Our Commitment</h2>
+            <p>We take data security seriously and have procedures in place to respond quickly if any part of our infrastructure is ever compromised. This plan outlines what we would do and what you should know.</p>
+            <div class="highlight-box">
+                <p><strong>Important context:</strong> SteadiDay stores all your personal data — medications, tasks, contacts, health data, and settings — on your device, not on our servers. This means that a breach of our infrastructure would not expose your personal health information, medication details, or other app data. See Section 2 for details on what our infrastructure does and does not contain.</p>
+            </div>
+        </div>
+
+        <div class="section" id="architecture">
+            <h2>2. Our Architecture</h2>
+            <p>Understanding what we do and don't have access to is important context for any security incident:</p>
+            <ul>
+                <li><strong>We do NOT have:</strong> Your medications, tasks, contacts, health data, settings, or any personal content you enter in the app. This data never leaves your device.</li>
+                <li><strong>We do have:</strong> Anonymous analytics data (app open events with randomly generated identifiers), website contact form submissions (name, email, message), and access to the emergency SMS relay service (Twilio) used for SOS and fall detection alerts.</li>
+            </ul>
+            <p>Because of this architecture, the scope of any potential breach is limited to the data described above — not your personal health or wellness information.</p>
+        </div>
+
+        <div class="section" id="what-could-be-affected">
+            <h2>3. What Could Be Affected</h2>
+            <p>In the event of a security incident involving our infrastructure, the following data could potentially be affected:</p>
+            <ul>
+                <li>Anonymous analytics data (cannot identify you)</li>
+                <li>Website contact form submissions (name, email, message text)</li>
+                <li>Emergency SMS relay configuration (Twilio API credentials, which could theoretically allow unauthorized use of the relay)</li>
+            </ul>
+            <p>The following data could <strong>NOT</strong> be affected by a breach of our infrastructure because we do not have it:</p>
+            <ul>
+                <li>Your medications, dosages, and schedules</li>
+                <li>Your health data from Apple Health or Health Connect</li>
+                <li>Your tasks, appointments, and daily routines</li>
+                <li>Your trusted contacts and emergency contact information</li>
+                <li>Your food, water, and wellness logs</li>
+                <li>Your app settings and preferences</li>
+            </ul>
+        </div>
+
+        <div class="section" id="detection">
+            <h2>4. Detection and Assessment</h2>
+            <p>We monitor our systems for security issues. If we detect unauthorized access or a potential breach, our team immediately:</p>
+            <ul>
+                <li>Assesses the scope of the incident</li>
+                <li>Identifies what data or systems were affected</li>
+                <li>Begins containment to prevent further unauthorized access</li>
+                <li>Preserves evidence for investigation</li>
+            </ul>
+        </div>
+
+        <div class="section" id="immediate-response">
+            <h2>5. Immediate Response (First 24 Hours)</h2>
+            <ul>
+                <li>Contain the breach and secure affected systems</li>
+                <li>Determine what data was accessed</li>
+                <li>Identify whether any users could be affected</li>
+                <li>Rotate any compromised credentials (API keys, service accounts)</li>
+                <li>Begin forensic investigation</li>
+            </ul>
+        </div>
+
+        <div class="section" id="notification">
+            <h2>6. User Notification</h2>
+            <p>If a security incident could affect you, we will notify you within 72 hours through our website and in-app notification. We will explain:</p>
+            <ul>
+                <li>What happened and when</li>
+                <li>What data was affected</li>
+                <li>What we have done to fix it</li>
+                <li>Steps you should take to protect yourself (if any)</li>
+                <li>How to contact us with questions</li>
+            </ul>
+            <p><strong>Note:</strong> Because SteadiDay does not require an account and we do not have your email address (unless you submitted our website contact form), our primary notification method is through the app itself and our website. We recommend checking steadiday.com/security.html periodically or following our updates.</p>
+        </div>
+
+        <div class="section" id="health-data">
+            <h2>7. Health Data Protection</h2>
+            <p>Health data accessed through Apple Health (iOS) or Health Connect (Android) is stored locally on your device and protected by your operating system's security architecture.</p>
+            <p>In the event of a breach of our infrastructure, your health data remains secure on your device because it was never transmitted to or stored on our servers. This includes steps, heart rate, sleep data, exercise minutes, and any other health metrics synced from your device's health platform.</p>
+        </div>
+
+        <div class="section" id="your-steps">
+            <h2>8. Your Steps After an Incident</h2>
+            <p>Because SteadiDay does not use accounts or passwords, the typical breach response steps (changing passwords, enabling two-factor authentication) do not apply. However, if we notify you of an incident:</p>
+            <ul>
+                <li><strong>If you submitted our website contact form:</strong> Be alert for phishing emails that reference SteadiDay or appear to come from us. We will never ask you for passwords, payment information, or personal data via email.</li>
+                <li><strong>If the SMS relay was compromised:</strong> We would immediately disable and re-secure the relay service. You may want to verify your trusted contacts are correct in the app.</li>
+                <li><strong>Update the app:</strong> Install any available updates, as they may contain security fixes.</li>
+                <li><strong>Contact us:</strong> If you notice anything unusual, reach out through the Feedback feature in Settings.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="law-enforcement">
+            <h2>9. Law Enforcement and Regulators</h2>
+            <p>For serious breaches, we will notify law enforcement and relevant regulatory authorities as required by law. We cooperate fully with investigations to identify and prosecute attackers.</p>
+        </div>
+
+        <div class="section" id="prevention">
+            <h2>10. Prevention Measures</h2>
+            <p>After any incident, we review and improve our security measures. We conduct post-incident analysis, update security protocols, and implement additional safeguards to prevent future breaches.</p>
+            <p>Our ongoing security practices include:</p>
+            <ul>
+                <li>On-device data architecture that minimizes what we store</li>
+                <li>Encrypted communications for any data that does leave the device (emergency SMS relay)</li>
+                <li>Regular review of third-party service configurations</li>
+                <li>Minimal data collection philosophy — we only collect what we need</li>
+            </ul>
+        </div>
+
+        <div class="section" id="contact">
+            <h2>11. Questions or Concerns</h2>
+            <p>If you believe you've received a suspicious message claiming to be from SteadiDay, or if you have any security concerns, contact us immediately through the Feedback feature in the app or through our <a href="index.html#contact">website contact form</a>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="security.html">Security</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="liability.html">Liability</a>
+                <a href="data-retention.html">Data Retention</a>
+                <a href="data-breach.html">Data Breach</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 SCM Solutions LLC. All rights reserved. Built in Virginia, USA.</p>
+        </div>
+    </footer>
+<!-- Google Ads: App Store click conversion tracking -->
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    // Track clicks on all App Store links as conversions
+    var links = document.querySelectorAll('a[href*="apps.apple.com"]');
+    for (var i = 0; i < links.length; i++) {
+      links[i].addEventListener('click', function() {
+        if (typeof gtag === 'function') {
+          gtag('event', 'conversion', {
+            'send_to': 'AW-17929124014/gtKACKzG_Y8cEK7xouVC',
+            'event_callback': function() {
+              // Allow the link to proceed after tracking
+            }
+          });
+        }
+      });
+    }
+  });
+</script>
+</body>
+</html>
