@@ -20,7 +20,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/preview.html</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
@@ -47,6 +47,12 @@
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.steadiday.com/blog/2026-05-21-sleep-apnea-signs-seniors-shouldnt.html</loc>
+    <lastmod>2026-05-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-05-18-rsv-vaccine-rules-for-adults.html</loc>
