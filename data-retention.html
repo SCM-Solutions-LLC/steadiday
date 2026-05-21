@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=AW-17929124014"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'AW-17929124014');
+</script>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-LF8H890XTV"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-LF8H890XTV');
+</script>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Data Retention Policy – SteadiDay</title>
+<meta name="description" content="SteadiDay Data Retention Policy. Learn how long your data is kept and how you control it — all data stays on your device.">
+<link rel="canonical" href="https://www.steadiday.com/data-retention.html">
+<meta name="apple-itunes-app" content="app-id=6758526744">
+
+<!-- Favicons -->
+<link rel="icon" type="image/jpeg" href="assets/icon.jpeg">
+<link rel="apple-touch-icon" href="assets/icon.jpeg">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<style>
+    :root {
+        --cream: #FFFBF5;
+        --cream-dark: #F7F3ED;
+        --teal: #1A8A7D;
+        --teal-dark: #147568;
+        --teal-light: #E8F5F3;
+        --navy: #1E3A5F;
+        --navy-light: #2D4A6F;
+        --charcoal: #2D3436;
+        --charcoal-light: #5A6266;
+        --white: #FFFFFF;
+        --gold: #D4A853;
+        --shadow-soft: 0 2px 12px rgba(30, 58, 95, 0.08);
+        --shadow-medium: 0 4px 24px rgba(30, 58, 95, 0.12);
+        --radius-md: 12px;
+        --radius-lg: 20px;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; font-size: 18px; }
+    body {
+        font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 1.125rem; line-height: 1.8; color: var(--charcoal); background: var(--cream);
+        -webkit-font-smoothing: antialiased;
+    }
+    h1, h2, h3 { font-family: 'Merriweather', Georgia, serif; font-weight: 700; line-height: 1.3; color: var(--navy); }
+    a { color: var(--teal); text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--teal-dark); }
+
+    nav {
+        position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0;
+        background: rgba(255, 251, 245, 0.97); backdrop-filter: blur(12px);
+        border-bottom: 1px solid rgba(30, 58, 95, 0.08); box-shadow: var(--shadow-soft);
+    }
+    .nav-container { max-width: 1140px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+    .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
+    .nav-logo img { width: 48px; height: 48px; border-radius: 12px; box-shadow: var(--shadow-soft); }
+    .nav-logo span { font-family: 'Merriweather', Georgia, serif; font-size: 1.5rem; font-weight: 700; color: var(--navy); }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--teal); font-weight: 600; }
+    .nav-back:hover { color: var(--teal-dark); }
+
+    main { max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem; }
+    .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--teal); }
+    .page-header h1 { font-size: 2.5rem; margin-bottom: 0.5rem; }
+    .last-updated { color: var(--charcoal-light); font-size: 1rem; }
+
+    .toc { background: var(--white); padding: 1.5rem 2rem; border-radius: var(--radius-md); margin-bottom: 3rem; box-shadow: var(--shadow-soft); }
+    .toc h3 { font-size: 1.1rem; margin-bottom: 1rem; color: var(--navy); }
+    .toc ul { list-style: none; margin: 0; display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+    .toc li { margin: 0; }
+    .toc a { font-size: 0.95rem; }
+
+    .section { margin-bottom: 2.5rem; }
+    .section h2 { font-size: 1.5rem; margin-bottom: 1rem; color: var(--navy); }
+    .section h3 { font-size: 1.2rem; margin: 1.5rem 0 0.75rem; color: var(--navy-light); }
+    .section p { margin-bottom: 1rem; color: var(--charcoal); }
+    .section ul { margin: 1rem 0 1rem 1.5rem; }
+    .section li { margin-bottom: 0.5rem; color: var(--charcoal); }
+
+    .highlight-box {
+        background: var(--teal-light); border-left: 4px solid var(--teal);
+        padding: 1.25rem 1.5rem; border-radius: 0 var(--radius-md) var(--radius-md) 0; margin: 1.5rem 0;
+    }
+    .highlight-box p { margin: 0; color: var(--navy); }
+
+    .contact-box { background: var(--white); padding: 2rem; border-radius: var(--radius-lg); box-shadow: var(--shadow-medium); margin-top: 3rem; }
+    .contact-box h2 { margin-bottom: 1rem; }
+    .contact-box p { margin-bottom: 0.5rem; }
+
+    footer { padding: 2rem 0; background: var(--charcoal); text-align: center; margin-top: 4rem; }
+    .footer-content { max-width: 1140px; margin: 0 auto; padding: 0 2rem; }
+    .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
+    .footer-links a { color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
+    .footer-links a:hover { color: var(--white); }
+    .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+
+    @media (max-width: 768px) {
+        html { font-size: 16px; }
+        main { padding: 7rem 1.5rem 3rem; }
+        .page-header h1 { font-size: 2rem; }
+        .toc ul { grid-template-columns: 1fr; }
+    }
+</style>
+</head>
+<body>
+    <nav>
+        <div class="nav-container">
+            <a href="index.html" class="nav-logo">
+                <img src="assets/icon.jpeg" alt="SteadiDay">
+                <span>SteadiDay&trade;</span>
+            </a>
+            <a href="index.html" class="nav-back">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"/>
+                </svg>
+                Back to Home
+            </a>
+        </div>
+    </nav>
+
+    <main>
+        <div class="page-header">
+            <h1>Data Retention Policy</h1>
+            <p class="last-updated">Last Updated: May 21, 2026</p>
+        </div>
+
+        <div class="toc">
+            <h3>Quick Navigation</h3>
+            <ul>
+                <li><a href="#overview">1. Overview</a></li>
+                <li><a href="#on-device">2. On-Device Data</a></li>
+                <li><a href="#analytics">3. Anonymous Analytics</a></li>
+                <li><a href="#emergency-sms">4. Emergency SMS Data</a></li>
+                <li><a href="#website">5. Website Data</a></li>
+                <li><a href="#uninstalling">6. Uninstalling the App</a></li>
+                <li><a href="#backups">7. Device Backups</a></li>
+                <li><a href="#your-control">8. Your Control</a></li>
+            </ul>
+        </div>
+
+        <div class="section" id="overview">
+            <h2>1. Overview</h2>
+            <div class="highlight-box">
+                <p><strong>The short version:</strong> SteadiDay does not require an account and does not store your personal data on our servers. Your medications, tasks, contacts, health data, and all other personal information stays on your device. Since we don't have your data, there is nothing for us to retain or delete on our end. You have full control.</p>
+            </div>
+            <p>This policy explains how long different types of data exist and how you can manage them.</p>
+        </div>
+
+        <div class="section" id="on-device">
+            <h2>2. On-Device Data</h2>
+            <p>All personal data you enter into SteadiDay is stored locally on your device. This includes:</p>
+            <ul>
+                <li>Medication schedules, dosages, and reminder times</li>
+                <li>Tasks, appointments, and daily routines</li>
+                <li>Emergency contacts and trusted persons</li>
+                <li>Food and water intake logs</li>
+                <li>Health data synced from Apple Health (iOS) or Health Connect (Android)</li>
+                <li>App settings and preferences</li>
+            </ul>
+            <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. It is never uploaded to our servers. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
+        </div>
+
+        <div class="section" id="analytics">
+            <h2>3. Anonymous Analytics Data</h2>
+            <p>SteadiDay collects minimal, anonymous usage data via Google Analytics to understand general app usage patterns. This includes:</p>
+            <ul>
+                <li>A randomly generated identifier (not linked to your identity)</li>
+                <li>App open events and session timestamps</li>
+            </ul>
+            <p>This data does not include any health information, medication details, personal contacts, or any content you create in the app.</p>
+            <p><strong>How long it's kept:</strong> Anonymous analytics data is retained by Google Analytics according to their standard data retention policies (typically 14 months). Since this data is anonymous and cannot identify you, it cannot be linked back to you or deleted on request.</p>
+        </div>
+
+        <div class="section" id="emergency-sms">
+            <h2>4. Emergency SMS Data</h2>
+            <p>When you use the Emergency SOS feature or fall detection activates, the app sends an SMS to your trusted contacts via Twilio, a third-party messaging service. The message includes your display name, GPS coordinates, and an alert.</p>
+            <p><strong>How long it's kept:</strong> The relay transmits the message and does not store your data afterward. Twilio may retain message delivery logs (phone numbers and timestamps) for up to 13 months in accordance with their data retention policies and telecommunications regulations.</p>
+        </div>
+
+        <div class="section" id="website">
+            <h2>5. Website Data</h2>
+            <p>If you visit steadiday.com or submit the contact form:</p>
+            <ul>
+                <li><strong>Contact form submissions:</strong> Your name, email, and message are received by us and retained for as long as needed to respond to your inquiry, then deleted.</li>
+                <li><strong>Website analytics:</strong> Anonymous browsing data (pages visited, referral source, general geographic region) is collected by Google Analytics and retained according to their standard policies.</li>
+                <li><strong>Cookies:</strong> Our website uses cookies for analytics. You can control cookies through your browser settings.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="uninstalling">
+            <h2>6. Uninstalling the App</h2>
+            <p>When you uninstall SteadiDay, all data stored by the app on your device is permanently deleted by your operating system. This includes all medications, tasks, contacts, health data, settings, and preferences. This deletion is immediate and irreversible.</p>
+            <p>Since we do not store your data on our servers, there is nothing to delete on our end.</p>
+        </div>
+
+        <div class="section" id="backups">
+            <h2>7. Device Backups</h2>
+            <p>Your SteadiDay data may be included in your device's standard backup:</p>
+            <ul>
+                <li><strong>iPhone:</strong> iCloud or Finder/iTunes backups may include SteadiDay data. This is controlled by your iOS backup settings, not by SteadiDay.</li>
+                <li><strong>Android:</strong> Google backup may include SteadiDay data. This is controlled by your Android backup settings.</li>
+            </ul>
+            <p>SteadiDay also offers an in-app "Export My Data" feature that lets you save a backup file to keep safe. This exported file is stored wherever you choose to save it and is under your control.</p>
+        </div>
+
+        <div class="section" id="your-control">
+            <h2>8. Your Control</h2>
+            <p>Because your data lives on your device, you have complete control:</p>
+            <ul>
+                <li><strong>View:</strong> All your data is visible to you within the app at any time</li>
+                <li><strong>Delete:</strong> Remove individual medications, tasks, or contacts from within the app</li>
+                <li><strong>Export:</strong> Save a backup of your data using the Export My Data feature in Settings</li>
+                <li><strong>Remove everything:</strong> Uninstall the app to permanently delete all SteadiDay data from your device</li>
+                <li><strong>Health permissions:</strong> Revoke health data access at any time through your device's privacy settings</li>
+            </ul>
+            <p>For any questions about data retention, please contact us using the Feedback feature in the app or through our <a href="index.html#contact">website contact form</a>.</p>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="security.html">Security</a>
+                <a href="privacy.html">Privacy</a>
+                <a href="terms.html">Terms</a>
+                <a href="liability.html">Liability</a>
+                <a href="data-retention.html">Data Retention</a>
+                <a href="data-breach.html">Data Breach</a>
+            </div>
+            <p class="footer-copy">&copy; 2026 SCM Solutions LLC. All rights reserved. Built in Virginia, USA.</p>
+        </div>
+    </footer>
+</body>
+</html>
