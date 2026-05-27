@@ -693,10 +693,12 @@ gtag('config', 'G-LF8H890XTV');
         width: 280px;
     }
 
-    .hero-phone img {
+    .hero-phone img,
+    .hero-phone video {
         width: 100%;
         border-radius: 32px;
         box-shadow: var(--shadow-strong);
+        display: block;
     }
 
     .hero-phone::before {
@@ -1758,7 +1760,17 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="hero-image">
                 <div class="hero-phone">
-                    <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen — call 911, send SOS text with location to a trusted contact, or call a trusted contact directly">
+                    <video
+                        autoplay
+                        muted
+                        loop
+                        playsinline
+                        preload="metadata"
+                        poster="assets/screenshot-sos.png"
+                        aria-label="Short preview of the SteadiDay app showing medication reminders, emergency SOS, and health tracking">
+                        <source src="assets/app-preview.mp4" type="video/mp4">
+                        <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen — call 911, send SOS text with location to a trusted contact, or call a trusted contact directly">
+                    </video>
                 </div>
             </div>
         </div>
