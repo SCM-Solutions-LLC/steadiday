@@ -7,16 +7,22 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://www.steadiday.com/privacy.html</loc>
+    <lastmod>2026-05-19</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
     <loc>https://www.steadiday.com/preview.html</loc>
     <lastmod>2026-05-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.steadiday.com/privacy.html</loc>
-    <lastmod>2026-05-19</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <loc>https://www.steadiday.com/</loc>
+    <lastmod>2026-05-28</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
     <loc>https://www.steadiday.com/data-retention.html</loc>
@@ -43,12 +49,6 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.steadiday.com/</loc>
-    <lastmod>2026-05-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>1.0</priority>
-  </url>
-  <url>
     <loc>https://www.steadiday.com/blog/</loc>
     <lastmod>2026-06-08</lastmod>
     <changefreq>daily</changefreq>
@@ -59,6 +59,12 @@
     <lastmod>2026-05-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.steadiday.com/blog/2026-06-11-why-autoimmune-disease-hits-women.html</loc>
+    <lastmod>2026-06-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-06-08-finerenone-for-chronic-kidney-disease.html</loc>
