@@ -15,10 +15,11 @@ project is opened in Claude Code:
 | `superpowers` | General-purpose workflow skills |
 | `context7` | Up-to-date library documentation lookup (MCP) |
 | `playwright` | Browser automation / testing (MCP) |
-| `expo` | Expo / React Native skills + EAS MCP server |
 | `ralph-loop` | Run a prompt/command on a recurring loop for autonomous tasks |
 | `code-review` | Automated code review of pending diffs / PRs |
 | `skill-creator` | Scaffold and author new Claude Code skills |
+| `github` | Official GitHub MCP — repos, issues, and PR management |
+| `searchfit-seo` | AI SEO toolkit — audits, technical/on-page SEO, broken links, schema, content strategy |
 
 No manual `claude plugin install` is needed once this file is present — opening
 the project enables them.
@@ -31,6 +32,5 @@ Some plugins need credentials that must **not** be checked into the repo:
   free key at https://context7.com/dashboard and provide it locally, e.g. run
   the MCP with `--api-key <key>` or set it in your personal (non-committed)
   Claude Code config.
-- **expo** — its MCP server (`https://mcp.expo.dev/mcp`) uses OAuth. Run `/mcp`
-  in an interactive Claude Code session and authenticate the `expo` server with
-  your Expo account.
+- **github** — uses a GitHub token (e.g. `gh auth login` or a PAT) configured
+  in your personal Claude Code setup; not committed.
