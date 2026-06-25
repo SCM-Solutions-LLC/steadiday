@@ -1,4 +1,4 @@
-<!DOCTYPE html> 
+<!DOCTYPE html>
 
 <html lang="en">
 <head>
@@ -57,7 +57,7 @@ gtag('config', 'G-LF8H890XTV');
 <meta name="twitter:image" content="https://www.steadiday.com/assets/og-image.png">
 
 <!-- Additional SEO Meta Tags -->
-<meta name="theme-color" content="#1A8A7D">
+<meta name="theme-color" content="#4A9D7E">
 <meta name="apple-mobile-web-app-title" content="SteadiDay">
 <meta name="application-name" content="SteadiDay">
 <meta name="mobile-web-app-capable" content="yes">
@@ -221,147 +221,68 @@ gtag('config', 'G-LF8H890XTV');
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
     :root {
-        --cream: #F2ECDD;
-        --cream-dark: #E8E1D0;
-        --teal: #2C5466;
-        --teal-dark: #1E3D4C;
-        --teal-light: #E4EEF2;
-        --sage: #7BB68C;
-        --sage-dark: #5A9A6C;
-        --sage-light: #EDF5F0;
-        --navy: #1A2F3D;
-        --navy-light: #34505F;
-        --charcoal: #2E3A42;
-        --charcoal-light: #607580;
         --white: #FFFFFF;
-        --gold: #D4943A;
-        --gold-light: #FBF2E8;
-        --success: #2E7D32;
-        --alert: #9B3023;
-        --alert-light: #FDF0EE;
-        --warm-gray: #D6CEBF;
-        --shadow-soft: 0 1px 3px rgba(44, 84, 102, 0.06), 0 4px 12px rgba(44, 84, 102, 0.08);
-        --shadow-medium: 0 2px 6px rgba(44, 84, 102, 0.08), 0 8px 24px rgba(44, 84, 102, 0.12);
-        --shadow-strong: 0 4px 12px rgba(44, 84, 102, 0.1), 0 16px 40px rgba(44, 84, 102, 0.16);
-        --radius-sm: 6px;
-        --radius-md: 10px;
-        --radius-lg: 14px;
-        --radius-xl: 22px;
+        --off-white: #F8FAF9;
+        --light-green: #F0FAF5;
+        --sage: #4A9D7E;
+        --sage-dark: #3B8468;
+        --sage-05: rgba(74, 157, 126, 0.05);
+        --sage-10: rgba(74, 157, 126, 0.1);
+        --sage-12: rgba(74, 157, 126, 0.12);
+        --border: #E5E7EB;
+        --border-light: #F0F4F2;
+        --text-dark: #111827;
+        --text-body: #374151;
+        --text-muted: #6B7280;
+        --text-light: #9CA3AF;
+        --blue: #5B8FC4;
+        --blue-10: rgba(91, 143, 196, 0.1);
+        --yellow: #D97706;
+        --red: #DC2626;
+        --hover-bg: #F8FAF9;
+        --watermark: #E5E7EB;
+        --shadow-card: 0 8px 32px rgba(74, 157, 126, 0.12);
+        --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
+        --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
     }
 
-    * {
-        margin: 0;
-        padding: 0;
-        box-sizing: border-box;
-    }
-
-    html {
-        scroll-behavior: smooth;
-        font-size: 18px;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
 
     body {
-        font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        font-size: 1.125rem;
-        line-height: 1.75;
-        color: var(--charcoal);
-        background: var(--cream);
+        font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        font-size: 15px;
+        line-height: 1.7;
+        color: var(--text-body);
+        background: var(--white);
         -webkit-font-smoothing: antialiased;
     }
 
     h1, h2, h3, h4 {
-        font-family: 'DM Serif Display', Georgia, serif;
+        font-family: 'Poppins', sans-serif;
         font-weight: 700;
-        line-height: 1.3;
-        color: var(--navy);
+        line-height: 1.2;
+        color: var(--text-dark);
     }
 
-    img {
-        max-width: 100%;
-        height: auto;
-    }
+    img { max-width: 100%; height: auto; }
 
     a {
-        color: var(--teal);
+        color: var(--sage);
         text-decoration: none;
         transition: color 0.2s ease;
     }
 
-    a:hover {
-        color: var(--teal-dark);
-    }
+    a:hover { color: var(--sage-dark); }
 
     .container {
-        max-width: 1100px;
+        max-width: 1120px;
         margin: 0 auto;
         padding: 0 1.5rem;
-    }
-
-    /* ==================== LAUNCH BANNER ==================== */
-    .launch-banner {
-        background: var(--teal);
-        color: var(--white);
-        padding: 0.65rem 1.5rem;
-        text-align: center;
-        font-size: 0.9rem;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 0.75rem;
-        flex-wrap: wrap;
-        position: relative;
-        z-index: 1001;
-    }
-
-    .launch-badge {
-        background: var(--sage);
-        color: var(--white);
-        padding: 0.2rem 0.65rem;
-        border-radius: 20px;
-        font-weight: 700;
-        font-size: 0.7rem;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-    }
-
-    .launch-banner-text {
-        color: rgba(255, 255, 255, 0.85);
-    }
-
-    .launch-banner-link {
-        color: var(--gold);
-        font-weight: 600;
-        text-decoration: none;
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        transition: all 0.2s ease;
-    }
-
-    .launch-banner-link:hover {
-        color: var(--white);
-    }
-
-    .launch-banner-link svg {
-        width: 14px;
-        height: 14px;
-    }
-
-    @media (max-width: 768px) {
-        .launch-banner {
-            padding: 0.5rem 1rem;
-            font-size: 0.825rem;
-            gap: 0.4rem;
-        }
-
-        .launch-badge {
-            font-size: 0.65rem;
-            padding: 0.15rem 0.5rem;
-        }
     }
 
     /* ==================== NAVIGATION ==================== */
@@ -369,96 +290,66 @@ gtag('config', 'G-LF8H890XTV');
         position: sticky;
         top: 0;
         z-index: 1000;
-        padding: 1.125rem 0;
-        background: rgba(250, 247, 242, 0.92);
-        backdrop-filter: blur(16px);
-        -webkit-backdrop-filter: blur(16px);
-        border-bottom: 1px solid rgba(27, 45, 69, 0.06);
-        transition: box-shadow 0.3s ease;
-    }
-
-    nav.scrolled {
-        box-shadow: 0 1px 8px rgba(27, 45, 69, 0.08);
+        height: 64px;
+        background: var(--white);
+        border-bottom: 1px solid var(--border);
     }
 
     .nav-container {
         display: flex;
         justify-content: space-between;
         align-items: center;
+        height: 100%;
     }
 
     .nav-logo {
         display: flex;
         align-items: center;
-        gap: 0.625rem;
+        gap: 0.5rem;
         text-decoration: none;
     }
 
     .nav-logo img {
-        width: 44px;
-        height: 44px;
-        border-radius: 10px;
+        width: 32px;
+        height: 32px;
+        border-radius: 8px;
     }
 
     .nav-logo span {
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 1.35rem;
+        font-size: 17px;
         font-weight: 700;
-        color: var(--navy);
+        color: var(--text-dark);
     }
 
     .nav-links {
         display: flex;
         align-items: center;
-        gap: 2.25rem;
+        gap: 2rem;
     }
 
     .nav-links a {
-        font-size: 0.95rem;
+        font-size: 13px;
         font-weight: 500;
-        color: var(--charcoal);
-        padding: 0.4rem 0;
-        position: relative;
+        color: var(--text-muted);
         transition: color 0.2s ease;
     }
 
-    .nav-links a::after {
-        content: '';
-        position: absolute;
-        bottom: -2px;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--gold);
-        border-radius: 1px;
-        transition: width 0.25s ease;
-    }
-
     .nav-links a:hover {
-        color: var(--gold);
-    }
-
-    .nav-links a:hover::after {
-        width: 100%;
+        color: var(--text-dark);
     }
 
     .nav-cta {
-        background: var(--teal);
+        background: var(--sage);
         color: var(--white) !important;
-        padding: 0.7rem 1.5rem !important;
-        border-radius: var(--radius-sm);
+        padding: 0.5rem 1.125rem;
+        border-radius: 8px;
         font-weight: 600;
-        font-size: 0.9rem !important;
-        transition: all 0.2s ease;
-        letter-spacing: 0.01em;
-    }
-
-    .nav-cta::after {
-        display: none !important;
+        font-size: 13px !important;
+        transition: background 0.2s ease;
     }
 
     .nav-cta:hover {
-        background: var(--gold);
+        background: var(--sage-dark);
         color: var(--white) !important;
     }
 
@@ -466,25 +357,22 @@ gtag('config', 'G-LF8H890XTV');
         display: none;
         background: none;
         border: none;
-        padding: 0.5rem;
+        padding: 0.375rem;
         cursor: pointer;
         z-index: 1002;
     }
 
     .mobile-menu-btn svg {
-        width: 28px;
-        height: 28px;
-        color: var(--navy);
+        width: 24px;
+        height: 24px;
+        color: var(--text-dark);
     }
 
     .nav-overlay {
         display: none;
         position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(27, 45, 69, 0.4);
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: rgba(0, 0, 0, 0.3);
         z-index: 998;
         opacity: 0;
         transition: opacity 0.3s ease;
@@ -497,136 +385,87 @@ gtag('config', 'G-LF8H890XTV');
 
     /* ==================== HERO ==================== */
     .hero {
-        padding: 5.5rem 0 0;
-        background: var(--teal-dark);
-        position: relative;
-        overflow: hidden;
-    }
-
-    .hero-wave {
-        position: relative;
-        margin-top: -1px;
-        line-height: 0;
-    }
-
-    .hero-wave svg {
-        display: block;
-        width: 100%;
-        height: 80px;
+        padding: 5rem 0;
+        background: linear-gradient(135deg, var(--light-green) 0%, var(--white) 100%);
     }
 
     .hero-container {
         display: grid;
-        grid-template-columns: 1.1fr 0.9fr;
-        gap: 3rem;
+        grid-template-columns: 7fr 5fr;
+        gap: 3.5rem;
         align-items: center;
-        padding-bottom: 4rem;
     }
 
-    .hero-content {
-        position: relative;
-        z-index: 1;
-    }
-
-    .hero-badge {
+    .hero-tag {
         display: inline-flex;
         align-items: center;
-        gap: 0.4rem;
-        background: rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.85);
-        padding: 0.4rem 0.875rem;
-        border-radius: 20px;
-        font-size: 0.85rem;
+        gap: 0.375rem;
+        background: var(--sage-10);
+        color: var(--sage);
+        padding: 0.375rem 0.875rem;
+        border-radius: 100px;
+        font-size: 12px;
         font-weight: 600;
-        margin-bottom: 1.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-    }
-
-    .hero-badge svg {
-        width: 16px;
-        height: 16px;
-        color: var(--gold);
+        margin-bottom: 1.25rem;
     }
 
     .hero h1 {
-        font-size: 3.5rem;
-        line-height: 1.12;
-        margin-bottom: 1.25rem;
-        color: var(--white);
-        letter-spacing: -0.025em;
-    }
-
-    .hero h1 span {
-        color: var(--gold);
+        font-size: 56px;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        margin-bottom: 1rem;
     }
 
     .hero-description {
-        font-size: 1.15rem;
-        color: rgba(255, 255, 255, 0.7);
-        margin-bottom: 2rem;
-        max-width: 500px;
+        font-size: 16px;
+        color: var(--text-muted);
         line-height: 1.7;
+        max-width: 480px;
+        margin-bottom: 1.5rem;
     }
 
     .hero-buttons {
         display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
+        gap: 0.75rem;
         align-items: center;
+        margin-bottom: 2rem;
     }
 
     .btn {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        gap: 0.5rem;
-        padding: 1rem 1.75rem;
-        border-radius: var(--radius-sm);
-        font-size: 1.05rem;
+        gap: 0.4rem;
+        padding: 0.75rem 1.5rem;
+        border-radius: 10px;
+        font-size: 14px;
         font-weight: 600;
+        font-family: inherit;
         text-decoration: none;
         transition: all 0.2s ease;
         border: none;
         cursor: pointer;
-        min-height: 52px;
-    }
-
-    .btn svg {
-        width: 20px;
-        height: 20px;
     }
 
     .btn-primary {
-        background: var(--teal);
+        background: var(--sage);
         color: var(--white);
     }
 
     .btn-primary:hover {
-        background: var(--teal-dark);
+        background: var(--sage-dark);
         color: var(--white);
     }
 
-    .btn-secondary {
+    .btn-outline {
         background: transparent;
-        color: var(--teal);
-        border: 1.5px solid var(--teal);
+        color: var(--text-body);
+        border: 1px solid var(--border);
     }
 
-    .btn-secondary:hover {
-        background: var(--teal);
-        color: var(--white);
-    }
-
-    .btn-hero-secondary {
-        background: transparent;
-        color: var(--white);
-        border: 1.5px solid rgba(255, 255, 255, 0.4);
-    }
-
-    .btn-hero-secondary:hover {
-        background: rgba(255, 255, 255, 0.1);
-        color: var(--white);
-        border-color: rgba(255, 255, 255, 0.7);
+    .btn-outline:hover {
+        border-color: var(--sage);
+        color: var(--sage);
     }
 
     .app-store-badge {
@@ -635,650 +474,416 @@ gtag('config', 'G-LF8H890XTV');
         transition: opacity 0.2s ease;
     }
 
-    .app-store-badge:hover {
-        opacity: 0.85;
-    }
+    .app-store-badge:hover { opacity: 0.85; }
 
-    .app-store-badge img,
-    .app-store-badge svg {
-        height: 52px;
+    .app-store-badge img {
+        height: 44px;
         width: auto;
         display: block;
     }
 
-    @media (max-width: 420px) {
-        .app-store-badge img,
-        .app-store-badge svg {
-            height: 46px;
-        }
-    }
-
-    .hero-cta-microcopy {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.5);
-        margin-top: 0.875rem;
-    }
-
-    .hero-qr {
-        display: none;
-        align-items: center;
-        gap: 0.75rem;
-        padding: 0.625rem 0.875rem;
-        background: rgba(255, 255, 255, 0.1);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: var(--radius-md);
-    }
-
-    .hero-qr img {
-        width: 80px;
-        height: 80px;
-        display: block;
-        border-radius: 4px;
-    }
-
-    .hero-qr-text {
+    .hero-stats {
         display: flex;
-        flex-direction: column;
-        line-height: 1.3;
+        gap: 0;
+        padding-top: 1.5rem;
+        border-top: 1px solid var(--border);
     }
 
-    .hero-qr-text .qr-label {
-        font-size: 0.75rem;
+    .hero-stat {
+        flex: 1;
+        text-align: center;
+    }
+
+    .hero-stat + .hero-stat {
+        border-left: 1px solid var(--border);
+    }
+
+    .hero-stat-number {
+        font-size: 30px;
         font-weight: 700;
-        color: rgba(255, 255, 255, 0.9);
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        margin-bottom: 0.15rem;
+        color: var(--text-dark);
+        line-height: 1.1;
     }
 
-    .hero-qr-text .qr-instruction {
-        font-size: 0.875rem;
-        color: rgba(255, 255, 255, 0.6);
+    .hero-stat-label {
+        font-size: 12px;
+        color: var(--text-muted);
         font-weight: 500;
-        max-width: 140px;
+        margin-top: 0.25rem;
     }
 
-    @media (min-width: 1025px) {
-        .hero-qr {
-            display: inline-flex;
-            margin-top: 1.25rem;
-        }
-    }
-
-    .hero-image {
+    .hero-card {
+        background: var(--white);
+        border-radius: 20px;
+        box-shadow: var(--shadow-card);
+        padding: 1.5rem;
         position: relative;
-        display: flex;
-        justify-content: center;
     }
 
-    .hero-phone {
-        position: relative;
-        width: 270px;
-        transform: rotate(-5deg);
-        transition: transform 0.4s ease;
+    .hero-card-image {
+        border-radius: 12px;
+        overflow: hidden;
+        margin-bottom: 1.25rem;
     }
 
-    .hero-phone:hover {
-        transform: rotate(-2deg) translateY(-4px);
-    }
-
-    .hero-phone img,
-    .hero-phone video {
+    .hero-card-image img,
+    .hero-card-image video {
         width: 100%;
-        border-radius: 24px;
-        box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35), 0 8px 20px rgba(0, 0, 0, 0.15);
         display: block;
+        border-radius: 12px;
     }
 
-    .hero-phone::before {
-        display: none;
-    }
-
-    /* ==================== TRUST BADGES ==================== */
-    .trust-section {
-        padding: 2.5rem 0;
-        background: var(--cream);
-        border-bottom: 1px solid var(--warm-gray);
-    }
-
-    .trust-grid {
-        display: flex;
-        justify-content: center;
-        gap: 3rem;
-        flex-wrap: wrap;
-    }
-
-    .trust-item {
-        display: flex;
-        align-items: center;
+    .benefit-pills {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
         gap: 0.625rem;
-        transition: opacity 0.2s ease;
     }
 
-    .trust-item:hover {
-        opacity: 0.75;
-    }
-
-    .trust-icon {
-        width: 40px;
-        height: 40px;
-        background: var(--teal-light);
-        border-radius: 50%;
+    .benefit-pill {
         display: flex;
         align-items: center;
-        justify-content: center;
+        gap: 0.5rem;
+        padding: 0.625rem 0.75rem;
+        background: var(--light-green);
+        border-radius: 10px;
+        font-size: 12px;
+        font-weight: 500;
+        color: var(--text-body);
+    }
+
+    .benefit-pill svg {
+        width: 16px;
+        height: 16px;
+        color: var(--sage);
         flex-shrink: 0;
     }
 
-    .trust-icon svg {
-        width: 18px;
-        height: 18px;
-        color: var(--teal);
-    }
-
-    .trust-text h4 {
-        font-family: 'Source Sans 3', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 700;
-        color: var(--navy);
-        margin-bottom: 0;
-        line-height: 1.2;
-    }
-
-    .trust-text p {
-        font-size: 0.825rem;
-        color: var(--charcoal-light);
-        line-height: 1.3;
-    }
-
-    /* ==================== WHY FAMILIES CHOOSE ==================== */
-    .why-families {
-        padding: 5.5rem 0;
-        background: var(--cream);
-    }
-
-    .why-families .section-header {
-        text-align: left;
-        max-width: 100%;
-        margin: 0 0 2.5rem;
-    }
-
-    .why-families .section-header h2 {
-        font-size: 2.125rem;
-        margin-bottom: 0.5rem;
-    }
-
-    .why-families .section-header p {
-        font-size: 1.1rem;
-        color: var(--charcoal-light);
-    }
-
-    .why-grid {
-        display: grid;
-        grid-template-columns: 1.2fr 1fr;
-        gap: 1.5rem;
-    }
-
-    .why-card {
-        background: var(--white);
-        padding: 2rem 1.75rem;
-        border-radius: var(--radius-lg);
-        border-left: 4px solid var(--sage);
-        box-shadow: var(--shadow-soft);
-        transition: box-shadow 0.2s ease, border-color 0.2s ease;
-    }
-
-    .why-card.alert-accent {
-        border-left-color: var(--alert);
-        background: var(--alert-light);
-        grid-row: span 2;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-    }
-
-    .why-card:hover {
-        box-shadow: var(--shadow-medium);
-    }
-
-    .why-card.alert-accent:hover {
-        box-shadow: var(--shadow-medium);
-    }
-
-    .why-card-question {
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 1.2rem;
-        font-weight: 400;
-        color: var(--navy);
-        font-style: italic;
+    /* ==================== SECTION SHARED ==================== */
+    .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--sage);
         margin-bottom: 0.75rem;
-        line-height: 1.4;
-    }
-
-    .why-card-answer {
-        color: var(--charcoal);
-        line-height: 1.7;
-        font-size: 1rem;
-    }
-
-    @media (max-width: 1024px) {
-        .why-grid {
-            grid-template-columns: 1fr;
-            max-width: 600px;
-        }
-
-        .why-card.alert-accent {
-            grid-row: auto;
-        }
-    }
-
-    /* ==================== FEATURES ==================== */
-    .features {
-        padding: 6rem 0;
-        background: var(--white);
     }
 
     .section-header {
-        text-align: center;
-        max-width: 620px;
-        margin: 0 auto 3.5rem;
-    }
-
-    .section-label {
-        display: inline-block;
-        font-size: 0.8rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.1em;
-        color: var(--sage-dark);
-        margin-bottom: 0.75rem;
-        padding: 0.3rem 0.75rem;
-        background: var(--sage-light);
-        border-radius: 20px;
+        margin-bottom: 2.5rem;
     }
 
     .section-header h2 {
-        font-size: 2.25rem;
-        margin-bottom: 0.75rem;
+        font-size: 32px;
+        margin-bottom: 0.5rem;
     }
 
     .section-header p {
-        font-size: 1.1rem;
-        color: var(--charcoal-light);
+        font-size: 15px;
+        color: var(--text-muted);
+        max-width: 560px;
     }
 
-    .features-grid {
+    /* ==================== STATISTICS GRID ==================== */
+    .stats-section {
+        padding: 5rem 0;
+        background: var(--off-white);
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+
+    .stat-card {
+        background: var(--white);
+        padding: 2rem 1.75rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+    }
+
+    .stat-card-number {
+        font-family: 'Poppins', sans-serif;
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--sage);
+        line-height: 1;
+        margin-bottom: 0.375rem;
+    }
+
+    .stat-card-title {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.375rem;
+    }
+
+    .stat-card-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
+    }
+
+    .callout-box {
+        margin-top: 1.75rem;
+        padding: 1.25rem 1.5rem;
+        border-left: 3px solid var(--blue);
+        background: var(--blue-10);
+        border-radius: 0 12px 12px 0;
+    }
+
+    .callout-box p {
+        font-size: 14px;
+        color: var(--text-body);
+        line-height: 1.7;
+    }
+
+    .callout-box strong {
+        color: var(--text-dark);
+    }
+
+    /* ==================== COMPARISON TABLE ==================== */
+    .comparison-section {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .comparison-table-wrap {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .comparison-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
+        min-width: 640px;
+    }
+
+    .comparison-table th {
+        background: var(--border-light);
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding: 0.875rem 1.25rem;
+        text-align: left;
+        white-space: nowrap;
+    }
+
+    .comparison-table th.highlight-col {
+        background: var(--sage-05);
+        color: var(--sage-dark);
+    }
+
+    .comparison-table td {
+        padding: 0.875rem 1.25rem;
+        border-top: 1px solid var(--border);
+        font-size: 14px;
+        color: var(--text-body);
+    }
+
+    .comparison-table tr:hover td {
+        background: var(--hover-bg);
+    }
+
+    .comparison-table td.highlight-col {
+        background: var(--sage-05);
+    }
+
+    .comparison-table tr:hover td.highlight-col {
+        background: var(--sage-10);
+    }
+
+    .comparison-table td.feature-name {
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .status-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        display: inline-block;
+        margin-right: 0.375rem;
+        vertical-align: middle;
+    }
+
+    .status-dot.green { background: var(--sage); }
+    .status-dot.yellow { background: var(--yellow); }
+    .status-dot.red { background: var(--red); }
+
+    /* ==================== PHASES ==================== */
+    .phases-section {
+        padding: 5rem 0;
+        background: var(--off-white);
+    }
+
+    .phases-grid {
         display: grid;
         grid-template-columns: repeat(4, 1fr);
         gap: 1.25rem;
     }
 
-    .feature-card {
+    .phase-card {
         background: var(--white);
-        padding: 2rem 1.5rem;
-        border-radius: 32px;
-        border: 1px solid rgba(44, 84, 102, 0.08);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
+        padding: 2rem 1.5rem 1.75rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        position: relative;
+        overflow: hidden;
     }
 
-    .feature-card:hover {
-        transform: translateY(-8px);
-        box-shadow: var(--shadow-strong);
+    .phase-watermark {
+        position: absolute;
+        top: -4px;
+        right: 10px;
+        font-size: 48px;
+        font-weight: 700;
+        color: var(--watermark);
+        line-height: 1;
+        pointer-events: none;
     }
 
-    .feature-icon {
-        width: 56px;
-        height: 56px;
-        background: var(--sage-light);
-        border-radius: 50%;
+    .phase-icon {
+        width: 44px;
+        height: 44px;
+        background: var(--sage-10);
+        border-radius: 12px;
         display: flex;
         align-items: center;
         justify-content: center;
-        margin-bottom: 1.25rem;
-    }
-
-    .feature-icon svg {
-        width: 26px;
-        height: 26px;
-        color: var(--sage-dark);
-    }
-
-    .feature-card h3 {
-        font-family: 'Source Sans 3', sans-serif;
-        font-size: 1.15rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-        color: var(--navy);
-    }
-
-    .feature-card p {
-        color: var(--charcoal-light);
-        line-height: 1.65;
-        font-size: 0.975rem;
-    }
-
-    .feature-card.highlight {
-        background: var(--teal);
-        border-color: transparent;
-    }
-
-    .feature-card.highlight .feature-icon {
-        background: rgba(255, 255, 255, 0.12);
-    }
-
-    .feature-card.highlight .feature-icon svg {
-        color: var(--gold);
-    }
-
-    .feature-card.highlight h3 {
-        color: var(--white);
-    }
-
-    .feature-card.highlight p {
-        color: rgba(255, 255, 255, 0.7);
-    }
-
-    .feature-card.highlight .free-badge {
-        display: inline-block;
-        background: var(--gold);
-        color: var(--navy);
-        padding: 0.2rem 0.625rem;
-        border-radius: 4px;
-        font-size: 0.75rem;
-        font-weight: 700;
-        margin-top: 0.75rem;
-    }
-
-    /* ==================== HOW IT WORKS ==================== */
-    .how-it-works {
-        padding: 5.5rem 0;
-        background: var(--teal-dark);
-    }
-
-    .how-it-works .section-header {
-        color: var(--white);
-    }
-
-    .how-it-works .section-label {
-        color: var(--gold);
-        background: rgba(212, 148, 58, 0.15);
-    }
-
-    .how-it-works .section-header h2 {
-        color: var(--white);
-    }
-
-    .how-it-works .section-header p {
-        color: rgba(255, 255, 255, 0.65);
-    }
-
-    .steps-container {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 2rem;
-        position: relative;
-    }
-
-    .steps-container::before {
-        content: '';
-        position: absolute;
-        top: 48px;
-        left: 12.5%;
-        right: 12.5%;
-        height: 2px;
-        border-top: 2px dashed rgba(255, 255, 255, 0.15);
-        background: none;
-        z-index: 0;
-    }
-
-    .step {
-        text-align: center;
+        margin-bottom: 1rem;
+        box-shadow: 0 0 20px var(--sage-12);
         position: relative;
         z-index: 1;
     }
 
-    .step-number {
-        width: 96px;
-        height: 96px;
-        background: rgba(255, 255, 255, 0.08);
-        border: 2px solid rgba(255, 255, 255, 0.15);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.5rem;
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 1.75rem;
-        font-weight: 400;
-        color: var(--white);
-        transition: border-color 0.3s ease, background 0.3s ease;
-    }
-
-    .step:hover .step-number {
-        border-color: var(--gold);
-        background: rgba(212, 148, 58, 0.12);
-    }
-
-    .step h3 {
-        color: var(--white);
-        font-family: 'Source Sans 3', sans-serif;
-        font-size: 1.1rem;
-        font-weight: 700;
-        margin-bottom: 0.5rem;
-    }
-
-    .step p {
-        color: rgba(255, 255, 255, 0.6);
-        font-size: 0.925rem;
-        line-height: 1.55;
-    }
-
-    /* ==================== SCREENSHOTS ==================== */
-    .screenshots {
-        padding: 6rem 0;
-        background: var(--cream);
-    }
-
-    .screenshots-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-    }
-
-    .screenshot-item {
-        text-align: center;
-    }
-
-    .screenshot-frame {
-        background: var(--white);
-        padding: 0.625rem;
-        border-radius: var(--radius-lg);
-        margin-bottom: 0.75rem;
-        box-shadow: var(--shadow-soft);
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
-    }
-
-    .screenshot-frame:hover {
-        box-shadow: var(--shadow-medium);
-        transform: translateY(-2px);
-    }
-
-    .screenshot-frame img {
-        border-radius: var(--radius-md);
-        width: 100%;
-    }
-
-    .screenshot-item h4 {
-        font-family: 'Source Sans 3', sans-serif;
-        font-size: 0.95rem;
-        font-weight: 600;
-        color: var(--charcoal);
-    }
-
-    /* ==================== TESTIMONIALS ==================== */
-    .testimonials {
-        padding: 5rem 0;
-        background: var(--cream);
-    }
-
-    .testimonials-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        max-width: 1000px;
-        margin: 0 auto;
-    }
-
-    .testimonial-card {
-        background: var(--white);
-        padding: 2rem 1.75rem;
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-soft);
-        position: relative;
-    }
-
-    .testimonial-quote {
-        font-size: 1.05rem;
-        color: var(--charcoal);
-        line-height: 1.7;
-        margin-bottom: 1.25rem;
-        font-style: italic;
-    }
-
-    .testimonial-quote::before {
-        content: '\201C';
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 2.5rem;
-        color: var(--teal);
-        opacity: 0.25;
-        position: absolute;
-        top: 0.75rem;
-        left: 1rem;
-        line-height: 1;
-    }
-
-    .testimonial-author {
-        font-weight: 700;
-        color: var(--navy);
-        font-size: 0.95rem;
-    }
-
-    .testimonial-detail {
-        color: var(--charcoal-light);
-        font-size: 0.85rem;
-    }
-
-    @media (max-width: 768px) {
-        .testimonials-grid {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    /* ==================== PRICING ==================== */
-    .pricing {
-        padding: 5.5rem 0;
-        background: var(--white);
-    }
-
-    .pricing-free-banner {
-        max-width: 640px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .pricing-free-card {
-        background: var(--white);
-        border-radius: var(--radius-md);
-        padding: 3rem 2.5rem;
-        border: 1px solid var(--warm-gray);
-        position: relative;
-        overflow: hidden;
-        box-shadow: var(--shadow-medium);
-    }
-
-    .pricing-free-card::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        height: 4px;
-        background: linear-gradient(90deg, var(--sage), var(--teal));
-    }
-
-    .pricing-free-badge {
-        display: inline-block;
-        background: var(--sage-light);
-        color: var(--sage-dark);
-        font-size: 0.75rem;
-        font-weight: 700;
-        letter-spacing: 0.06em;
-        text-transform: uppercase;
-        padding: 0.35rem 0.875rem;
-        border-radius: 20px;
-        margin-bottom: 1.25rem;
-    }
-
-    .pricing-free-features {
-        list-style: none;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 0.625rem 1.5rem;
-        text-align: left;
-        max-width: 480px;
-        margin: 0 auto 2rem;
-    }
-
-    .pricing-free-features li {
-        display: flex;
-        align-items: flex-start;
-        gap: 0.4rem;
-        font-size: 0.95rem;
-        color: var(--charcoal);
-    }
-
-    .pricing-free-features svg {
-        width: 18px;
-        height: 18px;
+    .phase-icon svg {
+        width: 20px;
+        height: 20px;
         color: var(--sage);
-        flex-shrink: 0;
-        margin-top: 3px;
     }
 
-    .pricing-free-note {
-        font-size: 0.9rem;
-        color: var(--charcoal-light);
-        margin-top: 0.75rem;
+    .phase-card h3 {
+        font-size: 15px;
+        font-weight: 700;
+        margin-bottom: 0.375rem;
+        position: relative;
+        z-index: 1;
     }
 
-    @media (max-width: 600px) {
-        .pricing-free-features {
-            grid-template-columns: 1fr;
-        }
+    .phase-card p {
+        font-size: 12px;
+        color: var(--text-muted);
+        line-height: 1.7;
+        position: relative;
+        z-index: 1;
+    }
 
-        .pricing-free-card {
-            padding: 2rem 1.5rem;
-        }
+    /* ==================== ROADMAP TIMELINE ==================== */
+    .roadmap-section {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .roadmap-list {
+        max-width: 800px;
+    }
+
+    .roadmap-row {
+        display: grid;
+        grid-template-columns: 90px 130px 1fr;
+        gap: 1rem;
+        align-items: center;
+        padding: 1rem 1.25rem;
+        border-left: 4px solid transparent;
+        transition: background 0.2s ease;
+    }
+
+    .roadmap-row + .roadmap-row {
+        border-top: 1px solid var(--border);
+    }
+
+    .roadmap-row.current {
+        border-left-color: var(--sage);
+        background: var(--light-green);
+        border-radius: 0 8px 8px 0;
+    }
+
+    .roadmap-row.completed {
+        opacity: 0.7;
+    }
+
+    .roadmap-row.future {
+        border-left-color: var(--border);
+    }
+
+    .roadmap-date {
+        font-size: 12px;
+        font-weight: 600;
+        color: var(--text-light);
+    }
+
+    .roadmap-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: var(--text-dark);
+    }
+
+    .roadmap-status {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25rem;
+        font-size: 10px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        margin-left: 0.375rem;
+    }
+
+    .roadmap-status.active {
+        background: var(--sage-10);
+        color: var(--sage);
+    }
+
+    .roadmap-status.done {
+        background: var(--border);
+        color: var(--text-muted);
+    }
+
+    .roadmap-content {
+        font-size: 13px;
+        color: var(--text-muted);
+        line-height: 1.6;
     }
 
     /* ==================== FAQ ==================== */
-    .faq {
-        padding: 5.5rem 0;
-        background: var(--cream);
+    .faq-section {
+        padding: 5rem 0;
+        background: var(--off-white);
     }
 
     .faq-grid {
         max-width: 720px;
-        margin: 0 auto;
     }
 
     .faq-item {
-        border-bottom: 1px solid var(--warm-gray);
-        padding: 1.5rem 0;
+        border-bottom: 1px solid var(--border);
+        padding: 1.25rem 0;
     }
 
     .faq-item:first-child {
-        border-top: 1px solid var(--warm-gray);
+        border-top: 1px solid var(--border);
     }
 
     .faq-question {
@@ -1296,19 +901,17 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .faq-item h3 {
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 1.1rem;
-        font-weight: 400;
-        color: var(--navy);
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--text-dark);
         margin-bottom: 0;
-        line-height: 1.4;
     }
 
     .faq-toggle {
-        width: 24px;
-        height: 24px;
+        width: 20px;
+        height: 20px;
         flex-shrink: 0;
-        color: var(--charcoal-light);
+        color: var(--text-light);
         transition: transform 0.25s ease;
     }
 
@@ -1319,7 +922,7 @@ gtag('config', 'G-LF8H890XTV');
     .faq-answer {
         max-height: 0;
         overflow: hidden;
-        transition: max-height 0.3s ease, padding 0.3s ease;
+        transition: max-height 0.3s ease;
     }
 
     .faq-item.open .faq-answer {
@@ -1327,349 +930,122 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .faq-item p {
-        color: var(--charcoal-light);
-        line-height: 1.65;
-        font-size: 0.975rem;
+        color: var(--text-muted);
+        font-size: 14px;
+        line-height: 1.7;
         padding-top: 0.75rem;
     }
 
-    /* ==================== PRIVACY ==================== */
-    .privacy-section {
-        padding: 4.5rem 0;
-        background: var(--teal-light);
+    /* ==================== CTA BAND ==================== */
+    .cta-band {
+        padding: 4rem 0;
+        background: var(--white);
         text-align: center;
     }
 
-    .privacy-content {
-        max-width: 640px;
-        margin: 0 auto;
+    .cta-band h2 {
+        font-size: 28px;
+        margin-bottom: 0.5rem;
     }
 
-    .privacy-icon {
-        width: 64px;
-        height: 64px;
-        background: var(--white);
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1.25rem;
-        box-shadow: var(--shadow-soft);
+    .cta-band p {
+        font-size: 15px;
+        color: var(--text-muted);
+        margin-bottom: 1.5rem;
+        max-width: 420px;
+        margin-left: auto;
+        margin-right: auto;
     }
 
-    .privacy-icon svg {
-        width: 32px;
-        height: 32px;
-        color: var(--teal);
-    }
-
-    .privacy-content h2 {
-        margin-bottom: 0.75rem;
-        font-size: 1.75rem;
-    }
-
-    .privacy-content p {
-        font-size: 1.05rem;
-        color: var(--charcoal-light);
-        margin-bottom: 1.75rem;
-    }
-
-    .privacy-links {
+    .cta-band-buttons {
         display: flex;
         justify-content: center;
         gap: 0.75rem;
         flex-wrap: wrap;
     }
 
-    .privacy-link {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.4rem;
-        padding: 0.75rem 1.25rem;
-        background: var(--white);
-        color: var(--charcoal);
-        border: none;
-        border-radius: var(--radius-md);
-        font-weight: 600;
-        font-size: 0.925rem;
-        box-shadow: var(--shadow-soft);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .privacy-link:hover {
-        box-shadow: var(--shadow-medium);
-        transform: translateY(-1px);
-        color: var(--teal);
-    }
-
-    .privacy-link svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    /* ==================== ABOUT / FOUNDER ==================== */
-    .about-founder {
-        padding: 5rem 0;
-        background: var(--cream);
-    }
-
-    .about-founder-content {
-        max-width: 640px;
-        margin: 0 auto;
-        text-align: center;
-    }
-
-    .about-founder-content h2 {
-        margin-bottom: 1rem;
-        font-size: 1.75rem;
-    }
-
-    .about-founder-content p {
-        font-size: 1.05rem;
-        color: var(--charcoal-light);
-        line-height: 1.75;
-        margin-bottom: 0.875rem;
-    }
-
-    .about-founder-content .founder-name {
-        font-weight: 700;
-        color: var(--navy);
-        font-size: 0.95rem;
-        margin-top: 1.25rem;
-    }
-
-    .about-founder-content .founder-detail {
-        color: var(--charcoal-light);
-        font-size: 0.875rem;
-    }
-
-    /* ==================== DOWNLOAD CTA ==================== */
-    .download-cta {
-        padding: 5rem 0;
-        background: var(--cream);
-    }
-
-    .download-cta-card {
-        display: grid;
-        grid-template-columns: 1fr 0.6fr;
-        background: var(--teal);
-        border-radius: 32px;
-        overflow: hidden;
-        position: relative;
-    }
-
-    .download-cta-content {
-        padding: 3.5rem 3rem;
-    }
-
-    .download-cta-badge {
-        display: inline-block;
-        background: rgba(255, 255, 255, 0.12);
-        color: rgba(255, 255, 255, 0.8);
-        font-size: 0.7rem;
-        font-weight: 700;
-        letter-spacing: 0.08em;
-        text-transform: uppercase;
-        padding: 0.35rem 0.875rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-    }
-
-    .download-cta h2 {
-        font-size: 2rem;
-        color: var(--white);
-        margin-bottom: 0.75rem;
-        line-height: 1.25;
-    }
-
-    .download-cta-subtitle {
-        font-size: 1.05rem;
-        color: rgba(255, 255, 255, 0.65);
-        margin-bottom: 2rem;
-        line-height: 1.6;
-    }
-
-    .download-cta-buttons {
-        display: flex;
-        gap: 1rem;
-        flex-wrap: wrap;
-    }
-
-    .download-cta-privacy {
-        font-size: 0.85rem;
-        color: rgba(255, 255, 255, 0.4);
+    .cta-privacy {
+        font-size: 12px;
+        color: var(--text-light);
+        margin-top: 1rem;
         display: flex;
         align-items: center;
-        gap: 0.35rem;
-        margin-top: 1.25rem;
+        justify-content: center;
+        gap: 0.25rem;
     }
 
-    .download-cta-privacy svg {
+    .cta-privacy svg {
         width: 14px;
         height: 14px;
-        opacity: 0.6;
     }
 
-    .download-cta-image {
-        display: flex;
-        align-items: flex-end;
-        justify-content: center;
-        padding: 2.5rem 1.5rem 0;
-        position: relative;
-    }
-
-    .download-cta-image img {
-        width: 200px;
-        border-radius: 20px 20px 0 0;
-        box-shadow: -10px -10px 40px rgba(0, 0, 0, 0.2);
-        display: block;
-    }
-
-    /* ==================== CONTACT FORM ==================== */
+    /* ==================== CONTACT ==================== */
     .contact-section {
-        padding: 5.5rem 0;
-        background: var(--white);
+        padding: 5rem 0;
+        background: var(--off-white);
     }
 
     .contact-form {
         max-width: 480px;
-        margin: 0 auto;
         background: var(--white);
-        padding: 2.25rem;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--warm-gray);
-        box-shadow: var(--shadow-soft);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
     }
 
     .form-group {
-        margin-bottom: 1.25rem;
+        margin-bottom: 1rem;
     }
 
     .form-group label {
         display: block;
         font-weight: 600;
-        color: var(--navy);
-        margin-bottom: 0.375rem;
-        font-size: 0.95rem;
+        color: var(--text-dark);
+        margin-bottom: 0.25rem;
+        font-size: 13px;
     }
 
     .form-group input,
     .form-group textarea {
         width: 100%;
-        padding: 0.875rem 1rem;
-        border: 1.5px solid var(--warm-gray);
-        border-radius: var(--radius-sm);
-        font-size: 1rem;
+        padding: 0.625rem 0.875rem;
+        border: 1px solid var(--border);
+        border-radius: 8px;
+        font-size: 14px;
         font-family: inherit;
         background: var(--white);
-        color: var(--charcoal);
+        color: var(--text-body);
         transition: border-color 0.2s ease;
     }
 
     .form-group input:focus,
     .form-group textarea:focus {
         outline: none;
-        border-color: var(--teal);
+        border-color: var(--sage);
     }
 
     .form-group input::placeholder,
     .form-group textarea::placeholder {
-        color: #b0b5bd;
+        color: var(--text-light);
     }
 
     .form-group textarea {
         resize: vertical;
-        min-height: 110px;
+        min-height: 100px;
     }
 
     .contact-form .btn {
         width: 100%;
-        margin-top: 0.25rem;
     }
 
     /* ==================== FOOTER ==================== */
     footer {
-        padding: 3.5rem 0 2rem;
-        background: var(--navy);
+        padding: 32px 0;
+        background: var(--off-white);
+        border-top: 1px solid var(--border);
     }
 
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 1fr;
-        gap: 2.5rem;
-        padding-bottom: 2.5rem;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
-        margin-bottom: 2rem;
-    }
-
-    .footer-col {
-        display: flex;
-        flex-direction: column;
-        gap: 0.625rem;
-    }
-
-    .footer-col h4 {
-        font-family: 'Source Sans 3', sans-serif;
-        font-size: 0.85rem;
-        font-weight: 700;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: rgba(255, 255, 255, 0.5);
-        margin-bottom: 0.375rem;
-    }
-
-    .footer-col a {
-        color: rgba(255, 255, 255, 0.65);
-        font-size: 0.9rem;
-        transition: color 0.2s ease;
-        line-height: 1.6;
-    }
-
-    .footer-col a:hover {
-        color: var(--gold);
-    }
-
-    .footer-brand-col {
-        gap: 0.75rem;
-    }
-
-    .footer-brand {
-        display: flex;
-        align-items: center;
-        gap: 0.625rem;
-        text-decoration: none;
-    }
-
-    .footer-brand img {
-        width: 40px;
-        height: 40px;
-        border-radius: 10px;
-    }
-
-    .footer-brand span {
-        font-family: 'DM Serif Display', Georgia, serif;
-        font-size: 1.15rem;
-        font-weight: 700;
-        color: var(--white);
-    }
-
-    .footer-brand-tagline {
-        font-size: 0.9rem;
-        color: rgba(255, 255, 255, 0.5);
-        line-height: 1.5;
-        max-width: 240px;
-    }
-
-    .footer-app-badge {
-        margin-top: 0.5rem;
-    }
-
-    .footer-app-badge img {
-        height: 40px;
-        width: auto;
-    }
-
-    .footer-bottom {
+    .footer-content {
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -1677,141 +1053,100 @@ gtag('config', 'G-LF8H890XTV');
         gap: 1rem;
     }
 
+    .footer-brand {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+    }
+
+    .footer-brand img {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+    }
+
+    .footer-brand span {
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-dark);
+    }
+
     .footer-copy {
-        color: rgba(255, 255, 255, 0.35);
-        font-size: 0.8rem;
-        line-height: 1.5;
+        font-size: 12px;
+        color: var(--text-muted);
+        text-align: center;
+    }
+
+    .footer-links {
+        display: flex;
+        gap: 1.25rem;
+        flex-wrap: wrap;
+    }
+
+    .footer-links a {
+        font-size: 12px;
+        color: var(--text-muted);
+        transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+        color: var(--sage);
     }
 
     /* ==================== SCROLL REVEAL ==================== */
     .js-reveal .reveal {
         opacity: 0;
-        transform: translateY(20px) scale(0.99);
-        transition: opacity 0.6s ease, transform 0.6s ease;
+        transform: translateY(16px);
+        transition: opacity 0.5s ease, transform 0.5s ease;
     }
 
     .js-reveal .reveal.visible {
         opacity: 1;
-        transform: translateY(0) scale(1);
+        transform: translateY(0);
     }
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
         .hero-container {
             grid-template-columns: 1fr;
-            text-align: center;
             gap: 2.5rem;
         }
 
-        .hero-content {
-            order: 1;
+        .hero h1 {
+            font-size: 42px;
         }
 
-        .hero-image {
-            order: 0;
+        .hero-card {
+            max-width: 480px;
         }
 
-        .hero-description {
-            margin-left: auto;
-            margin-right: auto;
+        .stats-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
 
-        .hero-buttons {
-            justify-content: center;
-        }
-
-        .hero-cta-microcopy {
-            text-align: center;
-        }
-
-        .hero-phone {
-            transform: rotate(-3deg);
-        }
-
-        .why-families .section-header {
-            text-align: center;
-        }
-
-        .trust-grid {
-            gap: 2rem;
-        }
-
-        .features-grid {
+        .phases-grid {
             grid-template-columns: repeat(2, 1fr);
         }
 
-        .feature-card {
-            border-radius: 24px;
-        }
-
-        .steps-container {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 2.5rem;
-        }
-
-        .steps-container::before {
-            display: none;
-        }
-
-        .step-number {
-            width: 72px;
-            height: 72px;
-            font-size: 1.4rem;
-        }
-
-        .screenshots-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
-        .download-cta-card {
-            grid-template-columns: 1fr;
-            border-radius: 24px;
-        }
-
-        .download-cta-content {
-            text-align: center;
-        }
-
-        .download-cta-buttons {
-            justify-content: center;
-        }
-
-        .download-cta-privacy {
-            justify-content: center;
-        }
-
-        .download-cta-image {
-            justify-content: center;
-            padding: 0 2rem;
-        }
-
-        .download-cta-image img {
-            width: 160px;
-        }
-
-        .footer-grid {
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
+        .roadmap-row {
+            grid-template-columns: 80px 110px 1fr;
         }
     }
 
     @media (max-width: 768px) {
-        html {
-            font-size: 16px;
-        }
-
         .nav-links {
             display: flex;
             flex-direction: column;
             position: fixed;
             top: 0;
             right: -100%;
-            width: 280px;
+            width: 260px;
             height: 100vh;
-            background: var(--cream);
-            padding: 4.5rem 1.75rem 2rem;
+            background: var(--white);
+            padding: 4rem 1.5rem 2rem;
             gap: 0;
-            box-shadow: -4px 0 20px rgba(27, 45, 69, 0.12);
+            box-shadow: -4px 0 20px rgba(0, 0, 0, 0.08);
             transition: right 0.3s ease;
             z-index: 999;
         }
@@ -1821,108 +1156,83 @@ gtag('config', 'G-LF8H890XTV');
         }
 
         .nav-links a {
-            padding: 0.875rem 0;
-            font-size: 1.05rem;
-            border-bottom: 1px solid rgba(27, 45, 69, 0.08);
-        }
-
-        .nav-links a::after {
-            display: none;
-        }
-
-        .nav-cta {
-            margin-top: 1rem;
-            text-align: center;
+            padding: 0.75rem 0;
+            font-size: 14px;
+            border-bottom: 1px solid var(--border);
         }
 
         .mobile-menu-btn {
             display: block;
         }
 
-        .trust-grid {
+        .hero h1 {
+            font-size: 34px;
+        }
+
+        .hero-stats {
+            flex-wrap: wrap;
+        }
+
+        .hero-stat {
+            flex: 1 1 30%;
+            min-width: 90px;
+        }
+
+        .hero-stat + .hero-stat {
+            border-left: none;
+        }
+
+        .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .phases-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .roadmap-row {
+            grid-template-columns: 1fr;
+            gap: 0.25rem;
+            padding: 0.875rem 1rem;
+        }
+
+        .roadmap-date {
+            font-size: 11px;
+        }
+
+        .footer-content {
             flex-direction: column;
-            gap: 1.25rem;
-            align-items: flex-start;
-            padding: 0 1rem;
-        }
-
-        .why-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .why-card.alert-accent {
-            grid-row: auto;
-        }
-
-        .features-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .feature-card {
-            border-radius: 20px;
-        }
-
-        .steps-container {
-            grid-template-columns: 1fr;
-        }
-
-        .step-number {
-            width: 64px;
-            height: 64px;
-            font-size: 1.3rem;
-        }
-
-        .screenshots-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
-
-        .faq-grid {
-            max-width: 100%;
-        }
-
-        .footer-grid {
-            grid-template-columns: 1fr;
-            gap: 1.75rem;
             text-align: center;
         }
 
-        .footer-brand-tagline {
-            max-width: 100%;
-        }
-
-        .footer-brand {
+        .footer-links {
             justify-content: center;
         }
 
-        .footer-col {
-            align-items: center;
+        .section-header h2 {
+            font-size: 26px;
         }
+    }
 
-        .footer-bottom {
-            flex-direction: column;
-            text-align: center;
-        }
-
+    @media (max-width: 480px) {
         .hero h1 {
-            font-size: 2.5rem;
+            font-size: 28px;
         }
 
-        .hero-phone {
-            width: 220px;
-            transform: rotate(0deg);
+        .hero-stat-number {
+            font-size: 24px;
         }
 
-        .hero-description {
-            font-size: 1.05rem;
+        .stat-card-number {
+            font-size: 36px;
         }
 
-        .download-cta-content {
-            padding: 2.5rem 1.75rem;
+        .benefit-pills {
+            grid-template-columns: 1fr;
         }
 
-        .download-cta-image {
-            display: none;
+        .comparison-table {
+            font-size: 13px;
         }
     }
 
@@ -1932,37 +1242,22 @@ gtag('config', 'G-LF8H890XTV');
             transform: none;
             transition: none;
         }
-
-        .hero-phone {
-            transition: none;
-        }
     }
 </style>
 </head>
 <body>
-    <!-- Launch Banner -->
-    <div class="launch-banner">
-        <span class="launch-badge">Now Live</span>
-        <span class="launch-banner-text">SteadiDay is now on the App Store — every feature included.</span>
-        <a href="https://apps.apple.com/app/steadiday/id6758526744" class="launch-banner-link">
-            View on the App Store
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/>
-            </svg>
-        </a>
-    </div>
-
     <div class="nav-overlay" id="navOverlay"></div>
 
     <nav id="navbar">
         <div class="container nav-container">
             <a href="#" class="nav-logo">
                 <img src="assets/icon.jpeg" alt="SteadiDay">
-                <span>SteadiDay™</span>
+                <span>SteadiDay</span>
             </a>
             <div class="nav-links" id="navLinks">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
+                <a href="#compare">Compare</a>
                 <a href="#faq">FAQ</a>
                 <a href="blog/index.html">Blog</a>
                 <a href="https://apps.apple.com/app/steadiday/id6758526744" class="nav-cta">Download Free</a>
@@ -1975,405 +1270,265 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </nav>
 
+    <!-- ==================== HERO ==================== -->
     <section class="hero">
         <div class="container hero-container">
             <div class="hero-content">
-                <div class="hero-badge">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                    </svg>
-                    Built for the parent you worry about
+                <div class="hero-tag">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    Free on the App Store
                 </div>
-                <h1>Help, <span>right when you need it</span>.</h1>
-                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. The SOS button on the home screen quickly connects to 911, texts a trusted contact your location, or calls them directly. Start a Safety Session to enable fall detection while the app is open. Plus medication reminders and a Care Summary so you know they're okay. No account. Free forever.</p>
+                <h1>Help, right when you need it.</h1>
+                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. Emergency SOS, fall detection, medication reminders, and a Care Summary — all in one simple app. No account needed.</p>
                 <div class="hero-buttons">
                     <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                         <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
                     </a>
-                    <a href="#features" class="btn btn-hero-secondary">See How It Works</a>
+                    <a href="#how-it-works" class="btn btn-outline">See How It Works</a>
                 </div>
-                <p class="hero-cta-microcopy">Set it up on her phone in 5 minutes — no account required.</p>
-                <!-- Desktop-only QR code: helps laptop visitors install directly on their iPhone -->
-                <div class="hero-qr" aria-hidden="false" role="region" aria-label="Install on iPhone via QR code">
-                    <img src="assets/qr-code.jpg" alt="QR code to open SteadiDay on the App Store" />
-                    <div class="hero-qr-text">
-                        <span class="qr-label">On a computer?</span>
-                        <span class="qr-instruction">Scan with your iPhone camera to install</span>
+                <div class="hero-stats">
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">15+</div>
+                        <div class="hero-stat-label">Features Included</div>
                     </div>
-                </div>
-            </div>
-            <div class="hero-image">
-                <div class="hero-phone">
-                    <video
-                        autoplay
-                        muted
-                        loop
-                        playsinline
-                        preload="metadata"
-                        poster="assets/screenshot-sos.png"
-                        aria-label="Short preview of the SteadiDay app showing medication reminders, emergency SOS, and health tracking">
-                        <source src="assets/steadiday-preview-886x1920.mp4" type="video/mp4">
-                        <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen — call 911, send SOS text with location to a trusted contact, or call a trusted contact directly">
-                    </video>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">100%</div>
+                        <div class="hero-stat-label">Free Forever</div>
+                    </div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-number">&lt; 5 min</div>
+                        <div class="hero-stat-label">Setup Time</div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="hero-wave">
-            <svg viewBox="0 0 1440 100" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M0,40 C240,100 480,0 720,50 C960,100 1200,20 1440,60 L1440,100 L0,100 Z" fill="var(--cream)"/>
-            </svg>
-        </div>
-    </section>
-
-    <section class="trust-section">
-        <div class="container">
-            <div class="trust-grid">
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 21v-4m0 0V5a2 2 0 012-2h6.5l1 1H21l-3 6 3 6h-8.5l-1-1H5a2 2 0 00-2 2zm9-13.5V9"/>
-                        </svg>
+            <div class="hero-card-wrap">
+                <div class="hero-card">
+                    <div class="hero-card-image">
+                        <video autoplay muted loop playsinline preload="metadata" poster="assets/screenshot-sos.png" aria-label="Short preview of the SteadiDay app showing medication reminders, emergency SOS, and health tracking">
+                            <source src="assets/steadiday-preview-886x1920.mp4" type="video/mp4">
+                            <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen">
+                        </video>
                     </div>
-                    <div class="trust-text">
-                        <h4>Built in Virginia</h4>
-                        <p>A real US-based team, not a faceless app</p>
-                    </div>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                    </div>
-                    <div class="trust-text">
-                        <h4>100% Private</h4>
-                        <p>Data stays on her phone</p>
-                    </div>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
-                    </div>
-                    <div class="trust-text">
-                        <h4>Easy to Use</h4>
-                        <p>Large text & buttons</p>
-                    </div>
-                </div>
-                <div class="trust-item">
-                    <div class="trust-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <div class="trust-text">
-                        <h4>100% Free</h4>
-                        <p>Every feature, no cost</p>
+                    <div class="benefit-pills">
+                        <div class="benefit-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/></svg>
+                            Emergency SOS
+                        </div>
+                        <div class="benefit-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                            Fall Detection
+                        </div>
+                        <div class="benefit-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+                            Med Reminders
+                        </div>
+                        <div class="benefit-pill">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                            Privacy First
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Why families choose SteadiDay (problem/solution cards) -->
-    <section class="why-families">
+    <!-- ==================== STATISTICS / PROBLEMS ==================== -->
+    <section class="stats-section" id="features">
         <div class="container reveal">
             <div class="section-header">
-                <span class="section-label">Why Families Choose SteadiDay</span>
-                <h2>The worries you've already had</h2>
-                <p>SteadiDay was built around the questions that wake adult children up at night.</p>
+                <div class="section-tag">Why SteadiDay</div>
+                <h2>Built around the worries you already have</h2>
+                <p>SteadiDay was designed for the questions that keep adult children up at night.</p>
             </div>
-            <div class="why-grid">
-                <div class="why-card alert-accent">
-                    <p class="why-card-question">"What if she falls and needs help?"</p>
-                    <p class="why-card-answer">The SOS button on her home screen quickly connects to 911, texts you her exact GPS location, or calls you directly. She can also start a Safety Session to enable fall detection while the app is open: if a hard fall is detected and she doesn't respond within 30 seconds, the app automatically texts her trusted contacts with her location.</p>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-number">1 Tap</div>
+                    <div class="stat-card-title">Emergency help for your loved one</div>
+                    <p class="stat-card-desc">The SOS button on the home screen quickly connects to 911, texts your location to a trusted contact, or calls them directly.</p>
                 </div>
-                <div class="why-card">
-                    <p class="why-card-question">"Did she take her medication today?"</p>
-                    <p class="why-card-answer">Gentle reminders on her phone. She sees what she's taken. If she chooses to share a Care Summary, you can see she's doing well — no surveillance, no nagging texts back and forth.</p>
+                <div class="stat-card">
+                    <div class="stat-card-number">30 sec</div>
+                    <div class="stat-card-title">Auto-alert after a detected fall</div>
+                    <p class="stat-card-desc">Start a Safety Session to enable fall detection. If a hard fall is detected and there's no response within 30 seconds, the app texts all trusted contacts.</p>
                 </div>
-                <div class="why-card">
-                    <p class="why-card-question">"I don't want to set up another account for her."</p>
-                    <p class="why-card-answer">You won't. No accounts, no passwords, no subscriptions. Install the app on her iPhone, set your number as the emergency contact, and you're done. Five minutes.</p>
+                <div class="stat-card">
+                    <div class="stat-card-number">Zero</div>
+                    <div class="stat-card-title">Accounts, passwords, or subscriptions</div>
+                    <p class="stat-card-desc">No accounts, no passwords, no credit card. Install on her iPhone, set your number as emergency contact, and you're done. Five minutes.</p>
                 </div>
             </div>
-        </div>
-    </section>
-
-    <section class="features" id="features">
-        <div class="container reveal">
-            <div class="section-header">
-                <span class="section-label">Features</span>
-                <h2>Everything in one simple app</h2>
-                <p>Designed for clarity with large buttons and straightforward navigation. Every feature is free.</p>
-            </div>
-            <div class="features-grid">
-                <!-- Emergency SOS -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z"/>
-                        </svg>
-                    </div>
-                    <h3>Emergency SOS</h3>
-                    <p>Quickly call 911, send an SOS text with your location to a trusted contact, or call them directly. Designed to be reachable in the moments that matter most.</p>
-                </div>
-                <!-- Fall Detection -->
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                    </div>
-                    <h3>Fall Detection</h3>
-                    <p>Start a Safety Session from the home screen to enable fall detection while the app is open. If a hard fall is detected, the app prompts a 30-second check-in with options to call 911, text your trusted contacts, or call them. If there's no response within 30 seconds, the app automatically texts all trusted contacts with your name and GPS location.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
-                        </svg>
-                    </div>
-                    <h3>Trusted Contacts</h3>
-                    <p>Keep important people one tap away. Family, doctors, neighbors—whoever you count on.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/>
-                        </svg>
-                    </div>
-                    <h3>Medication Reminders</h3>
-                    <p>Never miss a dose. Gentle reminders at the right time, with a clear log of what's been taken.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                    </div>
-                    <h3>Care Summary</h3>
-                    <p>Share a daily summary with family or caregivers — they'll know everything is okay without needing to check in every day.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                        </svg>
-                    </div>
-                    <h3>Daily Tasks</h3>
-                    <p>Simple, easy-to-read task lists for daily routines, errands, and appointments. Check items off as you go.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/>
-                        </svg>
-                    </div>
-                    <h3>Health & Wellness</h3>
-                    <p>Track food, water intake, and sync with Apple Health for steps, heart rate, and sleep — all in one dashboard.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
-                        </svg>
-                    </div>
-                    <h3>Calendar Sync</h3>
-                    <p>Connects with Apple Calendar and Reminders so all appointments, events, and to-dos appear in one convenient place.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v3m0 0v3m0-3h3m-3 0H7"/>
-                        </svg>
-                    </div>
-                    <h3>Helpful Tools</h3>
-                    <p>Built-in magnifier for reading small text, quick access to Find My iPhone, flashlight, and other everyday utilities.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/>
-                        </svg>
-                    </div>
-                    <h3>Mind Breaks</h3>
-                    <p>Simple, relaxing games and calming activities. A mental break whenever you need to pause and recharge.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                        </svg>
-                    </div>
-                    <h3>Slow Mode</h3>
-                    <p>Turn on Slow Mode for easier interactions — larger tap targets, fewer distractions, and more time to read each screen.</p>
-                </div>
+            <div class="callout-box">
+                <p><strong>"What if she falls and needs help?"</strong> — SteadiDay was built around this question. The SOS button is always visible on the home screen, and fall detection can auto-alert your family even if she can't reach her phone.</p>
             </div>
         </div>
     </section>
 
-    <section class="how-it-works" id="how-it-works">
+    <!-- ==================== COMPARISON TABLE ==================== -->
+    <section class="comparison-section" id="compare">
         <div class="container reveal">
             <div class="section-header">
-                <span class="section-label">How It Works</span>
-                <h2>Get started in minutes</h2>
+                <div class="section-tag">How We Compare</div>
+                <h2>Everything you need, nothing you don't</h2>
+                <p>SteadiDay combines safety, wellness, and daily tools — no expensive hardware or monthly fees.</p>
+            </div>
+            <div class="comparison-table-wrap">
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th class="highlight-col">SteadiDay</th>
+                            <th>Medical Alert Systems</th>
+                            <th>Smart Watches</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="feature-name">Emergency SOS</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> One-tap access</td>
+                            <td><span class="status-dot green"></span> Pendant button</td>
+                            <td><span class="status-dot yellow"></span> Varies by model</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Fall Detection</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Safety Sessions</td>
+                            <td><span class="status-dot green"></span> Hardware-based</td>
+                            <td><span class="status-dot yellow"></span> Select models</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Medication Reminders</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Built-in</td>
+                            <td><span class="status-dot red"></span> Not included</td>
+                            <td><span class="status-dot red"></span> Not included</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Care Summary</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Shareable</td>
+                            <td><span class="status-dot red"></span> Not available</td>
+                            <td><span class="status-dot red"></span> Not available</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Health Tracking</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Apple Health sync</td>
+                            <td><span class="status-dot red"></span> Not included</td>
+                            <td><span class="status-dot green"></span> Built-in sensors</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Data Privacy</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> On-device only</td>
+                            <td><span class="status-dot yellow"></span> Cloud-stored</td>
+                            <td><span class="status-dot yellow"></span> Cloud-synced</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Monthly Cost</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Free</td>
+                            <td><span class="status-dot red"></span> $25–50/mo</td>
+                            <td><span class="status-dot yellow"></span> Device cost</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Account Required</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> None</td>
+                            <td><span class="status-dot red"></span> Yes</td>
+                            <td><span class="status-dot red"></span> Yes</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PHASES / HOW IT WORKS ==================== -->
+    <section class="phases-section" id="how-it-works">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">How It Works</div>
+                <h2>Get started in four simple steps</h2>
                 <p>No complicated setup. No account required. Just download and go.</p>
             </div>
-            <div class="steps-container">
-                <div class="step">
-                    <div class="step-number">1</div>
+            <div class="phases-grid">
+                <div class="phase-card">
+                    <span class="phase-watermark">01</span>
+                    <div class="phase-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+                    </div>
                     <h3>Download</h3>
-                    <p>Get SteadiDay free from the App Store. Open it right away.</p>
+                    <p>Get SteadiDay free from the App Store. Open it right away — no account, no sign-up.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">2</div>
-                    <h3>Add Your Info</h3>
-                    <p>Enter medications and contacts. Scan labels to save typing.</p>
+                <div class="phase-card">
+                    <span class="phase-watermark">02</span>
+                    <div class="phase-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h3>Add Contacts</h3>
+                    <p>Enter trusted emergency contacts. Scan medication labels to save typing. Set your preferences.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">3</div>
+                <div class="phase-card">
+                    <span class="phase-watermark">03</span>
+                    <div class="phase-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                    </div>
                     <h3>Set Reminders</h3>
-                    <p>Choose when to be reminded. Notifications are gentle and private.</p>
+                    <p>Choose when to be reminded about medications and tasks. Notifications are gentle and private.</p>
                 </div>
-                <div class="step">
-                    <div class="step-number">4</div>
+                <div class="phase-card">
+                    <span class="phase-watermark">04</span>
+                    <div class="phase-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
                     <h3>Live Confidently</h3>
-                    <p>Go about your day knowing help is right there when you need it.</p>
+                    <p>Go about your day knowing help is right there when you need it. SOS and fall detection are always ready.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="screenshots" id="screens">
+    <!-- ==================== ROADMAP TIMELINE ==================== -->
+    <section class="roadmap-section">
         <div class="container reveal">
             <div class="section-header">
-                <span class="section-label">App Preview</span>
-                <h2>See it in action</h2>
-                <p>Clean design with large text and easy-to-tap buttons.</p>
+                <div class="section-tag">Your Journey</div>
+                <h2>What your first week looks like</h2>
+                <p>From download to daily confidence in just a few days.</p>
             </div>
-            <div class="screenshots-grid">
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS">
-                    </div>
-                    <h4>Emergency SOS</h4>
+            <div class="roadmap-list">
+                <div class="roadmap-row completed">
+                    <div class="roadmap-date">Day 1</div>
+                    <div class="roadmap-label">Install & Open <span class="roadmap-status done">Done</span></div>
+                    <div class="roadmap-content">Download from the App Store. No sign-up needed — open the app and start exploring.</div>
                 </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-home.png" alt="SteadiDay home screen">
-                    </div>
-                    <h4>Home</h4>
+                <div class="roadmap-row completed">
+                    <div class="roadmap-date">Day 1</div>
+                    <div class="roadmap-label">Set Up SOS <span class="roadmap-status done">Done</span></div>
+                    <div class="roadmap-content">Add your number as the trusted contact. The SOS button is immediately active on her home screen.</div>
                 </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-medical.png" alt="SteadiDay health tracking">
-                    </div>
-                    <h4>Medical Info</h4>
+                <div class="roadmap-row current">
+                    <div class="roadmap-date">Day 2–3</div>
+                    <div class="roadmap-label">Add Medications <span class="roadmap-status active">Active</span></div>
+                    <div class="roadmap-content">Enter medications and set reminder times. Scan labels to save typing. She'll never miss a dose.</div>
                 </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks">
-                    </div>
-                    <h4>Mind Breaks</h4>
+                <div class="roadmap-row future">
+                    <div class="roadmap-date">Day 3–5</div>
+                    <div class="roadmap-label">Health Dashboard</div>
+                    <div class="roadmap-content">Connect Apple Health for steps, heart rate, and sleep. Set up food and water tracking.</div>
                 </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-food-tracker.png" alt="SteadiDay Food Tracker showing daily calorie tracking with breakfast, lunch, dinner, and snack meals">
-                    </div>
-                    <h4>Food Tracker</h4>
+                <div class="roadmap-row future">
+                    <div class="roadmap-date">Week 1+</div>
+                    <div class="roadmap-label">Care Summary</div>
+                    <div class="roadmap-content">Share a daily summary with family — they'll know everything is okay without checking in every day.</div>
                 </div>
-                <div class="screenshot-item">
-                    <div class="screenshot-frame">
-                        <img src="assets/screenshot-watertracker.png" alt="SteadiDay Water Tracker showing daily hydration progress with 8 glasses goal">
-                    </div>
-                    <h4>Water Tracker</h4>
+                <div class="roadmap-row future">
+                    <div class="roadmap-date">Always</div>
+                    <div class="roadmap-label">Safety Ready</div>
+                    <div class="roadmap-content">Fall detection, emergency SOS, magnifier, flashlight, and mind breaks — available whenever needed.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!--
-    ========================================================================
-    TESTIMONIALS SECTION — TEMPORARILY REMOVED
-    ========================================================================
-    The previous content contained fabricated testimonials (Margaret/David/Robert).
-    Fabricated testimonials violate FTC Endorsement Guides (16 CFR Part 255) and
-    expose SCM Solutions LLC to enforcement action + civil penalties.
-
-    DO NOT re-enable this section until you have:
-      1. Real quotes from real users (your beta reader is a candidate)
-      2. Signed written permission from each person to use their name + quote
-      3. If a reviewer received anything of value (free premium features, early
-         access, discount), disclose that with the testimonial
-
-    Suggested replacement copy for each card is pre-filled below — just fill in
-    the real quotes/names and uncomment.
-    ========================================================================
-
-    <section class="testimonials" id="testimonials">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">What People Are Saying</span>
-                <h2>Built for real life</h2>
-            </div>
-            <div class="testimonials-grid">
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">[REAL QUOTE]</p>
-                    <p class="testimonial-author">[First name, age if they consent]</p>
-                    <p class="testimonial-detail">[City/context]</p>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">[REAL QUOTE]</p>
-                    <p class="testimonial-author">[First name]</p>
-                    <p class="testimonial-detail">[Context]</p>
-                </div>
-                <div class="testimonial-card">
-                    <p class="testimonial-quote">[REAL QUOTE]</p>
-                    <p class="testimonial-author">[First name]</p>
-                    <p class="testimonial-detail">[Context]</p>
-                </div>
-            </div>
-        </div>
-    </section>
-    -->
-
-    <!-- Pricing -->
-    <section class="pricing" id="pricing">
-        <div class="container">
-            <div class="section-header">
-                <span class="section-label">Pricing</span>
-                <h2>All features included from day one</h2>
-                <p>We're building SteadiDay with our community. Your feedback makes it better for everyone.</p>
-            </div>
-            <div class="pricing-free-banner">
-                <div class="pricing-free-card">
-                    <span class="pricing-free-badge">Community Phase</span>
-                    <div style="font-size: 1.2rem; color: var(--navy); font-weight: 600; margin-bottom: 0.375rem;">Every feature. No credit card. No catches.</div>
-                    <p style="color: var(--charcoal-light); margin-bottom: 1.75rem; font-size: 1rem;">Every feature is unlocked so you can try the full experience and share your feedback. Your input directly shapes what we build next.</p>
-                    <ul class="pricing-free-features">
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Emergency SOS & Fall Detection</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Medications</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Tasks & Reminders</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Unlimited Trusted Contacts</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Apple Health Integration</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Food & Water Tracking</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Care Summary for Family</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>Mind Breaks & Helpful Tools</li>
-                    </ul>
-                    <a href="https://apps.apple.com/app/steadiday/id6758526744" class="btn btn-primary" style="display: inline-flex; font-size: 1rem;">
-                        Get SteadiDay on the App Store &rarr;
-                    </a>
-                    <p class="pricing-free-note">We'd love your feedback to make SteadiDay better. Your input shapes the app.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section class="faq" id="faq">
+    <!-- ==================== FAQ ==================== -->
+    <section class="faq-section" id="faq">
         <div class="container reveal">
             <div class="section-header">
+                <div class="section-tag">FAQ</div>
                 <h2>Frequently asked questions</h2>
             </div>
             <div class="faq-grid">
@@ -2410,7 +1565,7 @@ gtag('config', 'G-LF8H890XTV');
                         <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
                     </button>
                     <div class="faq-answer">
-                        <p>Your data is private. You choose who to add as trusted contacts, and they're only notified if you use the SOS button.</p>
+                        <p>Your data is private. You choose who to add as trusted contacts, and they're only notified if you use the SOS button or fall detection triggers.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -2435,82 +1590,28 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <section class="privacy-section" id="privacy">
+    <!-- ==================== CTA BAND ==================== -->
+    <section class="cta-band" id="download">
         <div class="container">
-            <div class="privacy-content">
-                <div class="privacy-icon">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                    </svg>
-                </div>
-                <h2>Your data stays yours</h2>
-                <p>SteadiDay stores everything on your device—not our servers. Your health information is never sold, shared, or used for advertising. We believe privacy is a right, not a feature.</p>
-                <div class="privacy-links">
-                    <a href="security.html" class="privacy-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/>
-                        </svg>
-                        How We Protect Your Data
-                    </a>
-                    <a href="privacy.html" class="privacy-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        Privacy Policy
-                    </a>
-                    <a href="terms.html" class="privacy-link">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/>
-                        </svg>
-                        Terms of Service
-                    </a>
-                </div>
+            <h2>Set it up for the parent you worry about</h2>
+            <p>Free on the App Store. Every feature included. No account needed. Five minutes to set up.</p>
+            <div class="cta-band-buttons">
+                <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
+                    <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
+                </a>
             </div>
+            <p class="cta-privacy">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
+                100% free. All data stays on the device.
+            </p>
         </div>
     </section>
 
-    <section class="about-founder" id="about">
-        <div class="container">
-            <div class="about-founder-content">
-                <h2>Who built SteadiDay</h2>
-                <p>SteadiDay was built after watching family members juggle medications, appointments, and daily routines without a single app that brought it all together. Every feature was designed with real families in mind — from the large buttons and simple navigation to the Care Summary that lets loved ones check in without being intrusive.</p>
-                <p>We're a small, independent team based in Virginia. No venture capital. No hidden investors. Just people building the app we wished existed for our own parents.</p>
-                <p class="founder-name">The SteadiDay Team</p>
-                <p class="founder-detail">SCM Solutions LLC — Virginia, USA</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="download-cta" id="download">
-        <div class="container">
-            <div class="download-cta-card">
-                <div class="download-cta-content">
-                    <span class="download-cta-badge">Available Now</span>
-                    <h2>Set it up for the parent you worry about</h2>
-                    <p class="download-cta-subtitle">Free on the App Store. Every feature included — Emergency SOS, fall detection, medication reminders, Care Summary, and more. No account. Five minutes to set up.</p>
-                    <div class="download-cta-buttons">
-                        <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
-                            <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
-                        </a>
-                    </div>
-                    <p class="download-cta-privacy">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
-                        </svg>
-                        100% free. Data stays on the device.
-                    </p>
-                </div>
-                <div class="download-cta-image">
-                    <img src="assets/screenshot-home.png" alt="SteadiDay app home screen" />
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- ==================== CONTACT ==================== -->
     <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-header">
-                <span class="section-label">Get In Touch</span>
+                <div class="section-tag">Get In Touch</div>
                 <h2>Have questions?</h2>
                 <p>We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
             </div>
@@ -2536,64 +1637,37 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
+    <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="container">
-            <div class="footer-grid">
-                <div class="footer-col footer-brand-col">
-                    <a href="#" class="footer-brand">
-                        <img src="assets/icon.jpeg" alt="SteadiDay">
-                        <span>SteadiDay</span>
-                    </a>
-                    <p class="footer-brand-tagline">Free wellness & safety app designed for adults 50+ and the families who care for them.</p>
-                    <div class="footer-app-badge">
-                        <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download on the App Store">
-                            <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
-                        </a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Features</h4>
-                    <a href="#features">Emergency SOS</a>
-                    <a href="#features">Fall Detection</a>
-                    <a href="#features">Medications</a>
-                    <a href="#features">Care Summary</a>
-                    <a href="#features">Health Tracking</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Resources</h4>
-                    <a href="blog/index.html">Blog</a>
-                    <a href="#faq">FAQ</a>
-                    <a href="#about">About Us</a>
+            <div class="footer-content">
+                <a href="#" class="footer-brand">
+                    <img src="assets/icon.jpeg" alt="SteadiDay">
+                    <span>SteadiDay</span>
+                </a>
+                <p class="footer-copy">
+                    &copy; 2026 SCM Solutions LLC. Built in Virginia, USA.
+                </p>
+                <div class="footer-links">
+                    <a href="security.html">Security</a>
+                    <a href="privacy.html">Privacy</a>
+                    <a href="terms.html">Terms</a>
+                    <a href="liability.html">Liability</a>
+                    <a href="data-retention.html">Data</a>
                     <a href="#contact">Contact</a>
                 </div>
-                <div class="footer-col">
-                    <h4>Legal</h4>
-                    <a href="security.html">Security</a>
-                    <a href="privacy.html">Privacy Policy</a>
-                    <a href="terms.html">Terms of Service</a>
-                    <a href="liability.html">Liability</a>
-                    <a href="data-retention.html">Data Retention</a>
-                    <a href="data-breach.html">Data Breach</a>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p class="footer-copy">
-                    &copy; 2026 SCM Solutions LLC. All rights reserved. Built in Virginia, USA.<br>
-                    <span style="font-size: 0.7rem; opacity: 0.6; display: inline-block; margin-top: 0.375rem; line-height: 1.4;">Apple, the Apple logo, iPhone, and iPad are trademarks of Apple Inc., registered in the U.S. and other countries. App Store is a service mark of Apple Inc.</span>
-                </p>
             </div>
         </div>
     </footer>
 
     <script>
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navLinks = document.getElementById('navLinks');
-        const navOverlay = document.getElementById('navOverlay');
-        const menuIcon = document.getElementById('menuIcon');
-        const navbar = document.getElementById('navbar');
+        var mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        var navLinks = document.getElementById('navLinks');
+        var navOverlay = document.getElementById('navOverlay');
+        var menuIcon = document.getElementById('menuIcon');
 
         function toggleMenu() {
-            const isOpen = navLinks.classList.contains('active');
+            var isOpen = navLinks.classList.contains('active');
             if (isOpen) {
                 navLinks.classList.remove('active');
                 navOverlay.classList.remove('active');
@@ -2612,30 +1686,19 @@ gtag('config', 'G-LF8H890XTV');
         mobileMenuBtn.addEventListener('click', toggleMenu);
         navOverlay.addEventListener('click', toggleMenu);
 
-        navLinks.querySelectorAll('a').forEach(link => {
+        navLinks.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
-                if (navLinks.classList.contains('active')) {
-                    toggleMenu();
-                }
+                if (navLinks.classList.contains('active')) toggleMenu();
             });
         });
 
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                var target = document.querySelector(this.getAttribute('href'));
+                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             });
         });
-
-        window.addEventListener('scroll', function() {
-            navbar.classList.toggle('scrolled', window.scrollY > 20);
-        }, { passive: true });
 
         document.querySelectorAll('.faq-question').forEach(function(btn) {
             btn.addEventListener('click', function() {
