@@ -18,6 +18,7 @@ project is opened in Claude Code:
 | `expo` | Expo / React Native skills + EAS MCP server |
 | `ralph-loop` | Run a prompt/command on a recurring loop for autonomous tasks |
 | `code-review` | Automated code review of pending diffs / PRs |
+| `skill-creator` | Scaffold and author new Claude Code skills |
 
 No manual `claude plugin install` is needed once this file is present — opening
 the project enables them.
