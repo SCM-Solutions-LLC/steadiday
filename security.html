@@ -102,7 +102,7 @@
         }
         .key-point-icon svg { width: 30px; height: 30px; color: var(--teal-dark); }
         .key-point h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-        .key-point p { font-size: 0.95rem; color: var(--charcoal-light); margin: 0; }
+        .key-point p { font-size: 1rem; color: var(--charcoal); margin: 0; }
 
         .data-table {
             width: 100%; border-collapse: collapse; margin: 2rem 0; background: var(--white);
@@ -133,7 +133,7 @@
         }
         .info-box h4 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
         .info-box h4 svg { width: 20px; height: 20px; color: var(--teal-dark); }
-        .info-box p { margin: 0; font-size: 0.95rem; }
+        .info-box p { margin: 0; font-size: 1rem; }
 
         .photo-flow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
         .photo-step {
@@ -145,7 +145,7 @@
             display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 0.75rem;
         }
         .photo-step h4 { font-size: 1rem; margin-bottom: 0.25rem; }
-        .photo-step p { font-size: 0.85rem; color: var(--charcoal-light); margin: 0; }
+        .photo-step p { font-size: 0.95rem; color: var(--charcoal); margin: 0; }
         .photo-arrow { font-size: 1.5rem; color: var(--teal); }
 
         .cta-section { text-align: center; padding: 3rem; background: var(--charcoal); border-radius: var(--radius-lg); margin-top: 4rem; }
@@ -164,9 +164,9 @@
         .footer-brand img { width: 32px; height: 32px; border-radius: 6px; }
         .footer-brand span { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
-        .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.9rem; }
+        .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.95rem; }
         .footer-links a:hover { color: var(--white); }
-        .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.85rem; }
+        .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
 
         @media (max-width: 768px) {
             nav { padding: 1rem; }
@@ -209,6 +209,7 @@
             </div>
             <h1>Your Data Stays With You</h1>
             <p>We built SteadiDay™ with privacy as the foundation, not an afterthought. Your health information never leaves your device.</p>
+            <p style="font-size: 0.95rem; color: var(--charcoal-light); margin-top: 1rem;">Last Updated: June 25, 2026</p>
         </div>
     </section>
 
@@ -231,7 +232,7 @@
                 </div>
                 <h3>No Servers</h3>
                 <h3>No Cloud Storage</h3>
-                <p>Your data isn't stored on any server. The only server interaction: a stateless SMS relay for fall detection alerts — nothing is retained</p>
+                <p>Your data isn't stored on any server. The only server interactions: a stateless SMS relay for fall alerts and temporary live location sharing during Safety Sessions — nothing is retained after the session ends</p>
             </div>
             <div class="key-point">
                 <div class="key-point-icon">
@@ -263,7 +264,8 @@
                 <tbody>
                     <tr><td>Medications & Schedules</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Fall detection alerts only (name + phone sent to SMS relay to deliver text, not stored)</td></tr>
+                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Emergency alerts only — name + phone sent to SMS relay (Twilio) to deliver fall/SOS texts, not stored</td></tr>
+                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: #FF9800; font-weight: 600;">⚠ During active Safety Sessions only — GPS shared with your emergency contacts via secure tokenized link, held in memory only, discarded when session ends</td></tr>
                     <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Food & Water Logs</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Doctor Information</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
@@ -297,6 +299,7 @@
                         <li>Show generic notifications only</li>
                         <li>Let you export your data anytime</li>
                         <li>Let you delete everything instantly</li>
+                        <li>Share live location only during opt-in Safety Sessions via secure, tokenized links</li>
                         <li>Keep all features free</li>
                     </ul>
                 </div>
