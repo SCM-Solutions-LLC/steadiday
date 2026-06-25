@@ -225,29 +225,32 @@ gtag('config', 'G-LF8H890XTV');
 
 <style>
     :root {
-        --cream: #F5F1EB;
-        --cream-dark: #ECE7DE;
-        --teal: #3B6B4A;
-        --teal-dark: #2A5237;
-        --teal-light: #ECF3EE;
-        --navy: #1C2127;
-        --navy-light: #343B45;
-        --charcoal: #2F353D;
-        --charcoal-light: #636B75;
+        --cream: #F2ECDD;
+        --cream-dark: #E8E1D0;
+        --teal: #2C5466;
+        --teal-dark: #1E3D4C;
+        --teal-light: #E4EEF2;
+        --sage: #7BB68C;
+        --sage-dark: #5A9A6C;
+        --sage-light: #EDF5F0;
+        --navy: #1A2F3D;
+        --navy-light: #34505F;
+        --charcoal: #2E3A42;
+        --charcoal-light: #607580;
         --white: #FFFFFF;
-        --gold: #C07A3E;
+        --gold: #D4943A;
         --gold-light: #FBF2E8;
         --success: #2E7D32;
         --alert: #9B3023;
         --alert-light: #FDF0EE;
-        --warm-gray: #D9D3C9;
-        --shadow-soft: 0 1px 2px rgba(0, 0, 0, 0.04), 0 3px 10px rgba(0, 0, 0, 0.05);
-        --shadow-medium: 0 2px 4px rgba(0, 0, 0, 0.05), 0 6px 20px rgba(0, 0, 0, 0.08);
-        --shadow-strong: 0 4px 8px rgba(0, 0, 0, 0.06), 0 12px 32px rgba(0, 0, 0, 0.1);
-        --radius-sm: 5px;
-        --radius-md: 8px;
-        --radius-lg: 12px;
-        --radius-xl: 20px;
+        --warm-gray: #D6CEBF;
+        --shadow-soft: 0 1px 3px rgba(44, 84, 102, 0.06), 0 4px 12px rgba(44, 84, 102, 0.08);
+        --shadow-medium: 0 2px 6px rgba(44, 84, 102, 0.08), 0 8px 24px rgba(44, 84, 102, 0.12);
+        --shadow-strong: 0 4px 12px rgba(44, 84, 102, 0.1), 0 16px 40px rgba(44, 84, 102, 0.16);
+        --radius-sm: 6px;
+        --radius-md: 10px;
+        --radius-lg: 14px;
+        --radius-xl: 22px;
     }
 
     * {
@@ -300,7 +303,7 @@ gtag('config', 'G-LF8H890XTV');
 
     /* ==================== LAUNCH BANNER ==================== */
     .launch-banner {
-        background: var(--teal-dark);
+        background: var(--teal);
         color: var(--white);
         padding: 0.65rem 1.5rem;
         text-align: center;
@@ -315,10 +318,10 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .launch-badge {
-        background: var(--gold);
+        background: var(--sage);
         color: var(--white);
         padding: 0.2rem 0.65rem;
-        border-radius: 3px;
+        border-radius: 20px;
         font-weight: 700;
         font-size: 0.7rem;
         letter-spacing: 0.06em;
@@ -495,7 +498,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== HERO ==================== */
     .hero {
         padding: 5rem 0 6rem;
-        background: linear-gradient(175deg, var(--white) 0%, var(--cream) 100%);
+        background: linear-gradient(170deg, #F7F3E8 0%, var(--cream) 60%, var(--teal-light) 100%);
         position: relative;
         overflow: hidden;
     }
@@ -526,21 +529,20 @@ gtag('config', 'G-LF8H890XTV');
         display: inline-flex;
         align-items: center;
         gap: 0.4rem;
-        background: transparent;
-        color: var(--teal);
-        padding: 0;
+        background: var(--sage-light);
+        color: var(--sage-dark);
+        padding: 0.4rem 0.875rem;
+        border-radius: 20px;
         font-size: 0.85rem;
-        font-weight: 700;
+        font-weight: 600;
         margin-bottom: 1.5rem;
-        letter-spacing: 0.04em;
-        text-transform: uppercase;
-        border: none;
+        border: 1px solid rgba(123, 182, 140, 0.3);
     }
 
     .hero-badge svg {
-        width: 15px;
-        height: 15px;
-        color: var(--teal);
+        width: 16px;
+        height: 16px;
+        color: var(--sage);
     }
 
     .hero h1 {
@@ -553,10 +555,6 @@ gtag('config', 'G-LF8H890XTV');
 
     .hero h1 span {
         color: var(--teal);
-        text-decoration: underline;
-        text-decoration-color: rgba(59, 107, 74, 0.25);
-        text-underline-offset: 4px;
-        text-decoration-thickness: 3px;
     }
 
     .hero-description {
@@ -607,12 +605,12 @@ gtag('config', 'G-LF8H890XTV');
 
     .btn-secondary {
         background: transparent;
-        color: var(--navy);
-        border: 1.5px solid var(--navy);
+        color: var(--teal);
+        border: 1.5px solid var(--teal);
     }
 
     .btn-secondary:hover {
-        background: var(--navy);
+        background: var(--teal);
         color: var(--white);
     }
 
@@ -652,8 +650,9 @@ gtag('config', 'G-LF8H890XTV');
         gap: 0.75rem;
         padding: 0.625rem 0.875rem;
         background: var(--white);
-        border: 1px solid var(--warm-gray);
+        border: none;
         border-radius: var(--radius-md);
+        box-shadow: var(--shadow-soft);
     }
 
     .hero-qr img {
@@ -718,7 +717,8 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== TRUST BADGES ==================== */
     .trust-section {
         padding: 2.5rem 0;
-        background: var(--cream-dark);
+        background: var(--teal);
+        color: var(--white);
     }
 
     .trust-grid {
@@ -735,9 +735,9 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .trust-icon {
-        width: 36px;
-        height: 36px;
-        background: var(--teal-light);
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.15);
         border-radius: 50%;
         display: flex;
         align-items: center;
@@ -748,28 +748,28 @@ gtag('config', 'G-LF8H890XTV');
     .trust-icon svg {
         width: 18px;
         height: 18px;
-        color: var(--teal);
+        color: var(--white);
     }
 
     .trust-text h4 {
         font-family: 'Source Sans 3', sans-serif;
         font-size: 0.95rem;
         font-weight: 700;
-        color: var(--navy);
+        color: var(--white);
         margin-bottom: 0;
         line-height: 1.2;
     }
 
     .trust-text p {
         font-size: 0.825rem;
-        color: var(--charcoal-light);
+        color: rgba(255, 255, 255, 0.75);
         line-height: 1.3;
     }
 
     /* ==================== WHY FAMILIES CHOOSE ==================== */
     .why-families {
         padding: 5.5rem 0;
-        background: var(--white);
+        background: var(--cream);
     }
 
     .why-families .section-header {
@@ -795,11 +795,12 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .why-card {
-        background: var(--cream);
+        background: var(--white);
         padding: 2rem 1.75rem;
-        border-radius: var(--radius-md);
-        border-left: 4px solid var(--gold);
-        transition: border-color 0.2s ease;
+        border-radius: var(--radius-lg);
+        border-left: 4px solid var(--sage);
+        box-shadow: var(--shadow-soft);
+        transition: box-shadow 0.2s ease, border-color 0.2s ease;
     }
 
     .why-card.alert-accent {
@@ -812,11 +813,11 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .why-card:hover {
-        border-left-color: var(--teal);
+        box-shadow: var(--shadow-medium);
     }
 
     .why-card.alert-accent:hover {
-        border-left-color: var(--teal);
+        box-shadow: var(--shadow-medium);
     }
 
     .why-card-question {
@@ -849,7 +850,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== FEATURES ==================== */
     .features {
         padding: 6rem 0;
-        background: var(--cream);
+        background: var(--white);
     }
 
     .section-header {
@@ -861,24 +862,14 @@ gtag('config', 'G-LF8H890XTV');
     .section-label {
         display: inline-block;
         font-size: 0.8rem;
-        font-weight: 600;
+        font-weight: 700;
         text-transform: uppercase;
         letter-spacing: 0.1em;
-        color: var(--teal);
-        margin-bottom: 0.625rem;
-        padding-left: 1.25rem;
-        position: relative;
-    }
-
-    .section-label::before {
-        content: '';
-        position: absolute;
-        left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 8px;
-        height: 2px;
-        background: var(--teal);
+        color: var(--sage-dark);
+        margin-bottom: 0.75rem;
+        padding: 0.3rem 0.75rem;
+        background: var(--sage-light);
+        border-radius: 20px;
     }
 
     .section-header h2 {
@@ -899,16 +890,16 @@ gtag('config', 'G-LF8H890XTV');
 
     .feature-card {
         background: var(--white);
-        padding: 1.75rem 1.5rem;
-        border-radius: var(--radius-md);
-        border: 1px solid var(--warm-gray);
-        border-top: 3px solid transparent;
-        transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        padding: 2rem 1.75rem;
+        border-radius: var(--radius-lg);
+        box-shadow: var(--shadow-soft);
+        border: none;
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     .feature-card:hover {
-        border-top-color: var(--teal);
-        box-shadow: var(--shadow-soft);
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-medium);
     }
 
     .feature-card:nth-child(1),
@@ -917,16 +908,20 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .feature-icon {
-        width: auto;
-        height: auto;
-        background: none;
-        margin-bottom: 1rem;
+        width: 52px;
+        height: 52px;
+        background: var(--sage-light);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
     }
 
     .feature-icon svg {
-        width: 28px;
-        height: 28px;
-        color: var(--teal);
+        width: 24px;
+        height: 24px;
+        color: var(--sage-dark);
     }
 
     .feature-card h3 {
@@ -944,13 +939,15 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .feature-card.highlight {
-        background: var(--teal-dark);
-        border-color: var(--teal-dark);
-        border-top-color: var(--gold);
+        background: var(--teal);
+    }
+
+    .feature-card.highlight .feature-icon {
+        background: rgba(255, 255, 255, 0.15);
     }
 
     .feature-card.highlight .feature-icon svg {
-        color: var(--gold);
+        color: var(--sage);
     }
 
     .feature-card.highlight h3 {
@@ -975,7 +972,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== HOW IT WORKS ==================== */
     .how-it-works {
         padding: 5.5rem 0;
-        background: var(--cream-dark);
+        background: var(--sage-light);
     }
 
     .how-it-works .section-header {
@@ -983,7 +980,8 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .how-it-works .section-label {
-        color: var(--teal-dark);
+        color: var(--sage-dark);
+        background: var(--white);
     }
 
     .how-it-works .section-header h2 {
@@ -1004,11 +1002,11 @@ gtag('config', 'G-LF8H890XTV');
     .steps-container::before {
         content: '';
         position: absolute;
-        top: 24px;
+        top: 26px;
         left: 12.5%;
         right: 12.5%;
-        height: 1px;
-        border-top: 2px dashed var(--warm-gray);
+        height: 2px;
+        border-top: 2px dashed rgba(123, 182, 140, 0.35);
         background: none;
         z-index: 0;
     }
@@ -1020,9 +1018,9 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .step-number {
-        width: 48px;
-        height: 48px;
-        background: var(--teal);
+        width: 52px;
+        height: 52px;
+        background: var(--sage);
         border: none;
         border-radius: 50%;
         display: flex;
@@ -1033,6 +1031,7 @@ gtag('config', 'G-LF8H890XTV');
         font-size: 1.2rem;
         font-weight: 400;
         color: var(--white);
+        box-shadow: 0 3px 8px rgba(123, 182, 140, 0.3);
     }
 
     .step h3 {
@@ -1052,7 +1051,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== SCREENSHOTS ==================== */
     .screenshots {
         padding: 6rem 0;
-        background: var(--white);
+        background: var(--cream);
     }
 
     .screenshots-grid {
@@ -1066,20 +1065,21 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .screenshot-frame {
-        background: var(--cream);
-        padding: 0.5rem;
-        border-radius: var(--radius-md);
+        background: var(--white);
+        padding: 0.625rem;
+        border-radius: var(--radius-lg);
         margin-bottom: 0.75rem;
-        border: 1px solid var(--warm-gray);
-        transition: border-color 0.3s ease;
+        box-shadow: var(--shadow-soft);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
     }
 
     .screenshot-frame:hover {
-        border-color: var(--teal);
+        box-shadow: var(--shadow-medium);
+        transform: translateY(-2px);
     }
 
     .screenshot-frame img {
-        border-radius: var(--radius-sm);
+        border-radius: var(--radius-md);
         width: 100%;
     }
 
@@ -1108,7 +1108,7 @@ gtag('config', 'G-LF8H890XTV');
         background: var(--white);
         padding: 2rem 1.75rem;
         border-radius: var(--radius-lg);
-        border: 1px solid var(--warm-gray);
+        box-shadow: var(--shadow-soft);
         position: relative;
     }
 
@@ -1152,7 +1152,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== PRICING ==================== */
     .pricing {
         padding: 5.5rem 0;
-        background: var(--cream);
+        background: var(--white);
     }
 
     .pricing-free-banner {
@@ -1178,19 +1178,19 @@ gtag('config', 'G-LF8H890XTV');
         left: 0;
         right: 0;
         height: 4px;
-        background: linear-gradient(90deg, var(--teal), var(--gold));
+        background: linear-gradient(90deg, var(--sage), var(--teal));
     }
 
     .pricing-free-badge {
         display: inline-block;
-        background: var(--gold-light);
-        color: var(--gold);
+        background: var(--sage-light);
+        color: var(--sage-dark);
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 0.06em;
         text-transform: uppercase;
         padding: 0.35rem 0.875rem;
-        border-radius: 4px;
+        border-radius: 20px;
         margin-bottom: 1.25rem;
     }
 
@@ -1215,7 +1215,7 @@ gtag('config', 'G-LF8H890XTV');
     .pricing-free-features svg {
         width: 18px;
         height: 18px;
-        color: var(--teal);
+        color: var(--sage);
         flex-shrink: 0;
         margin-top: 3px;
     }
@@ -1239,7 +1239,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== FAQ ==================== */
     .faq {
         padding: 5.5rem 0;
-        background: var(--white);
+        background: var(--cream);
     }
 
     .faq-grid {
@@ -1311,7 +1311,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== PRIVACY ==================== */
     .privacy-section {
         padding: 4.5rem 0;
-        background: var(--cream);
+        background: var(--teal-light);
         text-align: center;
     }
 
@@ -1323,12 +1323,13 @@ gtag('config', 'G-LF8H890XTV');
     .privacy-icon {
         width: 64px;
         height: 64px;
-        background: var(--teal-light);
+        background: var(--white);
         border-radius: 50%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto 1.25rem;
+        box-shadow: var(--shadow-soft);
     }
 
     .privacy-icon svg {
@@ -1362,15 +1363,17 @@ gtag('config', 'G-LF8H890XTV');
         padding: 0.75rem 1.25rem;
         background: var(--white);
         color: var(--charcoal);
-        border: 1px solid var(--warm-gray);
-        border-radius: var(--radius-sm);
+        border: none;
+        border-radius: var(--radius-md);
         font-weight: 600;
         font-size: 0.925rem;
-        transition: border-color 0.2s ease, color 0.2s ease;
+        box-shadow: var(--shadow-soft);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
     }
 
     .privacy-link:hover {
-        border-color: var(--teal);
+        box-shadow: var(--shadow-medium);
+        transform: translateY(-1px);
         color: var(--teal);
     }
 
@@ -1382,8 +1385,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== ABOUT / FOUNDER ==================== */
     .about-founder {
         padding: 5rem 0;
-        background: var(--white);
-        border-top: none;
+        background: var(--cream);
     }
 
     .about-founder-content {
@@ -1419,7 +1421,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== DOWNLOAD CTA ==================== */
     .download-cta {
         padding: 5rem 0;
-        background: var(--teal-dark);
+        background: linear-gradient(160deg, var(--teal) 0%, var(--teal-dark) 100%);
     }
 
     .download-cta::before {
@@ -1485,7 +1487,7 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== CONTACT FORM ==================== */
     .contact-section {
         padding: 5.5rem 0;
-        background: var(--cream-dark);
+        background: var(--white);
     }
 
     .contact-form {
@@ -1548,7 +1550,6 @@ gtag('config', 'G-LF8H890XTV');
     footer {
         padding: 2.5rem 0 1.75rem;
         background: var(--navy);
-        border-top: 3px solid var(--teal);
     }
 
     .footer-content {
