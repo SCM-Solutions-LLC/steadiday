@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 *.zip
 GoogleService-Info.plist
+node_modules/
+package-lock.json
+package.json
