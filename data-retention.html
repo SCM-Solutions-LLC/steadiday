@@ -23,7 +23,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Data Retention Policy – SteadiDay</title>
-<meta name="description" content="SteadiDay Data Retention Policy. Learn how long your data is kept and how you control it — all data stays on your device.">
+<meta name="description" content="SteadiDay Data Retention Policy. Learn how long your data is kept and how you control it.">
 <link rel="canonical" href="https://www.steadiday.com/data-retention.html">
 <meta name="apple-itunes-app" content="app-id=6758526744">
 
@@ -140,7 +140,7 @@
     <main>
         <div class="page-header">
             <h1>Data Retention Policy</h1>
-            <p class="last-updated">Last Updated: May 21, 2026</p>
+            <p class="last-updated">Last Updated: June 29, 2026</p>
         </div>
 
         <div class="toc">
@@ -160,7 +160,7 @@
         <div class="section" id="overview">
             <h2>1. Overview</h2>
             <div class="highlight-box">
-                <p><strong>The short version:</strong> SteadiDay does not require an account and does not store your personal data on our servers. Your medications, tasks, contacts, health data, and all other personal information stays on your device. Since we don't have your data, there is nothing for us to retain or delete on our end. You have full control.</p>
+                <p><strong>The short version:</strong> SteadiDay does not require an account. Your data is stored on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to our servers for backup and caregiver sharing. Apple Health data always stays on your device. You have full control over your data, including the ability to delete your account and all synced data at any time.</p>
             </div>
             <p>This policy explains how long different types of data exist and how you can manage them.</p>
         </div>
@@ -176,7 +176,18 @@
                 <li>Health data synced from Apple Health (iOS) or Health Connect (Android)</li>
                 <li>App settings and preferences</li>
             </ul>
-            <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. It is never uploaded to our servers. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
+            <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. If you are not signed in, it is never uploaded to our servers. If you are signed in, some of this data (medications, tasks, check-ins, activity summaries) is synced to our servers — see Section 2.1 below. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
+
+            <h3>2.1 Synced Account Data (If Signed In)</h3>
+            <p>If you create an account and sign in, the following data is synced to our servers (hosted on Supabase):</p>
+            <ul>
+                <li>Medications and schedules</li>
+                <li>Tasks and reminders</li>
+                <li>Check-in responses</li>
+                <li>Activity summaries</li>
+            </ul>
+            <p><strong>How long it's kept:</strong> Synced data is retained on our servers for as long as your account exists. You can delete your account and all associated server data at any time from within the app. When you delete your account, all synced data is permanently removed from our servers within 30 days.</p>
+            <p><strong>What is never synced:</strong> Apple Health data, photos, and insurance card details are never uploaded to our servers regardless of sign-in status.</p>
         </div>
 
         <div class="section" id="analytics">
@@ -209,7 +220,7 @@
         <div class="section" id="uninstalling">
             <h2>6. Uninstalling the App</h2>
             <p>When you uninstall SteadiDay, all data stored by the app on your device is permanently deleted by your operating system. This includes all medications, tasks, contacts, health data, settings, and preferences. This deletion is immediate and irreversible.</p>
-            <p>Since we do not store your data on our servers, there is nothing to delete on our end.</p>
+            <p>If you have an account, uninstalling the app does not delete your synced server data. To delete all server data, use the "Delete Account" option in app settings before uninstalling, or contact us at <a href="mailto:support@steadiday.com">support@steadiday.com</a>.</p>
         </div>
 
         <div class="section" id="backups">
