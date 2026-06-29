@@ -23,7 +23,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Privacy Policy – SteadiDay</title>
-<meta name="description" content="SteadiDay Privacy Policy. Learn how we protect your data — all your health information stays on your device, never on our servers.">
+<meta name="description" content="SteadiDay Privacy Policy. Learn how we protect your data — your health information is private and secure.">
 <link rel="canonical" href="https://www.steadiday.com/privacy.html">
 <meta name="apple-itunes-app" content="app-id=6758526744">
 
@@ -140,7 +140,7 @@
     <main>
         <div class="page-header">
             <h1>Privacy Policy</h1>
-            <p class="last-updated">Last Updated: June 25, 2026</p>
+            <p class="last-updated">Last Updated: June 29, 2026</p>
         </div>
 
         <div class="toc">
@@ -164,7 +164,7 @@
             <p>Welcome to SteadiDay™ ("we," "our," or "us"), operated by SCM Solutions LLC. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we handle your information when you use our mobile application and visit our website.</p>
             <p>By using SteadiDay™, you agree to the practices described in this policy.</p>
             <div class="highlight-box">
-                <p><strong>The short version:</strong> Your health data stays on your device. We don't have servers that store your personal information. The only exception: if fall detection triggers and you don't respond, a stateless relay sends an emergency text to your trusted contacts — nothing is stored. The app does not require an account. The app contains no third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics to improve the app experience. Mobile opt-in data and phone numbers collected for our SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes.</p>
+                <p><strong>The short version:</strong> Your data is private and secure. Most of your data stays on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to enable features like caregiver sharing and account backup — Apple Health data always stays on your device. The app does not require an account. The app contains no third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics to improve the app experience. Mobile opt-in data and phone numbers collected for our SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes.</p>
             </div>
         </div>
 
@@ -182,8 +182,8 @@
             </ul>
             <p><strong>Important:</strong> All health data is stored locally on your device and protected by iOS encryption. We never transmit health data to our servers or any third parties.</p>
 
-            <h3>2.2 User-Created Content (On-Device Only)</h3>
-            <p>Information you enter into the app is stored on your device:</p>
+            <h3>2.2 User-Created Content</h3>
+            <p>Information you enter into the app is stored on your device. If you sign in, some of this data syncs securely to our servers to enable backup, caregiver sharing, and multi-device access:</p>
             <ul>
                 <li>Medication schedules and reminders</li>
                 <li>Task lists and daily routines</li>
@@ -191,7 +191,9 @@
                 <li>Food and water intake logs</li>
                 <li>Custom notes and reminders</li>
                 <li>Medical information and doctor details</li>
+                <li>Check-in responses and activity summaries</li>
             </ul>
+            <p><strong>What syncs when signed in:</strong> Medications, tasks, check-ins, and activity summaries are securely synced to our servers (hosted on Supabase) to enable features like caregiver sharing, account recovery, and backup. Photos are never uploaded. Apple Health data always stays on your device.</p>
 
             <h3>2.3 Photos (Temporary Processing Only)</h3>
             <p>When you use the camera to scan an insurance card or prescription label:</p>
@@ -228,24 +230,25 @@
             <h3>2.7 What We Do NOT Collect or Display</h3>
             <p>SteadiDay™ does not collect, store, or transmit:</p>
             <ul>
-                <li>Email addresses or account credentials (no account is required)</li>
-                <li>Your health data, medications, tasks, or any personal content you enter</li>
+                <li>Apple Health or HealthKit data to any server</li>
+                <li>Photos of insurance cards or prescriptions</li>
                 <li>Apple advertising identifiers (IDFA) or device fingerprints</li>
-                <li>Your name, age, or any personally identifiable information from the app</li>
                 <li>Crash reports sent to our servers from the app</li>
             </ul>
+            <p><strong>Note:</strong> An account is optional. If you choose not to sign in, all your data remains on your device. If you do sign in, only the data described in Section 2.2 is synced.</p>
             <p>The app also does not display third-party advertisements. SteadiDay™ contains no banner ads, video ads, sponsored content, or in-app advertising of any kind.</p>
         </div>
 
         <div class="section" id="how-we-use">
             <h2>3. How We Use Your Information</h2>
-            <p>Your personal data stays on your device and is used solely to power the app's features locally:</p>
+            <p>Your personal data is used to power the app's features:</p>
             <ul>
                 <li><strong>Medication Reminders:</strong> Your medication schedules drive local notifications on your device</li>
-                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app — it never leaves your phone</li>
+                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app — it never leaves your device</li>
                 <li><strong>Task Management:</strong> Your tasks and calendar data are processed on-device to show your daily schedule</li>
                 <li><strong>Emergency SOS:</strong> Your trusted contacts are stored locally and only contacted when you trigger SOS</li>
-                <li><strong>Notifications:</strong> All reminders are generated locally on your device — no server push notifications</li>
+                <li><strong>Notifications:</strong> All reminders are generated locally on your device</li>
+                <li><strong>Account Sync:</strong> If signed in, medications, tasks, check-ins, and activity summaries sync securely to enable caregiver sharing, backup, and multi-device access</li>
             </ul>
             <p>Anonymous analytics data (app opens and sessions) is used to:</p>
             <ul>
@@ -259,9 +262,20 @@
             <h2>4. Data Storage and Security</h2>
 
             <h3>4.1 On-Device Storage</h3>
-            <p>All your personal data — including health information, medications, tasks, and contacts — is stored locally on your iPhone, protected by iOS device encryption. We do not operate servers that store your personal or health information.</p>
+            <p>Your personal data — including health information, medications, tasks, and contacts — is stored locally on your iPhone, protected by iOS device encryption.</p>
 
-            <h3>4.2 App Lock Security</h3>
+            <h3>4.2 Account Sync (Optional)</h3>
+            <p>If you create an account and sign in, some data is securely synced to our servers hosted on Supabase (a SOC 2 Type II certified cloud platform):</p>
+            <ul>
+                <li><strong>What syncs:</strong> Medications, tasks, check-ins, and activity summaries</li>
+                <li><strong>What never syncs:</strong> Apple Health data, photos, and insurance card details</li>
+                <li><strong>Why:</strong> To enable caregiver sharing, account recovery, and multi-device access</li>
+                <li><strong>Encryption:</strong> All synced data is encrypted in transit (TLS) and at rest</li>
+                <li><strong>Your control:</strong> You can delete your account and all synced data at any time from within the app</li>
+            </ul>
+            <p>If you do not sign in, no data is sent to our servers and the app functions fully on-device.</p>
+
+            <h3>4.3 App Lock Security</h3>
             <p>SteadiDay™ includes built-in security features:</p>
             <ul>
                 <li>PIN code lock with SHA-256 hashing (stored only on your device)</li>
@@ -270,7 +284,7 @@
                 <li>Generic notification content — no medication names or health details shown on your lock screen</li>
             </ul>
 
-            <h3>4.3 Data Backup</h3>
+            <h3>4.4 Data Backup</h3>
             <p>Your SteadiDay™ data may be included in your standard iPhone backup (via iCloud or iTunes/Finder). This is controlled by your iOS backup settings, not by SteadiDay™. We recommend keeping regular backups to protect against data loss.</p>
         </div>
 
@@ -287,18 +301,18 @@
             <p>When you activate Emergency SOS or when fall detection activates and you do not respond within the countdown period, the app automatically sends SMS text messages to your designated trusted contacts via Twilio, a third-party messaging relay service. These messages include your display name, GPS coordinates (as a Google Maps link), and an alert that you may need help. The relay transmits only the minimum information needed to deliver the text — your display name, trusted contact phone numbers, and GPS coordinates. No data is stored on the relay server after the message is sent. Message and data rates may apply. See <a href="#sms">Section 10</a> for full details about the SteadiDay™ SMS program, including consent, frequency, and opt-out information.</p>
 
             <h3>5.4 Legal Requirements</h3>
-            <p>Since we don't have access to your personal data (it's on your device), we cannot provide it in response to legal requests. If required by law, we would disclose only business records we maintain (such as contact form submissions from our website).</p>
+            <p>Most of your personal data is on your device and not accessible to us. If you have signed in and data has been synced, we may be required to disclose that data in response to valid legal requests. If required by law, we would disclose only the data we maintain (synced account data, website contact form submissions, and anonymous analytics).</p>
 
             <h3>5.5 Business Transfers</h3>
-            <p>In the event of a merger, acquisition, or sale of assets, any data we do hold (limited to website contact form submissions and anonymous analytics) may be transferred. We will notify you of any such change.</p>
+            <p>In the event of a merger, acquisition, or sale of assets, any data we do hold (synced account data, website contact form submissions, and anonymous analytics) may be transferred. We will notify you of any such change.</p>
         </div>
 
         <div class="section" id="rights">
             <h2>6. Your Privacy Rights</h2>
-            <p>Because your personal data is stored on your device, you have direct control:</p>
+            <p>You have direct control over your data:</p>
             <ul>
                 <li><strong>Access:</strong> All your data is visible to you within the app at any time</li>
-                <li><strong>Deletion:</strong> Delete any or all data from within the app, or by uninstalling the app</li>
+                <li><strong>Deletion:</strong> Delete any or all data from within the app, or by uninstalling the app. If you have an account, you can delete your account and all synced data from the app settings.</li>
                 <li><strong>Export:</strong> Export your data from within the app settings</li>
                 <li><strong>Revoke Permissions:</strong> Withdraw HealthKit access anytime via iOS Settings &rarr; Privacy &amp; Security &rarr; Health</li>
                 <li><strong>Location:</strong> Disable location access anytime via iOS Settings &rarr; Privacy &amp; Security &rarr; Location Services</li>
@@ -393,7 +407,7 @@
 
         <div class="section">
             <h2>12. California Privacy Rights (CCPA)</h2>
-            <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act. Since we do not collect personal data from the app, most CCPA provisions are satisfied by default. For website-related data (contact form submissions and analytics), you have the right to:</p>
+            <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act. If you do not sign in, we do not collect personal data from the app. If you do sign in, your synced data is covered by these rights. For all data we hold (synced account data, website contact form submissions, and analytics), you have the right to:</p>
             <ul>
                 <li>Know what personal information is collected</li>
                 <li>Request deletion of personal information</li>
@@ -404,7 +418,7 @@
 
         <div class="section">
             <h2>13. GDPR Compliance (European Users)</h2>
-            <p>If you are located in the European Economic Area, you have rights under the General Data Protection Regulation. Since your app data is stored on your device, you maintain direct control. For any data we process through our website or through anonymous app analytics, you have the right to:</p>
+            <p>If you are located in the European Economic Area, you have rights under the General Data Protection Regulation. Your on-device data remains under your direct control. For any data we process (synced account data, website data, and anonymous app analytics), you have the right to:</p>
             <ul>
                 <li>Access, rectification, and erasure of your data</li>
                 <li>Restriction of processing and data portability</li>
