@@ -936,6 +936,58 @@ gtag('config', 'G-LF8H890XTV');
         padding-top: 0.75rem;
     }
 
+    /* ==================== BLOG ==================== */
+    .blog-section {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+
+    .blog-card {
+        display: block;
+        background: var(--white);
+        padding: 1.75rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        text-decoration: none;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .blog-card:hover {
+        box-shadow: var(--shadow-card);
+    }
+
+    .blog-card-date {
+        display: block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--sage);
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-card h3 {
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--text-dark);
+        line-height: 1.5;
+    }
+
+    .blog-card-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 15px;
+        font-weight: 600;
+        color: var(--sage);
+    }
+
     /* ==================== CTA BAND ==================== */
     .cta-band {
         padding: 4rem 0;
@@ -1125,6 +1177,10 @@ gtag('config', 'G-LF8H890XTV');
             grid-template-columns: repeat(3, 1fr);
         }
 
+        .blog-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .phases-grid {
             grid-template-columns: repeat(2, 1fr);
         }
@@ -1183,6 +1239,10 @@ gtag('config', 'G-LF8H890XTV');
         }
 
         .stats-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .blog-grid {
             grid-template-columns: 1fr;
         }
 
@@ -1586,6 +1646,40 @@ gtag('config', 'G-LF8H890XTV');
                         <p>We want honest feedback. Unlocking every feature lets families try the full experience and tell us what to improve — your input genuinely shapes the app.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BLOG ==================== -->
+    <section class="blog-section" id="blog">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">From the Blog</div>
+                <h2>Health tips worth your time</h2>
+                <p>Practical guidance on medications, prevention, and healthy aging — written for adults 50+ and the people who care about them.</p>
+            </div>
+            <div class="blog-grid">
+                <a class="blog-card" href="blog/2026-07-06-the-new-covid19-prevention-pill.html">
+                    <span class="blog-card-date">July 6, 2026</span>
+                    <h3>The New COVID-19 Prevention Pill Adults Over 50 Need to Know About</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-07-02-why-appetite-changes-as-we.html">
+                    <span class="blog-card-date">July 2, 2026</span>
+                    <h3>Why Appetite Changes as We Age and What to Do</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-06-29-what-most-people-get-wrong.html">
+                    <span class="blog-card-date">June 29, 2026</span>
+                    <h3>What Most People Get Wrong About Knee Osteoarthritis Pain Relief</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-06-25-the-real-health-benefits-of.html">
+                    <span class="blog-card-date">June 25, 2026</span>
+                    <h3>The Real Health Benefits of Gardening After 50</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-06-22-the-first-mrna-flu-vaccine.html">
+                    <span class="blog-card-date">June 22, 2026</span>
+                    <h3>The First mRNA Flu Vaccine for Adults Over 50</h3>
+                </a>
+                <a class="blog-card blog-card-all" href="blog/index.html">View all articles →</a>
             </div>
         </div>
     </section>
