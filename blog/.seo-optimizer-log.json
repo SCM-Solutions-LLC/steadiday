@@ -1,0 +1,28 @@
+[
+  {
+    "date": "2026-07-06",
+    "file": "blog/best-medication-reminder-apps-seniors.html",
+    "target_queries": ["medication reminder app", "medication reminder app for caregivers", "medicine tracker app for caregivers", "pill tracker app for caregivers"],
+    "edits_made": ["title", "meta_description", "og_title", "og_description", "h1", "faq_refresh_with_faqpage_jsonld", "2_internal_links", "date_modified"],
+    "baseline": {
+      "window": "2026-06-06_to_2026-07-04",
+      "clicks": 1,
+      "impressions": 761,
+      "ctr": 0.001314060446780552,
+      "position": 55.469119579500656
+    }
+  },
+  {
+    "date": "2026-07-06",
+    "file": "blog/2026-05-18-rsv-vaccine-rules-for-adults.html",
+    "target_queries": ["cdc rsv vaccine adults 50 74 increased risk 2026", "rsv vaccine adults 50", "rsv vaccination over 50"],
+    "edits_made": ["title", "meta_description", "og_title", "og_description", "twitter_title", "twitter_description", "h1", "breadcrumb_text", "2_internal_links", "date_modified"],
+    "baseline": {
+      "window": "2026-06-06_to_2026-07-04",
+      "clicks": 0,
+      "impressions": 70,
+      "ctr": 0,
+      "position": 8.857142857142858
+    }
+  }
+]
