@@ -43,7 +43,8 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../steadiday-shared.css">
 
   <style>
     /* ============================================================
@@ -53,10 +54,10 @@
       /* Palette */
       --cream: #FFFBF5;
       --cream-dark: #F7F3ED;
-      --teal: #1A8A7D;
-      --teal-dark: #147568;
-      --teal-light: #E8F5F3;
-      --navy: #1E3A5F;
+      --sage: #4A9D7E;
+      --sage-dark: #3B8468;
+      --sage-light: rgba(74, 157, 126, 0.08);
+      --text-dark: #111827;
       --navy-light: #2D4A6F;
       --charcoal: #2D3436;
       --charcoal-light: #5A6266;
@@ -90,18 +91,18 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Merriweather', Georgia, serif;
+      font-family: 'Poppins', sans-serif; font-weight: 700;
       font-weight: 700;
       line-height: 1.3;
-      color: var(--navy);
+      color: var(--text-dark);
     }
 
     a {
-      color: var(--teal);
+      color: var(--sage);
       text-decoration: none;
       transition: color 0.2s ease;
     }
-    a:hover { color: var(--teal-dark); }
+    a:hover { color: var(--sage-dark); }
 
     /* ============================================================
        Navigation
@@ -135,10 +136,10 @@
       box-shadow: var(--shadow-soft);
     }
     .nav-logo span {
-      font-family: 'Merriweather', Georgia, serif;
+      font-family: 'Poppins', sans-serif; font-weight: 700;
       font-size: 1.35rem;
       font-weight: 700;
-      color: var(--navy);
+      color: var(--text-dark);
     }
     .nav-links {
       display: flex;
@@ -159,13 +160,13 @@
       left: 0;
       width: 0;
       height: 2px;
-      background: var(--teal);
+      background: var(--sage);
       transition: width 0.3s ease;
     }
-    .nav-links a:hover { color: var(--teal); }
+    .nav-links a:hover { color: var(--sage); }
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
-      background: var(--teal) !important;
+      background: var(--sage) !important;
       color: var(--white) !important;
       padding: 0.75rem 1.5rem !important;
       border-radius: var(--radius-md);
@@ -173,7 +174,7 @@
     }
     .nav-cta::after { display: none !important; }
     .nav-cta:hover {
-      background: var(--teal-dark) !important;
+      background: var(--sage-dark) !important;
       color: var(--white) !important;
     }
 
@@ -181,7 +182,7 @@
        Header
        ============================================================ */
     .header {
-      background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+      background: linear-gradient(135deg, var(--text-dark) 0%, var(--navy-light) 100%);
       color: var(--white);
       padding: 5rem 2rem;
       text-align: center;
@@ -229,7 +230,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--teal);
+      color: var(--sage);
       margin-bottom: 0.75rem;
     }
     .section-header h2 {
@@ -249,7 +250,7 @@
       margin: 0 auto 3rem;
     }
     .newsletter-inner {
-      background: linear-gradient(135deg, var(--teal-light) 0%, var(--gold-light) 100%);
+      background: linear-gradient(135deg, var(--sage-light) 0%, var(--gold-light) 100%);
       border: 1px solid rgba(26, 138, 125, 0.15);
       border-radius: var(--radius-lg);
       padding: 2.5rem 2rem;
@@ -260,8 +261,8 @@
       margin-bottom: 0.75rem;
     }
     .newsletter-inner h3 {
-      font-family: 'Merriweather', Georgia, serif;
-      color: var(--navy);
+      font-family: 'Poppins', sans-serif; font-weight: 700;
+      color: var(--text-dark);
       font-size: 1.5rem;
       margin-bottom: 0.75rem;
     }
@@ -292,7 +293,7 @@
       min-width: 0;
     }
     .form-row input[type="email"]:focus {
-      border-color: var(--teal);
+      border-color: var(--sage);
       box-shadow: 0 0 0 3px rgba(26, 138, 125, 0.15);
     }
     .form-row input[type="email"]::placeholder { color: #999; }
@@ -301,7 +302,7 @@
       font-size: 1.05rem;
       font-weight: 600;
       font-family: 'Source Sans 3', sans-serif;
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white);
       border: none;
       border-radius: var(--radius-md);
@@ -309,7 +310,7 @@
       transition: background 0.2s ease, transform 0.1s ease;
       white-space: nowrap;
     }
-    .form-row button:hover { background: var(--teal-dark); }
+    .form-row button:hover { background: var(--sage-dark); }
     .form-row button:active { transform: scale(0.97); }
     .newsletter-note {
       margin-top: 1rem;
@@ -317,7 +318,7 @@
       color: var(--charcoal-light);
     }
     .newsletter-note a {
-      color: var(--teal);
+      color: var(--sage);
       text-decoration: underline;
     }
     .newsletter-message {
@@ -330,8 +331,8 @@
     }
     .newsletter-message.success {
       display: block;
-      background: var(--teal-light);
-      color: var(--teal-dark);
+      background: var(--sage-light);
+      color: var(--sage-dark);
       border: 1px solid rgba(26, 138, 125, 0.25);
     }
     .newsletter-message.error {
@@ -380,7 +381,7 @@
       position: absolute;
       top: 1rem;
       left: 1rem;
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white);
       padding: 0.4rem 1rem;
       border-radius: 20px;
@@ -395,11 +396,11 @@
       line-height: 1.4;
     }
     .blog-card h2 a {
-      color: var(--navy);
+      color: var(--text-dark);
       text-decoration: none;
       transition: color 0.2s;
     }
-    .blog-card h2 a:hover { color: var(--teal); }
+    .blog-card h2 a:hover { color: var(--sage); }
     .blog-meta {
       font-size: 0.9rem;
       color: var(--charcoal-light);
@@ -415,7 +416,7 @@
       line-height: 1.7;
     }
     .read-more {
-      color: var(--teal);
+      color: var(--sage);
       text-decoration: none;
       font-weight: 600;
       display: inline-flex;
@@ -425,7 +426,7 @@
     }
     .read-more:hover {
       gap: 0.75rem;
-      color: var(--teal-dark);
+      color: var(--sage-dark);
     }
     .read-more svg {
       width: 18px;
@@ -453,7 +454,7 @@
     .featured-badge {
       display: inline-block;
       background: var(--gold);
-      color: var(--navy);
+      color: var(--text-dark);
       padding: 0.25rem 0.75rem;
       border-radius: 20px;
       font-size: 0.75rem;
@@ -467,7 +468,7 @@
        CTA Section
        ============================================================ */
     .cta-section {
-      background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+      background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
       color: var(--white);
       padding: 4rem 3rem;
       border-radius: var(--radius-lg);
@@ -506,7 +507,7 @@
     .cta-button {
       display: inline-block;
       background: var(--white);
-      color: var(--teal);
+      color: var(--sage);
       padding: 1rem 2.5rem;
       border-radius: var(--radius-md);
       text-decoration: none;
@@ -517,7 +518,7 @@
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      color: var(--teal-dark);
+      color: var(--sage-dark);
     }
 
     /* ============================================================
@@ -548,7 +549,7 @@
       border-radius: 8px;
     }
     .footer-brand span {
-      font-family: 'Merriweather', serif;
+      font-family: 'Poppins', sans-serif; font-weight: 700;
       font-size: 1.15rem;
       font-weight: 700;
       color: var(--white);

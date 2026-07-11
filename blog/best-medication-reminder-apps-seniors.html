@@ -34,7 +34,8 @@
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../steadiday-shared.css">
     
     <!-- Schema.org Article Markup -->
     <script type="application/ld+json">
@@ -97,10 +98,10 @@
     <style>
         :root {
             --cream: #FFFBF5;
-            --teal: #1A8A7D;
-            --teal-dark: #147568;
-            --teal-light: #E8F5F3;
-            --navy: #1E3A5F;
+            --sage: #4A9D7E;
+            --sage-dark: #3B8468;
+            --sage-light: rgba(74, 157, 126, 0.08);
+            --text-dark: #111827;
             --navy-light: #2D4A6F;
             --charcoal: #2D3436;
             --charcoal-light: #5A6266;
@@ -119,13 +120,13 @@
         }
         
         h1, h2, h3, h4 {
-            font-family: 'Merriweather', Georgia, serif;
-            color: var(--navy);
+            font-family: 'Poppins', sans-serif; font-weight: 700;
+            color: var(--text-dark);
             line-height: 1.3;
         }
         
-        a { color: var(--teal); text-decoration: none; }
-        a:hover { color: var(--teal-dark); text-decoration: underline; }
+        a { color: var(--sage); text-decoration: none; }
+        a:hover { color: var(--sage-dark); text-decoration: underline; }
         
         /* Navigation */
         .nav {
@@ -160,10 +161,10 @@
         }
         
         .nav-logo span {
-            font-family: 'Merriweather', serif;
+            font-family: 'Poppins', sans-serif; font-weight: 700;
             font-size: 1.25rem;
             font-weight: 700;
-            color: var(--navy);
+            color: var(--text-dark);
         }
         
         .nav-back {
@@ -183,7 +184,7 @@
         }
         
         .breadcrumbs a:hover {
-            color: var(--teal);
+            color: var(--sage);
         }
         
         .breadcrumbs span {
@@ -192,7 +193,7 @@
         }
         
         .breadcrumbs .current {
-            color: var(--navy);
+            color: var(--text-dark);
             font-weight: 500;
         }
         
@@ -205,7 +206,7 @@
         
         /* Header */
         .article-header {
-            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 100%);
+            background: linear-gradient(135deg, var(--text-dark) 0%, var(--navy-light) 100%);
             padding: 3rem 2rem;
             color: var(--white);
             text-align: center;
@@ -300,7 +301,7 @@
         }
         
         .comparison-table th {
-            background: var(--navy);
+            background: var(--text-dark);
             color: var(--white);
             padding: 1rem;
             text-align: left;
@@ -319,11 +320,11 @@
         }
         
         .comparison-table tr:hover {
-            background: var(--teal-light);
+            background: var(--sage-light);
         }
         
         .check {
-            color: var(--teal);
+            color: var(--sage);
             font-weight: bold;
         }
         
@@ -337,7 +338,7 @@
             border-radius: 12px;
             padding: 1.5rem;
             margin: 1.5rem 0;
-            border-left: 4px solid var(--teal);
+            border-left: 4px solid var(--sage);
         }
         
         .app-card h3 {
@@ -352,7 +353,7 @@
         
         .app-card .price {
             font-weight: 600;
-            color: var(--teal);
+            color: var(--sage);
             margin-bottom: 0.75rem;
         }
         
@@ -365,12 +366,12 @@
             margin-bottom: 0.5rem;
         }
         
-        .app-card .pros { color: var(--teal); }
+        .app-card .pros { color: var(--sage); }
         .app-card .cons { color: #c0392b; }
         
         /* CTA Box */
         .cta-box {
-            background: linear-gradient(135deg, var(--teal) 0%, var(--teal-dark) 100%);
+            background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
             color: var(--white);
             padding: 2rem;
             border-radius: 12px;
@@ -392,7 +393,7 @@
         .cta-button {
             display: inline-block;
             background: var(--white);
-            color: var(--teal);
+            color: var(--sage);
             padding: 0.875rem 2rem;
             border-radius: 8px;
             text-decoration: none;
@@ -417,7 +418,7 @@
         .toc h4 {
             font-size: 1.1rem;
             margin-bottom: 1rem;
-            color: var(--navy);
+            color: var(--text-dark);
         }
         
         .toc ul {
@@ -435,13 +436,13 @@
         }
         
         .toc a:hover {
-            color: var(--teal);
+            color: var(--sage);
         }
         
         /* Winner Box */
         .winner-box {
             background: linear-gradient(135deg, var(--gold) 0%, #c9a227 100%);
-            color: var(--navy);
+            color: var(--text-dark);
             padding: 1.5rem;
             border-radius: 12px;
             margin: 2rem 0;
@@ -449,7 +450,7 @@
         }
         
         .winner-box h3 {
-            color: var(--navy);
+            color: var(--text-dark);
             margin-bottom: 0.5rem;
         }
         
@@ -472,7 +473,7 @@
         
         /* Footer */
         .footer-cta {
-            background: var(--navy);
+            background: var(--text-dark);
             padding: 4rem 2rem;
             text-align: center;
             color: var(--white);
@@ -493,7 +494,7 @@
         
         .btn {
             display: inline-block;
-            background: var(--teal);
+            background: var(--sage);
             color: var(--white);
             padding: 1rem 2rem;
             border-radius: 10px;
@@ -503,7 +504,7 @@
         }
         
         .btn:hover {
-            background: var(--teal-dark);
+            background: var(--sage-dark);
             color: var(--white);
             text-decoration: none;
             transform: translateY(-2px);
@@ -564,7 +565,7 @@
         }
     
         .article-reviewer{font-size:0.9rem;opacity:0.8;font-style:italic;margin-top:0.5rem;}.article-reviewer a{color:rgba(255,255,255,0.95);text-decoration:underline;}
-        .related-posts{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--teal-light);border-radius:12px;}
+        .related-posts{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--sage-light);border-radius:12px;}
         .related-posts h3{margin:0 0 0.75rem;font-size:1.2rem;}.related-posts-list{list-style:none;padding:0;margin:0;}.related-posts-list li{padding:0.5rem 0;border-bottom:1px solid rgba(30,58,95,0.08);font-size:1rem;}.related-posts-list li:last-child{border-bottom:none;}
     </style>
 </head>

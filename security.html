@@ -33,24 +33,26 @@
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Source+Sans+3:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="steadiday-shared.css">
     
     <style>
         :root {
-            --cream: #FFF9ED;
-            --cream-dark: #F5EDE0;
-            --teal: #26A69A;
-            --teal-dark: #1E8A7E;
-            --teal-light: #E0F2F1;
+            --cream: #FFFBF5;
+            --cream-dark: #F7F3ED;
+            --sage: #4A9D7E;
+            --sage-dark: #3B8468;
+            --sage-light: rgba(74, 157, 126, 0.08);
             --charcoal: #2D3436;
             --charcoal-light: #4A5254;
+            --text-dark: #111827;
             --white: #FFFFFF;
             --green: #4CAF50;
             --red: #E57373;
             --shadow-soft: 0 4px 20px rgba(45, 52, 54, 0.08);
             --shadow-medium: 0 8px 30px rgba(45, 52, 54, 0.12);
-            --radius-md: 16px;
-            --radius-lg: 24px;
+            --radius-md: 12px;
+            --radius-lg: 20px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -59,24 +61,24 @@
             font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, sans-serif;
             font-size: 18px; line-height: 1.7; color: var(--charcoal); background: var(--cream);
         }
-        h1, h2, h3 { font-family: 'Fraunces', Georgia, serif; font-weight: 500; line-height: 1.3; color: var(--charcoal); }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.3; color: var(--text-dark); }
 
         nav {
-            position: fixed; top: 0; left: 0; right: 0; z-index: 100; padding: 1rem 2rem;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 2rem;
             background: rgba(255, 249, 237, 0.95); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(45, 52, 54, 0.06);
         }
         .nav-container { max-width: 1200px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; }
         .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
         .nav-logo img { width: 44px; height: 44px; border-radius: 10px; box-shadow: var(--shadow-soft); }
-        .nav-logo span { font-family: 'Fraunces', Georgia, serif; font-size: 1.5rem; font-weight: 600; color: var(--charcoal); }
-        .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--teal); font-weight: 500; transition: color 0.2s ease; }
-        .nav-back:hover { color: var(--teal-dark); }
+        .nav-logo span { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--sage); font-weight: 500; transition: color 0.2s ease; }
+        .nav-back:hover { color: var(--sage-dark); }
         .nav-back svg { width: 20px; height: 20px; }
 
         .hero {
             padding: 8rem 2rem 4rem; text-align: center;
-            background: linear-gradient(180deg, var(--teal-light) 0%, var(--cream) 100%);
+            background: linear-gradient(180deg, var(--sage-light) 0%, var(--cream) 100%);
         }
         .hero-container { max-width: 800px; margin: 0 auto; }
         .hero-icon {
@@ -84,23 +86,23 @@
             display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;
             box-shadow: var(--shadow-medium);
         }
-        .hero-icon svg { width: 40px; height: 40px; color: var(--teal); }
+        .hero-icon svg { width: 40px; height: 40px; color: var(--sage); }
         .hero h1 { font-size: 2.75rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.25rem; color: var(--charcoal-light); max-width: 600px; margin: 0 auto; }
 
         main { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
         .section { margin-bottom: 4rem; }
         .section h2 { font-size: 1.75rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-        .section h2 svg { width: 28px; height: 28px; color: var(--teal); }
+        .section h2 svg { width: 28px; height: 28px; color: var(--sage); }
         .section p { margin-bottom: 1rem; }
 
         .key-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3rem 0; }
         .key-point { background: var(--white); padding: 2rem; border-radius: var(--radius-md); text-align: center; box-shadow: var(--shadow-soft); }
         .key-point-icon {
-            width: 60px; height: 60px; background: var(--teal-light); border-radius: 50%;
+            width: 60px; height: 60px; background: var(--sage-light); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;
         }
-        .key-point-icon svg { width: 30px; height: 30px; color: var(--teal-dark); }
+        .key-point-icon svg { width: 30px; height: 30px; color: var(--sage-dark); }
         .key-point h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .key-point p { font-size: 1rem; color: var(--charcoal); margin: 0; }
 
@@ -128,11 +130,11 @@
         .dont-list li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: bold; }
 
         .info-box {
-            background: var(--teal-light); padding: 1.5rem 2rem; border-radius: var(--radius-md);
-            border-left: 4px solid var(--teal); margin: 2rem 0;
+            background: var(--sage-light); padding: 1.5rem 2rem; border-radius: var(--radius-md);
+            border-left: 4px solid var(--sage); margin: 2rem 0;
         }
         .info-box h4 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .info-box h4 svg { width: 20px; height: 20px; color: var(--teal-dark); }
+        .info-box h4 svg { width: 20px; height: 20px; color: var(--sage-dark); }
         .info-box p { margin: 0; font-size: 1rem; }
 
         .photo-flow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
@@ -141,12 +143,12 @@
             background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-soft);
         }
         .photo-step-number {
-            width: 32px; height: 32px; background: var(--teal); color: var(--white); border-radius: 50%;
+            width: 32px; height: 32px; background: var(--sage); color: var(--white); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 0.75rem;
         }
         .photo-step h4 { font-size: 1rem; margin-bottom: 0.25rem; }
         .photo-step p { font-size: 0.95rem; color: var(--charcoal); margin: 0; }
-        .photo-arrow { font-size: 1.5rem; color: var(--teal); }
+        .photo-arrow { font-size: 1.5rem; color: var(--sage); }
 
         .cta-section { text-align: center; padding: 3rem; background: var(--charcoal); border-radius: var(--radius-lg); margin-top: 4rem; }
         .cta-section h2 { color: var(--white); margin-bottom: 1rem; }
@@ -154,15 +156,15 @@
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem;
             border-radius: var(--radius-md); font-size: 1.1rem; font-weight: 600; text-decoration: none;
-            background: var(--teal); color: var(--white); transition: all 0.3s ease;
+            background: var(--sage); color: var(--white); transition: all 0.3s ease;
         }
-        .btn:hover { background: var(--teal-dark); transform: translateY(-2px); }
+        .btn:hover { background: var(--sage-dark); transform: translateY(-2px); }
 
         footer { padding: 2rem; background: var(--charcoal); text-align: center; margin-top: 0; }
         .footer-content { max-width: 800px; margin: 0 auto; }
         .footer-brand { display: flex; align-items: center; justify-content: center; gap: 0.75rem; margin-bottom: 1rem; }
         .footer-brand img { width: 32px; height: 32px; border-radius: 6px; }
-        .footer-brand span { font-family: 'Fraunces', Georgia, serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
+        .footer-brand span { font-family: 'Poppins', sans-serif; font-size: 1.1rem; font-weight: 600; color: var(--white); }
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
         .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.95rem; }
         .footer-links a:hover { color: var(--white); }
@@ -331,7 +333,7 @@
                     </svg>
                     A note about analytics
                 </h4>
-                <p>SteadiDay™ collects anonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs to help us understand how many people use the app and whether our advertising reaches the right audience. This data uses a random identifier that is not linked to you, your device, or your Apple ID. It never includes your health data, medications, tasks, contacts, or anything you enter in the app. Our website (steadiday.com) also uses standard Google Analytics to understand how visitors find our site. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--teal-dark); text-decoration: underline;">Privacy Policy</a>.</p>
+                <p>SteadiDay™ collects anonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs to help us understand how many people use the app and whether our advertising reaches the right audience. This data uses a random identifier that is not linked to you, your device, or your Apple ID. It never includes your health data, medications, tasks, contacts, or anything you enter in the app. Our website (steadiday.com) also uses standard Google Analytics to understand how visitors find our site. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--sage-dark); text-decoration: underline;">Privacy Policy</a>.</p>
             </div>
         </div>
 
@@ -391,9 +393,9 @@
             </h2>
             
             <div class="do-dont-grid">
-                <div class="do-list" style="border-top-color: var(--teal);">
-                    <h3 style="color: var(--teal);">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--teal);">
+                <div class="do-list" style="border-top-color: var(--sage);">
+                    <h3 style="color: var(--sage);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--sage);">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
                         App Protection
@@ -408,9 +410,9 @@
                         <li>Screen capture prevention capability</li>
                     </ul>
                 </div>
-                <div class="do-list" style="border-top-color: var(--teal);">
-                    <h3 style="color: var(--teal);">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--teal);">
+                <div class="do-list" style="border-top-color: var(--sage);">
+                    <h3 style="color: var(--sage);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--sage);">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
                         Privacy Notifications

@@ -46,16 +46,16 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="steadiday-shared.css">
   <style>
     :root {
       --cream: #FFFBF5;
       --cream-dark: #F7F3ED;
-      --teal: #1A8A7D;
-      --teal-dark: #147568;
-      --teal-light: #E8F5F3;
-      --navy: #1E3A5F;
+      --sage: #4A9D7E;
+      --sage-dark: #3B8468;
+      --sage-light: rgba(74, 157, 126, 0.08);
+      --text-dark: #111827;
       --navy-light: #2D4A6F;
       --charcoal: #2D3436;
       --charcoal-light: #5A6266;
@@ -99,12 +99,12 @@
     }
 
     a {
-      color: var(--teal);
+      color: var(--sage);
       text-decoration: none;
     }
 
     a:hover {
-      color: var(--teal-dark);
+      color: var(--sage-dark);
     }
 
     a:focus-visible,
@@ -116,8 +116,8 @@
     }
 
     h1, h2, h3, h4 {
-      font-family: 'Merriweather', Georgia, serif;
-      color: var(--navy);
+      font-family: 'Poppins', sans-serif; font-weight: 700;
+      color: var(--text-dark);
       line-height: 1.25;
       letter-spacing: -0.015em;
     }
@@ -152,7 +152,7 @@
     .section-label {
       display: inline-block;
       margin-bottom: 0.75rem;
-      color: var(--teal-dark);
+      color: var(--sage-dark);
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -166,7 +166,7 @@
     }
 
     .launch-banner {
-      background: linear-gradient(135deg, var(--teal), var(--teal-dark));
+      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
       color: var(--white);
       padding: 0.7rem 1rem;
       text-align: center;
@@ -180,7 +180,7 @@
 
     .launch-badge {
       background: var(--gold);
-      color: var(--navy);
+      color: var(--text-dark);
       padding: 0.25rem 0.7rem;
       border-radius: 999px;
       font-weight: 800;
@@ -216,7 +216,7 @@
       display: flex;
       align-items: center;
       gap: 0.75rem;
-      color: var(--navy);
+      color: var(--text-dark);
     }
 
     .nav-logo img {
@@ -226,7 +226,7 @@
     }
 
     .nav-logo span {
-      font-family: 'Merriweather', Georgia, serif;
+      font-family: 'Poppins', sans-serif; font-weight: 700;
       font-size: 1.55rem;
       font-weight: 700;
     }
@@ -238,13 +238,13 @@
     }
 
     .nav-links a {
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 700;
       font-size: 1rem;
     }
 
     .nav-cta {
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white) !important;
       padding: 0.8rem 1.4rem;
       border-radius: 999px;
@@ -254,7 +254,7 @@
       display: none;
       background: none;
       border: 0;
-      color: var(--navy);
+      color: var(--text-dark);
       cursor: pointer;
       padding: 0.5rem;
     }
@@ -289,8 +289,8 @@
       display: inline-flex;
       align-items: center;
       gap: 0.5rem;
-      background: var(--teal-light);
-      color: var(--teal-dark);
+      background: var(--sage-light);
+      color: var(--sage-dark);
       border: 1px solid rgba(26, 138, 125, 0.22);
       padding: 0.48rem 0.9rem;
       border-radius: 999px;
@@ -300,7 +300,7 @@
     }
 
     .hero h1 span {
-      color: var(--teal-dark);
+      color: var(--sage-dark);
     }
 
     .hero-description {
@@ -337,14 +337,14 @@
       min-height: 56px;
       padding: 0.9rem 1.4rem;
       border-radius: var(--radius-md);
-      border: 2px solid var(--navy);
-      color: var(--navy);
+      border: 2px solid var(--text-dark);
+      color: var(--text-dark);
       font-size: 1.05rem;
       font-weight: 700;
     }
 
     .btn:hover {
-      background: var(--navy);
+      background: var(--text-dark);
       color: var(--white);
     }
 
@@ -359,7 +359,7 @@
       flex-wrap: wrap;
       gap: 0.65rem 1rem;
       margin-top: 1.35rem;
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 700;
       font-size: 0.98rem;
     }
@@ -372,7 +372,7 @@
 
     .hero-proof span::before {
       content: "✓";
-      color: var(--teal-dark);
+      color: var(--sage-dark);
       font-weight: 900;
     }
 
@@ -417,7 +417,7 @@
 
     .qr-card strong {
       display: block;
-      color: var(--navy);
+      color: var(--text-dark);
       font-size: 0.95rem;
       line-height: 1.25;
       margin-bottom: 0.25rem;
@@ -466,15 +466,15 @@
       display: grid;
       place-items: center;
       flex: 0 0 auto;
-      background: var(--teal-light);
-      color: var(--teal-dark);
+      background: var(--sage-light);
+      color: var(--sage-dark);
       font-weight: 900;
       font-size: 1.35rem;
     }
 
     .trust-text h4 {
       font-family: 'Source Sans 3', sans-serif;
-      color: var(--navy);
+      color: var(--text-dark);
       font-size: 1rem;
       line-height: 1.2;
     }
@@ -512,7 +512,7 @@
     }
 
     .why-kicker {
-      color: var(--teal-dark);
+      color: var(--sage-dark);
       font-size: 0.85rem;
       font-weight: 800;
       text-transform: uppercase;
@@ -554,8 +554,8 @@
     .feature-icon {
       width: 58px;
       height: 58px;
-      background: var(--teal-light);
-      color: var(--teal-dark);
+      background: var(--sage-light);
+      color: var(--sage-dark);
       border-radius: 16px;
       display: grid;
       place-items: center;
@@ -598,12 +598,12 @@
       border: 1px solid var(--border);
       border-radius: 999px;
       padding: 0.35rem 0.75rem;
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 700;
       font-size: 0.95rem;
     }
         .how {
-      background: var(--navy);
+      background: var(--text-dark);
       color: var(--white);
     }
 
@@ -640,7 +640,7 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white);
       font-weight: 800;
       margin-bottom: 1rem;
@@ -676,11 +676,11 @@
     .screenshot-item h4 {
       font-family: 'Source Sans 3', sans-serif;
       font-size: 0.95rem;
-      color: var(--navy);
+      color: var(--text-dark);
     }
 
     .pricing {
-      background: var(--teal-light);
+      background: var(--sage-light);
     }
 
     .pricing-card {
@@ -696,7 +696,7 @@
     .pricing-badge {
       display: inline-block;
       background: var(--gold-light);
-      color: var(--navy);
+      color: var(--text-dark);
       border: 1px solid rgba(212, 168, 83, 0.45);
       border-radius: 999px;
       padding: 0.35rem 0.85rem;
@@ -709,7 +709,7 @@
 
     .pricing-headline {
       font-size: 1.35rem;
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 700;
       margin-bottom: 0.5rem;
     }
@@ -746,14 +746,14 @@
       display: inline-block;
       padding: 1rem 1.5rem;
       border-radius: var(--radius-md);
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white);
       font-weight: 800;
     }
 
     .pricing-cta:hover {
       color: var(--white);
-      background: var(--teal-dark);
+      background: var(--sage-dark);
     }
 
     .pricing-note {
@@ -825,7 +825,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
       padding: 0.8rem 1rem;
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 800;
     }
 
@@ -846,7 +846,7 @@
     }
 
     .download {
-      background: linear-gradient(135deg, var(--navy), var(--navy-light));
+      background: linear-gradient(135deg, var(--text-dark), var(--navy-light));
       color: var(--white);
       text-align: center;
     }
@@ -885,7 +885,7 @@
 
     .form-group label {
       display: block;
-      color: var(--navy);
+      color: var(--text-dark);
       font-weight: 800;
       margin-bottom: 0.4rem;
     }
@@ -910,7 +910,7 @@
 
     .form-submit {
       width: 100%;
-      background: var(--teal);
+      background: var(--sage);
       color: var(--white);
       border: 0;
       border-radius: var(--radius-md);
@@ -947,7 +947,7 @@
     }
 
     .footer-brand span {
-      font-family: 'Merriweather', Georgia, serif;
+      font-family: 'Poppins', sans-serif; font-weight: 700;
       font-weight: 700;
       font-size: 1.25rem;
     }
