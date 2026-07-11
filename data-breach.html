@@ -140,7 +140,7 @@
     <main>
         <div class="page-header">
             <h1>Data Breach Response Plan</h1>
-            <p class="last-updated">Last Updated: June 29, 2026</p>
+            <p class="last-updated">Last Updated: July 11, 2026</p>
         </div>
 
         <div class="toc">
@@ -172,27 +172,30 @@
             <h2>2. Our Architecture</h2>
             <p>Understanding what we do and don't have access to is important context for any security incident:</p>
             <ul>
-                <li><strong>We do NOT have:</strong> Apple Health data, photos, or insurance card details. This data never leaves your device.</li>
-                <li><strong>We may have (if you signed in):</strong> Medications, tasks, check-ins, and activity summaries synced to our servers (hosted on Supabase) for backup and caregiver sharing.</li>
-                <li><strong>We always have:</strong> Anonymous analytics data (app open events with randomly generated identifiers), website contact form submissions (name, email, message), and access to the emergency SMS relay service (Twilio) used for SOS and fall detection alerts.</li>
+                <li><strong>We do NOT have:</strong> Apple Health or Health Connect data, photos of insurance cards or prescriptions, or your device settings. This data never leaves your device (photos transit temporarily through our server for AI text extraction but are immediately deleted and never stored).</li>
+                <li><strong>We may have (if you signed in):</strong> Medications, tasks, check-ins, and activity summaries synced to our servers (hosted on Supabase, SOC 2 Type II certified). Sensitive fields (user names, contact info, caregiver activity snapshots) are encrypted with AES-256-GCM at rest.</li>
+                <li><strong>We always have:</strong> Anonymous analytics data (via Firebase Analytics, using randomly generated identifiers), crash reports (via Firebase Crashlytics, containing no personal data), website contact form submissions, and access to third-party service credentials (Twilio for SMS, OpenAI for AI features, RevenueCat for subscriptions).</li>
             </ul>
-            <p>If you have not signed in, the scope of any potential breach is limited to anonymous analytics and website contact form data. If you have signed in, your synced account data (medications, tasks, check-ins, activity summaries) could also be affected — but never Apple Health data or photos.</p>
+            <p>If you have not signed in, the scope of any potential breach is limited to anonymous analytics, crash reports, and website contact form data. If you have signed in, your synced account data (medications, tasks, check-ins, activity summaries) could also be affected — but never Apple Health data, Health Connect data, or photos.</p>
         </div>
 
         <div class="section" id="what-could-be-affected">
             <h2>3. What Could Be Affected</h2>
             <p>In the event of a security incident involving our infrastructure, the following data could potentially be affected:</p>
             <ul>
-                <li>Anonymous analytics data (cannot identify you)</li>
+                <li>Anonymous analytics data (via Firebase Analytics — cannot identify you)</li>
+                <li>Crash reports (via Firebase Crashlytics — contain technical error details, not personal data)</li>
                 <li>Website contact form submissions (name, email, message text)</li>
-                <li>Emergency SMS relay configuration (Twilio API credentials, which could theoretically allow unauthorized use of the relay)</li>
-                <li>Synced account data (if you signed in): medications, tasks, check-ins, and activity summaries</li>
+                <li>Third-party service credentials: Twilio API keys (could theoretically allow unauthorized SMS sending), OpenAI API keys (could allow unauthorized AI API usage), RevenueCat configuration</li>
+                <li>Synced account data (if you signed in): medications, tasks, check-ins, and activity summaries — sensitive fields are encrypted with AES-256-GCM</li>
+                <li>Caregiver sharing data: encrypted activity snapshots stored temporarily on our backend (auto-expire after 90 days)</li>
             </ul>
             <p>The following data could <strong>NOT</strong> be affected by a breach of our infrastructure because we never have it:</p>
             <ul>
                 <li>Your health data from Apple Health or Health Connect</li>
                 <li>Photos of insurance cards or prescriptions</li>
                 <li>Your app settings and preferences (stored only on your device)</li>
+                <li>Your subscription payment information (processed and stored by Apple/Google, not by us)</li>
             </ul>
         </div>
 
@@ -214,6 +217,7 @@
                 <li>Determine what data was accessed</li>
                 <li>Identify whether any users could be affected</li>
                 <li>Rotate any compromised credentials (API keys, service accounts)</li>
+                <li>Disable affected third-party service integrations (OpenAI, Twilio, RevenueCat) and re-provision new credentials</li>
                 <li>Begin forensic investigation</li>
             </ul>
         </div>
@@ -244,6 +248,7 @@
                 <li><strong>If you have an account:</strong> Change your password immediately. We may also force a password reset for all affected accounts.</li>
                 <li><strong>If you submitted our website contact form:</strong> Be alert for phishing emails that reference SteadiDay or appear to come from us. We will never ask you for passwords, payment information, or personal data via email.</li>
                 <li><strong>If the SMS relay was compromised:</strong> We would immediately disable and re-secure the relay service. You may want to verify your trusted contacts are correct in the app.</li>
+                <li><strong>If third-party AI credentials were compromised:</strong> No user data is stored by our AI provider (OpenAI). Photos and audio are processed in real time and discarded. A credential compromise could allow unauthorized API usage but would not expose your previously processed data.</li>
                 <li><strong>Update the app:</strong> Install any available updates, as they may contain security fixes.</li>
                 <li><strong>Contact us:</strong> If you notice anything unusual, reach out through the Feedback feature in Settings.</li>
             </ul>
@@ -260,9 +265,12 @@
             <p>Our ongoing security practices include:</p>
             <ul>
                 <li>On-device data architecture that minimizes what we store</li>
-                <li>Encrypted communications for any data that does leave the device (emergency SMS relay)</li>
+                <li>Encrypted communications (TLS) for all data in transit, and AES-256-GCM field-level encryption for sensitive data at rest on our backend</li>
                 <li>Regular review of third-party service configurations</li>
                 <li>Minimal data collection philosophy — we only collect what we need</li>
+                <li>Third-party API keys stored securely on our backend — never embedded in the app</li>
+                <li>Automatic expiration of temporary data (Safety Sessions, caregiver shares, escalation data)</li>
+                <li>SOC 2 Type II certified cloud infrastructure (Supabase)</li>
             </ul>
         </div>
 

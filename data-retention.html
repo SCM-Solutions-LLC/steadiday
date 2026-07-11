@@ -140,7 +140,7 @@
     <main>
         <div class="page-header">
             <h1>Data Retention Policy</h1>
-            <p class="last-updated">Last Updated: June 29, 2026</p>
+            <p class="last-updated">Last Updated: July 11, 2026</p>
         </div>
 
         <div class="toc">
@@ -151,6 +151,7 @@
                 <li><a href="#analytics">3. Anonymous Analytics</a></li>
                 <li><a href="#emergency-sms">4. Emergency SMS Data</a></li>
                 <li><a href="#website">5. Website Data</a></li>
+                <li><a href="#subscription-data">5.5 Subscription Data</a></li>
                 <li><a href="#uninstalling">6. Uninstalling the App</a></li>
                 <li><a href="#backups">7. Device Backups</a></li>
                 <li><a href="#your-control">8. Your Control</a></li>
@@ -175,6 +176,10 @@
                 <li>Food and water intake logs</li>
                 <li>Health data synced from Apple Health (iOS) or Health Connect (Android)</li>
                 <li>App settings and preferences</li>
+                <li>Insurance card details (plan name, member ID, group number)</li>
+                <li>Medical records (lab results, diagnoses, procedures, allergies)</li>
+                <li>Doctor and care team information</li>
+                <li>Notes and parking spot locations</li>
             </ul>
             <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. If you are not signed in, it is never uploaded to our servers. If you are signed in, some of this data (medications, tasks, check-ins, activity summaries) is synced to our servers — see Section 2.1 below. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
 
@@ -188,23 +193,35 @@
             </ul>
             <p><strong>How long it's kept:</strong> Synced data is retained on our servers for as long as your account exists. You can delete your account and all associated server data at any time from within the app. When you delete your account, all synced data is permanently removed from our servers within 30 days.</p>
             <p><strong>What is never synced:</strong> Apple Health data, photos, and insurance card details are never uploaded to our servers regardless of sign-in status.</p>
+
+            <h3>2.2 Backend Data Retention Periods</h3>
+            <p>Our backend server temporarily stores certain data to provide safety and sharing features. This data has specific retention periods and is automatically cleaned up:</p>
+            <ul>
+                <li><strong>Safety Session data (live location):</strong> GPS coordinates are held in memory only during an active Safety Session. Location data is discarded immediately when the session ends. Abandoned Safety Sessions are automatically expired after 7 days.</li>
+                <li><strong>Caregiver activity snapshots:</strong> Encrypted activity data shared with a caregiver (medication adherence, task completion, step counts) is retained for up to 90 days without an update, then automatically deleted. Daily activity history is kept for 30 days.</li>
+                <li><strong>Emergency escalation data:</strong> User names and contact information used during fall detection escalation are encrypted with AES-256-GCM and retained for 24 hours after the session ends, then automatically deleted.</li>
+                <li><strong>AI-processed data (photos and audio):</strong> Photos sent for medication label or insurance card scanning, and audio sent for voice transcription, are processed in real time by OpenAI and immediately deleted. They are never stored in any database by SteadiDay or OpenAI.</li>
+            </ul>
         </div>
 
         <div class="section" id="analytics">
             <h2>3. Anonymous Analytics Data</h2>
-            <p>SteadiDay collects minimal, anonymous usage data via Google Analytics to understand general app usage patterns. This includes:</p>
+            <p>SteadiDay collects anonymous usage data via Firebase Analytics (provided by Google) and uses Firebase Crashlytics for crash reporting. This includes:</p>
             <ul>
                 <li>A randomly generated identifier (not linked to your identity)</li>
-                <li>App open events and session timestamps</li>
+                <li>App usage events and feature usage patterns (not the content you enter)</li>
+                <li>Crash reports and error logs (technical information only, no personal data)</li>
+                <li>General device information (device model, operating system version)</li>
             </ul>
             <p>This data does not include any health information, medication details, personal contacts, or any content you create in the app.</p>
-            <p><strong>How long it's kept:</strong> Anonymous analytics data is retained by Google Analytics according to their standard data retention policies (typically 14 months). Since this data is anonymous and cannot identify you, it cannot be linked back to you or deleted on request.</p>
+            <p><strong>How long it's kept:</strong> Anonymous analytics data is retained by Firebase Analytics according to Google's standard data retention policies (typically 2 months for user-level data, 14 months for aggregated data). Crash reports are retained by Firebase Crashlytics for up to 90 days. Since this data is anonymous and cannot identify you, it cannot be linked back to you or deleted on request.</p>
         </div>
 
         <div class="section" id="emergency-sms">
             <h2>4. Emergency SMS Data</h2>
             <p>When you use the Emergency SOS feature or fall detection activates, the app sends an SMS to your trusted contacts via Twilio, a third-party messaging service. The message includes your display name, GPS coordinates, and an alert.</p>
             <p><strong>How long it's kept:</strong> The relay transmits the message and does not store your data afterward. Twilio may retain message delivery logs (phone numbers and timestamps) for up to 13 months in accordance with their data retention policies and telecommunications regulations.</p>
+            <p>The app also sends optional check-in notification SMS messages to trusted contacts (if you enable this feature) via the same Twilio relay service, subject to the same retention practices.</p>
         </div>
 
         <div class="section" id="website">
@@ -214,6 +231,16 @@
                 <li><strong>Contact form submissions:</strong> Your name, email, and message are received by us and retained for as long as needed to respond to your inquiry, then deleted.</li>
                 <li><strong>Website analytics:</strong> Anonymous browsing data (pages visited, referral source, general geographic region) is collected by Google Analytics and retained according to their standard policies.</li>
                 <li><strong>Cookies:</strong> Our website uses cookies for analytics. You can control cookies through your browser settings.</li>
+            </ul>
+        </div>
+
+        <div class="section" id="subscription-data">
+            <h2>5.5 Subscription Data</h2>
+            <p>If you subscribe to SteadiDay Premium:</p>
+            <ul>
+                <li><strong>Payment information:</strong> Processed and stored by the Apple App Store or Google Play Store — we never receive or store your credit card, billing address, or payment method</li>
+                <li><strong>Subscription status:</strong> Your anonymous subscription status (active, expired, trial) is managed by RevenueCat and stored locally on your device. RevenueCat retains subscription event data according to their data retention policies.</li>
+                <li><strong>On your device:</strong> Subscription tier, purchase date, and expiration date are stored locally to manage feature access</li>
             </ul>
         </div>
 
@@ -242,6 +269,8 @@
                 <li><strong>Export:</strong> Save a backup of your data using the Export My Data feature in Settings</li>
                 <li><strong>Remove everything:</strong> Uninstall the app to permanently delete all SteadiDay data from your device</li>
                 <li><strong>Health permissions:</strong> Revoke health data access at any time through your device's privacy settings</li>
+                <li><strong>Account deletion:</strong> Delete your account and all synced server data from within the app settings. Server data is permanently removed within 30 days.</li>
+                <li><strong>Subscription:</strong> Manage or cancel your subscription through the App Store or Google Play Store</li>
             </ul>
             <p>For any questions about data retention, please contact us using the Feedback feature in the app or through our <a href="index.html#contact">website contact form</a>.</p>
         </div>

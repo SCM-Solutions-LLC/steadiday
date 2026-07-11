@@ -208,8 +208,8 @@
                 </svg>
             </div>
             <h1>Your Data Is Private and Secure</h1>
-            <p>We built SteadiDay™ with privacy as the foundation, not an afterthought. Your data is protected by encryption on your device and in transit.</p>
-            <p style="font-size: 0.95rem; color: var(--charcoal-light); margin-top: 1rem;">Last Updated: June 29, 2026</p>
+            <p>We built SteadiDay™ with privacy as the foundation, not an afterthought. Your data is protected by encryption on your device, in transit, and at rest on our servers.</p>
+            <p style="font-size: 0.95rem; color: var(--charcoal-light); margin-top: 1rem;">Last Updated: July 11, 2026</p>
         </div>
     </section>
 
@@ -264,14 +264,16 @@
                 <tbody>
                     <tr><td>Medications & Schedules</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
                     <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
+                    <tr><td>Check-ins &amp; Activity Summaries</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup &amp; caregiver sharing</td></tr>
                     <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Emergency alerts only — name + phone sent to SMS relay (Twilio) to deliver fall/SOS texts, not stored</td></tr>
                     <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: #FF9800; font-weight: 600;">⚠ During active Safety Sessions only — GPS shared with your emergency contacts via secure tokenized link, held in memory only, discarded when session ends</td></tr>
                     <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Food & Water Logs</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
+                    <tr><td>Voice Recordings</td><td class="status-no">✗ Never saved</td><td style="color: #FF9800; font-weight: 600;">⚠ Temporarily — sent to our server for AI transcription (via OpenAI), then immediately deleted. Never stored.</td></tr>
+                    <tr><td>Subscription Status</td><td class="status-yes">✓ Yes, on device</td><td style="color: #FF9800; font-weight: 600;">⚠ Anonymous purchase status sent to RevenueCat (subscription manager). No health or personal data included.</td></tr>
                     <tr><td>Doctor Information</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Insurance Card Details</td><td class="status-yes">✓ Text only, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Insurance Card Photos</td><td class="status-no">✗ Never saved</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Prescription Photos</td><td class="status-no">✗ Never saved</td><td class="status-no">✗ Never</td></tr>
+                    <tr><td>Insurance Card &amp; Prescription Photos</td><td class="status-no">✗ Never saved</td><td style="color: #FF9800; font-weight: 600;">⚠ Temporarily — sent to our server for AI text extraction (via OpenAI), then immediately deleted. Never stored.</td></tr>
                 </tbody>
             </table>
         </div>
@@ -315,8 +317,8 @@
                         <li>Sell or share your information</li>
                         <li>Store photos of cards or prescriptions</li>
                         <li>Show sensitive info in notifications</li>
-                        <li>Track your behavior or screen activity within the app</li>
-                        <li>Connect to advertising networks</li>
+                        <li>Track your personal content, health data, or identifiable behavior within the app</li>
+                        <li>Display third-party advertisements</li>
                         <li>Require an account to use the app (sign-in is optional)</li>
                     </ul>
                 </div>
@@ -329,7 +331,7 @@
                     </svg>
                     A note about analytics
                 </h4>
-                <p>SteadiDay™ collects minimal, anonymous analytics (app opens and session starts only) to help us understand how many people use the app and whether our advertising reaches the right audience. This data uses a random identifier that is not linked to you, your device, or your Apple ID. It never includes your health data, medications, tasks, contacts, or anything you enter in the app. Our website (steadiday.com) also uses standard Google Analytics to understand how visitors find our site. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--teal-dark); text-decoration: underline;">Privacy Policy</a>.</p>
+                <p>SteadiDay™ collects anonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs to help us understand how many people use the app and whether our advertising reaches the right audience. This data uses a random identifier that is not linked to you, your device, or your Apple ID. It never includes your health data, medications, tasks, contacts, or anything you enter in the app. Our website (steadiday.com) also uses standard Google Analytics to understand how visitors find our site. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--teal-dark); text-decoration: underline;">Privacy Policy</a>.</p>
             </div>
         </div>
 
@@ -353,7 +355,7 @@
                 <div class="photo-step">
                     <div class="photo-step-number">2</div>
                     <h4>Read</h4>
-                    <p>App reads the text on your device</p>
+                    <p>Photo is securely sent to our server for AI text extraction</p>
                 </div>
                 <span class="photo-arrow">→</span>
                 <div class="photo-step">
@@ -376,7 +378,7 @@
                     </svg>
                     Important
                 </h4>
-                <p>Photos are only used to read text and fill forms automatically. They're deleted within seconds and are never stored on your device or sent anywhere. Only the typed text (like your member ID) is saved.</p>
+                <p>Photos are temporarily sent to our secure server, where AI technology (OpenAI) reads the text and returns it to the app. Photos are deleted within seconds and are never stored in any database or retained by any service. Only the extracted text (like your member ID or medication name) is saved in the app.</p>
             </div>
         </div>
 
@@ -402,6 +404,8 @@
                         <li>Auto-lock after 15 min idle</li>
                         <li>Lock when app goes to background</li>
                         <li>Secure PIN storage (SHA-256 hashed)</li>
+                        <li>Sensitive tokens stored in device keychain (iOS) or encrypted storage (Android)</li>
+                        <li>Screen capture prevention capability</li>
                     </ul>
                 </div>
                 <div class="do-list" style="border-top-color: var(--teal);">
@@ -433,8 +437,8 @@
             
             <div class="key-points" style="margin-top: 1.5rem;">
                 <div class="key-point">
-                    <h3>Apple HealthKit</h3>
-                    <p>Full compliance with Apple's strict health data guidelines. Data never shared with third parties.</p>
+                    <h3>Apple HealthKit &amp; Health Connect</h3>
+                    <p>Full compliance with Apple's HealthKit guidelines and Google's Health Connect requirements. Health data never shared with third parties.</p>
                 </div>
                 <div class="key-point">
                     <h3>Healthcare Privacy Best Practices</h3>
@@ -447,6 +451,24 @@
             </div>
         </div>
 
+        <div class="section">
+            <h2>
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2"/>
+                </svg>
+                Backend &amp; Server Security
+            </h2>
+            <p>When data does leave your device (emergency alerts, synced account data, caregiver sharing), it is protected by multiple layers of security:</p>
+            <ul>
+                <li><strong>Encryption in transit:</strong> All communications between the app and our servers use TLS encryption</li>
+                <li><strong>Encryption at rest:</strong> Synced data is encrypted at rest on our cloud infrastructure (Supabase, SOC 2 Type II certified)</li>
+                <li><strong>Field-level encryption:</strong> Sensitive data on our backend (user names, contact information, caregiver activity snapshots) is encrypted with AES-256-GCM before storage</li>
+                <li><strong>Tokenized sharing:</strong> Caregiver activity views and live location sharing use secure, time-limited tokens — not direct database access</li>
+                <li><strong>Automatic expiration:</strong> Safety Session data is discarded when sessions end. Caregiver sharing data expires after 90 days without update. Abandoned sessions are automatically cleaned up.</li>
+                <li><strong>API key protection:</strong> All third-party API keys (OpenAI, Twilio) are stored securely on our backend servers — never in the app itself</li>
+            </ul>
+        </div>
+
         <div class="cta-section">
             <h2>Ready to Take Control?</h2>
             <p>Download SteadiDay™ and keep your health information private and secure.</p>
@@ -454,7 +476,7 @@
                 <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" width="22" height="22">
                     <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/>
                 </svg>
-                Download Free on the App Store
+                Download on the App Store
             </a>
         </div>
     </main>
