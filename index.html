@@ -738,6 +738,65 @@ gtag('config', 'G-LF8H890XTV');
         line-height: 1.7;
     }
 
+    /* ==================== SCREENSHOT GALLERY ==================== */
+    .gallery-section {
+        padding: 5rem 0;
+        background: var(--off-white);
+        overflow: hidden;
+    }
+
+    .gallery-track-wrap {
+        position: relative;
+        margin-top: 0.5rem;
+    }
+
+    .gallery-track {
+        display: flex;
+        gap: 1.25rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
+        padding: 0 1.5rem 1.5rem;
+        scrollbar-width: none;
+    }
+
+    .gallery-track::-webkit-scrollbar { display: none; }
+
+    .gallery-item {
+        flex: 0 0 240px;
+        scroll-snap-align: start;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: var(--shadow-medium);
+        background: var(--white);
+        transition: transform 0.2s ease;
+    }
+
+    .gallery-item:hover {
+        transform: translateY(-4px);
+    }
+
+    .gallery-item img {
+        width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    .gallery-label {
+        padding: 0.75rem 1rem;
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-dark);
+        text-align: center;
+        background: var(--white);
+    }
+
+    @media (max-width: 768px) {
+        .gallery-item {
+            flex: 0 0 200px;
+        }
+    }
+
     /* ==================== MODE SWITCHER ==================== */
     .modes-section {
         padding: 5rem 0;
@@ -1649,6 +1708,49 @@ gtag('config', 'G-LF8H890XTV');
                         <h3>Simple Mode</h3>
                         <p>A streamlined home screen with just the essentials — large buttons, clear labels, and no clutter. Perfect for anyone who finds typical apps overwhelming. Switch between Simple and Standard any time.</p>
                     </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SCREENSHOT GALLERY ==================== -->
+    <section class="gallery-section">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">See It in Action</div>
+                <h2>What SteadiDay looks like</h2>
+                <p>Clean, simple screens designed for adults 50+ — large buttons, clear text, and no clutter.</p>
+            </div>
+        </div>
+        <div class="gallery-track-wrap">
+            <div class="gallery-track">
+                <div class="gallery-item">
+                    <img src="assets/screenshot-01-simple-home.png" alt="SteadiDay Simple Mode home screen" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Simple Mode Home</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-02-medicines.png" alt="SteadiDay medication reminders" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Medication Reminders</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-07-fall-detection.png" alt="SteadiDay fall detection alert" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Fall Detection</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-03-family-link.png" alt="SteadiDay Family Link caregiver sharing" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Family Link</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-04-steady-moves.png" alt="SteadiDay Steady Moves balance exercises" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Steady Moves</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-05-sos.png" alt="SteadiDay emergency SOS" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Emergency SOS</div>
+                </div>
+                <div class="gallery-item">
+                    <img src="assets/screenshot-06-premium.png" alt="SteadiDay Premium features" loading="lazy" width="1320" height="2868">
+                    <div class="gallery-label">Premium Features</div>
                 </div>
             </div>
         </div>
