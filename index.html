@@ -205,6 +205,14 @@ gtag('config', 'G-LF8H890XTV');
         },
         {
             "@type": "Question",
+            "name": "What is Simple Mode?",
+            "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Simple Mode gives your parent a clean, uncluttered home screen with large buttons for SOS, medications, and daily tasks. Everything else is tucked into a simple More menu. You can switch between Simple Mode and Standard Mode any time in Settings."
+            }
+        },
+        {
+            "@type": "Question",
             "name": "Why are safety features free?",
             "acceptedAnswer": {
                 "@type": "Answer",
@@ -248,9 +256,9 @@ gtag('config', 'G-LF8H890XTV');
         --border: #E5E7EB;
         --border-light: #F0F4F2;
         --text-dark: #111827;
-        --text-body: #374151;
-        --text-muted: #6B7280;
-        --text-light: #9CA3AF;
+        --text-body: #1F2937;
+        --text-muted: #4B5563;
+        --text-light: #6B7280;
         --blue: #5B8FC4;
         --blue-10: rgba(91, 143, 196, 0.1);
         --yellow: #D97706;
@@ -267,7 +275,7 @@ gtag('config', 'G-LF8H890XTV');
 
     body {
         font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        font-size: 15px;
+        font-size: 17px;
         line-height: 1.7;
         color: var(--text-body);
         background: var(--white);
@@ -340,7 +348,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .nav-links a {
-        font-size: 13px;
+        font-size: 14px;
         font-weight: 500;
         color: var(--text-muted);
         transition: color 0.2s ease;
@@ -356,7 +364,7 @@ gtag('config', 'G-LF8H890XTV');
         padding: 0.5rem 1.125rem;
         border-radius: 8px;
         font-weight: 600;
-        font-size: 13px !important;
+        font-size: 14px !important;
         transition: background 0.2s ease;
     }
 
@@ -416,7 +424,7 @@ gtag('config', 'G-LF8H890XTV');
         color: var(--sage);
         padding: 0.375rem 0.875rem;
         border-radius: 100px;
-        font-size: 12px;
+        font-size: 13px;
         font-weight: 600;
         margin-bottom: 1.25rem;
     }
@@ -518,7 +526,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .hero-stat-label {
-        font-size: 14px;
+        font-size: 15px;
         color: var(--text-body);
         font-weight: 500;
         margin-top: 0.25rem;
@@ -558,7 +566,7 @@ gtag('config', 'G-LF8H890XTV');
         padding: 0.625rem 0.75rem;
         background: var(--light-green);
         border-radius: 10px;
-        font-size: 12px;
+        font-size: 14px;
         font-weight: 500;
         color: var(--text-body);
     }
@@ -575,7 +583,7 @@ gtag('config', 'G-LF8H890XTV');
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -593,7 +601,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .section-header p {
-        font-size: 16px;
+        font-size: 17px;
         color: var(--text-body);
         max-width: 560px;
     }
@@ -634,8 +642,8 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .stat-card-desc {
-        font-size: 15px;
-        color: #374151;
+        font-size: 16px;
+        color: var(--text-body);
         line-height: 1.7;
     }
 
@@ -648,13 +656,175 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .callout-box p {
-        font-size: 14px;
+        font-size: 15px;
         color: var(--text-body);
         line-height: 1.7;
     }
 
     .callout-box strong {
         color: var(--text-dark);
+    }
+
+    /* ==================== KEY FEATURES ==================== */
+    .features-section {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5rem;
+    }
+
+    .feature-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 1px solid var(--border);
+        display: flex;
+        gap: 1.25rem;
+        align-items: flex-start;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .feature-card:hover {
+        box-shadow: var(--shadow-soft);
+    }
+
+    .feature-card-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+    }
+
+    .feature-card-icon svg {
+        width: 24px;
+        height: 24px;
+    }
+
+    .feature-card-icon.sage { background: var(--sage-10); color: var(--sage); }
+    .feature-card-icon.blue { background: var(--blue-10); color: var(--blue); }
+    .feature-card-icon.amber { background: rgba(217, 119, 6, 0.1); color: #D97706; }
+    .feature-card-icon.rose { background: rgba(220, 38, 38, 0.1); color: #DC2626; }
+
+    .feature-card h3 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 0.25rem;
+    }
+
+    .feature-card .badge-premium {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        background: linear-gradient(135deg, #D97706, #F59E0B);
+        color: var(--white);
+        padding: 0.15rem 0.5rem;
+        border-radius: 4px;
+        margin-left: 0.5rem;
+        vertical-align: middle;
+    }
+
+    .feature-card p {
+        font-size: 16px;
+        color: var(--text-body);
+        line-height: 1.7;
+    }
+
+    /* ==================== MODE SWITCHER ==================== */
+    .modes-section {
+        padding: 5rem 0;
+        background: var(--off-white);
+    }
+
+    .modes-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.5rem;
+        max-width: 880px;
+    }
+
+    .mode-card {
+        background: var(--white);
+        padding: 2rem;
+        border-radius: 16px;
+        border: 2px solid var(--border);
+        text-align: center;
+    }
+
+    .mode-card.highlighted {
+        border-color: var(--sage);
+        box-shadow: 0 0 0 4px var(--sage-10);
+    }
+
+    .mode-card-badge {
+        display: inline-block;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        padding: 0.25rem 0.75rem;
+        border-radius: 100px;
+        margin-bottom: 1rem;
+    }
+
+    .mode-card.highlighted .mode-card-badge {
+        background: var(--sage-10);
+        color: var(--sage);
+    }
+
+    .mode-card:not(.highlighted) .mode-card-badge {
+        background: var(--blue-10);
+        color: var(--blue);
+    }
+
+    .mode-card h3 {
+        font-size: 22px;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+    }
+
+    .mode-card .mode-desc {
+        font-size: 16px;
+        color: var(--text-body);
+        margin-bottom: 1.25rem;
+        line-height: 1.6;
+    }
+
+    .mode-card ul {
+        list-style: none;
+        text-align: left;
+        padding: 0;
+    }
+
+    .mode-card ul li {
+        font-size: 15px;
+        color: var(--text-body);
+        padding: 0.375rem 0;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+
+    .mode-card ul li svg {
+        width: 18px;
+        height: 18px;
+        color: var(--sage);
+        flex-shrink: 0;
+    }
+
+    @media (max-width: 768px) {
+        .features-grid,
+        .modes-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     /* ==================== COMPARISON TABLE ==================== */
@@ -680,11 +850,11 @@ gtag('config', 'G-LF8H890XTV');
 
     .comparison-table th {
         background: var(--border-light);
-        font-size: 13px;
+        font-size: 14px;
         text-transform: uppercase;
         letter-spacing: 0.08em;
         font-weight: 600;
-        color: var(--text-body);
+        color: var(--text-dark);
         padding: 0.875rem 1.25rem;
         text-align: left;
         white-space: nowrap;
@@ -698,7 +868,7 @@ gtag('config', 'G-LF8H890XTV');
     .comparison-table td {
         padding: 0.875rem 1.25rem;
         border-top: 1px solid var(--border);
-        font-size: 14px;
+        font-size: 15px;
         color: var(--text-body);
     }
 
@@ -785,7 +955,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .phase-card h3 {
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 700;
         margin-bottom: 0.375rem;
         position: relative;
@@ -793,7 +963,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .phase-card p {
-        font-size: 14px;
+        font-size: 16px;
         color: var(--text-body);
         line-height: 1.7;
         position: relative;
@@ -839,13 +1009,13 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .roadmap-date {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
-        color: #4B5563;
+        color: var(--text-dark);
     }
 
     .roadmap-label {
-        font-size: 14px;
+        font-size: 15px;
         font-weight: 600;
         color: var(--text-dark);
     }
@@ -874,7 +1044,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .roadmap-content {
-        font-size: 14px;
+        font-size: 15px;
         color: var(--text-body);
         line-height: 1.6;
     }
@@ -913,7 +1083,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .faq-item h3 {
-        font-size: 15px;
+        font-size: 17px;
         font-weight: 600;
         color: var(--text-dark);
         margin-bottom: 0;
@@ -938,12 +1108,12 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .faq-item.open .faq-answer {
-        max-height: 200px;
+        max-height: 300px;
     }
 
     .faq-item p {
         color: var(--text-body);
-        font-size: 15px;
+        font-size: 16px;
         line-height: 1.7;
         padding-top: 0.75rem;
     }
@@ -976,7 +1146,7 @@ gtag('config', 'G-LF8H890XTV');
 
     .blog-card-date {
         display: block;
-        font-size: 11px;
+        font-size: 13px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.08em;
@@ -985,7 +1155,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .blog-card h3 {
-        font-size: 16px;
+        font-size: 17px;
         font-weight: 600;
         color: var(--text-dark);
         line-height: 1.5;
@@ -1013,10 +1183,10 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .cta-band p {
-        font-size: 16px;
+        font-size: 17px;
         color: var(--text-body);
         margin-bottom: 1.5rem;
-        max-width: 420px;
+        max-width: 480px;
         margin-left: auto;
         margin-right: auto;
     }
@@ -1029,8 +1199,8 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .cta-privacy {
-        font-size: 14px;
-        color: #4B5563;
+        font-size: 15px;
+        color: var(--text-body);
         margin-top: 1rem;
         display: flex;
         align-items: center;
@@ -1137,7 +1307,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .footer-copy {
-        font-size: 12px;
+        font-size: 14px;
         color: var(--text-muted);
         text-align: center;
     }
@@ -1149,7 +1319,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .footer-links a {
-        font-size: 12px;
+        font-size: 14px;
         color: var(--text-muted);
         transition: color 0.2s ease;
     }
@@ -1351,7 +1521,7 @@ gtag('config', 'G-LF8H890XTV');
                     Free on the App Store
                 </div>
                 <h1>Help, right when you need it.</h1>
-                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. Emergency SOS, fall detection, medication reminders, and a Care Summary — all in one simple app. No account needed.</p>
+                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. Emergency SOS, fall detection, medication reminders, Family Link caregiver sharing, and balance exercises — all in one simple app with Simple Mode for easy use.</p>
                 <div class="hero-buttons">
                     <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                         <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
@@ -1435,6 +1605,90 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
+    <!-- ==================== KEY FEATURES ==================== -->
+    <section class="features-section">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">Key Features</div>
+                <h2>What makes SteadiDay different</h2>
+                <p>Safety, health, and daily wellness — purpose-built for adults 50+ and the people who care about them.</p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-card-icon rose">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Fall Detection</h3>
+                        <p>Start a Safety Session and the app monitors for hard falls using the iPhone's sensors. If a fall is detected and there's no response within 30 seconds, all trusted contacts are alerted automatically.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon amber">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Family Link <span class="badge-premium">Premium</span></h3>
+                        <p>Share a private Care Summary with a caregiver — they see medication adherence, check-ins, and activity at a glance. No app needed on their side; it's a simple web link.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Steady Moves</h3>
+                        <p>Guided daily balance and strength exercises based on CDC STEADI protocols. Gentle routines you can do from a sturdy chair — with voice guidance and large, clear instructions.</p>
+                    </div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-card-icon sage">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <div>
+                        <h3>Simple Mode</h3>
+                        <p>A streamlined home screen with just the essentials — large buttons, clear labels, and no clutter. Perfect for anyone who finds typical apps overwhelming. Switch between Simple and Standard any time.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== TWO MODES ==================== -->
+    <section class="modes-section">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">Two Ways to Use</div>
+                <h2>Simple Mode or Standard — you choose</h2>
+                <p>Everyone uses technology differently. SteadiDay adapts to fit your comfort level.</p>
+            </div>
+            <div class="modes-grid">
+                <div class="mode-card highlighted">
+                    <span class="mode-card-badge">Recommended for new users</span>
+                    <h3>Simple Mode</h3>
+                    <p class="mode-desc">A clean, uncluttered home screen with large buttons for the features that matter most.</p>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Big SOS button front and center</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Medications and daily tasks</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> All other features in a simple "More" menu</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Nothing to learn — just tap and go</li>
+                    </ul>
+                </div>
+                <div class="mode-card">
+                    <span class="mode-card-badge">Full feature access</span>
+                    <h3>Standard Mode</h3>
+                    <p class="mode-desc">Tab-based navigation with quick access to every feature — health, tools, games, and more.</p>
+                    <ul>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bottom tabs: Home, Health, Tools, More</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Health dashboard with Apple Health sync</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Mind Breaks, magnifier, flashlight</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Switch to Simple Mode any time</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- ==================== COMPARISON TABLE ==================== -->
     <section class="comparison-section" id="compare">
         <div class="container reveal">
@@ -1473,10 +1727,16 @@ gtag('config', 'G-LF8H890XTV');
                             <td><span class="status-dot red"></span> Not included</td>
                         </tr>
                         <tr>
-                            <td class="feature-name">Care Summary</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Shareable</td>
+                            <td class="feature-name">Caregiver Sharing</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Family Link</td>
                             <td><span class="status-dot red"></span> Not available</td>
                             <td><span class="status-dot red"></span> Not available</td>
+                        </tr>
+                        <tr>
+                            <td class="feature-name">Balance Exercises</td>
+                            <td class="highlight-col"><span class="status-dot green"></span> Steady Moves</td>
+                            <td><span class="status-dot red"></span> Not included</td>
+                            <td><span class="status-dot yellow"></span> Some models</td>
                         </tr>
                         <tr>
                             <td class="feature-name">Health Tracking</td>
@@ -1565,7 +1825,7 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="roadmap-row completed">
                     <div class="roadmap-date">Day 1</div>
                     <div class="roadmap-label">Install & Open <span class="roadmap-status done">Done</span></div>
-                    <div class="roadmap-content">Download from the App Store. No sign-up needed — open the app and start exploring.</div>
+                    <div class="roadmap-content">Download from the App Store. No sign-up needed — open in Simple Mode and start exploring right away.</div>
                 </div>
                 <div class="roadmap-row completed">
                     <div class="roadmap-date">Day 1</div>
@@ -1583,9 +1843,14 @@ gtag('config', 'G-LF8H890XTV');
                     <div class="roadmap-content">Connect Apple Health for steps, heart rate, and sleep. Set up food and water tracking.</div>
                 </div>
                 <div class="roadmap-row future">
+                    <div class="roadmap-date">Day 5–7</div>
+                    <div class="roadmap-label">Try Steady Moves</div>
+                    <div class="roadmap-content">Start gentle daily balance exercises. Guided routines you can do from a chair — just a few minutes a day.</div>
+                </div>
+                <div class="roadmap-row future">
                     <div class="roadmap-date">Week 1+</div>
-                    <div class="roadmap-label">Care Summary</div>
-                    <div class="roadmap-content">Share a daily summary with family — they'll know everything is okay without checking in every day.</div>
+                    <div class="roadmap-label">Family Link</div>
+                    <div class="roadmap-content">Share a private Care Summary with a caregiver — they see medication adherence and check-ins via a simple web link. Premium feature.</div>
                 </div>
                 <div class="roadmap-row future">
                     <div class="roadmap-date">Always</div>
@@ -1651,6 +1916,15 @@ gtag('config', 'G-LF8H890XTV');
                 </div>
                 <div class="faq-item">
                     <button class="faq-question" aria-expanded="false">
+                        <h3>What is Simple Mode?</h3>
+                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Simple Mode gives your parent a clean, uncluttered home screen with large buttons for SOS, medications, and daily tasks. Everything else is tucked into a simple "More" menu. You can switch between Simple Mode and Standard Mode any time in Settings.</p>
+                    </div>
+                </div>
+                <div class="faq-item">
+                    <button class="faq-question" aria-expanded="false">
                         <h3>Why are safety features free?</h3>
                         <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
                     </button>
@@ -1700,7 +1974,7 @@ gtag('config', 'G-LF8H890XTV');
     <section class="cta-band" id="download">
         <div class="container">
             <h2>Set it up for the parent you worry about</h2>
-            <p>Free on the App Store. Every feature included. No account needed. Five minutes to set up.</p>
+            <p>Safety essentials are free — forever. No account needed. Five minutes to set up. Premium unlocks even more.</p>
             <div class="cta-band-buttons">
                 <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                     <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
@@ -1708,7 +1982,7 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <p class="cta-privacy">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                100% free. Your data is private and secure.
+                Safety essentials free. Your data is private and secure.
             </p>
         </div>
     </section>
