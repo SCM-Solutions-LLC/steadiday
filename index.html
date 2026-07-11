@@ -685,11 +685,6 @@ gtag('config', 'G-LF8H890XTV');
         display: flex;
         gap: 1.25rem;
         align-items: flex-start;
-        transition: box-shadow 0.2s ease;
-    }
-
-    .feature-card:hover {
-        box-shadow: var(--shadow-soft);
     }
 
     .feature-card-icon {
@@ -738,62 +733,147 @@ gtag('config', 'G-LF8H890XTV');
         line-height: 1.7;
     }
 
-    /* ==================== SCREENSHOT GALLERY ==================== */
+    /* ==================== SCREENSHOT SHOWCASE ==================== */
     .gallery-section {
         padding: 5rem 0;
         background: var(--off-white);
         overflow: hidden;
     }
 
-    .gallery-track-wrap {
-        position: relative;
-        margin-top: 0.5rem;
+    .showcase-row {
+        display: grid;
+        grid-template-columns: 280px 1fr;
+        gap: 3rem;
+        align-items: center;
+        max-width: 820px;
+        margin: 0 auto 4rem;
+        padding: 0 1.5rem;
     }
 
-    .gallery-track {
-        display: flex;
-        gap: 1.25rem;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        -webkit-overflow-scrolling: touch;
-        padding: 0 1.5rem 1.5rem;
-        scrollbar-width: none;
+    .showcase-row:last-child { margin-bottom: 0; }
+
+    .showcase-row.reverse {
+        grid-template-columns: 1fr 280px;
     }
 
-    .gallery-track::-webkit-scrollbar { display: none; }
+    .showcase-row.reverse .showcase-phone {
+        order: 2;
+    }
 
-    .gallery-item {
-        flex: 0 0 240px;
-        scroll-snap-align: start;
-        border-radius: 20px;
+    .showcase-row.reverse .showcase-text {
+        order: 1;
+        text-align: right;
+    }
+
+    .showcase-phone {
+        border-radius: 24px;
         overflow: hidden;
-        box-shadow: var(--shadow-medium);
+        box-shadow: 0 12px 40px rgba(0, 0, 0, 0.12);
         background: var(--white);
-        transition: transform 0.2s ease;
+        transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
     }
 
-    .gallery-item:hover {
-        transform: translateY(-4px);
+    .showcase-phone:hover {
+        transform: translateY(-6px);
     }
 
-    .gallery-item img {
+    .showcase-phone img {
         width: 100%;
         height: auto;
         display: block;
     }
 
-    .gallery-label {
-        padding: 0.75rem 1rem;
+    .showcase-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        padding: 0.25rem 0.75rem;
+        border-radius: 100px;
+        margin-bottom: 0.75rem;
+    }
+
+    .showcase-tag.free {
+        background: var(--sage-10);
+        color: var(--sage);
+    }
+
+    .showcase-tag.premium {
+        background: rgba(217, 119, 6, 0.1);
+        color: #B45309;
+    }
+
+    .showcase-text h3 {
+        font-size: 24px;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: var(--text-dark);
+    }
+
+    .showcase-text p {
+        font-size: 16px;
+        color: var(--text-body);
+        line-height: 1.7;
+    }
+
+    .showcase-compact {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        max-width: 820px;
+        margin: 3rem auto 0;
+        padding: 0 1.5rem;
+    }
+
+    .showcase-compact-item {
+        text-align: center;
+    }
+
+    .showcase-compact-item .showcase-phone {
+        margin-bottom: 0.75rem;
+    }
+
+    .showcase-compact-item .showcase-compact-label {
         font-size: 14px;
         font-weight: 600;
         color: var(--text-dark);
-        text-align: center;
-        background: var(--white);
+    }
+
+    .showcase-compact-item .showcase-compact-desc {
+        font-size: 13px;
+        color: var(--text-muted);
+        margin-top: 0.125rem;
     }
 
     @media (max-width: 768px) {
-        .gallery-item {
-            flex: 0 0 200px;
+        .showcase-row,
+        .showcase-row.reverse {
+            grid-template-columns: 1fr;
+            gap: 1.5rem;
+            max-width: 380px;
+            margin-bottom: 3rem;
+        }
+
+        .showcase-row .showcase-phone,
+        .showcase-row.reverse .showcase-phone {
+            max-width: 240px;
+            margin: 0 auto;
+            order: 1;
+        }
+
+        .showcase-row .showcase-text,
+        .showcase-row.reverse .showcase-text {
+            order: 2;
+            text-align: center;
+        }
+
+        .showcase-compact {
+            grid-template-columns: 1fr;
+            max-width: 240px;
+            gap: 2rem;
         }
     }
 
@@ -877,6 +957,19 @@ gtag('config', 'G-LF8H890XTV');
         height: 18px;
         color: var(--sage);
         flex-shrink: 0;
+    }
+
+    .mode-card-screenshot {
+        margin-bottom: 1.25rem;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+    }
+
+    .mode-card-screenshot img {
+        width: 100%;
+        height: auto;
+        display: block;
     }
 
     @media (max-width: 768px) {
@@ -1390,13 +1483,72 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== SCROLL REVEAL ==================== */
     .js-reveal .reveal {
         opacity: 0;
-        transform: translateY(16px);
-        transition: opacity 0.5s ease, transform 0.5s ease;
+        transform: translateY(24px);
+        transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
     }
 
     .js-reveal .reveal.visible {
         opacity: 1;
         transform: translateY(0);
+    }
+
+    .js-reveal .reveal-left {
+        opacity: 0;
+        transform: translateX(-32px);
+        transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .js-reveal .reveal-right {
+        opacity: 0;
+        transform: translateX(32px);
+        transition: opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1), transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .js-reveal .reveal-left.visible,
+    .js-reveal .reveal-right.visible {
+        opacity: 1;
+        transform: translateX(0);
+    }
+
+    .js-reveal [data-delay="1"] { transition-delay: 0.1s; }
+    .js-reveal [data-delay="2"] { transition-delay: 0.2s; }
+    .js-reveal [data-delay="3"] { transition-delay: 0.3s; }
+    .js-reveal [data-delay="4"] { transition-delay: 0.4s; }
+
+    .feature-card {
+        transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .feature-card:hover {
+        box-shadow: 0 8px 28px rgba(74, 157, 126, 0.14);
+        transform: translateY(-2px);
+    }
+
+    .stat-card {
+        transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .stat-card:hover {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .phase-card {
+        transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .phase-card:hover {
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
+        transform: translateY(-2px);
+    }
+
+    .mode-card {
+        transition: box-shadow 0.25s ease, transform 0.25s ease;
+    }
+
+    .mode-card:hover {
+        box-shadow: 0 8px 28px rgba(74, 157, 126, 0.12);
+        transform: translateY(-2px);
     }
 
     /* ==================== RESPONSIVE ==================== */
@@ -1642,17 +1794,17 @@ gtag('config', 'G-LF8H890XTV');
                 <p>SteadiDay was designed for the questions that keep adult children up at night.</p>
             </div>
             <div class="stats-grid">
-                <div class="stat-card">
+                <div class="stat-card reveal" data-delay="1">
                     <div class="stat-card-number">Quick SOS</div>
                     <div class="stat-card-title">Emergency help for your loved one</div>
                     <p class="stat-card-desc">The SOS button on the home screen starts an emergency flow that can call 911, text your location to a trusted contact, or call them directly — just a few taps.</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card reveal" data-delay="2">
                     <div class="stat-card-number">30 sec</div>
                     <div class="stat-card-title">Auto-alert after a detected fall</div>
                     <p class="stat-card-desc">Start a Safety Session to enable fall detection. If a hard fall is detected and there's no response within 30 seconds, the app texts all trusted contacts.</p>
                 </div>
-                <div class="stat-card">
+                <div class="stat-card reveal" data-delay="3">
                     <div class="stat-card-number">Zero</div>
                     <div class="stat-card-title">Accounts or passwords to get started</div>
                     <p class="stat-card-desc">No accounts, no passwords. Install on their iPhone, add your number as the emergency contact, and you're done. Five minutes. Safety essentials are always free.</p>
@@ -1673,7 +1825,7 @@ gtag('config', 'G-LF8H890XTV');
                 <p>Safety, health, and daily wellness — purpose-built for adults 50+ and the people who care about them.</p>
             </div>
             <div class="features-grid">
-                <div class="feature-card">
+                <div class="feature-card reveal" data-delay="1">
                     <div class="feature-card-icon rose">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
@@ -1682,7 +1834,7 @@ gtag('config', 'G-LF8H890XTV');
                         <p>Start a Safety Session and the app monitors for hard falls using the iPhone's sensors. If a fall is detected and there's no response within 30 seconds, all trusted contacts are alerted automatically.</p>
                     </div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal" data-delay="2">
                     <div class="feature-card-icon amber">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
@@ -1691,16 +1843,16 @@ gtag('config', 'G-LF8H890XTV');
                         <p>Share a private Care Summary with a caregiver — they see medication adherence, check-ins, and activity at a glance. No app needed on their side; it's a simple web link.</p>
                     </div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal" data-delay="3">
                     <div class="feature-card-icon blue">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     </div>
                     <div>
-                        <h3>Steady Moves</h3>
+                        <h3>Steady Moves <span class="badge-premium">Premium</span></h3>
                         <p>Guided daily balance and strength exercises based on CDC STEADI protocols. Gentle routines you can do from a sturdy chair — with voice guidance and large, clear instructions.</p>
                     </div>
                 </div>
-                <div class="feature-card">
+                <div class="feature-card reveal" data-delay="4">
                     <div class="feature-card-icon sage">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
@@ -1713,7 +1865,7 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- ==================== SCREENSHOT GALLERY ==================== -->
+    <!-- ==================== SCREENSHOT SHOWCASE ==================== -->
     <section class="gallery-section">
         <div class="container reveal">
             <div class="section-header">
@@ -1722,36 +1874,79 @@ gtag('config', 'G-LF8H890XTV');
                 <p>Clean, simple screens designed for adults 50+ — large buttons, clear text, and no clutter.</p>
             </div>
         </div>
-        <div class="gallery-track-wrap">
-            <div class="gallery-track">
-                <div class="gallery-item">
-                    <img src="assets/screenshot-01-simple-home.png" alt="SteadiDay Simple Mode home screen" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Simple Mode Home</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/screenshot-02-medicines.png" alt="SteadiDay medication reminders" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Medication Reminders</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/screenshot-07-fall-detection.png" alt="SteadiDay fall detection alert" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Fall Detection</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/screenshot-03-family-link.png" alt="SteadiDay Family Link caregiver sharing" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Family Link</div>
-                </div>
-                <div class="gallery-item">
-                    <img src="assets/screenshot-04-steady-moves.png" alt="SteadiDay Steady Moves balance exercises" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Steady Moves</div>
-                </div>
-                <div class="gallery-item">
+
+        <div class="showcase-row reveal-left">
+            <div class="showcase-phone">
+                <img src="assets/screenshot-07-fall-detection.png" alt="SteadiDay fall detection alert with 30-second countdown" loading="lazy" width="1320" height="2868">
+            </div>
+            <div class="showcase-text">
+                <span class="showcase-tag free">Free</span>
+                <h3>Fall Detection</h3>
+                <p>Start a Safety Session and the app monitors for hard falls in the background. If a fall is detected and there's no response within 30 seconds, all trusted contacts are texted automatically with your location.</p>
+            </div>
+        </div>
+
+        <div class="showcase-row reverse reveal-right">
+            <div class="showcase-text">
+                <span class="showcase-tag free">Free</span>
+                <h3>Medication Reminders</h3>
+                <p>Never miss a dose. Add medications by scanning the label or typing the name, set reminder times, and get gentle notifications. Track adherence over time and share it with a caregiver through Family Link.</p>
+            </div>
+            <div class="showcase-phone">
+                <img src="assets/screenshot-02-medicines.png" alt="SteadiDay medication reminders screen" loading="lazy" width="1320" height="2868">
+            </div>
+        </div>
+
+        <div class="showcase-row reveal-left">
+            <div class="showcase-phone">
+                <img src="assets/screenshot-03-family-link.png" alt="SteadiDay Family Link caregiver sharing" loading="lazy" width="1320" height="2868">
+            </div>
+            <div class="showcase-text">
+                <span class="showcase-tag premium">Premium</span>
+                <h3>Family Link</h3>
+                <p>Share a private Care Summary with a caregiver — they see medication adherence, daily check-ins, and activity at a glance. No app needed on their side; it's a simple, private web link.</p>
+            </div>
+        </div>
+
+        <div class="showcase-row reverse reveal-right">
+            <div class="showcase-text">
+                <span class="showcase-tag premium">Premium</span>
+                <h3>Steady Moves</h3>
+                <p>Guided daily balance and strength exercises based on CDC STEADI protocols. Gentle chair-based routines with voice guidance and large, clear instructions — just a few minutes a day to help prevent falls.</p>
+            </div>
+            <div class="showcase-phone">
+                <img src="assets/screenshot-04-steady-moves.png" alt="SteadiDay Steady Moves balance exercises" loading="lazy" width="1320" height="2868">
+            </div>
+        </div>
+
+        <div class="container reveal">
+            <div style="text-align: center; margin-top: 1rem;">
+                <h3 style="font-size: 20px; margin-bottom: 0.5rem; color: var(--text-dark);">And more everyday tools</h3>
+                <p style="font-size: 16px; color: var(--text-body); margin-bottom: 2rem;">Emergency SOS, premium features overview, and a streamlined home screen.</p>
+            </div>
+        </div>
+
+        <div class="showcase-compact reveal">
+            <div class="showcase-compact-item" data-delay="1">
+                <div class="showcase-phone">
                     <img src="assets/screenshot-05-sos.png" alt="SteadiDay emergency SOS" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Emergency SOS</div>
                 </div>
-                <div class="gallery-item">
+                <div class="showcase-compact-label">Emergency SOS</div>
+                <div class="showcase-compact-desc">One tap to call 911 or text your location</div>
+            </div>
+            <div class="showcase-compact-item" data-delay="2">
+                <div class="showcase-phone">
+                    <img src="assets/screenshot-01-simple-home.png" alt="SteadiDay Simple Mode home screen" loading="lazy" width="1320" height="2868">
+                </div>
+                <div class="showcase-compact-label">Simple Mode</div>
+                <div class="showcase-compact-desc">Large buttons, no clutter</div>
+            </div>
+            <div class="showcase-compact-item" data-delay="3">
+                <div class="showcase-phone">
                     <img src="assets/screenshot-06-premium.png" alt="SteadiDay Premium features" loading="lazy" width="1320" height="2868">
-                    <div class="gallery-label">Premium Features</div>
                 </div>
+                <div class="showcase-compact-label">Premium Features</div>
+                <div class="showcase-compact-desc">Unlock the full experience</div>
             </div>
         </div>
     </section>
@@ -1768,6 +1963,9 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="mode-card highlighted">
                     <span class="mode-card-badge">Recommended for new users</span>
                     <h3>Simple Mode</h3>
+                    <div class="mode-card-screenshot">
+                        <img src="assets/screenshot-01-simple-home.png" alt="Simple Mode home screen with large SOS, medication, and task buttons" loading="lazy" width="1320" height="2868">
+                    </div>
                     <p class="mode-desc">A clean, uncluttered home screen with large buttons for the features that matter most.</p>
                     <ul>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Big SOS button front and center</li>
@@ -1777,8 +1975,11 @@ gtag('config', 'G-LF8H890XTV');
                     </ul>
                 </div>
                 <div class="mode-card">
-                    <span class="mode-card-badge">Full feature access</span>
+                    <span class="mode-card-badge">For experienced users</span>
                     <h3>Standard Mode</h3>
+                    <div class="mode-card-screenshot">
+                        <img src="assets/screenshot-home.png" alt="Standard Mode home screen with tab-based navigation" loading="lazy" width="1287" height="2615">
+                    </div>
                     <p class="mode-desc">Tab-based navigation with quick access to every feature — health, tools, games, and more.</p>
                     <ul>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bottom tabs: Home, Health, Tools, More</li>
@@ -2199,7 +2400,7 @@ gtag('config', 'G-LF8H890XTV');
 
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.documentElement.classList.add('js-reveal');
-            var reveals = document.querySelectorAll('.reveal');
+            var allReveals = document.querySelectorAll('.reveal, .reveal-left, .reveal-right');
             var observer = new IntersectionObserver(function(entries) {
                 entries.forEach(function(entry) {
                     if (entry.isIntersecting) {
@@ -2207,8 +2408,36 @@ gtag('config', 'G-LF8H890XTV');
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { threshold: 0.15 });
-            reveals.forEach(function(el) { observer.observe(el); });
+            }, { threshold: 0.12 });
+            allReveals.forEach(function(el) { observer.observe(el); });
+
+            var statNumbers = document.querySelectorAll('.hero-stat-number');
+            var statObserver = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        var el = entry.target;
+                        var text = el.textContent.trim();
+                        var match = text.match(/^(\d+)/);
+                        if (match) {
+                            var target = parseInt(match[1], 10);
+                            var suffix = text.replace(match[1], '');
+                            var duration = 800;
+                            var start = performance.now();
+                            function tick(now) {
+                                var elapsed = now - start;
+                                var progress = Math.min(elapsed / duration, 1);
+                                var eased = 1 - Math.pow(1 - progress, 3);
+                                el.textContent = Math.round(target * eased) + suffix;
+                                if (progress < 1) requestAnimationFrame(tick);
+                            }
+                            el.textContent = '0' + suffix;
+                            requestAnimationFrame(tick);
+                        }
+                        statObserver.unobserve(el);
+                    }
+                });
+            }, { threshold: 0.5 });
+            statNumbers.forEach(function(el) { statObserver.observe(el); });
         }
     </script>
 
