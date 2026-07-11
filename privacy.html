@@ -140,7 +140,7 @@
     <main>
         <div class="page-header">
             <h1>Privacy Policy</h1>
-            <p class="last-updated">Last Updated: June 29, 2026</p>
+            <p class="last-updated">Last Updated: July 11, 2026</p>
         </div>
 
         <div class="toc">
@@ -152,10 +152,15 @@
                 <li><a href="#storage">4. Data Storage &amp; Security</a></li>
                 <li><a href="#sharing">5. Data Sharing</a></li>
                 <li><a href="#rights">6. Your Privacy Rights</a></li>
-                <li><a href="#healthkit">7. Apple HealthKit Data</a></li>
+                <li><a href="#healthkit">7. Apple HealthKit &amp; Health Connect Data</a></li>
                 <li><a href="#app-analytics">8. App Analytics</a></li>
                 <li><a href="#website">9. Website Analytics</a></li>
                 <li><a href="#sms">10. SMS Text Messaging</a></li>
+                <li><a href="#subscriptions">11. Subscription &amp; Purchase Data</a></li>
+                <li><a href="#children">12. Children's Privacy</a></li>
+                <li><a href="#ccpa">13. California Privacy Rights (CCPA)</a></li>
+                <li><a href="#gdpr">14. GDPR Compliance</a></li>
+                <li><a href="#changes">15. Changes to This Policy</a></li>
             </ul>
         </div>
 
@@ -164,23 +169,26 @@
             <p>Welcome to SteadiDay™ ("we," "our," or "us"), operated by SCM Solutions LLC. We are committed to protecting your privacy and ensuring the security of your personal information. This Privacy Policy explains how we handle your information when you use our mobile application and visit our website.</p>
             <p>By using SteadiDay™, you agree to the practices described in this policy.</p>
             <div class="highlight-box">
-                <p><strong>The short version:</strong> Your data is private and secure. Most of your data stays on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to enable features like caregiver sharing and account backup — Apple Health data always stays on your device. The app does not require an account. The app contains no third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics to improve the app experience. Mobile opt-in data and phone numbers collected for our SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes.</p>
+                <p><strong>The short version:</strong> Your data is private and secure. Most of your data stays on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to enable features like caregiver sharing and account backup — Apple Health data always stays on your device. The app does not require an account. The app does not display third-party advertisements. We don't sell your data to anyone. We collect minimal, anonymous analytics (using Firebase Analytics and Firebase Crashlytics for usage analytics and crash reporting) to improve the app experience. Mobile opt-in data and phone numbers collected for our SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes.</p>
             </div>
         </div>
 
         <div class="section" id="information">
             <h2>2. Information We Collect</h2>
 
-            <h3>2.1 Health Data (On-Device Only)</h3>
-            <p>With your explicit permission, SteadiDay™ reads health-related information through Apple HealthKit, including:</p>
+            <h3>2.1 Health Data</h3>
+            <p>With your explicit permission, SteadiDay™ reads health-related information through Apple HealthKit (iOS) and Health Connect (Android), including:</p>
             <ul>
                 <li>Daily step count and activity data</li>
                 <li>Exercise minutes and workout information</li>
                 <li>Sleep duration and quality metrics</li>
                 <li>Heart rate and other vital signs (if shared)</li>
                 <li>Nutrition and dietary information (if shared)</li>
+                <li>Blood pressure</li>
+                <li>Weight</li>
+                <li>Walking steadiness (iOS)</li>
             </ul>
-            <p><strong>Important:</strong> All health data is stored locally on your device and protected by iOS encryption. We never transmit health data to our servers or any third parties.</p>
+            <p><strong>Important:</strong> Health data from Apple HealthKit and Health Connect is stored locally on your device and protected by your operating system's encryption. We do not transmit health data to our servers or any third parties. Note: If you sign in and enable activity sharing, your daily step count may be included in your activity summary that syncs to our servers — but no other health metrics are synced.</p>
 
             <h3>2.2 User-Created Content</h3>
             <p>Information you enter into the app is stored on your device. If you sign in, some of this data syncs securely to our servers to enable backup, caregiver sharing, and multi-device access:</p>
@@ -192,16 +200,21 @@
                 <li>Custom notes and reminders</li>
                 <li>Medical information and doctor details</li>
                 <li>Check-in responses and activity summaries</li>
+                <li>Insurance card details (plan name, member ID, group number)</li>
+                <li>Medical records (lab results, diagnoses, procedures, allergies)</li>
+                <li>Parking spot locations and notes</li>
             </ul>
             <p><strong>What syncs when signed in:</strong> Medications, tasks, check-ins, and activity summaries are securely synced to our servers (hosted on Supabase) to enable features like caregiver sharing, account recovery, and backup. Photos are never uploaded. Apple Health data always stays on your device.</p>
 
-            <h3>2.3 Photos (Temporary Processing Only)</h3>
+            <h3>2.3 Photos and AI-Powered Scanning</h3>
             <p>When you use the camera to scan an insurance card or prescription label:</p>
             <ul>
-                <li>The photo is processed on your device to extract text</li>
-                <li>Extracted text is used to auto-fill form fields</li>
-                <li>The photo is immediately deleted — it is never saved to your device storage or transmitted anywhere</li>
+                <li>The photo is temporarily sent to our secure backend server, which uses OpenAI's vision technology to extract text (such as drug names, dosages, or insurance member IDs)</li>
+                <li>The extracted text is returned to the app and used to auto-fill form fields</li>
+                <li>The photo is immediately deleted from memory — it is never stored on our servers, in any database, or retained by OpenAI beyond the processing request</li>
+                <li>Only the typed text (such as your medication name or member ID) is saved in the app</li>
             </ul>
+            <p><strong>Important:</strong> We use OpenAI's API solely to read text from your photos. OpenAI processes the image in real time and does not retain it. No photos are stored by SteadiDay or any third party. See <a href="#third-party-services">Section 5.2</a> for more details on our use of third-party services.</p>
 
             <h3>2.4 Location Data</h3>
             <p>If you enable location-based features (such as weather or emergency SOS location sharing), your location is processed on your device. Location data is shared only with your designated emergency contacts in the following cases: (1) when you explicitly trigger the Emergency SOS feature, (2) if fall detection activates and you do not respond within the countdown period, and (3) when you start a Safety Session (see Section 2.5 below). Location data is never shared with advertisers or data brokers.</p>
@@ -218,22 +231,33 @@
                 <li><strong>Your control</strong> — You can end a Safety Session at any time, which immediately stops all location sharing and invalidates the shared link. You can also choose not to use Safety Sessions at all — the rest of the app functions without location access.</li>
             </ol>
 
-            <h3>2.6 Anonymous App Analytics</h3>
-            <p>SteadiDay™ collects minimal, anonymous usage data to help us understand how the app is used and to measure the effectiveness of our advertising campaigns. This includes:</p>
+            <h3>2.6 Audio and Voice Input</h3>
+            <p>SteadiDay™ offers optional voice input features (such as voice notes and voice-guided brain games). When you use voice input:</p>
             <ul>
-                <li>A randomly generated identifier (not linked to your identity, Apple ID, or device)</li>
-                <li>App open events (to measure installs and session frequency)</li>
-                <li>General session timestamps</li>
+                <li>Audio is recorded temporarily on your device</li>
+                <li>The recording is sent to our secure backend server, which uses OpenAI's transcription service (Whisper) to convert speech to text</li>
+                <li>The text transcript is returned to the app; the audio recording is immediately deleted</li>
+                <li>OpenAI does not retain audio recordings beyond the processing request</li>
             </ul>
-            <p>This data is sent to Google Analytics via the Measurement Protocol. It does <strong>not</strong> include any of your health data, medication information, task details, personal contacts, or any content you create within the app. See <a href="#app-analytics">Section 8</a> for full details.</p>
+            <p>Microphone access requires your explicit permission and can be revoked at any time through your device settings.</p>
 
-            <h3>2.7 What We Do NOT Collect or Display</h3>
+            <h3>2.7 App Analytics and Crash Reporting</h3>
+            <p>SteadiDay™ uses Firebase Analytics and Firebase Crashlytics (provided by Google) to help us understand how the app is used and to identify and fix crashes. This includes:</p>
+            <ul>
+                <li>App open events and session frequency</li>
+                <li>Feature usage patterns (e.g., which features are used most often, but not what you enter into them)</li>
+                <li>Crash reports and error logs to help us fix bugs quickly</li>
+                <li>General device information (device model, operating system version)</li>
+            </ul>
+            <p>This data is associated with a randomly generated identifier that is <strong>not</strong> linked to your identity, Apple ID, Google account, or device. It does <strong>not</strong> include any of your health data, medication information, task details, personal contacts, or any content you create within the app. See <a href="#app-analytics">Section 8</a> for full details.</p>
+
+            <h3>2.8 What We Do NOT Collect or Display</h3>
             <p>SteadiDay™ does not collect, store, or transmit:</p>
             <ul>
                 <li>Apple Health or HealthKit data to any server</li>
                 <li>Photos of insurance cards or prescriptions</li>
                 <li>Apple advertising identifiers (IDFA) or device fingerprints</li>
-                <li>Crash reports sent to our servers from the app</li>
+                <li>Your biometric data (Face ID, Touch ID, and fingerprint data are handled entirely by your device's operating system and never leave your device)</li>
             </ul>
             <p><strong>Note:</strong> An account is optional. If you choose not to sign in, all your data remains on your device. If you do sign in, only the data described in Section 2.2 is synced.</p>
             <p>The app also does not display third-party advertisements. SteadiDay™ contains no banner ads, video ads, sponsored content, or in-app advertising of any kind.</p>
@@ -294,8 +318,19 @@
             <h3>5.1 We Do NOT Sell Your Data</h3>
             <p>We do not sell, rent, or trade your personal information to third parties. Period.</p>
 
-            <h3>5.2 Third-Party Services</h3>
-            <p>SteadiDay™ sends anonymous, non-personal analytics data (app open events and session starts) to Google Analytics for the purpose of measuring app usage and advertising effectiveness. This data cannot be used to identify you. No health data, medication information, personal content, or identifiable information is ever shared.</p>
+            <h3 id="third-party-services">5.2 Third-Party Services</h3>
+            <p>SteadiDay™ uses the following third-party services to provide app functionality:</p>
+            <ul>
+                <li><strong>Firebase Analytics &amp; Crashlytics (Google):</strong> Anonymous app usage analytics and crash reporting. No personal data, health data, or app content is included. See <a href="#app-analytics">Section 8</a> for details.</li>
+                <li><strong>OpenAI:</strong> Processes photos of medication labels and insurance cards to extract text, and transcribes voice input to text. Photos and audio are processed in real time and are not retained by OpenAI. No health data from Apple HealthKit or Health Connect is ever sent to OpenAI.</li>
+                <li><strong>Twilio:</strong> Delivers emergency SMS text messages to your trusted contacts during SOS and fall detection events, and check-in notifications when you opt in. See <a href="#sms">Section 10</a> for details.</li>
+                <li><strong>Supabase:</strong> Provides secure cloud infrastructure for optional account sync, authentication, and data backup. Supabase is SOC 2 Type II certified. Data synced to Supabase is encrypted in transit and at rest.</li>
+                <li><strong>RevenueCat:</strong> Manages optional in-app subscriptions. RevenueCat receives your anonymous purchase data from the App Store or Google Play (such as subscription status and purchase dates) but does not receive your health data, medications, or any app content.</li>
+                <li><strong>Apple Sign-In / Google Sign-In:</strong> If you choose to sign in, we receive your name, email address, and profile information from the authentication provider you select. We do not receive your password.</li>
+                <li><strong>NPI Registry (CMS) &amp; RxNorm (NLM):</strong> Government healthcare databases used for doctor lookup and medication name autocomplete. Search terms you enter (doctor names, drug names) are sent to these public APIs.</li>
+                <li><strong>Open-Meteo:</strong> Provides weather data for the weather widget. Your city name (from your profile) is sent to this free, open-source weather API. No other personal data is shared.</li>
+            </ul>
+            <p>We do not sell, rent, or trade your personal data to any third party. These services receive only the minimum data necessary to provide their specific functionality.</p>
 
             <h3>5.3 Emergency SOS, Fall Detection Alerts &amp; SMS Messaging</h3>
             <p>When you activate Emergency SOS or when fall detection activates and you do not respond within the countdown period, the app automatically sends SMS text messages to your designated trusted contacts via Twilio, a third-party messaging relay service. These messages include your display name, GPS coordinates (as a Google Maps link), and an alert that you may need help. The relay transmits only the minimum information needed to deliver the text — your display name, trusted contact phone numbers, and GPS coordinates. No data is stored on the relay server after the message is sent. Message and data rates may apply. See <a href="#sms">Section 10</a> for full details about the SteadiDay™ SMS program, including consent, frequency, and opt-out information.</p>
@@ -322,44 +357,46 @@
         </div>
 
         <div class="section" id="healthkit">
-            <h2>7. Apple HealthKit Data</h2>
-            <p>We comply fully with Apple's HealthKit guidelines:</p>
+            <h2>7. Apple HealthKit &amp; Health Connect Data</h2>
+            <p>We comply fully with Apple's HealthKit guidelines and Google's Health Connect requirements:</p>
             <ul>
                 <li>Health data is NEVER shared with third parties for advertising or marketing</li>
-                <li>Health data is NEVER uploaded to external servers</li>
+                <li>Health data is NEVER uploaded to external servers (with the exception that daily step counts may be included in activity summaries synced to our servers if you sign in and enable activity sharing)</li>
                 <li>Health data is NEVER included in analytics data sent to Google or any other service</li>
                 <li>Health data is used only to display wellness information within the app</li>
-                <li>You can revoke HealthKit permissions at any time through iOS Settings</li>
+                <li>You can revoke health permissions at any time through iOS Settings or Android Settings</li>
                 <li>We do not use health data for any purpose other than providing app functionality</li>
+                <li>On Android, Health Connect data is subject to the same protections — it is stored locally and never transmitted to our servers or any third parties</li>
             </ul>
         </div>
 
         <div class="section" id="app-analytics">
             <h2>8. App Analytics</h2>
-            <p>SteadiDay™ uses Google Analytics (via the Measurement Protocol) to collect minimal, anonymous usage data. This helps us understand how often the app is used and whether our advertising is effective at reaching people who benefit from the app.</p>
+            <p>SteadiDay™ uses Firebase Analytics and Firebase Crashlytics (provided by Google) to collect anonymous usage data and crash reports. This helps us understand how the app is used, identify and fix bugs, and measure whether our advertising is effective at reaching people who benefit from the app.</p>
 
             <h3>8.1 What App Analytics Collects</h3>
             <ul>
-                <li>A randomly generated anonymous identifier (a UUID created on your device — not your Apple ID, name, or any personal identifier)</li>
-                <li>A "first open" event when the app is opened for the first time after installation</li>
-                <li>A "session start" event each time the app is opened</li>
-                <li>General timestamp of these events</li>
+                <li>A randomly generated anonymous identifier (not your Apple ID, Google account, name, or any personal identifier)</li>
+                <li>App open events and session frequency</li>
+                <li>Feature usage events (e.g., that a feature was used, but not what you entered into it)</li>
+                <li>Crash reports and error logs (via Firebase Crashlytics) to help us identify and fix bugs</li>
+                <li>General device information (device model, operating system version)</li>
             </ul>
 
             <h3>8.2 What App Analytics Does NOT Collect</h3>
             <ul>
                 <li>Your health data, medications, tasks, contacts, or any content you create in the app</li>
                 <li>Your name, email, phone number, or any personally identifiable information</li>
-                <li>Your Apple ID or Apple advertising identifier (IDFA)</li>
+                <li>Your Apple ID, Google account, or Apple advertising identifier (IDFA)</li>
                 <li>Your precise location</li>
-                <li>Screen views, button taps, or detailed usage behavior within the app</li>
+                <li>The content of your notes, check-ins, or any text you enter</li>
             </ul>
 
             <h3>8.3 SKAdNetwork</h3>
             <p>SteadiDay™ supports Apple's SKAdNetwork framework, which allows advertising platforms like Google Ads to measure app install attribution in a privacy-safe way. SKAdNetwork is managed entirely by Apple and does not share any personal data with advertisers. It provides only aggregated, anonymous install attribution data.</p>
 
             <h3>8.4 Why We Collect This Data</h3>
-            <p>As a small, Virginia-based company, understanding whether people are finding and using our app helps us continue to improve it and reach more adults who could benefit from it. This anonymous data helps us make informed decisions about app improvements and advertising effectiveness — without ever compromising your privacy.</p>
+            <p>As a small, Virginia-based company, understanding whether people are finding and using our app helps us continue to improve it and reach more adults who could benefit from it. Firebase Analytics and Firebase Crashlytics provide us with anonymous, aggregated data that helps us make informed decisions about app improvements, bug fixes, and advertising effectiveness — without ever compromising your privacy.</p>
         </div>
 
         <div class="section" id="website">
@@ -401,12 +438,24 @@
         </div>
 
         <div class="section">
-            <h2>11. Children's Privacy</h2>
+            <h2 id="subscriptions">11. Subscription and Purchase Data</h2>
+            <p>SteadiDay™ offers optional premium subscriptions managed through RevenueCat and processed by the Apple App Store or Google Play Store. If you subscribe:</p>
+            <ul>
+                <li>Your purchase is processed by Apple or Google — we never receive or store your payment method, credit card number, or billing address</li>
+                <li>RevenueCat receives anonymous subscription data (subscription status, purchase dates, expiration dates) from the app stores to manage your access to premium features</li>
+                <li>We store your subscription status locally on your device to unlock premium features</li>
+                <li>Subscription data does not include any of your health data, medications, tasks, or personal content</li>
+            </ul>
+            <p>You can manage or cancel your subscription at any time through the App Store or Google Play Store settings on your device.</p>
+        </div>
+
+        <div class="section">
+            <h2 id="children">12. Children's Privacy</h2>
             <p>SteadiDay™ is designed for adults 50 and older. We do not knowingly collect personal information from children under 13. If we discover that we have collected information from a child under 13, we will delete it immediately.</p>
         </div>
 
         <div class="section">
-            <h2>12. California Privacy Rights (CCPA)</h2>
+            <h2 id="ccpa">13. California Privacy Rights (CCPA)</h2>
             <p>If you are a California resident, you have additional rights under the California Consumer Privacy Act. If you do not sign in, we do not collect personal data from the app. If you do sign in, your synced data is covered by these rights. For all data we hold (synced account data, website contact form submissions, and analytics), you have the right to:</p>
             <ul>
                 <li>Know what personal information is collected</li>
@@ -417,7 +466,7 @@
         </div>
 
         <div class="section">
-            <h2>13. GDPR Compliance (European Users)</h2>
+            <h2 id="gdpr">14. GDPR Compliance (European Users)</h2>
             <p>If you are located in the European Economic Area, you have rights under the General Data Protection Regulation. Your on-device data remains under your direct control. For any data we process (synced account data, website data, and anonymous app analytics), you have the right to:</p>
             <ul>
                 <li>Access, rectification, and erasure of your data</li>
@@ -429,7 +478,7 @@
         </div>
 
         <div class="section">
-            <h2>14. Changes to This Privacy Policy</h2>
+            <h2 id="changes">15. Changes to This Privacy Policy</h2>
             <p>We may update this Privacy Policy from time to time. We will notify you of any material changes by updating the "Last Updated" date at the top of this page. Your continued use of the app after changes constitutes acceptance of the updated policy.</p>
         </div>
 
