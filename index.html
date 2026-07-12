@@ -853,6 +853,82 @@ gtag('config', 'G-LF8H890XTV');
         margin-top: 0.125rem;
     }
 
+    /* ---- Everyday Tools Icon Grid ---- */
+    .tools-grid-heading {
+        font-size: var(--text-lg);
+        font-weight: 700;
+        color: var(--text-dark);
+        margin-bottom: 0.25rem;
+    }
+
+    .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    .tool-card {
+        text-align: center;
+        padding: 2rem 1.25rem;
+        border-radius: 16px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        transition: box-shadow 0.2s ease, transform 0.2s ease;
+    }
+
+    .tool-card:hover {
+        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+        transform: translateY(-2px);
+    }
+
+    .tool-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 1rem;
+    }
+
+    .tool-icon svg {
+        width: 26px;
+        height: 26px;
+    }
+
+    .tool-icon.sage { background: rgba(74,157,126,0.12); color: var(--sage); }
+    .tool-icon.blue { background: rgba(59,130,246,0.12); color: #3b82f6; }
+    .tool-icon.amber { background: rgba(245,158,11,0.12); color: #f59e0b; }
+    .tool-icon.rose { background: rgba(244,63,94,0.12); color: #f43f5e; }
+
+    .tool-card h4 {
+        font-family: 'Poppins', sans-serif;
+        font-size: var(--text-md);
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-bottom: 0.375rem;
+    }
+
+    .tool-card p {
+        font-size: var(--text-sm);
+        color: var(--text-muted);
+        line-height: 1.5;
+    }
+
+    @media (max-width: 768px) {
+        .tools-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+        }
+    }
+
+    @media (max-width: 480px) {
+        .tools-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+
     @media (max-width: 768px) {
         .showcase-row,
         .showcase-row.reverse {
@@ -1708,8 +1784,8 @@ gtag('config', 'G-LF8H890XTV');
             <div class="nav-links" id="navLinks">
                 <a href="#features">Features</a>
                 <a href="#how-it-works">How It Works</a>
-                <a href="#compare">Compare</a>
                 <a href="#faq">FAQ</a>
+                <a href="pricing.html">Pricing</a>
                 <a href="blog/index.html">Blog</a>
                 <a href="https://apps.apple.com/app/steadiday/id6758526744" class="nav-cta">Download Free</a>
             </div>
@@ -1783,39 +1859,8 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- ==================== STATISTICS / PROBLEMS ==================== -->
-    <section class="stats-section" id="features">
-        <div class="container reveal">
-            <div class="section-header">
-                <div class="section-tag">Why SteadiDay</div>
-                <h2>Built around the worries you already have</h2>
-                <p>SteadiDay was designed for the questions that keep adult children up at night.</p>
-            </div>
-            <div class="stats-grid">
-                <div class="stat-card reveal" data-delay="1">
-                    <div class="stat-card-number">Quick SOS</div>
-                    <div class="stat-card-title">Emergency help for your loved one</div>
-                    <p class="stat-card-desc">The SOS button on the home screen starts an emergency flow that can call 911, text your location to a trusted contact, or call them directly — just a few taps.</p>
-                </div>
-                <div class="stat-card reveal" data-delay="2">
-                    <div class="stat-card-number">30 sec</div>
-                    <div class="stat-card-title">Auto-alert after a detected fall</div>
-                    <p class="stat-card-desc">Start a Safety Session to enable fall detection. If a hard fall is detected and there's no response within 30 seconds, the app texts all trusted contacts.</p>
-                </div>
-                <div class="stat-card reveal" data-delay="3">
-                    <div class="stat-card-number">Zero</div>
-                    <div class="stat-card-title">Accounts or passwords to get started</div>
-                    <p class="stat-card-desc">No accounts, no passwords. Install on their iPhone, add your number as the emergency contact, and you're done. Five minutes. Safety essentials are always free.</p>
-                </div>
-            </div>
-            <div class="callout-box">
-                <p><strong>"What if my parent falls and needs help?"</strong> — SteadiDay was built around this question. The SOS button is always visible on the home screen, and fall detection can auto-alert your family even if they can't reach their phone.</p>
-            </div>
-        </div>
-    </section>
-
     <!-- ==================== KEY FEATURES ==================== -->
-    <section class="features-section">
+    <section class="features-section" id="features">
         <div class="container reveal">
             <div class="section-header">
                 <div class="section-tag">Key Features</div>
@@ -1918,33 +1963,53 @@ gtag('config', 'G-LF8H890XTV');
         </div>
 
         <div class="container reveal">
-            <div style="text-align: center; margin-top: 1rem;">
-                <h3 style="font-size: 20px; margin-bottom: 0.5rem; color: var(--text-dark);">And more everyday tools</h3>
-                <p style="font-size: 16px; color: var(--text-body); margin-bottom: 2rem;">Emergency SOS, premium features overview, and a streamlined home screen.</p>
+            <div class="section-header" style="margin-top: 1rem;">
+                <h3 class="tools-grid-heading">And more everyday tools</h3>
+                <p>Track food, sync calendars, find your car, and more — all built in.</p>
             </div>
-        </div>
-
-        <div class="showcase-compact reveal">
-            <div class="showcase-compact-item" data-delay="1">
-                <div class="showcase-phone">
-                    <img src="assets/screenshot-05-sos.png" alt="SteadiDay emergency SOS" loading="lazy" width="1320" height="2868">
+            <div class="tools-grid">
+                <div class="tool-card">
+                    <div class="tool-icon sage">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+                    </div>
+                    <h4>Food Tracker</h4>
+                    <p>Log meals and water intake with a simple, visual tracker.</p>
                 </div>
-                <div class="showcase-compact-label">Emergency SOS</div>
-                <div class="showcase-compact-desc">One tap to call 911 or text your location</div>
-            </div>
-            <div class="showcase-compact-item" data-delay="2">
-                <div class="showcase-phone">
-                    <img src="assets/screenshot-01-simple-home.png" alt="SteadiDay Simple Mode home screen" loading="lazy" width="1320" height="2868">
+                <div class="tool-card">
+                    <div class="tool-icon blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+                    </div>
+                    <h4>Mind Breaks</h4>
+                    <p>Short breathing exercises and calming activities for stress relief.</p>
                 </div>
-                <div class="showcase-compact-label">Simple Mode</div>
-                <div class="showcase-compact-desc">Large buttons, no clutter</div>
-            </div>
-            <div class="showcase-compact-item" data-delay="3">
-                <div class="showcase-phone">
-                    <img src="assets/screenshot-06-premium.png" alt="SteadiDay Premium features" loading="lazy" width="1320" height="2868">
+                <div class="tool-card">
+                    <div class="tool-icon amber">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                    </div>
+                    <h4>Find My Car</h4>
+                    <p>Save your parking location and navigate back with one tap.</p>
                 </div>
-                <div class="showcase-compact-label">Premium Features</div>
-                <div class="showcase-compact-desc">Unlock the full experience</div>
+                <div class="tool-card">
+                    <div class="tool-icon rose">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
+                    </div>
+                    <h4>Health Dashboard</h4>
+                    <p>Sync Apple Health for steps, heart rate, sleep, and more.</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon sage">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
+                    </div>
+                    <h4>Calendar Sync</h4>
+                    <p>Connect Apple Reminders, Apple Calendar, or Google Calendar.</p>
+                </div>
+                <div class="tool-card">
+                    <div class="tool-icon blue">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+                    </div>
+                    <h4>Simple Mode</h4>
+                    <p>Large buttons, no clutter — switch between Simple and Standard any time.</p>
+                </div>
             </div>
         </div>
     </section>
@@ -1991,84 +2056,6 @@ gtag('config', 'G-LF8H890XTV');
     </section>
 
     <!-- ==================== COMPARISON TABLE ==================== -->
-    <section class="comparison-section" id="compare">
-        <div class="container reveal">
-            <div class="section-header">
-                <div class="section-tag">How We Compare</div>
-                <h2>Everything you need, nothing you don't</h2>
-                <p>SteadiDay combines safety, wellness, and daily tools — no expensive hardware or monthly fees.</p>
-            </div>
-            <div class="comparison-table-wrap">
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Feature</th>
-                            <th class="highlight-col">SteadiDay</th>
-                            <th>Medical Alert Systems</th>
-                            <th>Smart Watches</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="feature-name">Emergency SOS</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> One-tap access</td>
-                            <td><span class="status-dot green"></span> Pendant button</td>
-                            <td><span class="status-dot yellow"></span> Varies by model</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Fall Detection</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Safety Sessions</td>
-                            <td><span class="status-dot green"></span> Hardware-based</td>
-                            <td><span class="status-dot yellow"></span> Select models</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Medication Reminders</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Built-in</td>
-                            <td><span class="status-dot red"></span> Not included</td>
-                            <td><span class="status-dot red"></span> Not included</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Caregiver Sharing</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Family Link</td>
-                            <td><span class="status-dot red"></span> Not available</td>
-                            <td><span class="status-dot red"></span> Not available</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Balance Exercises</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Steady Moves</td>
-                            <td><span class="status-dot red"></span> Not included</td>
-                            <td><span class="status-dot yellow"></span> Some models</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Health Tracking</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Apple Health sync</td>
-                            <td><span class="status-dot red"></span> Not included</td>
-                            <td><span class="status-dot green"></span> Built-in sensors</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Data Privacy</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Private & encrypted</td>
-                            <td><span class="status-dot yellow"></span> Cloud-stored</td>
-                            <td><span class="status-dot yellow"></span> Cloud-synced</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Monthly Cost</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Free or $3.99/mo</td>
-                            <td><span class="status-dot red"></span> $25–50/mo</td>
-                            <td><span class="status-dot yellow"></span> Device cost</td>
-                        </tr>
-                        <tr>
-                            <td class="feature-name">Account Required</td>
-                            <td class="highlight-col"><span class="status-dot green"></span> Optional</td>
-                            <td><span class="status-dot red"></span> Yes</td>
-                            <td><span class="status-dot red"></span> Yes</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </section>
-
     <!-- ==================== PHASES / HOW IT WORKS ==================== -->
     <section class="phases-section" id="how-it-works">
         <div class="container reveal">
@@ -2109,54 +2096,6 @@ gtag('config', 'G-LF8H890XTV');
                     </div>
                     <h3>Live Confidently</h3>
                     <p>Go about your day knowing help is right there when you need it. SOS and fall detection are always ready.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== ROADMAP TIMELINE ==================== -->
-    <section class="roadmap-section">
-        <div class="container reveal">
-            <div class="section-header">
-                <div class="section-tag">Your Journey</div>
-                <h2>What your first week looks like</h2>
-                <p>From download to daily confidence in just a few days.</p>
-            </div>
-            <div class="roadmap-list">
-                <div class="roadmap-row completed">
-                    <div class="roadmap-date">Day 1</div>
-                    <div class="roadmap-label">Install & Open <span class="roadmap-status done">Done</span></div>
-                    <div class="roadmap-content">Download from the App Store. No sign-up needed — open in Simple Mode and start exploring right away.</div>
-                </div>
-                <div class="roadmap-row completed">
-                    <div class="roadmap-date">Day 1</div>
-                    <div class="roadmap-label">Set Up SOS <span class="roadmap-status done">Done</span></div>
-                    <div class="roadmap-content">Add your number as the trusted contact. The SOS button is immediately active on the home screen.</div>
-                </div>
-                <div class="roadmap-row current">
-                    <div class="roadmap-date">Day 2–3</div>
-                    <div class="roadmap-label">Add Medications <span class="roadmap-status active">Active</span></div>
-                    <div class="roadmap-content">Enter medications and set reminder times. Scan labels to save typing. They'll never miss a dose.</div>
-                </div>
-                <div class="roadmap-row future">
-                    <div class="roadmap-date">Day 3–5</div>
-                    <div class="roadmap-label">Health Dashboard</div>
-                    <div class="roadmap-content">Connect Apple Health for steps, heart rate, and sleep. Set up food and water tracking.</div>
-                </div>
-                <div class="roadmap-row future">
-                    <div class="roadmap-date">Day 5–7</div>
-                    <div class="roadmap-label">Try Steady Moves</div>
-                    <div class="roadmap-content">Start gentle daily balance exercises. Guided routines you can do from a chair — just a few minutes a day.</div>
-                </div>
-                <div class="roadmap-row future">
-                    <div class="roadmap-date">Week 1+</div>
-                    <div class="roadmap-label">Family Link</div>
-                    <div class="roadmap-content">Share a private Care Summary with a caregiver — they see medication adherence and check-ins via a simple web link. Premium feature.</div>
-                </div>
-                <div class="roadmap-row future">
-                    <div class="roadmap-date">Always</div>
-                    <div class="roadmap-label">Safety Ready</div>
-                    <div class="roadmap-content">Fall detection, emergency SOS, magnifier, flashlight, and mind breaks — available whenever needed.</div>
                 </div>
             </div>
         </div>
@@ -2233,40 +2172,6 @@ gtag('config', 'G-LF8H890XTV');
                         <p>We believe everyone deserves access to emergency safety tools regardless of budget. The SOS button, fall detection, medication reminders, and daily check-ins will always be free. Premium features like unlimited medications, Family Link sharing, and health tracking help fund ongoing development.</p>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== BLOG ==================== -->
-    <section class="blog-section" id="blog">
-        <div class="container reveal">
-            <div class="section-header">
-                <div class="section-tag">From the Blog</div>
-                <h2>Health tips worth your time</h2>
-                <p>Practical guidance on medications, prevention, and healthy aging — written for adults 50+ and the people who care about them.</p>
-            </div>
-            <div class="blog-grid">
-                <a class="blog-card" href="blog/2026-07-06-the-new-covid19-prevention-pill.html">
-                    <span class="blog-card-date">July 6, 2026</span>
-                    <h3>The New COVID-19 Prevention Pill Adults Over 50 Need to Know About</h3>
-                </a>
-                <a class="blog-card" href="blog/2026-07-02-why-appetite-changes-as-we.html">
-                    <span class="blog-card-date">July 2, 2026</span>
-                    <h3>Why Appetite Changes as We Age and What to Do</h3>
-                </a>
-                <a class="blog-card" href="blog/2026-06-29-what-most-people-get-wrong.html">
-                    <span class="blog-card-date">June 29, 2026</span>
-                    <h3>What Most People Get Wrong About Knee Osteoarthritis Pain Relief</h3>
-                </a>
-                <a class="blog-card" href="blog/2026-06-25-the-real-health-benefits-of.html">
-                    <span class="blog-card-date">June 25, 2026</span>
-                    <h3>The Real Health Benefits of Gardening After 50</h3>
-                </a>
-                <a class="blog-card" href="blog/2026-06-22-the-first-mrna-flu-vaccine.html">
-                    <span class="blog-card-date">June 22, 2026</span>
-                    <h3>The First mRNA Flu Vaccine for Adults Over 50</h3>
-                </a>
-                <a class="blog-card blog-card-all" href="blog/index.html">View all articles →</a>
             </div>
         </div>
     </section>
