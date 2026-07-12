@@ -181,9 +181,14 @@
     }
 
     .toggle-switch input {
+        position: absolute;
+        inset: 0;
         opacity: 0;
-        width: 0;
-        height: 0;
+        width: 100%;
+        height: 100%;
+        cursor: pointer;
+        z-index: 1;
+        margin: 0;
     }
 
     .toggle-track {
@@ -384,9 +389,13 @@
 
     .compare-table {
         width: 100%;
-        border-collapse: collapse;
+        border-collapse: separate;
+        border-spacing: 0;
         max-width: 800px;
         margin: 0 auto;
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid var(--border);
     }
 
     .compare-table thead th {
@@ -394,8 +403,9 @@
         font-size: var(--text-sm);
         font-weight: 600;
         color: var(--text-dark);
-        padding: 1rem;
+        padding: 1.125rem 1.25rem;
         text-align: center;
+        background: var(--off-white);
         border-bottom: 2px solid var(--border);
     }
 
@@ -404,11 +414,12 @@
     }
 
     .compare-table thead th.highlight {
-        color: var(--sage);
+        color: var(--white);
+        background: var(--sage);
     }
 
     .compare-table tbody td {
-        padding: 0.875rem 1rem;
+        padding: 1rem 1.25rem;
         border-bottom: 1px solid var(--border-light);
         font-size: var(--text-sm);
         text-align: center;
@@ -420,12 +431,28 @@
         font-weight: 500;
     }
 
+    .compare-table tbody td:last-child {
+        background: rgba(74, 157, 126, 0.04);
+    }
+
     .compare-table tbody tr:last-child td {
         border-bottom: none;
     }
 
+    .compare-table tbody tr:hover td {
+        background: rgba(74, 157, 126, 0.03);
+    }
+
+    .compare-table tbody tr:hover td:last-child {
+        background: rgba(74, 157, 126, 0.08);
+    }
+
     .compare-table .check-icon {
         color: var(--sage);
+    }
+
+    .compare-table .no-icon {
+        color: var(--border);
     }
 
     .compare-table .limit-text {
@@ -731,6 +758,11 @@
                         <td>Unlimited</td>
                     </tr>
                     <tr>
+                        <td>Task Reminders</td>
+                        <td><span class="limit-text">Up to 7</span></td>
+                        <td>Unlimited</td>
+                    </tr>
+                    <tr>
                         <td>Daily Check-Ins</td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
@@ -747,37 +779,37 @@
                     </tr>
                     <tr>
                         <td>Family Link Sharing</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Apple Health Sync</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Steady Moves Exercises</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Food & Water Tracking</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Calendar & Reminder Sync</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Mind Breaks</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                     <tr>
                         <td>Find My Car</td>
-                        <td>—</td>
+                        <td><svg class="no-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg></td>
                         <td><svg class="check-icon" width="20" height="20" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg></td>
                     </tr>
                 </tbody>

@@ -923,6 +923,41 @@ gtag('config', 'G-LF8H890XTV');
         }
     }
 
+    /* ---- Tools extra list ---- */
+    .tools-extra-list {
+        list-style: none;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1rem;
+        margin-top: 2.5rem;
+        padding: 1.5rem;
+        background: var(--off-white);
+        border-radius: 16px;
+    }
+
+    .tools-extra-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        font-size: var(--text-sm);
+        color: var(--text-body);
+        line-height: 1.5;
+    }
+
+    .tools-extra-check {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 3px;
+        color: var(--sage);
+    }
+
+    @media (max-width: 768px) {
+        .tools-extra-list {
+            grid-template-columns: 1fr;
+        }
+    }
+
     @media (max-width: 480px) {
         .tools-grid {
             grid-template-columns: 1fr;
@@ -1273,20 +1308,32 @@ gtag('config', 'G-LF8H890XTV');
     /* ==================== FAQ ==================== */
     .faq-section {
         padding: 5rem 0;
-        background: var(--off-white);
+        background: linear-gradient(180deg, var(--off-white) 0%, #EDF5F0 100%);
     }
 
     .faq-grid {
-        max-width: 720px;
+        max-width: 100%;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
     }
 
     .faq-item {
-        border-bottom: 1px solid var(--border);
-        padding: 1.25rem 0;
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 0;
+        background: var(--white);
+        overflow: hidden;
+        transition: box-shadow 0.2s ease;
     }
 
-    .faq-item:first-child {
-        border-top: 1px solid var(--border);
+    .faq-item:hover {
+        box-shadow: var(--shadow-soft);
+    }
+
+    .faq-item.open {
+        border-color: var(--sage);
+        box-shadow: 0 2px 12px rgba(74, 157, 126, 0.1);
     }
 
     .faq-question {
@@ -1299,22 +1346,22 @@ gtag('config', 'G-LF8H890XTV');
         border: none;
         width: 100%;
         text-align: left;
-        padding: 0;
+        padding: 1.25rem 1.5rem;
         font-family: inherit;
     }
 
     .faq-item h3 {
-        font-size: 19px;
+        font-size: 18px;
         font-weight: 600;
         color: var(--text-dark);
         margin-bottom: 0;
     }
 
     .faq-toggle {
-        width: 20px;
-        height: 20px;
+        width: 22px;
+        height: 22px;
         flex-shrink: 0;
-        color: var(--text-muted);
+        color: var(--sage);
         transition: transform 0.25s ease;
     }
 
@@ -1340,7 +1387,7 @@ gtag('config', 'G-LF8H890XTV');
         color: var(--text-body);
         font-size: 18px;
         line-height: 1.7;
-        padding-top: 0.75rem;
+        padding: 0 1.5rem 1.25rem;
     }
 
     /* ==================== BLOG ==================== */
@@ -1739,6 +1786,10 @@ gtag('config', 'G-LF8H890XTV');
         .section-header h2 {
             font-size: 30px;
         }
+
+        .faq-grid {
+            grid-template-columns: 1fr;
+        }
     }
 
     @media (max-width: 480px) {
@@ -1965,52 +2016,49 @@ gtag('config', 'G-LF8H890XTV');
         <div class="container reveal">
             <div class="section-header" style="margin-top: 1rem;">
                 <h3 class="tools-grid-heading">And more everyday tools</h3>
-                <p>Track food, sync calendars, find your car, and more — all built in.</p>
+                <p>Track food, play brain games, sync your calendar, and more.</p>
             </div>
-            <div class="tools-grid">
-                <div class="tool-card">
-                    <div class="tool-icon sage">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
-                    </div>
-                    <h4>Food Tracker</h4>
-                    <p>Log meals and water intake with a simple, visual tracker.</p>
+        </div>
+
+        <div class="showcase-compact reveal">
+            <div class="showcase-compact-item" data-delay="1">
+                <div class="showcase-phone">
+                    <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks brain games" loading="lazy" width="1290" height="2796">
                 </div>
-                <div class="tool-card">
-                    <div class="tool-icon blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-                    </div>
-                    <h4>Mind Breaks</h4>
-                    <p>Short breathing exercises and calming activities for stress relief.</p>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon amber">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <h4>Find My Car</h4>
-                    <p>Save your parking location and navigate back with one tap.</p>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon rose">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                    <h4>Health Dashboard</h4>
-                    <p>Sync Apple Health for steps, heart rate, sleep, and more.</p>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon sage">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
-                    </div>
-                    <h4>Calendar Sync</h4>
-                    <p>Connect Apple Reminders, Apple Calendar, or Google Calendar.</p>
-                </div>
-                <div class="tool-card">
-                    <div class="tool-icon blue">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <h4>Simple Mode</h4>
-                    <p>Large buttons, no clutter — switch between Simple and Standard any time.</p>
-                </div>
+                <div class="showcase-compact-label">Mind Breaks</div>
+                <div class="showcase-compact-desc">Brain games, word puzzles, and calming activities</div>
             </div>
+            <div class="showcase-compact-item" data-delay="2">
+                <div class="showcase-phone">
+                    <img src="assets/screenshot-food-tracker.png" alt="SteadiDay food and calorie tracker" loading="lazy" width="1290" height="2796">
+                </div>
+                <div class="showcase-compact-label">Food Tracker</div>
+                <div class="showcase-compact-desc">Log meals, track calories, and set meal reminders</div>
+            </div>
+            <div class="showcase-compact-item" data-delay="3">
+                <div class="showcase-phone">
+                    <img src="assets/screenshot-standard-home.png" alt="SteadiDay Standard Mode home screen" loading="lazy" width="1320" height="2868">
+                </div>
+                <div class="showcase-compact-label">Standard Mode</div>
+                <div class="showcase-compact-desc">Full-featured home with 6-tab navigation</div>
+            </div>
+        </div>
+
+        <div class="container reveal">
+            <ul class="tools-extra-list">
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Health Dashboard</strong> &mdash; Sync Apple Health for steps, heart rate, sleep, and more
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Find My Car</strong> &mdash; Save your parking location and navigate back with one tap
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Calendar Sync</strong> &mdash; Connect Apple Reminders, Apple Calendar, or Google Calendar
+                </li>
+            </ul>
         </div>
     </section>
 
