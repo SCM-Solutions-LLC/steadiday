@@ -1218,6 +1218,58 @@ gtag('config', 'G-LF8H890XTV');
         padding: 0 1.5rem 1.25rem;
     }
 
+    /* ==================== BLOG ==================== */
+    .blog-section {
+        padding: 5rem 0;
+        background: var(--color-surface);
+    }
+
+    .blog-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+    }
+
+    .blog-card {
+        display: block;
+        background: var(--color-surface);
+        padding: 1.75rem;
+        border-radius: 16px;
+        border: 1px solid var(--color-border);
+        text-decoration: none;
+        transition: box-shadow 0.2s ease;
+    }
+
+    .blog-card:hover {
+        box-shadow: var(--shadow-card);
+    }
+
+    .blog-card-date {
+        display: block;
+        font-size: 14px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: var(--color-brand-text);
+        margin-bottom: 0.5rem;
+    }
+
+    .blog-card h3 {
+        font-size: 19px;
+        font-weight: 600;
+        color: var(--color-text-strong);
+        line-height: 1.5;
+    }
+
+    .blog-card-all {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 16px;
+        font-weight: 600;
+        color: var(--color-brand-text);
+    }
+
     /* ==================== CTA BAND ==================== */
     .cta-band {
         padding: 4rem 0;
@@ -1445,6 +1497,10 @@ gtag('config', 'G-LF8H890XTV');
             grid-template-columns: repeat(2, 1fr);
         }
 
+        .blog-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .hero-container {
             grid-template-columns: 1fr;
             gap: 2rem;
@@ -1465,6 +1521,10 @@ gtag('config', 'G-LF8H890XTV');
 
     @media (max-width: 768px) {
         .plan-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .blog-grid {
             grid-template-columns: 1fr;
         }
 
@@ -2014,6 +2074,40 @@ gtag('config', 'G-LF8H890XTV');
             <div class="about-content">
                 <p>SteadiDay was built after watching family members juggle medications, appointments, and daily routines without one simple place to manage it all.</p>
                 <p>We're a small, independent team building the app we wished existed for our own families — and the safety essentials will always be free.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== BLOG ==================== -->
+    <section class="blog-section" id="blog">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">From the Blog</div>
+                <h2>Health tips worth your time</h2>
+                <p>Practical guidance on medications, prevention, and healthy aging &mdash; written for adults 50+ and the people who care about them.</p>
+            </div>
+            <div class="blog-grid">
+                <a class="blog-card" href="blog/2026-09-07-a-simple-blood-test-now.html">
+                    <span class="blog-card-date">September 7, 2026</span>
+                    <h3>A Simple Blood Test Now Screens for Alzheimer&rsquo;s at 55</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-09-03-5-balance-lessons-that-could.html">
+                    <span class="blog-card-date">September 3, 2026</span>
+                    <h3>5 Balance Lessons That Could Prevent a Fall at Home</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-08-27-how-seniors-can-start-walking.html">
+                    <span class="blog-card-date">August 27, 2026</span>
+                    <h3>How Seniors Can Start Walking for Better Health</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-08-20-key-nutrients-women-over-50.html">
+                    <span class="blog-card-date">August 20, 2026</span>
+                    <h3>Key Nutrients Women Over 50 Actually Need</h3>
+                </a>
+                <a class="blog-card" href="blog/2026-08-13-breast-screening-guidelines-for-women.html">
+                    <span class="blog-card-date">August 13, 2026</span>
+                    <h3>Breast Screening Guidelines for Women 50: What&rsquo;s Changed</h3>
+                </a>
+                <a class="blog-card blog-card-all" href="blog/index.html">View all articles &rarr;</a>
             </div>
         </div>
     </section>
