@@ -2,8 +2,22 @@
   {
     "date": "2026-07-06",
     "file": "blog/best-medication-reminder-apps-seniors.html",
-    "target_queries": ["medication reminder app", "medication reminder app for caregivers", "medicine tracker app for caregivers", "pill tracker app for caregivers"],
-    "edits_made": ["title", "meta_description", "og_title", "og_description", "h1", "faq_refresh_with_faqpage_jsonld", "2_internal_links", "date_modified"],
+    "target_queries": [
+      "medication reminder app",
+      "medication reminder app for caregivers",
+      "medicine tracker app for caregivers",
+      "pill tracker app for caregivers"
+    ],
+    "edits_made": [
+      "title",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "h1",
+      "faq_refresh_with_faqpage_jsonld",
+      "2_internal_links",
+      "date_modified"
+    ],
     "baseline": {
       "window": "2026-06-06_to_2026-07-04",
       "clicks": 1,
@@ -15,8 +29,23 @@
   {
     "date": "2026-07-06",
     "file": "blog/2026-05-18-rsv-vaccine-rules-for-adults.html",
-    "target_queries": ["cdc rsv vaccine adults 50 74 increased risk 2026", "rsv vaccine adults 50", "rsv vaccination over 50"],
-    "edits_made": ["title", "meta_description", "og_title", "og_description", "twitter_title", "twitter_description", "h1", "breadcrumb_text", "2_internal_links", "date_modified"],
+    "target_queries": [
+      "cdc rsv vaccine adults 50 74 increased risk 2026",
+      "rsv vaccine adults 50",
+      "rsv vaccination over 50"
+    ],
+    "edits_made": [
+      "title",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "h1",
+      "breadcrumb_text",
+      "2_internal_links",
+      "date_modified"
+    ],
     "baseline": {
       "window": "2026-06-06_to_2026-07-04",
       "clicks": 0,
@@ -28,8 +57,21 @@
   {
     "date": "2026-07-07",
     "file": "blog/2026-06-08-finerenone-for-chronic-kidney-disease.html",
-    "target_queries": ["finerenone", "finerenone alternative"],
-    "edits_made": ["title_shortened_to_49_chars", "meta_description", "og_title", "og_description", "twitter_title", "twitter_description", "faq_new_qa_alternatives_with_faqpage_jsonld", "3_internal_links", "date_modified"],
+    "target_queries": [
+      "finerenone",
+      "finerenone alternative"
+    ],
+    "edits_made": [
+      "title_shortened_to_49_chars",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "faq_new_qa_alternatives_with_faqpage_jsonld",
+      "3_internal_links",
+      "date_modified"
+    ],
     "baseline": {
       "window": "2026-06-08_to_2026-07-05",
       "clicks": 0,
@@ -41,14 +83,85 @@
   {
     "date": "2026-07-19",
     "file": "blog/2026-06-22-the-first-mrna-flu-vaccine.html",
-    "target_queries": ["mRNA flu vaccine", "mRNA influenza vaccine", "mFlusiva", "mRNA flu vaccine 2026"],
-    "edits_made": ["title_shortened_62_to_52_chars", "meta_description_rewritten_155_chars", "og_title", "og_description", "twitter_title", "twitter_description", "keywords_meta_added_mFlusiva", "article_jsonld_description_and_dateModified", "3_internal_links"],
+    "target_queries": [
+      "mRNA flu vaccine",
+      "mRNA influenza vaccine",
+      "mFlusiva",
+      "mRNA flu vaccine 2026"
+    ],
+    "edits_made": [
+      "title_shortened_62_to_52_chars",
+      "meta_description_rewritten_155_chars",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "keywords_meta_added_mFlusiva",
+      "article_jsonld_description_and_dateModified",
+      "3_internal_links"
+    ],
     "baseline": {
       "window": "2026-06-20_to_2026-07-17",
       "clicks": 1,
       "impressions": 313,
       "ctr": 0.003194888178913738,
       "position": 11.4
+    }
+  },
+  {
+    "date": "2026-07-21",
+    "file": "blog/2026-07-06-the-new-covid19-prevention-pill.html",
+    "target_queries": [
+      "xocova",
+      "ensitrelvir",
+      "xocova vs paxlovid"
+    ],
+    "edits_made": [
+      "title_66_to_52_chars_leads_with_Xocova_ensitrelvir",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "h1_leads_with_Xocova",
+      "article_jsonld_headline_description_dateModified",
+      "related_posts_block_3_internal_links"
+    ],
+    "baseline": {
+      "window": "2026-06-22_to_2026-07-19",
+      "clicks": 1,
+      "impressions": 50,
+      "ctr": 0.02,
+      "position": 6.6
+    }
+  },
+  {
+    "date": "2026-07-21",
+    "file": "blog/2026-07-02-why-appetite-changes-as-we.html",
+    "target_queries": [
+      "does appetite decrease with age",
+      "do you eat less as you get older",
+      "at what age does your appetite decrease"
+    ],
+    "edits_made": [
+      "title_retargeted_52_chars",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "h1_retargeted",
+      "h2_common_questions_retitled",
+      "faqpage_jsonld_added_4_qas",
+      "article_jsonld_dateModified",
+      "related_posts_block_3_internal_links"
+    ],
+    "baseline": {
+      "window": "2026-06-22_to_2026-07-19",
+      "clicks": 0,
+      "impressions": 61,
+      "ctr": 0.0,
+      "position": 26.327868852459016
     }
   }
 ]
