@@ -234,7 +234,7 @@
                 </div>
                 <h3>Encrypted Sync</h3>
                 <h3>When You Choose</h3>
-                <p>Sign in to sync medications, tasks, and check-ins securely. Apple Health data always stays on your device. No data is synced unless you sign in.</p>
+                <p>Sign in to sync medications, tasks, and check-ins securely. Apple Health records stay on your device except for an optional daily step count when caregiver activity sharing is enabled. Account data is not synced unless you sign in.</p>
             </div>
             <div class="key-point">
                 <div class="key-point-icon">
@@ -243,7 +243,7 @@
                     </svg>
                 </div>
                 <h3>Never Sold</h3>
-                <p>Your health data is never sold, shared, or used for advertising. Period.</p>
+                <p>Your health data is never sold or used for advertising. Daily step counts are shared only when you explicitly enable caregiver activity sharing.</p>
             </div>
         </div>
 
@@ -267,15 +267,15 @@
                     <tr><td>Medications & Schedules</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
                     <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
                     <tr><td>Check-ins &amp; Activity Summaries</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup &amp; caregiver sharing</td></tr>
-                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Emergency alerts only — name + phone sent to SMS relay (Twilio) to deliver fall/SOS texts, not stored</td></tr>
-                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: #FF9800; font-weight: 600;">⚠ During active Safety Sessions only — GPS shared with your emergency contacts via secure tokenized link, held in memory only, discarded when session ends</td></tr>
-                    <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
+                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Encrypted temporary safety/check-in records and Twilio message delivery</td></tr>
+                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: #FF9800; font-weight: 600;">⚠ Latest active-session GPS is stored for the private live link; ended sessions are deleted after about 24 hours</td></tr>
+                    <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Daily step count only, when caregiver activity sharing is enabled</td></tr>
                     <tr><td>Food & Water Logs</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Voice Recordings</td><td class="status-no">✗ Never saved</td><td style="color: #FF9800; font-weight: 600;">⚠ Temporarily — sent to our server for AI transcription (via OpenAI), then immediately deleted. Never stored.</td></tr>
-                    <tr><td>Subscription Status</td><td class="status-yes">✓ Yes, on device</td><td style="color: #FF9800; font-weight: 600;">⚠ Anonymous purchase status sent to RevenueCat (subscription manager). No health or personal data included.</td></tr>
+                    <tr><td>Voice Recordings</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: #FF9800; font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
+                    <tr><td>Subscription Status</td><td class="status-yes">✓ Yes, on device</td><td style="color: #FF9800; font-weight: 600;">⚠ Pseudonymous purchase status and an app user identifier sent to RevenueCat. No health or app-content data included.</td></tr>
                     <tr><td>Doctor Information</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Insurance Card Details</td><td class="status-yes">✓ Text only, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Insurance Card &amp; Prescription Photos</td><td class="status-no">✗ Never saved</td><td style="color: #FF9800; font-weight: 600;">⚠ Temporarily — sent to our server for AI text extraction (via OpenAI), then immediately deleted. Never stored.</td></tr>
+                    <tr><td>Insurance Card &amp; Prescription Photos</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: #FF9800; font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
                 </tbody>
             </table>
         </div>
@@ -299,10 +299,10 @@
                     <ul>
                         <li>Store data on your device with encryption</li>
                         <li>Encrypt all synced data in transit and at rest</li>
-                        <li>Delete photos immediately after reading</li>
+                        <li>Avoid saving source photos or audio in our application database</li>
                         <li>Show generic notifications only</li>
                         <li>Let you export your data anytime</li>
-                        <li>Let you delete everything instantly</li>
+                        <li>Let you request complete account and app-data deletion</li>
                         <li>Share live location only during opt-in Safety Sessions via secure, tokenized links</li>
                         <li>Give you full control over what syncs</li>
                     </ul>
@@ -315,8 +315,8 @@
                         What We DON'T Do
                     </h3>
                     <ul>
-                        <li>Send Apple Health data to any server — ever</li>
-                        <li>Sell or share your information</li>
+                        <li>Send Apple Health records to analytics or advertisers</li>
+                        <li>Sell your information</li>
                         <li>Store photos of cards or prescriptions</li>
                         <li>Show sensitive info in notifications</li>
                         <li>Track your personal content, health data, or identifiable behavior within the app</li>
@@ -333,7 +333,7 @@
                     </svg>
                     A note about analytics
                 </h4>
-                <p>SteadiDay™ collects anonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs to help us understand how many people use the app and whether our advertising reaches the right audience. This data uses a random identifier that is not linked to you, your device, or your Apple ID. It never includes your health data, medications, tasks, contacts, or anything you enter in the app. Our website (steadiday.com) also uses standard Google Analytics to understand how visitors find our site. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--sage-dark); text-decoration: underline;">Privacy Policy</a>.</p>
+                <p>SteadiDay™ collects pseudonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs. This data uses an app-installation identifier and technical device information; SteadiDay does not set your signed-in account ID as the Analytics user ID. Events intentionally exclude health data, medications, tasks, contacts, and content you enter. Our website also uses Google Analytics. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--sage-dark); text-decoration: underline;">Privacy Policy</a>.</p>
             </div>
         </div>
 
@@ -380,7 +380,7 @@
                     </svg>
                     Important
                 </h4>
-                <p>Photos are temporarily sent to our secure server, where AI technology (OpenAI) reads the text and returns it to the app. Photos are deleted within seconds and are never stored in any database or retained by any service. Only the extracted text (like your member ID or medication name) is saved in the app.</p>
+                <p>Photos are sent through our secure server to OpenAI for text extraction. SteadiDay does not save the source image in its application database. OpenAI may retain API inputs and outputs for up to 30 days for service delivery and abuse prevention unless shorter retention controls apply. Only the extracted text you choose to keep (such as a member ID or medication name) is saved in the app.</p>
             </div>
         </div>
 
@@ -448,7 +448,7 @@
                 </div>
                 <div class="key-point">
                     <h3>GDPR/CCPA Ready</h3>
-                    <p>Export your data anytime. Delete everything instantly. Full transparency on data use.</p>
+                    <p>Export your data anytime. Request complete account and app-data deletion. Full transparency on data use.</p>
                 </div>
             </div>
         </div>
@@ -466,7 +466,7 @@
                 <li><strong>Encryption at rest:</strong> Synced data is encrypted at rest on our cloud infrastructure (Supabase, SOC 2 Type II certified)</li>
                 <li><strong>Field-level encryption:</strong> Sensitive data on our backend (user names, contact information, caregiver activity snapshots) is encrypted with AES-256-GCM before storage</li>
                 <li><strong>Tokenized sharing:</strong> Caregiver activity views and live location sharing use secure, time-limited tokens — not direct database access</li>
-                <li><strong>Automatic expiration:</strong> Safety Session data is discarded when sessions end. Caregiver sharing data expires after 90 days without update. Abandoned sessions are automatically cleaned up.</li>
+                <li><strong>Automatic expiration:</strong> Ended Safety Sessions are deleted after approximately 24 hours. Caregiver sharing data expires after 90 days without an update. Abandoned sessions expire automatically and are removed by the next cleanup cycle.</li>
                 <li><strong>API key protection:</strong> All third-party API keys (OpenAI, Twilio) are stored securely on our backend servers — never in the app itself</li>
             </ul>
         </div>
