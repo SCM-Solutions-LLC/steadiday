@@ -163,5 +163,44 @@
       "ctr": 0.0,
       "position": 26.327868852459016
     }
+  },
+  {
+    "date": "2026-08-04",
+    "file": "blog/best-medication-reminder-apps-seniors.html",
+    "target_queries": [
+      "medication tracker app for caregivers",
+      "medication tracking app for caregivers",
+      "pill tracker app for caregivers",
+      "pill tracking app for caregivers",
+      "medicine tracker app for caregivers",
+      "medicine reminder with reporting feature for caregivers",
+      "free medisafe alternative",
+      "best medisafe app substitute"
+    ],
+    "edits_made": [
+      "4_new_faq_qas_targeting_caregiver_tracker_cluster",
+      "faqpage_jsonld_extended_4_to_8_questions",
+      "fixed_broken_internal_link_2026-05-14-why-morning-naps-may-signal_404",
+      "added_4th_related_post_internal_link",
+      "article_jsonld_dateModified",
+      "article_modified_time_meta"
+    ],
+    "notes": "Title/meta left untouched — 2026-07-06 rewrite moved avg position 55.5 to 43.5, so the targeting is working; this run deepens topical coverage of the tracker/reporting caregiver queries instead of re-cutting the title.",
+    "baseline": {
+      "window": "2026-07-06_to_2026-08-02",
+      "clicks": 0,
+      "impressions": 682,
+      "ctr": 0.0,
+      "position": 43.469208211143695
+    }
+  },
+  {
+    "date": "2026-08-04",
+    "file": "blog/*.html (campaign URL swap — not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in 7 posts: 2026-07-09, 2026-07-13, 2026-07-16, 2026-07-20, 2026-07-23, 2026-07-27, 2026-07-30"
+    ],
+    "baseline": null
   }
 ]
