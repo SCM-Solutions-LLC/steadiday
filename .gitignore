@@ -5,3 +5,5 @@ GoogleService-Info.plist
 node_modules/
 package-lock.json
 package.json
+!promo-video/package-lock.json
+!promo-video/package.json
