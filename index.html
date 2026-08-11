@@ -975,6 +975,117 @@ gtag('config', 'G-LF8H890XTV');
         z-index: 1;
     }
 
+    /* ==================== PRICING SUMMARY ==================== */
+    /* A summary only — pricing.html stays the source of truth, and
+       every tier here links through to it. */
+    .pricing-summary {
+        padding: 5rem 0;
+        background: var(--white);
+    }
+
+    .plan-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.25rem;
+        align-items: start;
+    }
+
+    .plan-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 1.75rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+
+    .plan-card.is-featured {
+        border: 2px solid var(--color-brand-text);
+        box-shadow: var(--shadow-card);
+    }
+
+    .plan-tier {
+        font-family: var(--font-heading);
+        font-size: 14px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-brand-text);
+    }
+
+    .plan-price {
+        font-family: var(--font-heading);
+        font-size: 40px;
+        font-weight: 700;
+        color: var(--text-dark);
+        line-height: 1.1;
+    }
+
+    .plan-period {
+        font-family: var(--font-body);
+        font-size: 17px;
+        font-weight: 400;
+        color: var(--text-muted);
+    }
+
+    .plan-summary {
+        font-size: 17px;
+        color: var(--text-body);
+        line-height: 1.6;
+    }
+
+    .plan-list {
+        list-style: none;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        margin-top: 0.25rem;
+    }
+
+    .plan-list li {
+        display: flex;
+        align-items: flex-start;
+        gap: 0.5rem;
+        font-size: 17px;
+        color: var(--text-body);
+    }
+
+    .plan-list svg {
+        width: 18px;
+        height: 18px;
+        flex-shrink: 0;
+        margin-top: 4px;
+        color: var(--color-success-text);
+    }
+
+    .plan-note {
+        font-size: 16px;
+        color: var(--text-muted);
+        margin-top: 1.5rem;
+    }
+
+    /* ==================== ABOUT ==================== */
+    .about-section {
+        padding: 5rem 0;
+        background: var(--cream);
+    }
+
+    .about-content {
+        max-width: 680px;
+    }
+
+    .about-content p {
+        font-size: 19px;
+        color: var(--text-body);
+        line-height: 1.75;
+        margin-bottom: 1rem;
+    }
+
+    .about-content p:last-child {
+        margin-bottom: 0;
+    }
+
     /* ==================== FAQ ==================== */
     .faq-section {
         padding: 5rem 0;
@@ -1308,6 +1419,10 @@ gtag('config', 'G-LF8H890XTV');
 
     /* ==================== RESPONSIVE ==================== */
     @media (max-width: 1024px) {
+        .plan-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+
         .hero-container {
             grid-template-columns: 1fr;
             gap: 2rem;
@@ -1327,6 +1442,10 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     @media (max-width: 768px) {
+        .plan-grid {
+            grid-template-columns: 1fr;
+        }
+
         .nav-links {
             display: flex;
             flex-direction: column;
@@ -1662,7 +1781,6 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- ==================== COMPARISON TABLE ==================== -->
     <!-- ==================== PHASES / HOW IT WORKS ==================== -->
     <section class="phases-section" id="how-it-works">
         <div class="container reveal">
@@ -1705,6 +1823,52 @@ gtag('config', 'G-LF8H890XTV');
                     <p>Go about your day knowing help is right there when you need it. SOS and fall detection are always ready.</p>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <!-- ==================== PRICING SUMMARY ==================== -->
+    <section class="pricing-summary" id="pricing">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">Pricing</div>
+                <h2>Simple, honest pricing</h2>
+                <p>The safety essentials are free forever — no account, no card. Premium unlocks the full wellness toolkit.</p>
+            </div>
+            <div class="plan-grid">
+                <div class="plan-card">
+                    <div class="plan-tier">Free</div>
+                    <div class="plan-price">$0<span class="plan-period"> forever</span></div>
+                    <p class="plan-summary">Essential safety tools, with no account needed.</p>
+                    <ul class="plan-list">
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Emergency SOS</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Fall Detection</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Medication reminders (up to 7)</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Daily check-ins</li>
+                    </ul>
+                </div>
+                <div class="plan-card is-featured">
+                    <div class="plan-tier">Premium</div>
+                    <div class="plan-price">$3.99<span class="plan-period"> /month</span></div>
+                    <p class="plan-summary">Everything in Free, plus the full wellness toolkit. $29.99 a year if you prefer.</p>
+                    <ul class="plan-list">
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Unlimited medications</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Family Link caregiver sharing</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Steady Moves &amp; Apple Health</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Food, water &amp; calendar sync</li>
+                    </ul>
+                </div>
+                <div class="plan-card">
+                    <div class="plan-tier">Lifetime</div>
+                    <div class="plan-price">$99.99<span class="plan-period"> once</span></div>
+                    <p class="plan-summary">Every Premium feature, forever. One payment, no renewals.</p>
+                    <ul class="plan-list">
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Everything in Premium</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> No monthly or annual fees</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> All future updates included</li>
+                    </ul>
+                </div>
+            </div>
+            <p class="plan-note"><a href="pricing.html">Compare every feature side by side &rarr;</a></p>
         </div>
     </section>
 
@@ -1793,6 +1957,20 @@ gtag('config', 'G-LF8H890XTV');
                         <p>We believe everyone deserves access to emergency safety tools regardless of budget. The SOS button, fall detection, medication reminders, and daily check-ins will always be free. Premium features like unlimited medications, Family Link sharing, and health tracking help fund ongoing development.</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT ==================== -->
+    <section class="about-section" id="about">
+        <div class="container reveal">
+            <div class="section-header">
+                <div class="section-tag">About</div>
+                <h2>Built by a small team in Virginia</h2>
+            </div>
+            <div class="about-content">
+                <p>SteadiDay was built after watching family members juggle medications, appointments, and daily routines without one simple place to manage it all.</p>
+                <p>We're a small, independent team building the app we wished existed for our own families — and the safety essentials will always be free.</p>
             </div>
         </div>
     </section>
