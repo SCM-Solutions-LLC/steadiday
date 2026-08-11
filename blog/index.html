@@ -98,11 +98,11 @@
     }
 
     a {
-      color: var(--sage);
+      color: var(--color-brand-text);
       text-decoration: none;
       transition: color 0.2s ease;
     }
-    a:hover { color: var(--sage-dark); }
+    a:hover { color: var(--color-brand-hover); }
 
     /* ============================================================
        Navigation
@@ -163,10 +163,10 @@
       background: var(--sage);
       transition: width 0.3s ease;
     }
-    .nav-links a:hover { color: var(--sage); }
+    .nav-links a:hover { color: var(--color-brand-text); }
     .nav-links a:hover::after { width: 100%; }
     .nav-cta {
-      background: var(--sage) !important;
+      background: var(--color-brand-text) !important;
       color: var(--white) !important;
       padding: 0.75rem 1.5rem !important;
       border-radius: var(--radius-md);
@@ -230,7 +230,7 @@
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.1em;
-      color: var(--sage);
+      color: var(--color-brand-text);
       margin-bottom: 0.75rem;
     }
     .section-header h2 {
@@ -302,7 +302,7 @@
       font-size: 1.05rem;
       font-weight: 600;
       font-family: 'Source Sans 3', sans-serif;
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white);
       border: none;
       border-radius: var(--radius-md);
@@ -318,7 +318,7 @@
       color: var(--charcoal-light);
     }
     .newsletter-note a {
-      color: var(--sage);
+      color: var(--color-brand-text);
       text-decoration: underline;
     }
     .newsletter-message {
@@ -332,7 +332,7 @@
     .newsletter-message.success {
       display: block;
       background: var(--sage-light);
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       border: 1px solid rgba(26, 138, 125, 0.25);
     }
     .newsletter-message.error {
@@ -381,7 +381,7 @@
       position: absolute;
       top: 1rem;
       left: 1rem;
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white);
       padding: 0.4rem 1rem;
       border-radius: 20px;
@@ -400,7 +400,7 @@
       text-decoration: none;
       transition: color 0.2s;
     }
-    .blog-card h2 a:hover { color: var(--sage); }
+    .blog-card h2 a:hover { color: var(--color-brand-text); }
     .blog-meta {
       font-size: 0.9rem;
       color: var(--charcoal-light);
@@ -416,7 +416,7 @@
       line-height: 1.7;
     }
     .read-more {
-      color: var(--sage);
+      color: var(--color-brand-text);
       text-decoration: none;
       font-weight: 600;
       display: inline-flex;
@@ -426,7 +426,7 @@
     }
     .read-more:hover {
       gap: 0.75rem;
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
     }
     .read-more svg {
       width: 18px;
@@ -468,7 +468,7 @@
        CTA Section
        ============================================================ */
     .cta-section {
-      background: linear-gradient(135deg, var(--sage) 0%, var(--sage-dark) 100%);
+      background: linear-gradient(135deg, var(--color-brand-text) 0%, var(--color-brand-hover) 100%);
       color: var(--white);
       padding: 4rem 3rem;
       border-radius: var(--radius-lg);
@@ -507,7 +507,7 @@
     .cta-button {
       display: inline-block;
       background: var(--white);
-      color: var(--sage);
+      color: var(--color-brand-text);
       padding: 1rem 2.5rem;
       border-radius: var(--radius-md);
       text-decoration: none;
@@ -518,7 +518,7 @@
     .cta-button:hover {
       transform: translateY(-3px);
       box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
     }
 
     /* ============================================================
@@ -571,7 +571,7 @@
       padding-top: 1.5rem;
       margin-top: 1.5rem;
       border-top: 1px solid rgba(255, 255, 255, 0.1);
-      color: rgba(255, 255, 255, 0.5);
+      color: rgba(255, 255, 255, 0.6);
       font-size: 0.9rem;
     }
 
@@ -602,6 +602,7 @@
 
 </head>
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
 
   <!-- ============================================================
        Navigation
@@ -637,7 +638,7 @@
        Main
        ============================================================ -->
 
-  <main class="container">
+  <main id="main" class="container">
     <div class="section-header">
       <span class="section-label">Latest Articles</span>
       <h2>Expert Advice for Healthier Living</h2>
@@ -656,7 +657,7 @@
         <button type="submit" id="subscribe-btn">Subscribe</button>
       </div>
     </form>
-    <div id="newsletter-message" class="newsletter-message"></div>
+    <div id="newsletter-message" class="newsletter-message" role="status" aria-live="polite"></div>
     <p class="newsletter-note">📡 Prefer RSS? <a href="rss.xml">Grab our feed here</a></p>
   </div>
 </section>

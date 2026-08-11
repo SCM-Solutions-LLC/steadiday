@@ -1322,16 +1322,19 @@ def get_html_template():
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg"><link rel="apple-touch-icon" href="../assets/icon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@400;700&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../steadiday-shared.css">
     <script type="application/ld+json">
     {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{reviewer_jsonld},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
     {faq_jsonld}
     <style>
-        :root{{--cream:#FFFBF5;--teal:#1A8A7D;--teal-dark:#147568;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}}
+        /* --teal is 4.22:1 on white, so it is a fill colour only.
+           --teal-text (5.94:1) carries every piece of teal text. */
+        :root{{--cream:#FFFBF5;--teal:#1A8A7D;--teal-dark:#147568;--teal-text:#157065;--teal-deep:#10564E;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}}
         *{{margin:0;padding:0;box-sizing:border-box;}}
         body{{font-family:'Source Sans 3',-apple-system,sans-serif;font-size:1.125rem;line-height:1.8;color:var(--charcoal);background:var(--cream);}}
         h1,h2,h3{{font-family:'Merriweather',Georgia,serif;color:var(--navy);line-height:1.3;}}
-        a{{color:var(--teal);text-decoration:none;}}a:hover{{color:var(--teal-dark);text-decoration:underline;}}
+        a{{color:var(--teal-text);text-decoration:none;}}a:hover{{color:var(--teal-deep);text-decoration:underline;}}
         .nav{{background:var(--white);padding:1rem 0;border-bottom:1px solid rgba(30,58,95,0.1);position:sticky;top:0;z-index:100;}}
         .nav-container{{max-width:900px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;}}.nav a{{font-weight:600;}}
         .breadcrumbs{{max-width:900px;margin:0 auto;padding:1rem 2rem;font-size:0.9rem;}}
@@ -1352,9 +1355,11 @@ def get_html_template():
         .video-container{{position:relative;width:100%;padding-bottom:56.25%;height:0;margin:2rem 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);}}
         .video-container iframe{{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}}
         .video-caption{{font-size:0.9rem;color:var(--charcoal-light);text-align:center;padding:0.75rem;font-style:italic;}}
-        .cta-box{{background:linear-gradient(135deg,var(--teal) 0%,var(--teal-dark) 100%);color:var(--white);padding:2rem;border-radius:12px;text-align:center;margin:2.5rem 0;}}
-        .cta-box h3{{margin-bottom:0.75rem;font-size:1.35rem;color:var(--white);}}.cta-box p{{color:rgba(255,255,255,0.9)!important;margin-bottom:1rem;}}
-        .cta-button{{display:inline-block;background:var(--white);color:var(--teal);padding:0.875rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;}}
+        /* Gradient darkened: 90%-opacity white on the old --teal
+           start was 3.73:1. Both stops now clear 4.5:1. */
+        .cta-box{{background:linear-gradient(135deg,var(--teal-text) 0%,var(--teal-deep) 100%);color:var(--white);padding:2rem;border-radius:12px;text-align:center;margin:2.5rem 0;}}
+        .cta-box h3{{margin-bottom:0.75rem;font-size:1.35rem;color:var(--white);}}.cta-box p{{color:rgba(255,255,255,1)!important;margin-bottom:1rem;}}
+        .cta-button{{display:inline-block;background:var(--white);color:var(--teal-text);padding:0.875rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;}}
         .cta-button:hover{{opacity:0.9;text-decoration:none;transform:translateY(-2px);}}
         .back-to-blog{{max-width:750px;margin:0 auto;padding:1.5rem 2rem;text-align:center;background:var(--white);}}
         .footer{{text-align:center;padding:2rem;color:var(--charcoal-light);font-size:0.9rem;background:var(--white);border-top:1px solid rgba(30,58,95,0.1);}}
@@ -1362,9 +1367,11 @@ def get_html_template():
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <nav class="nav"><div class="nav-container"><a href="index.html">&larr; Back to Blog</a><a href="{website_url}">SteadiDay Home</a></div></nav>
     <div class="breadcrumbs"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">{title}</span></div>
-    <img src="{hero_image}" alt="{title}" class="hero-image" loading="eager">
+    <main id="main">
+    <img src="{hero_image}" alt="" class="hero-image" loading="eager">
     <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div><div class="article-reviewer">Editorially reviewed by <a href="{reviewer_url}">{reviewer_name}</a></div></header>
     <article class="article-container"><div class="article-content">
         {content}
@@ -1372,6 +1379,7 @@ def get_html_template():
     </div></article>
     {related_posts_block}
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
+    </main>
     <footer class="footer"><p>&copy; {year} SCM Solutions LLC. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p></footer>
 <!-- GTAG_CONVERSION_INJECTED -->
 <script>document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(link){{link.addEventListener('click',function(){{gtag('event','conversion',{{'send_to':'AW-17929124014/gDbcCLbkio4cEK7xouVC','value':1.0,'currency':'USD'}});}});}});}});</script>

@@ -632,80 +632,6 @@ gtag('config', 'G-LF8H890XTV');
         max-width: 580px;
     }
 
-    /* ==================== KEY FEATURES ==================== */
-    .features-section {
-        padding: 5rem 0;
-        background: var(--white);
-    }
-
-    .features-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem;
-    }
-
-    .feature-card {
-        background: var(--white);
-        padding: 2rem;
-        border-radius: 16px;
-        border: 1px solid var(--border);
-        display: flex;
-        gap: 1.25rem;
-        align-items: flex-start;
-    }
-
-    .feature-card-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-    }
-
-    .feature-card-icon svg {
-        width: 24px;
-        height: 24px;
-    }
-
-    /* Named by meaning, not by hue — see the semantic roles in
-       steadiday-shared.css. Every icon is paired with a heading,
-       so colour is reinforcement and never the only signal. */
-    .feature-card-icon.is-success { background: var(--color-success-bg); color: var(--color-success-text); }
-    .feature-card-icon.is-info    { background: var(--color-info-bg);    color: var(--color-info-text); }
-    .feature-card-icon.is-premium { background: var(--color-premium-bg); color: var(--color-premium-text); }
-    .feature-card-icon.is-danger  { background: var(--color-danger-bg);  color: var(--color-danger-text); }
-
-    .feature-card h3 {
-        font-size: 21px;
-        font-weight: 700;
-        margin-bottom: 0.25rem;
-    }
-
-    /* Gradient stops darkened from #D97706/#F59E0B, which put
-       white text at 3.19:1 and 2.15:1 — the worst contrast on
-       the page. Both stops now clear 4.5:1. */
-    .feature-card .badge-premium {
-        display: inline-block;
-        font-size: 12px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        background: linear-gradient(135deg, #9C5604, #AD6005);
-        color: var(--color-surface);
-        padding: 0.15rem 0.5rem;
-        border-radius: 4px;
-        margin-left: 0.5rem;
-        vertical-align: middle;
-    }
-
-    .feature-card p {
-        font-size: 18px;
-        color: var(--text-body);
-        line-height: 1.7;
-    }
-
     /* ==================== SCREENSHOT SHOWCASE ==================== */
     .gallery-section {
         padding: 5rem 0;
@@ -976,7 +902,6 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     @media (max-width: 768px) {
-        .features-grid,
         .modes-grid {
             grid-template-columns: 1fr;
         }
@@ -1363,15 +1288,6 @@ gtag('config', 'G-LF8H890XTV');
     .js-reveal [data-delay="3"] { transition-delay: 0.3s; }
     .js-reveal [data-delay="4"] { transition-delay: 0.4s; }
 
-    .feature-card {
-        transition: box-shadow 0.25s ease, transform 0.25s ease;
-    }
-
-    .feature-card:hover {
-        box-shadow: 0 8px 28px rgba(74, 157, 126, 0.14);
-        transform: translateY(-2px);
-    }
-
     .phase-card {
         transition: box-shadow 0.25s ease, transform 0.25s ease;
     }
@@ -1602,62 +1518,13 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
-    <!-- ==================== KEY FEATURES ==================== -->
-    <section class="features-section" id="features">
+    <!-- ==================== SCREENSHOT SHOWCASE ==================== -->
+    <section class="gallery-section" id="features">
         <div class="container reveal">
             <div class="section-header">
                 <div class="section-tag">Key Features</div>
                 <h2>What makes SteadiDay different</h2>
-                <p>Safety, health, and daily wellness — purpose-built for adults 50+ and the people who care about them.</p>
-            </div>
-            <div class="features-grid">
-                <div class="feature-card reveal" data-delay="1">
-                    <div class="feature-card-icon is-danger">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
-                    </div>
-                    <div>
-                        <h3>Fall Detection</h3>
-                        <p>Start a Safety Session and the app monitors for hard falls using the iPhone's sensors. If a fall is detected and there's no response within 30 seconds, all trusted contacts are alerted automatically.</p>
-                    </div>
-                </div>
-                <div class="feature-card reveal" data-delay="2">
-                    <div class="feature-card-icon is-premium">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                    </div>
-                    <div>
-                        <h3>Family Link <span class="badge-premium">Premium</span></h3>
-                        <p>Share a private Care Summary with a caregiver — they see medication adherence, check-ins, and activity at a glance. No app needed on their side; it's a simple web link.</p>
-                    </div>
-                </div>
-                <div class="feature-card reveal" data-delay="3">
-                    <div class="feature-card-icon is-info">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-                    </div>
-                    <div>
-                        <h3>Steady Moves <span class="badge-premium">Premium</span></h3>
-                        <p>Guided daily balance and strength exercises based on CDC STEADI protocols. Gentle routines you can do from a sturdy chair — with voice guidance and large, clear instructions.</p>
-                    </div>
-                </div>
-                <div class="feature-card reveal" data-delay="4">
-                    <div class="feature-card-icon is-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-                    </div>
-                    <div>
-                        <h3>Simple Mode</h3>
-                        <p>A streamlined home screen with just the essentials — large buttons, clear labels, and no clutter. Perfect for anyone who finds typical apps overwhelming. Switch between Simple and Standard any time.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ==================== SCREENSHOT SHOWCASE ==================== -->
-    <section class="gallery-section">
-        <div class="container reveal">
-            <div class="section-header">
-                <div class="section-tag">See It in Action</div>
-                <h2>What SteadiDay looks like</h2>
-                <p>Clean, simple screens designed for adults 50+ — large buttons, clear text, and no clutter.</p>
+                <p>Safety, health, and daily wellness — purpose-built for adults 50+ and the people who care about them. Every screen below is the real app.</p>
             </div>
         </div>
 
