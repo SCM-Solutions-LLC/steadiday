@@ -26,11 +26,11 @@
     </script>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What the FDA Is Actually Deciding?", "acceptedAnswer": {"@type": "Answer", "text": "Here's the background. Leqembi (lecanemab) is an anti-amyloid antibody therapy approved for early Alzheimer's disease — specifically for people with mild cognitive impairment or early-stage dementia who have confirmed amyloid buildup in the brain. It works by targeting and clearing amyloid plaques, the protein deposits long associated with Alzheimer's progression."}}, {"@type": "Question", "name": "Why This Matters for Adults 50 and Over?", "acceptedAnswer": {"@type": "Answer", "text": "If you or someone you love has been diagnosed with early Alzheimer's — or is being monitored for mild cognitive impairment — this decision has direct, practical implications."}}, {"@type": "Question", "name": "What the Evidence Actually Shows?", "acceptedAnswer": {"@type": "Answer", "text": "The clinical case for lecanemab has been building for several years, and the long-term data is now strong enough to take seriously. The pivotal Clarity AD trial showed that lecanemab slowed clinical decline by 27% over 18 months compared to placebo — a meaningful number in a disease where any slowing matters."}}, {"@type": "Question", "name": "What Happens After May 24, 2026?", "acceptedAnswer": {"@type": "Answer", "text": "Three things could happen. The FDA approves Leqembi Iqlik as a starting dose — full approval, potentially with labeling conditions. It approves with modifications or requests additional data. Or it doesn't approve, at least not yet."}}]}</script>
     <style>
-        :root{--cream:#FFFBF5;--teal:#1A8A7D;--teal-dark:#147568;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}
+        :root{--cream:#FFFBF5;--teal:#1A8A7D;--teal-text:#157065;--teal-deep:#10564E;--teal-dark:#147568;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}
         *{margin:0;padding:0;box-sizing:border-box;}
         body{font-family:'Source Sans 3',-apple-system,sans-serif;font-size:1.125rem;line-height:1.8;color:var(--charcoal);background:var(--cream);}
         h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-dark);line-height:1.3;}
-        a{color:var(--sage);text-decoration:none;}a:hover{color:var(--sage-dark);text-decoration:underline;}
+        a{color: var(--color-brand-text);text-decoration:none;}a:hover{color: var(--color-brand-hover);text-decoration:underline;}
         .nav{background:var(--white);padding:1rem 0;border-bottom:1px solid rgba(30,58,95,0.1);position:sticky;top:0;z-index:100;}
         .nav-container{max-width:900px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;}.nav a{font-weight:600;}
         .breadcrumbs{max-width:900px;margin:0 auto;padding:1rem 2rem;font-size:0.9rem;}
@@ -48,9 +48,9 @@
         .video-container{position:relative;width:100%;padding-bottom:56.25%;height:0;margin:2rem 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);}
         .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
         .video-caption{font-size:0.9rem;color:var(--charcoal-light);text-align:center;padding:0.75rem;font-style:italic;}
-        .cta-box{background:linear-gradient(135deg,var(--sage) 0%,var(--sage-dark) 100%);color:var(--white);padding:2rem;border-radius:12px;text-align:center;margin:2.5rem 0;}
-        .cta-box h3{margin-bottom:0.75rem;font-size:1.35rem;color:var(--white);}.cta-box p{color:rgba(255,255,255,0.9)!important;margin-bottom:1rem;}
-        .cta-button{display:inline-block;background:var(--white);color:var(--sage);padding:0.875rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;}
+        .cta-box{background:linear-gradient(135deg,var(--color-brand-text) 0%,var(--color-brand-hover) 100%);color:var(--white);padding:2rem;border-radius:12px;text-align:center;margin:2.5rem 0;}
+        .cta-box h3{margin-bottom:0.75rem;font-size:1.35rem;color:var(--white);}.cta-box p{color: rgba(255, 255, 255, 1)!important;margin-bottom:1rem;}
+        .cta-button{display:inline-block;background:var(--white);color: var(--color-brand-text);padding:0.875rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;}
         .cta-button:hover{opacity:0.9;text-decoration:none;transform:translateY(-2px);}
         .back-to-blog{max-width:750px;margin:0 auto;padding:1.5rem 2rem;text-align:center;background:var(--white);}
         .footer{text-align:center;padding:2rem;color:var(--charcoal-light);font-size:0.9rem;background:var(--white);border-top:1px solid rgba(30,58,95,0.1);}
@@ -62,9 +62,11 @@
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <nav class="nav"><div class="nav-container"><a href="index.html">&larr; Back to Blog</a><a href="https://www.steadiday.com">SteadiDay Home</a></div></nav>
     <div class="breadcrumbs"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">At-Home Alzheimer's Injection: What's Coming in 2026</span></div>
-    <img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&q=80" alt="At-Home Alzheimer's Injection: What's Coming in 2026" class="hero-image" loading="eager">
+    <main id="main">
+    <img src="https://images.unsplash.com/photo-1557683316-973673baf926?w=1200&q=80" alt="" class="hero-image" loading="eager">
     <header class="article-header"><h1>At-Home Alzheimer's Injection: What's Coming in 2026</h1><div class="article-meta">May 04, 2026 &bull; By SteadiDay Team &bull; 7 min read</div><div class="article-reviewer">Editorially reviewed by <a href="https://www.steadiday.com/#about">SteadiDay Health Editorial Team</a></div></header>
     <article class="article-container"><div class="article-content">
         <p>Last August, something quietly significant happened in Alzheimer's care. The FDA approved a <strong>weekly subcutaneous maintenance dose</strong> of lecanemab — the drug sold as Leqembi — meaning people already on the medication could start self-injecting at home instead of returning to a clinic every two weeks for an IV infusion. It was a real shift. But there was still a catch: patients had to begin treatment with those IV infusions before switching to injections. Now, a second FDA decision — expected <strong>May 24, 2026</strong> — could change that entirely. If it goes through, an <strong>at-home Alzheimer's treatment injection</strong> called Leqembi Iqlik would let patients start and stay on treatment without ever sitting in an infusion chair.</p>
@@ -140,6 +142,7 @@
     </div></article>
     <aside class="related-posts" aria-label="Related posts"><h3>Related from the SteadiDay Blog</h3><ul class="related-posts-list"><li><a href="2026-04-20-vitamin-d-your-midlife-brain.html">Vitamin D: Your Midlife Brain Protection Strategy</a></li><li><a href="2026-04-06-5week-brain-training-cuts-dementia.html">5-Week Brain Training Cuts Dementia Risk by 25%</a></li><li><a href="2026-03-26-social-connection-your-brains-best.html">Social Connection: Your Brain's Best Defense</a></li></ul></aside>
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
+    </main>
     <footer class="footer"><p>&copy; 2026 SCM Solutions LLC. | <a href="https://www.steadiday.com">Home</a> | <a href="https://www.steadiday.com/privacy.html">Privacy</a> | <a href="https://www.steadiday.com/terms.html">Terms</a></p></footer>
 <!-- GTAG_CONVERSION_INJECTED -->
 <script>document.addEventListener('DOMContentLoaded',function(){document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(link){link.addEventListener('click',function(){gtag('event','conversion',{'send_to':'AW-17929124014/gDbcCLbkio4cEK7xouVC','value':1.0,'currency':'USD'});});});});</script>
