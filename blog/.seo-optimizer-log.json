@@ -185,7 +185,7 @@
       "article_jsonld_dateModified",
       "article_modified_time_meta"
     ],
-    "notes": "Title/meta left untouched — 2026-07-06 rewrite moved avg position 55.5 to 43.5, so the targeting is working; this run deepens topical coverage of the tracker/reporting caregiver queries instead of re-cutting the title.",
+    "notes": "Title/meta left untouched \u2014 2026-07-06 rewrite moved avg position 55.5 to 43.5, so the targeting is working; this run deepens topical coverage of the tracker/reporting caregiver queries instead of re-cutting the title.",
     "baseline": {
       "window": "2026-07-06_to_2026-08-02",
       "clicks": 0,
@@ -196,11 +196,21 @@
   },
   {
     "date": "2026-08-04",
-    "file": "blog/*.html (campaign URL swap — not a post optimization)",
+    "file": "blog/*.html (campaign URL swap \u2014 not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in 7 posts: 2026-07-09, 2026-07-13, 2026-07-16, 2026-07-20, 2026-07-23, 2026-07-27, 2026-07-30"
     ],
+    "baseline": null
+  },
+  {
+    "date": "2026-08-11",
+    "file": "blog/2026-08-06-driving-safety-for-seniors-5.html (campaign URL swap \u2014 not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL"
+    ],
+    "notes": "No post optimizations this run. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (optimized 2026-08-04, inside the 21-day cooldown) and 2026-06-22-the-first-mrna-flu-vaccine.html, whose named GSC queries are all flu-timing intent at position 78+ and whose ~400 remaining impressions are anonymized and untargetable. That post also carries a now-past FDA decision date (August 5, 2026) in its FAQ and body; correcting it would change a medical/factual statement, so it is flagged for Saawan rather than edited. detect_quick_wins returned 0 opportunities at position 8-25 / >=20 impressions.",
     "baseline": null
   }
 ]
