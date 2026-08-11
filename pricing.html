@@ -38,12 +38,12 @@
     img { max-width: 100%; height: auto; }
 
     a {
-        color: var(--sage);
+        color: var(--color-brand-text);
         text-decoration: none;
         transition: color 0.2s ease;
     }
 
-    a:hover { color: var(--sage-dark); }
+    a:hover { color: var(--color-brand-hover); }
 
     .container {
         max-width: 1120px;
@@ -106,7 +106,7 @@
     }
 
     .nav-cta {
-        background: var(--sage);
+        background: var(--color-brand-text);
         color: var(--white) !important;
         padding: 0.5rem 1.125rem;
         border-radius: 8px;
@@ -218,7 +218,7 @@
     .save-badge {
         display: inline-block;
         background: rgba(74, 157, 126, 0.12);
-        color: var(--sage);
+        color: var(--color-brand-text);
         font-size: var(--text-xs);
         font-weight: 600;
         padding: 0.125rem 0.5rem;
@@ -260,7 +260,7 @@
         top: -12px;
         left: 50%;
         transform: translateX(-50%);
-        background: var(--sage);
+        background: var(--color-brand-text);
         color: white;
         font-family: var(--font-heading);
         font-size: var(--text-xs);
@@ -274,7 +274,7 @@
         font-family: var(--font-heading);
         font-size: var(--text-sm);
         font-weight: 600;
-        color: var(--sage);
+        color: var(--color-brand-text);
         text-transform: uppercase;
         letter-spacing: 0.05em;
         margin-bottom: 0.5rem;
@@ -328,7 +328,7 @@
     }
 
     .card-features li .check {
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     .card-features li .dash {
@@ -350,7 +350,7 @@
     }
 
     .card-btn-primary {
-        background: var(--sage);
+        background: var(--color-brand-text);
         color: white;
     }
 
@@ -361,13 +361,13 @@
 
     .card-btn-outline {
         background: var(--white);
-        color: var(--sage);
+        color: var(--color-brand-text);
         border: 2px solid var(--sage);
     }
 
     .card-btn-outline:hover {
         background: var(--sage-05);
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     /* ==================== FEATURE COMPARISON ==================== */
@@ -415,7 +415,7 @@
 
     .compare-table thead th.highlight {
         color: var(--white);
-        background: var(--sage);
+        background: var(--color-brand-text);
     }
 
     .compare-table tbody td {
@@ -448,7 +448,7 @@
     }
 
     .compare-table .check-icon {
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     .compare-table .no-icon {
@@ -622,6 +622,7 @@
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="nav-overlay" id="navOverlay"></div>
 
     <nav>
@@ -646,6 +647,7 @@
         </div>
     </nav>
 
+    <main id="main">
     <!-- ==================== HERO ==================== -->
     <section class="pricing-hero">
         <div class="container">
@@ -831,6 +833,8 @@
             </p>
         </div>
     </section>
+
+    </main>
 
     <!-- ==================== FOOTER ==================== -->
     <footer>
