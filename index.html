@@ -244,61 +244,30 @@ gtag('config', 'G-LF8H890XTV');
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="steadiday-shared.css">
 
+<!-- Set before first paint so media never flashes in unskeletoned.
+     Without JS the class is absent and images render immediately. -->
+<script>document.documentElement.classList.add('js-skeleton');</script>
+
 <style>
+    /* Page-specific tokens only. The palette, semantic roles,
+       base typography, focus rings and skeleton styles all come
+       from steadiday-shared.css — don't redeclare them here. */
     :root {
-        --white: #FFFFFF;
-        --off-white: #F8FAF9;
-        --light-green: #F0FAF5;
-        --sage: #4A9D7E;
-        --sage-dark: #3B8468;
-        --sage-05: rgba(74, 157, 126, 0.05);
-        --sage-10: rgba(74, 157, 126, 0.1);
-        --sage-12: rgba(74, 157, 126, 0.12);
-        --border: #E5E7EB;
-        --border-light: #F0F4F2;
-        --text-dark: #111827;
-        --text-body: #1F2937;
-        --text-muted: #4B5563;
-        --text-light: #6B7280;
-        --blue: #5B8FC4;
-        --blue-10: rgba(91, 143, 196, 0.1);
-        --yellow: #D97706;
-        --red: #DC2626;
-        --hover-bg: #F8FAF9;
-        --watermark: #E5E7EB;
-        --shadow-card: 0 8px 32px rgba(74, 157, 126, 0.12);
-        --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
-        --shadow-medium: 0 4px 16px rgba(0, 0, 0, 0.08);
+        --hover-bg: var(--color-surface-subtle);
+        --watermark: var(--neutral-200);
     }
 
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-
     body {
-        font-family: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-        font-size: 19px;
-        line-height: 1.7;
-        color: var(--text-body);
-        background: var(--white);
-        -webkit-font-smoothing: antialiased;
+        background: var(--color-surface);
     }
 
     h1, h2, h3, h4 {
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
         line-height: 1.2;
-        color: var(--text-dark);
     }
-
-    img { max-width: 100%; height: auto; }
 
     a {
-        color: var(--sage);
-        text-decoration: none;
         transition: color 0.2s ease;
     }
-
-    a:hover { color: var(--sage-dark); }
 
     .container {
         max-width: 1120px;
@@ -361,7 +330,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .nav-cta {
-        background: var(--sage);
+        background: var(--color-brand-text);
         color: var(--white) !important;
         padding: 0.5rem 1.125rem;
         border-radius: 8px;
@@ -422,8 +391,8 @@ gtag('config', 'G-LF8H890XTV');
         display: inline-flex;
         align-items: center;
         gap: 0.375rem;
-        background: var(--sage-10);
-        color: var(--sage);
+        background: var(--color-success-bg);
+        color: var(--color-success-text);
         padding: 0.375rem 0.875rem;
         border-radius: 100px;
         font-size: 14px;
@@ -469,14 +438,16 @@ gtag('config', 'G-LF8H890XTV');
         cursor: pointer;
     }
 
+    /* Was #4A9D7E, which put white label text at 3.27:1.
+       Same hue and saturation, darkened to clear 4.5:1. */
     .btn-primary {
-        background: var(--sage);
-        color: var(--white);
+        background: var(--color-brand-text);
+        color: var(--color-surface);
     }
 
     .btn-primary:hover {
-        background: var(--sage-dark);
-        color: var(--white);
+        background: var(--color-brand-hover);
+        color: var(--color-surface);
     }
 
     .btn-outline {
@@ -487,7 +458,7 @@ gtag('config', 'G-LF8H890XTV');
 
     .btn-outline:hover {
         border-color: var(--sage);
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     .app-store-badge {
@@ -563,6 +534,41 @@ gtag('config', 'G-LF8H890XTV');
         max-height: 480px;
     }
 
+    /* The preview loops for 25s, so WCAG 2.2.2 requires a way to
+       stop it. 44px target, high-contrast on any frame. */
+    .video-toggle {
+        position: absolute;
+        right: 10px;
+        bottom: 10px;
+        z-index: 3;
+        width: 44px;
+        height: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        color: var(--color-surface);
+        background: rgba(17, 24, 39, 0.72);
+        backdrop-filter: blur(4px);
+        transition: background 0.2s ease;
+    }
+
+    .video-toggle:hover {
+        background: rgba(17, 24, 39, 0.88);
+    }
+
+    .video-toggle svg {
+        width: 20px;
+        height: 20px;
+    }
+
+    .video-toggle .video-toggle-play { display: none; }
+    .video-toggle.is-paused .video-toggle-pause { display: none; }
+    .video-toggle.is-paused .video-toggle-play { display: block; }
+
     .hero-card-image img,
     .hero-card-image video {
         width: 100%;
@@ -594,7 +600,7 @@ gtag('config', 'G-LF8H890XTV');
     .benefit-pill svg {
         width: 16px;
         height: 16px;
-        color: var(--sage);
+        color: var(--color-brand-text);
         flex-shrink: 0;
     }
 
@@ -607,7 +613,7 @@ gtag('config', 'G-LF8H890XTV');
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.08em;
-        color: var(--sage);
+        color: var(--color-brand-text);
         margin-bottom: 0.75rem;
     }
 
@@ -624,64 +630,6 @@ gtag('config', 'G-LF8H890XTV');
         font-size: 19px;
         color: var(--text-body);
         max-width: 580px;
-    }
-
-    /* ==================== STATISTICS GRID ==================== */
-    .stats-section {
-        padding: 5rem 0;
-        background: var(--off-white);
-    }
-
-    .stats-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.25rem;
-    }
-
-    .stat-card {
-        background: var(--white);
-        padding: 2rem 1.75rem;
-        border-radius: 16px;
-        border: 1px solid var(--border);
-    }
-
-    .stat-card-number {
-        font-family: 'Poppins', sans-serif;
-        font-size: 48px;
-        font-weight: 700;
-        color: var(--sage);
-        line-height: 1;
-        margin-bottom: 0.375rem;
-    }
-
-    .stat-card-title {
-        font-size: 19px;
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 0.5rem;
-    }
-
-    .stat-card-desc {
-        font-size: 18px;
-        color: var(--text-body);
-        line-height: 1.7;
-    }
-
-    .callout-box {
-        margin-top: 1.75rem;
-        padding: 1.25rem 1.5rem;
-        background: var(--blue-10);
-        border-radius: 12px;
-    }
-
-    .callout-box p {
-        font-size: 17px;
-        color: var(--text-body);
-        line-height: 1.7;
-    }
-
-    .callout-box strong {
-        color: var(--text-dark);
     }
 
     /* ==================== KEY FEATURES ==================== */
@@ -721,10 +669,13 @@ gtag('config', 'G-LF8H890XTV');
         height: 24px;
     }
 
-    .feature-card-icon.sage { background: var(--sage-10); color: var(--sage); }
-    .feature-card-icon.blue { background: var(--blue-10); color: var(--blue); }
-    .feature-card-icon.amber { background: rgba(217, 119, 6, 0.1); color: #D97706; }
-    .feature-card-icon.rose { background: rgba(220, 38, 38, 0.1); color: #DC2626; }
+    /* Named by meaning, not by hue — see the semantic roles in
+       steadiday-shared.css. Every icon is paired with a heading,
+       so colour is reinforcement and never the only signal. */
+    .feature-card-icon.is-success { background: var(--color-success-bg); color: var(--color-success-text); }
+    .feature-card-icon.is-info    { background: var(--color-info-bg);    color: var(--color-info-text); }
+    .feature-card-icon.is-premium { background: var(--color-premium-bg); color: var(--color-premium-text); }
+    .feature-card-icon.is-danger  { background: var(--color-danger-bg);  color: var(--color-danger-text); }
 
     .feature-card h3 {
         font-size: 21px;
@@ -732,14 +683,17 @@ gtag('config', 'G-LF8H890XTV');
         margin-bottom: 0.25rem;
     }
 
+    /* Gradient stops darkened from #D97706/#F59E0B, which put
+       white text at 3.19:1 and 2.15:1 — the worst contrast on
+       the page. Both stops now clear 4.5:1. */
     .feature-card .badge-premium {
         display: inline-block;
         font-size: 12px;
         font-weight: 600;
         text-transform: uppercase;
         letter-spacing: 0.05em;
-        background: linear-gradient(135deg, #D97706, #F59E0B);
-        color: var(--white);
+        background: linear-gradient(135deg, #9C5604, #AD6005);
+        color: var(--color-surface);
         padding: 0.15rem 0.5rem;
         border-radius: 4px;
         margin-left: 0.5rem;
@@ -816,13 +770,13 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .showcase-tag.free {
-        background: var(--sage-10);
-        color: var(--sage);
+        background: var(--color-success-bg);
+        color: var(--color-success-text);
     }
 
     .showcase-tag.premium {
-        background: rgba(217, 119, 6, 0.1);
-        color: #B45309;
+        background: var(--color-premium-bg);
+        color: var(--color-premium-text);
     }
 
     .showcase-text h3 {
@@ -867,74 +821,11 @@ gtag('config', 'G-LF8H890XTV');
         margin-top: 0.125rem;
     }
 
-    /* ---- Everyday Tools Icon Grid ---- */
     .tools-grid-heading {
         font-size: var(--text-lg);
         font-weight: 700;
         color: var(--text-dark);
         margin-bottom: 0.25rem;
-    }
-
-    .tools-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.5rem;
-        margin-top: 2rem;
-    }
-
-    .tool-card {
-        text-align: center;
-        padding: 2rem 1.25rem;
-        border-radius: 16px;
-        background: var(--white);
-        border: 1px solid var(--border);
-        transition: box-shadow 0.2s ease, transform 0.2s ease;
-    }
-
-    .tool-card:hover {
-        box-shadow: 0 4px 20px rgba(0,0,0,0.06);
-        transform: translateY(-2px);
-    }
-
-    .tool-icon {
-        width: 52px;
-        height: 52px;
-        border-radius: 14px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 0 auto 1rem;
-    }
-
-    .tool-icon svg {
-        width: 26px;
-        height: 26px;
-    }
-
-    .tool-icon.sage { background: rgba(74,157,126,0.12); color: var(--sage); }
-    .tool-icon.blue { background: rgba(59,130,246,0.12); color: #3b82f6; }
-    .tool-icon.amber { background: rgba(245,158,11,0.12); color: #f59e0b; }
-    .tool-icon.rose { background: rgba(244,63,94,0.12); color: #f43f5e; }
-
-    .tool-card h4 {
-        font-family: 'Poppins', sans-serif;
-        font-size: var(--text-md);
-        font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 0.375rem;
-    }
-
-    .tool-card p {
-        font-size: var(--text-sm);
-        color: var(--text-muted);
-        line-height: 1.5;
-    }
-
-    @media (max-width: 768px) {
-        .tools-grid {
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-        }
     }
 
     /* ---- Tools extra list ---- */
@@ -963,17 +854,11 @@ gtag('config', 'G-LF8H890XTV');
         height: 18px;
         flex-shrink: 0;
         margin-top: 3px;
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     @media (max-width: 768px) {
         .tools-extra-list {
-            grid-template-columns: 1fr;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .tools-grid {
             grid-template-columns: 1fr;
         }
     }
@@ -1039,7 +924,7 @@ gtag('config', 'G-LF8H890XTV');
         border-radius: 100px;
         margin-bottom: 1rem;
         background: var(--sage-10);
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     .mode-card h3 {
@@ -1073,7 +958,7 @@ gtag('config', 'G-LF8H890XTV');
     .mode-card ul li svg {
         width: 18px;
         height: 18px;
-        color: var(--sage);
+        color: var(--color-brand-text);
         flex-shrink: 0;
     }
 
@@ -1096,81 +981,6 @@ gtag('config', 'G-LF8H890XTV');
             grid-template-columns: 1fr;
         }
     }
-
-    /* ==================== COMPARISON TABLE ==================== */
-    .comparison-section {
-        padding: 5rem 0;
-        background: var(--white);
-    }
-
-    .comparison-table-wrap {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-    }
-
-    .comparison-table {
-        width: 100%;
-        border-collapse: separate;
-        border-spacing: 0;
-        border-radius: 16px;
-        overflow: hidden;
-        border: 1px solid var(--border);
-        min-width: 640px;
-    }
-
-    .comparison-table th {
-        background: var(--border-light);
-        font-size: 15px;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        font-weight: 600;
-        color: var(--text-dark);
-        padding: 0.875rem 1.25rem;
-        text-align: left;
-        white-space: nowrap;
-    }
-
-    .comparison-table th.highlight-col {
-        background: var(--sage-05);
-        color: var(--sage-dark);
-    }
-
-    .comparison-table td {
-        padding: 0.875rem 1.25rem;
-        border-top: 1px solid var(--border);
-        font-size: 17px;
-        color: var(--text-body);
-    }
-
-    .comparison-table tr:hover td {
-        background: var(--hover-bg);
-    }
-
-    .comparison-table td.highlight-col {
-        background: var(--sage-05);
-    }
-
-    .comparison-table tr:hover td.highlight-col {
-        background: var(--sage-10);
-    }
-
-    .comparison-table td.feature-name {
-        font-weight: 600;
-        color: var(--text-dark);
-    }
-
-    .status-dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        display: inline-block;
-        margin-right: 0.375rem;
-        vertical-align: middle;
-    }
-
-    .status-dot.green { background: var(--sage); }
-    .status-dot.yellow { background: var(--yellow); }
-    .status-dot.red { background: var(--red); }
 
     /* ==================== PHASES ==================== */
     .phases-section {
@@ -1221,7 +1031,7 @@ gtag('config', 'G-LF8H890XTV');
     .phase-icon svg {
         width: 20px;
         height: 20px;
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     .phase-card h3 {
@@ -1240,85 +1050,6 @@ gtag('config', 'G-LF8H890XTV');
         z-index: 1;
     }
 
-    /* ==================== ROADMAP TIMELINE ==================== */
-    .roadmap-section {
-        padding: 5rem 0;
-        background: var(--white);
-    }
-
-    .roadmap-list {
-        max-width: 800px;
-    }
-
-    .roadmap-row {
-        display: grid;
-        grid-template-columns: 90px 130px 1fr;
-        gap: 1rem;
-        align-items: center;
-        padding: 1rem 1.25rem;
-        border-left: 4px solid transparent;
-        transition: background 0.2s ease;
-    }
-
-    .roadmap-row + .roadmap-row {
-        border-top: 1px solid var(--border);
-    }
-
-    .roadmap-row.current {
-        border-left-color: var(--sage);
-        background: var(--light-green);
-        border-radius: 0 8px 8px 0;
-    }
-
-    .roadmap-row.completed {
-        opacity: 0.85;
-    }
-
-    .roadmap-row.future {
-        border-left-color: var(--border);
-    }
-
-    .roadmap-date {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--text-dark);
-    }
-
-    .roadmap-label {
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--text-dark);
-    }
-
-    .roadmap-status {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.25rem;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.05em;
-        padding: 0.2rem 0.5rem;
-        border-radius: 4px;
-        margin-left: 0.375rem;
-    }
-
-    .roadmap-status.active {
-        background: var(--sage-10);
-        color: var(--sage);
-    }
-
-    .roadmap-status.done {
-        background: var(--border);
-        color: var(--text-muted);
-    }
-
-    .roadmap-content {
-        font-size: 17px;
-        color: var(--text-body);
-        line-height: 1.6;
-    }
-
     /* ==================== FAQ ==================== */
     .faq-section {
         padding: 5rem 0;
@@ -1330,6 +1061,10 @@ gtag('config', 'G-LF8H890XTV');
         display: grid;
         grid-template-columns: 1fr 1fr;
         gap: 1rem;
+        /* Without this, a collapsed card stretches to match the
+           height of an expanded neighbour and leaves a large
+           empty panel next to the open answer. */
+        align-items: start;
     }
 
     .faq-item {
@@ -1364,18 +1099,28 @@ gtag('config', 'G-LF8H890XTV');
         font-family: inherit;
     }
 
-    .faq-item h3 {
+    /* The heading wraps the button (rather than sitting inside it)
+       so screen-reader heading navigation still lists every
+       question. The button keeps the visual styling. */
+    .faq-heading {
+        margin: 0;
+        font-size: inherit;
+        font-weight: inherit;
+    }
+
+    .faq-question > span {
+        font-family: var(--font-heading);
         font-size: 18px;
         font-weight: 600;
-        color: var(--text-dark);
-        margin-bottom: 0;
+        color: var(--color-text-strong);
+        line-height: 1.4;
     }
 
     .faq-toggle {
         width: 22px;
         height: 22px;
         flex-shrink: 0;
-        color: var(--sage);
+        color: var(--color-brand-text);
         transition: transform 0.25s ease;
     }
 
@@ -1389,12 +1134,23 @@ gtag('config', 'G-LF8H890XTV');
         transition: grid-template-rows 0.3s cubic-bezier(0.16, 1, 0.3, 1);
     }
 
+    /* visibility (not just clipping) so a collapsed answer is
+       removed from the accessibility tree — otherwise screen
+       readers announce all seven answers at once, and any link
+       inside a closed panel stays in the tab order. */
     .faq-answer > * {
         overflow: hidden;
+        visibility: hidden;
+        transition: visibility 0s linear 0.3s;
     }
 
     .faq-item.open .faq-answer {
         grid-template-rows: 1fr;
+    }
+
+    .faq-item.open .faq-answer > * {
+        visibility: visible;
+        transition-delay: 0s;
     }
 
     .faq-item p {
@@ -1402,58 +1158,6 @@ gtag('config', 'G-LF8H890XTV');
         font-size: 18px;
         line-height: 1.7;
         padding: 0 1.5rem 1.25rem;
-    }
-
-    /* ==================== BLOG ==================== */
-    .blog-section {
-        padding: 5rem 0;
-        background: var(--white);
-    }
-
-    .blog-grid {
-        display: grid;
-        grid-template-columns: repeat(3, 1fr);
-        gap: 1.25rem;
-    }
-
-    .blog-card {
-        display: block;
-        background: var(--white);
-        padding: 1.75rem;
-        border-radius: 16px;
-        border: 1px solid var(--border);
-        text-decoration: none;
-        transition: box-shadow 0.2s ease;
-    }
-
-    .blog-card:hover {
-        box-shadow: var(--shadow-card);
-    }
-
-    .blog-card-date {
-        display: block;
-        font-size: 14px;
-        font-weight: 600;
-        text-transform: uppercase;
-        letter-spacing: 0.08em;
-        color: var(--sage);
-        margin-bottom: 0.5rem;
-    }
-
-    .blog-card h3 {
-        font-size: 19px;
-        font-weight: 600;
-        color: var(--text-dark);
-        line-height: 1.5;
-    }
-
-    .blog-card-all {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 16px;
-        font-weight: 600;
-        color: var(--sage);
     }
 
     /* ==================== CTA BAND ==================== */
@@ -1538,10 +1242,19 @@ gtag('config', 'G-LF8H890XTV');
         transition: border-color 0.2s ease;
     }
 
+    /* Keeps the brand border cue but no longer strips the focus
+       ring — `outline: none` alone left keyboard users with no
+       visible indication of where they were. */
+    .form-group input:focus-visible,
+    .form-group textarea:focus-visible {
+        border-color: var(--color-brand-text);
+        outline: 3px solid var(--color-focus);
+        outline-offset: 2px;
+    }
+
     .form-group input:focus,
     .form-group textarea:focus {
-        outline: none;
-        border-color: var(--sage);
+        border-color: var(--color-brand-text);
     }
 
     .form-group input::placeholder,
@@ -1612,7 +1325,7 @@ gtag('config', 'G-LF8H890XTV');
     }
 
     .footer-links a:hover {
-        color: var(--sage);
+        color: var(--color-brand-text);
     }
 
     /* ==================== SCROLL REVEAL ==================== */
@@ -1659,15 +1372,6 @@ gtag('config', 'G-LF8H890XTV');
         transform: translateY(-2px);
     }
 
-    .stat-card {
-        transition: box-shadow 0.25s ease, transform 0.25s ease;
-    }
-
-    .stat-card:hover {
-        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.08);
-        transform: translateY(-2px);
-    }
-
     .phase-card {
         transition: box-shadow 0.25s ease, transform 0.25s ease;
     }
@@ -1701,20 +1405,8 @@ gtag('config', 'G-LF8H890XTV');
             max-width: 480px;
         }
 
-        .stats-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-
-        .blog-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-
         .phases-grid {
             grid-template-columns: repeat(2, 1fr);
-        }
-
-        .roadmap-row {
-            grid-template-columns: 80px 110px 1fr;
         }
     }
 
@@ -1731,12 +1423,18 @@ gtag('config', 'G-LF8H890XTV');
             padding: 4rem 1.5rem 2rem;
             gap: 0;
             box-shadow: -4px 0 20px rgba(0, 0, 0, 0.08);
-            transition: right 0.3s ease;
+            /* visibility keeps the off-screen panel out of the tab
+               order — sliding it to right:-100% alone leaves every
+               link focusable while invisible. */
+            visibility: hidden;
+            transition: right 0.3s ease, visibility 0s linear 0.3s;
             z-index: 999;
         }
 
         .nav-links.active {
             right: 0;
+            visibility: visible;
+            transition: right 0.3s ease, visibility 0s linear 0s;
         }
 
         .nav-links a {
@@ -1766,26 +1464,8 @@ gtag('config', 'G-LF8H890XTV');
             border-left: none;
         }
 
-        .stats-grid {
-            grid-template-columns: 1fr;
-        }
-
-        .blog-grid {
-            grid-template-columns: 1fr;
-        }
-
         .phases-grid {
             grid-template-columns: 1fr;
-        }
-
-        .roadmap-row {
-            grid-template-columns: 1fr;
-            gap: 0.25rem;
-            padding: 0.875rem 1rem;
-        }
-
-        .roadmap-date {
-            font-size: 14px;
         }
 
         .footer-content {
@@ -1815,16 +1495,8 @@ gtag('config', 'G-LF8H890XTV');
             font-size: 24px;
         }
 
-        .stat-card-number {
-            font-size: 36px;
-        }
-
         .benefit-pills {
             grid-template-columns: 1fr;
-        }
-
-        .comparison-table {
-            font-size: 15px;
         }
     }
 
@@ -1838,6 +1510,7 @@ gtag('config', 'G-LF8H890XTV');
 </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <div class="nav-overlay" id="navOverlay"></div>
 
     <nav id="navbar">
@@ -1862,6 +1535,7 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </nav>
 
+    <main id="main">
     <!-- ==================== HERO ==================== -->
     <section class="hero">
         <div class="container hero-container">
@@ -1871,7 +1545,7 @@ gtag('config', 'G-LF8H890XTV');
                     Free on the App Store
                 </div>
                 <h1>Help, right when you need it.</h1>
-                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone. Emergency SOS, fall detection, medication reminders, Family Link caregiver sharing, and balance exercises — all in one simple app with Simple Mode for easy use.</p>
+                <p class="hero-description">SteadiDay puts a real safety net on your parent's iPhone — emergency help, daily reminders, and caregiver sharing in one app that's built to be easy from the very first tap.</p>
                 <div class="hero-buttons">
                     <a href="https://apps.apple.com/app/steadiday/id6758526744" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                         <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
@@ -1895,11 +1569,15 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="hero-card-wrap">
                 <div class="hero-card">
-                    <div class="hero-card-image">
-                        <video autoplay muted loop playsinline preload="metadata" poster="assets/screenshot-sos.png" aria-label="Short preview of the SteadiDay app showing medication reminders, emergency SOS, and health tracking">
+                    <div class="hero-card-image media-frame">
+                        <video autoplay muted loop playsinline preload="metadata" width="886" height="1920" poster="assets/screenshot-sos.png" aria-label="Short preview of the SteadiDay app showing medication reminders, emergency SOS, and health tracking">
                             <source src="assets/steadiday-preview-886x1920.mp4" type="video/mp4">
                             <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen">
                         </video>
+                        <button type="button" class="video-toggle" id="videoToggle" aria-label="Pause preview video">
+                            <svg class="video-toggle-pause" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5h3v14H8zm5 0h3v14h-3z"/></svg>
+                            <svg class="video-toggle-play" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                        </button>
                     </div>
                     <div class="benefit-pills">
                         <div class="benefit-pill">
@@ -1934,7 +1612,7 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="features-grid">
                 <div class="feature-card reveal" data-delay="1">
-                    <div class="feature-card-icon rose">
+                    <div class="feature-card-icon is-danger">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
                     </div>
                     <div>
@@ -1943,7 +1621,7 @@ gtag('config', 'G-LF8H890XTV');
                     </div>
                 </div>
                 <div class="feature-card reveal" data-delay="2">
-                    <div class="feature-card-icon amber">
+                    <div class="feature-card-icon is-premium">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
                     <div>
@@ -1952,7 +1630,7 @@ gtag('config', 'G-LF8H890XTV');
                     </div>
                 </div>
                 <div class="feature-card reveal" data-delay="3">
-                    <div class="feature-card-icon blue">
+                    <div class="feature-card-icon is-info">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
                     </div>
                     <div>
@@ -1961,7 +1639,7 @@ gtag('config', 'G-LF8H890XTV');
                     </div>
                 </div>
                 <div class="feature-card reveal" data-delay="4">
-                    <div class="feature-card-icon sage">
+                    <div class="feature-card-icon is-success">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
                     <div>
@@ -1984,7 +1662,7 @@ gtag('config', 'G-LF8H890XTV');
         </div>
 
         <div class="showcase-row reveal-left">
-            <div class="showcase-phone">
+            <div class="showcase-phone media-frame">
                 <img src="assets/screenshot-07-fall-detection.png" alt="SteadiDay fall detection alert with 30-second countdown" loading="lazy" width="1320" height="2868">
             </div>
             <div class="showcase-text">
@@ -2000,13 +1678,13 @@ gtag('config', 'G-LF8H890XTV');
                 <h3>Medication Reminders</h3>
                 <p>Never miss a dose. Add medications by scanning the label or typing the name, set reminder times, and get gentle notifications. Track adherence over time and share it with a caregiver through Family Link.</p>
             </div>
-            <div class="showcase-phone">
+            <div class="showcase-phone media-frame">
                 <img src="assets/screenshot-02-medicines.png" alt="SteadiDay medication reminders screen" loading="lazy" width="1320" height="2868">
             </div>
         </div>
 
         <div class="showcase-row reveal-left">
-            <div class="showcase-phone">
+            <div class="showcase-phone media-frame">
                 <img src="assets/screenshot-03-family-link.png" alt="SteadiDay Family Link caregiver sharing" loading="lazy" width="1320" height="2868">
             </div>
             <div class="showcase-text">
@@ -2022,7 +1700,7 @@ gtag('config', 'G-LF8H890XTV');
                 <h3>Steady Moves</h3>
                 <p>Guided daily balance and strength exercises based on CDC STEADI protocols. Gentle chair-based routines with voice guidance and large, clear instructions — just a few minutes a day to help prevent falls.</p>
             </div>
-            <div class="showcase-phone">
+            <div class="showcase-phone media-frame">
                 <img src="assets/screenshot-04-steady-moves.png" alt="SteadiDay Steady Moves balance exercises" loading="lazy" width="1320" height="2868">
             </div>
         </div>
@@ -2036,21 +1714,21 @@ gtag('config', 'G-LF8H890XTV');
 
         <div class="showcase-compact reveal">
             <div class="showcase-compact-item" data-delay="1">
-                <div class="showcase-phone">
+                <div class="showcase-phone media-frame">
                     <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks brain games" loading="lazy" width="1290" height="2796">
                 </div>
                 <div class="showcase-compact-label">Mind Breaks</div>
                 <div class="showcase-compact-desc">Brain games, word puzzles, and calming activities</div>
             </div>
             <div class="showcase-compact-item" data-delay="2">
-                <div class="showcase-phone">
+                <div class="showcase-phone media-frame">
                     <img src="assets/screenshot-food-tracker.png" alt="SteadiDay food and calorie tracker" loading="lazy" width="1290" height="2796">
                 </div>
                 <div class="showcase-compact-label">Food Tracker</div>
                 <div class="showcase-compact-desc">Log meals, track calories, and set meal reminders</div>
             </div>
             <div class="showcase-compact-item" data-delay="3">
-                <div class="showcase-phone">
+                <div class="showcase-phone media-frame">
                     <img src="assets/screenshot-standard-home.png" alt="SteadiDay Standard Mode home screen" loading="lazy" width="1320" height="2868">
                 </div>
                 <div class="showcase-compact-label">Standard Mode</div>
@@ -2088,7 +1766,7 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="mode-card">
                     <span class="mode-card-badge">Recommended for new users</span>
                     <h3>Simple Mode</h3>
-                    <div class="mode-card-screenshot">
+                    <div class="mode-card-screenshot media-frame">
                         <img src="assets/screenshot-01-simple-home.png" alt="Simple Mode home screen with large SOS, medication, and task buttons" loading="lazy" width="1320" height="2868">
                     </div>
                     <p class="mode-desc">A clean, uncluttered home screen with large buttons for the features that matter most.</p>
@@ -2102,7 +1780,7 @@ gtag('config', 'G-LF8H890XTV');
                 <div class="mode-card">
                     <span class="mode-card-badge">For experienced users</span>
                     <h3>Standard Mode</h3>
-                    <div class="mode-card-screenshot">
+                    <div class="mode-card-screenshot media-frame">
                         <img src="assets/screenshot-standard-home.png" alt="Standard Mode home screen with tab-based navigation" loading="lazy" width="1320" height="2868">
                     </div>
                     <p class="mode-desc">Tab-based navigation with quick access to every feature — health, tools, games, and more.</p>
@@ -2128,7 +1806,7 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="phases-grid">
                 <div class="phase-card">
-                    <span class="phase-watermark">01</span>
+                    <span class="phase-watermark" aria-hidden="true">01</span>
                     <div class="phase-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                     </div>
@@ -2136,7 +1814,7 @@ gtag('config', 'G-LF8H890XTV');
                     <p>Get SteadiDay free from the App Store. Open it right away — no account, no sign-up.</p>
                 </div>
                 <div class="phase-card">
-                    <span class="phase-watermark">02</span>
+                    <span class="phase-watermark" aria-hidden="true">02</span>
                     <div class="phase-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
@@ -2144,7 +1822,7 @@ gtag('config', 'G-LF8H890XTV');
                     <p>Enter trusted emergency contacts. Scan medication labels to save typing. Set your preferences.</p>
                 </div>
                 <div class="phase-card">
-                    <span class="phase-watermark">03</span>
+                    <span class="phase-watermark" aria-hidden="true">03</span>
                     <div class="phase-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     </div>
@@ -2152,7 +1830,7 @@ gtag('config', 'G-LF8H890XTV');
                     <p>Choose when to be reminded about medications and tasks. Notifications are gentle and private.</p>
                 </div>
                 <div class="phase-card">
-                    <span class="phase-watermark">04</span>
+                    <span class="phase-watermark" aria-hidden="true">04</span>
                     <div class="phase-icon">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
@@ -2172,65 +1850,79 @@ gtag('config', 'G-LF8H890XTV');
             </div>
             <div class="faq-grid">
                 <div class="faq-item open">
-                    <button class="faq-question" aria-expanded="true">
-                        <h3>Is my parent's information private?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-1" aria-expanded="true" aria-controls="faq-a-1">
+                            <span>Is my parent's information private?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-1" role="region" aria-labelledby="faq-q-1">
                         <p>Yes. Their data is private and secure — stored on their iPhone and protected by its built-in security. If they sign in, some data syncs securely to enable backup and caregiver sharing; Apple Health data always stays on their device.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>Does my parent need to create an account?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-2" aria-expanded="false" aria-controls="faq-a-2">
+                            <span>Does my parent need to create an account?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
                         <p>No. Just download SteadiDay and they can start right away — no sign-up, no password. You can optionally have them sign in to enable backup and caregiver sharing.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>Is SteadiDay really free?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-3" aria-expanded="false" aria-controls="faq-a-3">
+                            <span>Is SteadiDay really free?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
                         <p>The safety essentials are completely free: Emergency SOS, fall detection, medication reminders (up to 7), daily tasks, and check-ins. Premium ($3.99/mo or $29.99/yr) unlocks unlimited medications, Family Link caregiver sharing, health tracking, tools, and more. There is also a $99.99 lifetime option.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>What can I see as a trusted contact?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-4" aria-expanded="false" aria-controls="faq-a-4">
+                            <span>What can I see as a trusted contact?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
                         <p>You're alerted the moment your parent uses the SOS button or a fall is detected. If they choose to share a Care Summary, you'll also get a daily "everything's okay" without having to check in. Their day-to-day data stays private unless they decide to share it.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>What if my parent isn't tech-savvy?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-5" aria-expanded="false" aria-controls="faq-a-5">
+                            <span>What if my parent isn't tech-savvy?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-5" role="region" aria-labelledby="faq-q-5">
                         <p>That's exactly who SteadiDay is built for. Large buttons, clear text, and simple navigation mean there's almost nothing to learn — and you can set it all up for them in about five minutes.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>What is Simple Mode?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-6" aria-expanded="false" aria-controls="faq-a-6">
+                            <span>What is Simple Mode?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
                         <p>Simple Mode gives your parent a clean, uncluttered home screen with large buttons for SOS, medications, and daily tasks. Everything else is tucked into a simple "More" menu. You can switch between Simple Mode and Standard Mode any time in Settings.</p>
                     </div>
                 </div>
                 <div class="faq-item">
-                    <button class="faq-question" aria-expanded="false">
-                        <h3>Why are safety features free?</h3>
-                        <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
-                    </button>
-                    <div class="faq-answer">
+                    <h3 class="faq-heading">
+                        <button class="faq-question" id="faq-q-7" aria-expanded="false" aria-controls="faq-a-7">
+                            <span>Why are safety features free?</span>
+                            <svg class="faq-toggle" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v12M6 12h12"/></svg>
+                        </button>
+                    </h3>
+                    <div class="faq-answer" id="faq-a-7" role="region" aria-labelledby="faq-q-7">
                         <p>We believe everyone deserves access to emergency safety tools regardless of budget. The SOS button, fall detection, medication reminders, and daily check-ins will always be free. Premium features like unlimited medications, Family Link sharing, and health tracking help fund ongoing development.</p>
                     </div>
                 </div>
@@ -2288,6 +1980,8 @@ gtag('config', 'G-LF8H890XTV');
         </div>
     </section>
 
+    </main>
+
     <!-- ==================== FOOTER ==================== -->
     <footer>
         <div class="container">
@@ -2337,17 +2031,48 @@ gtag('config', 'G-LF8H890XTV');
         mobileMenuBtn.addEventListener('click', toggleMenu);
         navOverlay.addEventListener('click', toggleMenu);
 
+        /* Escape closes the menu and returns focus to the toggle,
+           so keyboard users are not stranded inside the panel. */
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                toggleMenu();
+                mobileMenuBtn.focus();
+            }
+        });
+
         navLinks.querySelectorAll('a').forEach(function(link) {
             link.addEventListener('click', function() {
                 if (navLinks.classList.contains('active')) toggleMenu();
             });
         });
 
+        /* Anchor navigation.
+           - "#" on its own is not a valid selector; querySelector
+             threw on every logo click before this guard.
+           - Focus follows the scroll, otherwise keyboard and screen
+             reader users stay parked on the link they just used.
+           - Honours prefers-reduced-motion instead of always
+             forcing a smooth scroll. */
+        var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
         document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
             anchor.addEventListener('click', function(e) {
+                var href = this.getAttribute('href');
+                if (!href || href === '#') return;
+
+                var target = document.querySelector(href);
+                if (!target) return;
+
                 e.preventDefault();
-                var target = document.querySelector(this.getAttribute('href'));
-                if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                target.scrollIntoView({
+                    behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+                    block: 'start'
+                });
+
+                if (!target.hasAttribute('tabindex')) {
+                    target.setAttribute('tabindex', '-1');
+                }
+                target.focus({ preventScroll: true });
             });
         });
 
@@ -2365,6 +2090,92 @@ gtag('config', 'G-LF8H890XTV');
                 }
             });
         });
+
+        /* ---- Hero video pause control ------------------------------
+           The preview autoplays and loops for 25s. WCAG 2.2.2 needs
+           a way to stop moving content that runs past 5s, and a
+           reduced-motion preference means it should not start at
+           all — the poster frame carries the same information. */
+        (function () {
+            var toggle = document.getElementById('videoToggle');
+            var video = document.querySelector('.hero-card-image video');
+            if (!toggle || !video) return;
+
+            function setPaused(paused) {
+                toggle.classList.toggle('is-paused', paused);
+                toggle.setAttribute('aria-label', paused ? 'Play preview video' : 'Pause preview video');
+            }
+
+            if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                video.removeAttribute('autoplay');
+                video.pause();
+            }
+
+            /* Label from the real state, not an assumption — a
+               browser that blocks autoplay would otherwise show
+               "Pause" over a stopped video. */
+            setPaused(video.paused);
+            video.addEventListener('loadedmetadata', function () { setPaused(video.paused); }, { once: true });
+
+            toggle.addEventListener('click', function () {
+                if (video.paused) {
+                    video.play();
+                    setPaused(false);
+                } else {
+                    video.pause();
+                    setPaused(true);
+                }
+            });
+
+            video.addEventListener('play', function () { setPaused(false); });
+            video.addEventListener('pause', function () { setPaused(true); });
+        })();
+
+        /* ---- Skeleton loaders -------------------------------------
+           Each .media-frame shows a shimmer until its image or video
+           has actually decoded, then cross-fades the media in. A
+           frame is revealed on load OR error, and a global failsafe
+           reveals everything after 8s, so a stalled request can
+           never leave content permanently hidden. */
+        (function () {
+            var frames = document.querySelectorAll('.media-frame');
+            if (!frames.length) return;
+
+            function reveal(frame) { frame.classList.add('is-loaded'); }
+
+            frames.forEach(function (frame) {
+                var media = frame.querySelector('img, video');
+                if (!media) { reveal(frame); return; }
+
+                var done = function () { reveal(frame); };
+
+                if (media.tagName === 'VIDEO') {
+                    /* A poster frame paints even when the video
+                       itself cannot decode, so it is the earliest
+                       and most reliable readiness signal. Also
+                       covers preload="metadata", which may never
+                       reach readyState 2 on its own. */
+                    var poster = media.getAttribute('poster');
+                    if (poster) {
+                        var probe = new Image();
+                        probe.onload = done;
+                        probe.onerror = done;
+                        probe.src = poster;
+                    }
+                    if (media.readyState >= 1) { done(); return; }
+                    media.addEventListener('loadedmetadata', done, { once: true });
+                    media.addEventListener('loadeddata', done, { once: true });
+                } else {
+                    if (media.complete && media.naturalWidth > 0) { done(); return; }
+                    media.addEventListener('load', done, { once: true });
+                }
+                media.addEventListener('error', done, { once: true });
+            });
+
+            window.setTimeout(function () {
+                frames.forEach(reveal);
+            }, 8000);
+        })();
 
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
             document.documentElement.classList.add('js-reveal');

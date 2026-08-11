@@ -1,31 +1,154 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap');
 
+/* ============================================================
+   LAYER 1 — PRIMITIVES
+   Raw palette values. Don't reference these in component CSS;
+   use the semantic roles in Layer 2 so meaning stays readable.
+   Every *-text value is verified >= 4.5:1 on white AND on its
+   own -bg tint, so it is safe wherever it actually gets used.
+   ============================================================ */
 :root {
-    --sage: #4A9D7E;
-    --sage-dark: #3B8468;
+    /* Green — brand, success, "free" */
+    --green-50:  #F0FAF5;
+    --green-100: #EDF5F2;
+    --green-500: #4A9D7E;  /* brand sage — 3.27:1, large fills only */
+    --green-600: #3B8468;
+    --green-700: #3A7B63;  /* 5.01:1 on white — text, icons, small UI */
+    --green-800: #2E614E;  /* 7.15:1 on white — hover/pressed */
+
+    /* Amber — warning, premium */
+    --amber-50:  #FBF1E6;
+    --amber-500: #D97706;  /* 3.19:1 — fills and large marks only */
+    --amber-700: #A75C05;  /* 5.03:1 on white */
+
+    /* Red — danger, emergency */
+    --red-50:  #FCE9E9;
+    --red-500: #DC2626;
+    --red-700: #D22222;  /* 5.26:1 on white */
+
+    /* Blue — informational */
+    --blue-50:  #EFF4F9;
+    --blue-400: #5B8FC4;  /* 3.40:1 — fills and large marks only */
+    --blue-700: #3D72A9;  /* 5.03:1 on white */
+
+    /* Neutrals */
+    --neutral-0:   #FFFFFF;
+    --neutral-25:  #F8FAF9;
+    --neutral-50:  #FFFBF5;
+    --neutral-100: #F7F3ED;
+    --neutral-150: #F0F4F2;
+    --neutral-200: #E5E7EB;
+    --neutral-500: #6B7280;  /* 4.83:1 */
+    --neutral-600: #4B5563;  /* 7.56:1 */
+    --neutral-700: #1F2937;  /* 14.68:1 */
+    --neutral-900: #111827;
+
+    --gold-500: #D4A853;
+}
+
+/* ============================================================
+   LAYER 2 — SEMANTIC ROLES
+   What a colour MEANS, not what it looks like. Component CSS
+   should only ever reach for these.
+
+   Each role has three parts:
+     --color-<role>          solid fill / decorative mark
+     --color-<role>-text     AA-safe text + icons on light bg
+     --color-<role>-bg       subtle surface tint
+     --color-<role>-border   delineation on that surface
+
+   Colour alone never carries meaning — every semantic colour on
+   this site is paired with an icon or a text label (WCAG 1.4.1).
+   ============================================================ */
+:root {
+    /* Brand — identity. Not a status. */
+    --color-brand:         var(--green-500);
+    --color-brand-text:    var(--green-700);
+    --color-brand-bg:      var(--green-50);
+    --color-brand-hover:   var(--green-800);
+
+    /* Success — "included free", confirmed, healthy */
+    --color-success:        var(--green-500);
+    --color-success-text:   var(--green-700);
+    --color-success-bg:     var(--green-100);
+    --color-success-border: rgba(58, 123, 99, 0.24);
+
+    /* Warning — needs attention, not yet failing */
+    --color-warning:        var(--amber-500);
+    --color-warning-text:   var(--amber-700);
+    --color-warning-bg:     var(--amber-50);
+    --color-warning-border: rgba(167, 92, 5, 0.24);
+
+    /* Danger — emergency, SOS, destructive. Load-bearing in this
+       product: it marks the features people press in a crisis. */
+    --color-danger:        var(--red-500);
+    --color-danger-text:   var(--red-700);
+    --color-danger-bg:     var(--red-50);
+    --color-danger-border: rgba(210, 34, 34, 0.24);
+
+    /* Info — neutral explanation, caregiver/family context */
+    --color-info:        var(--blue-400);
+    --color-info-text:   var(--blue-700);
+    --color-info-bg:     var(--blue-50);
+    --color-info-border: rgba(61, 114, 169, 0.24);
+
+    /* Premium — paid tier. Deliberately shares the amber family
+       with "warning" but is never used for status. */
+    --color-premium:      var(--amber-500);
+    --color-premium-text: var(--amber-700);
+    --color-premium-bg:   var(--amber-50);
+
+    /* Surfaces and text */
+    --color-surface:          var(--neutral-0);
+    --color-surface-subtle:   var(--neutral-25);
+    --color-surface-warm:     var(--neutral-50);
+    --color-text:             var(--neutral-700);
+    --color-text-strong:      var(--neutral-900);
+    --color-text-muted:       var(--neutral-600);
+    --color-text-subtle:      var(--neutral-500);
+    --color-border:           var(--neutral-200);
+
+    /* Focus ring — 4.49:1 against sage, 14.68:1 against white,
+       so one ring colour works on every surface the site uses. */
+    --color-focus: #1F2937;
+
+    /* Skeleton loading */
+    --skeleton-base:  #E8EDEB;
+    --skeleton-sheen: rgba(255, 255, 255, 0.72);
+}
+
+/* ============================================================
+   LAYER 3 — LEGACY ALIASES
+   The original token names, kept so the other pages and the 39
+   generated blog posts keep rendering while they migrate to the
+   semantic roles above. Prefer Layer 2 in new code.
+   ============================================================ */
+:root {
+    --sage: var(--green-500);
+    --sage-dark: var(--green-600);
     --sage-05: rgba(74, 157, 126, 0.05);
     --sage-10: rgba(74, 157, 126, 0.1);
     --sage-12: rgba(74, 157, 126, 0.12);
 
-    --white: #FFFFFF;
-    --off-white: #F8FAF9;
-    --cream: #FFFBF5;
-    --cream-dark: #F7F3ED;
-    --light-green: #F0FAF5;
+    --white: var(--neutral-0);
+    --off-white: var(--neutral-25);
+    --cream: var(--neutral-50);
+    --cream-dark: var(--neutral-100);
+    --light-green: var(--green-50);
 
-    --text-dark: #111827;
-    --text-body: #1F2937;
-    --text-muted: #4B5563;
-    --text-light: #6B7280;
+    --text-dark: var(--neutral-900);
+    --text-body: var(--neutral-700);
+    --text-muted: var(--neutral-600);
+    --text-light: var(--neutral-500);
 
-    --border: #E5E7EB;
-    --border-light: #F0F4F2;
+    --border: var(--neutral-200);
+    --border-light: var(--neutral-150);
 
-    --blue: #5B8FC4;
+    --blue: var(--blue-400);
     --blue-10: rgba(91, 143, 196, 0.1);
-    --yellow: #D97706;
-    --gold: #D4A853;
-    --red: #DC2626;
+    --yellow: var(--amber-500);
+    --gold: var(--gold-500);
+    --red: var(--red-500);
 
     --shadow-card: 0 8px 32px rgba(74, 157, 126, 0.12);
     --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.04), 0 2px 8px rgba(0, 0, 0, 0.04);
@@ -46,6 +169,9 @@
 
     --font-heading: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
     --font-body: 'Source Sans 3', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+
+    /* Height of the sticky navbar, used for anchor scroll offset */
+    --nav-height: 78px;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -56,7 +182,7 @@ body {
     font-family: var(--font-body);
     font-size: var(--text-base);
     line-height: 1.7;
-    color: var(--text-body);
+    color: var(--color-text);
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
 }
@@ -64,14 +190,166 @@ body {
 h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-heading);
     font-weight: 700;
-    color: var(--text-dark);
+    color: var(--color-text-strong);
     line-height: 1.25;
 }
 
-a { color: var(--sage); text-decoration: none; }
-a:hover { color: var(--sage-dark); }
+a { color: var(--color-brand-text); text-decoration: none; }
+a:hover { color: var(--green-600); }
 
 img { max-width: 100%; height: auto; }
+
+/* Anchor targets clear the sticky navbar instead of hiding beneath it */
+:target { scroll-margin-top: calc(var(--nav-height) + 16px); }
+
+/* ============================================================
+   FOCUS VISIBILITY
+   Keyboard users get a consistent, high-contrast ring on every
+   interactive element. :focus-visible keeps it off mouse clicks.
+   ============================================================ */
+:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+    border-radius: 3px;
+}
+
+/* Older engines without :focus-visible still get a ring */
+@supports not selector(:focus-visible) {
+    a:focus, button:focus, input:focus, textarea:focus, select:focus, [tabindex]:focus {
+        outline: 3px solid var(--color-focus);
+        outline-offset: 2px;
+    }
+}
+
+/* ============================================================
+   SKIP LINK
+   First tab stop on every page; jumps past the nav to content.
+   ============================================================ */
+.skip-link {
+    position: absolute;
+    left: 1rem;
+    top: -100px;
+    z-index: 2000;
+    padding: 0.75rem 1.25rem;
+    background: var(--color-surface);
+    color: var(--color-brand-text);
+    font-weight: 600;
+    border-radius: var(--radius-sm);
+    box-shadow: var(--shadow-medium);
+    transition: top 0.2s ease;
+}
+
+.skip-link:focus {
+    top: 1rem;
+}
+
+/* ============================================================
+   SKELETON LOADING
+   Placeholder shimmer shown while an image or embed decodes, so
+   media fades in instead of popping the layout around.
+
+   Gated behind .js-skeleton on <html> so that with JS disabled
+   the media renders immediately at full opacity — the skeleton
+   can never strand content.
+   ============================================================ */
+.media-frame {
+    position: relative;
+    overflow: hidden;
+}
+
+.js-skeleton .media-frame::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--skeleton-base);
+    z-index: 0;
+}
+
+.js-skeleton .media-frame::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--skeleton-sheen) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+.js-skeleton .media-frame > img,
+.js-skeleton .media-frame > video {
+    position: relative;
+    z-index: 2;
+    opacity: 0;
+    transition: opacity 0.45s ease;
+}
+
+.js-skeleton .media-frame.is-loaded > img,
+.js-skeleton .media-frame.is-loaded > video {
+    opacity: 1;
+}
+
+.js-skeleton .media-frame.is-loaded::before,
+.js-skeleton .media-frame.is-loaded::after {
+    opacity: 0;
+    animation: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Standalone skeleton blocks for text-shaped placeholders */
+.skeleton-line {
+    display: block;
+    height: 1em;
+    border-radius: var(--radius-sm);
+    background: var(--skeleton-base);
+    position: relative;
+    overflow: hidden;
+}
+
+.skeleton-line::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        90deg,
+        transparent 0%,
+        var(--skeleton-sheen) 50%,
+        transparent 100%
+    );
+    transform: translateX(-100%);
+    animation: skeleton-sweep 1.6s ease-in-out infinite;
+}
+
+@keyframes skeleton-sweep {
+    100% { transform: translateX(100%); }
+}
+
+/* ============================================================
+   REDUCED MOTION
+   Honour the OS-level preference: no sweeping shimmer, no
+   smooth scroll, no transitions. Content still resolves.
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+
+    .js-skeleton .media-frame::after,
+    .skeleton-line::after {
+        display: none;
+    }
+}
 
 @media (max-width: 480px) {
     :root {

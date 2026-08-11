@@ -48,6 +48,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="steadiday-shared.css">
+<script>document.documentElement.classList.add('js-skeleton');</script>
   <style>
     :root {
       --cream: #FFFBF5;
@@ -99,20 +100,22 @@
     }
 
     a {
-      color: var(--sage);
+      color: var(--color-brand-text);
       text-decoration: none;
     }
 
     a:hover {
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
     }
 
     a:focus-visible,
     button:focus-visible,
     input:focus-visible,
     textarea:focus-visible {
-      outline: 4px solid rgba(212, 168, 83, 0.65);
-      outline-offset: 4px;
+      /* was a 65%-opacity gold ring, barely visible on the
+         cream background this page uses */
+      outline: 3px solid var(--color-focus);
+      outline-offset: 3px;
     }
 
     h1, h2, h3, h4 {
@@ -152,7 +155,7 @@
     .section-label {
       display: inline-block;
       margin-bottom: 0.75rem;
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       font-size: 0.85rem;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -166,7 +169,7 @@
     }
 
     .launch-banner {
-      background: linear-gradient(135deg, var(--sage), var(--sage-dark));
+      background: linear-gradient(135deg, var(--color-brand-text), var(--color-brand-hover));
       color: var(--white);
       padding: 0.7rem 1rem;
       text-align: center;
@@ -244,7 +247,7 @@
     }
 
     .nav-cta {
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white) !important;
       padding: 0.8rem 1.4rem;
       border-radius: 999px;
@@ -290,7 +293,7 @@
       align-items: center;
       gap: 0.5rem;
       background: var(--sage-light);
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       border: 1px solid rgba(26, 138, 125, 0.22);
       padding: 0.48rem 0.9rem;
       border-radius: 999px;
@@ -300,7 +303,7 @@
     }
 
     .hero h1 span {
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
     }
 
     .hero-description {
@@ -372,7 +375,7 @@
 
     .hero-proof span::before {
       content: "✓";
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       font-weight: 900;
     }
 
@@ -467,7 +470,7 @@
       place-items: center;
       flex: 0 0 auto;
       background: var(--sage-light);
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       font-weight: 900;
       font-size: 1.35rem;
     }
@@ -512,7 +515,7 @@
     }
 
     .why-kicker {
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       font-size: 0.85rem;
       font-weight: 800;
       text-transform: uppercase;
@@ -555,7 +558,7 @@
       width: 58px;
       height: 58px;
       background: var(--sage-light);
-      color: var(--sage-dark);
+      color: var(--color-brand-hover);
       border-radius: 16px;
       display: grid;
       place-items: center;
@@ -640,7 +643,7 @@
       display: grid;
       place-items: center;
       border-radius: 50%;
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white);
       font-weight: 800;
       margin-bottom: 1rem;
@@ -746,7 +749,7 @@
       display: inline-block;
       padding: 1rem 1.5rem;
       border-radius: var(--radius-md);
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white);
       font-weight: 800;
     }
@@ -851,6 +854,13 @@
       text-align: center;
     }
 
+    /* The label inherits a dark green that is unreadable on this
+       dark gradient. Lightened gold clears 4.5:1 against the
+       lighter navy end of the gradient. */
+    .download .section-label {
+      color: #DCB974;
+    }
+
     .download h2 {
       color: var(--white);
     }
@@ -910,7 +920,7 @@
 
     .form-submit {
       width: 100%;
-      background: var(--sage);
+      background: var(--color-brand-text);
       color: var(--white);
       border: 0;
       border-radius: var(--radius-md);
@@ -1118,6 +1128,7 @@
 </head>
 
 <body>
+  <a class="skip-link" href="#main">Skip to main content</a>
   <div class="launch-banner">
     <span class="launch-badge">Now Live</span>
     <span>SteadiDay is now on the App Store — every feature included.</span>
@@ -1147,7 +1158,7 @@
     </div>
   </nav>
 
-  <main>
+  <main id="main">
     <section class="hero">
       <div class="container hero-inner">
         <div class="hero-copy">
@@ -1174,7 +1185,7 @@
         </div>
 
         <div class="hero-visual">
-          <div class="phone-card">
+          <div class="phone-card media-frame">
             <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS screen">
           </div>
 
@@ -1369,42 +1380,42 @@
 
         <div class="screenshots-grid">
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-sos.png" alt="SteadiDay Emergency SOS">
             </div>
             <h4>Emergency SOS</h4>
           </div>
 
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-home.png" alt="SteadiDay home screen">
             </div>
             <h4>Home</h4>
           </div>
 
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-medical.png" alt="SteadiDay medical information">
             </div>
             <h4>Medical Info</h4>
           </div>
 
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-food-tracker.png" alt="SteadiDay food tracker">
             </div>
             <h4>Food Tracker</h4>
           </div>
 
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-watertracker.png" alt="SteadiDay water tracker">
             </div>
             <h4>Water Tracker</h4>
           </div>
 
           <div class="screenshot-item">
-            <div class="screenshot-frame">
+            <div class="screenshot-frame media-frame">
               <img src="assets/screenshot-mindbreaks.png" alt="SteadiDay Mind Breaks">
             </div>
             <h4>Mind Breaks</h4>
@@ -1619,12 +1630,42 @@
       });
     });
 
+    /* Skeleton loaders — shimmer until each image decodes, with an
+       8s failsafe so a stalled request can never hide content. */
+    (function () {
+      var frames = document.querySelectorAll('.media-frame');
+      if (!frames.length) return;
+
+      function reveal(frame) { frame.classList.add('is-loaded'); }
+
+      frames.forEach(function (frame) {
+        var img = frame.querySelector('img');
+        if (!img) { reveal(frame); return; }
+        var done = function () { reveal(frame); };
+        if (img.complete && img.naturalWidth > 0) { done(); return; }
+        img.addEventListener('load', done, { once: true });
+        img.addEventListener('error', done, { once: true });
+      });
+
+      window.setTimeout(function () { frames.forEach(reveal); }, 8000);
+    })();
+
+    var prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
     document.querySelectorAll('a[href^="#"]').forEach(function (anchor) {
       anchor.addEventListener('click', function (e) {
-        const target = document.querySelector(this.getAttribute('href'));
+        var href = this.getAttribute('href');
+        /* "#" alone is not a valid selector and throws */
+        if (!href || href === '#') return;
+        const target = document.querySelector(href);
         if (target) {
           e.preventDefault();
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({
+            behavior: prefersReducedMotion.matches ? 'auto' : 'smooth',
+            block: 'start'
+          });
+          if (!target.hasAttribute('tabindex')) target.setAttribute('tabindex', '-1');
+          target.focus({ preventScroll: true });
         }
       });
     });
