@@ -26,38 +26,47 @@
     </script>
     <script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Why do autoimmune diseases affect women more than men?", "acceptedAnswer": {"@type": "Answer", "text": "Women carry two X chromosomes instead of one, and X chromosomes contain a significant number of immune-related genes. A molecule called Xist — which silences one X chromosome in female cells — also appears to trigger immune responses that can lead to the body attacking its own tissues. On top of that, estrogen and other sex hormones influence immune regulation in ways that increase autoimmune susceptibility in women."}}, {"@type": "Question", "name": "What are the most common autoimmune diseases in women over 50?", "acceptedAnswer": {"@type": "Answer", "text": "Hashimoto's thyroiditis is among the most prevalent, along with rheumatoid arthritis, lupus, Sjögren's syndrome, and psoriatic arthritis. Some, like Hashimoto's, can go undetected for years because symptoms — fatigue, weight changes, brain fog — are easy to attribute to menopause or aging."}}, {"@type": "Question", "name": "Can menopause trigger an autoimmune disease?", "acceptedAnswer": {"@type": "Answer", "text": "Menopause doesn't directly \"cause\" autoimmune disease, but the hormonal shifts during perimenopause and post-menopause can destabilize immune regulation in ways that increase risk or trigger the onset of a condition that was already developing. Many women receive their first autoimmune diagnosis during this window, which is why persistent systemic symptoms during this stage of life deserve a thorough workup."}}, {"@type": "Question", "name": "How is autoimmune disease diagnosed in women over 50?", "acceptedAnswer": {"@type": "Answer", "text": "Diagnosis typically involves blood tests — including ANA panels, specific antibody tests, and inflammatory markers like CRP and ESR — alongside a physical exam and a detailed symptom history. Because many autoimmune symptoms overlap with menopause and other age-related changes, getting a referral to a rheumatologist is often the most reliable path to an accurate diagnosis."}}]}</script>
     <style>
-        :root{--cream:#FFFBF5;--teal:#1A8A7D;--teal-text:#157065;--teal-deep:#10564E;--teal-dark:#147568;--teal-light:#E8F5F3;--navy:#1E3A5F;--navy-light:#2D4A6F;--charcoal:#2D3436;--charcoal-light:#5A6266;--white:#FFFFFF;}
-        *{margin:0;padding:0;box-sizing:border-box;}
-        body{font-family:'Source Sans 3',-apple-system,sans-serif;font-size:1.125rem;line-height:1.8;color:var(--charcoal);background:var(--cream);}
-        h1,h2,h3{font-family:'Poppins',sans-serif;font-weight:700;color:var(--text-dark);line-height:1.3;}
-        a{color: var(--color-brand-text);text-decoration:none;}a:hover{color: var(--color-brand-hover);text-decoration:underline;}
-        .nav{background:var(--white);padding:1rem 0;border-bottom:1px solid rgba(30,58,95,0.1);position:sticky;top:0;z-index:100;}
-        .nav-container{max-width:900px;margin:0 auto;padding:0 2rem;display:flex;justify-content:space-between;align-items:center;}.nav a{font-weight:600;}
-        .breadcrumbs{max-width:900px;margin:0 auto;padding:1rem 2rem;font-size:0.9rem;}
-        .breadcrumbs a{color:var(--charcoal-light);}.breadcrumbs span{color:var(--charcoal-light);margin:0 0.5rem;}.breadcrumbs .current{color:var(--text-dark);font-weight:500;}
-        .hero-image{width:100%;max-height:450px;object-fit:cover;}
-        .article-header{background:linear-gradient(135deg,var(--text-dark) 0%,var(--navy-light) 100%);color:var(--white);padding:3rem 2rem;text-align:center;}
-        .article-header h1{max-width:800px;margin:0 auto 1rem;font-size:2.25rem;color:var(--white);}.article-meta{font-size:1rem;opacity:0.9;}
+        :root { --cream: #FFFBF5; --sage: #4A9D7E; --sage-dark: #3B8468; --sage-light: rgba(74, 157, 126, 0.08); --text-dark: #111827; --navy-light: #2D4A6F; --charcoal: #2D3436; --charcoal-light: #5A6266; --white: #FFFFFF; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Source Sans 3', -apple-system, sans-serif; font-size: 1.125rem; line-height: 1.8; color: var(--charcoal); background: var(--cream); }
+        h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--text-dark); line-height: 1.3; }
+        a { color: var(--color-brand-text); text-decoration: none; } a:hover { color: var(--color-brand-hover); text-decoration: underline; }
+        .nav { background: var(--white); padding: 1rem 0; border-bottom: 1px solid rgba(30,58,95,0.1); position: sticky; top: 0; z-index: 100; }
+        .nav-container { max-width: 900px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }
+        .nav a { font-weight: 600; }
+        .breadcrumbs { max-width: 900px; margin: 0 auto; padding: 1rem 2rem; font-size: 0.9rem; }
+        .breadcrumbs a { color: var(--charcoal-light); } .breadcrumbs span { color: var(--charcoal-light); margin: 0 0.5rem; }
+        .breadcrumbs .current { color: var(--text-dark); font-weight: 500; }
+        .hero-image { width: 100%; max-height: 450px; object-fit: cover; }
+        .article-header { background: linear-gradient(135deg, var(--text-dark) 0%, var(--navy-light) 100%); color: var(--white); padding: 3rem 2rem; text-align: center; }
+        .article-header h1 { max-width: 800px; margin: 0 auto 1rem; font-size: 2.25rem; color: var(--white); }
+        .article-meta { font-size: 1rem; opacity: 0.9; }
+        .article-container { max-width: 750px; margin: 0 auto; padding: 3rem 2rem; background: var(--white); }
+        .article-content h2 { font-size: 1.6rem; margin: 2.5rem 0 1rem; } .article-content p { margin-bottom: 1.5rem; }
+        .article-content ul, .article-content ol { margin: 1.5rem 0; padding-left: 2rem; } .article-content li { margin-bottom: 0.75rem; }
+        .article-image { width: 100%; margin: 2rem 0; border-radius: 12px; overflow: hidden; }
+        .article-image img { width: 100%; height: auto; display: block; }
+        .article-image figcaption { font-size: 0.9rem; color: var(--charcoal-light); text-align: center; padding: 0.75rem 1rem; background: var(--cream); font-style: italic; }
+        .article-image.float-left { float: left; width: 45%; margin: 0.5rem 1.5rem 1rem 0; }
+        .article-image.float-right { float: right; width: 45%; margin: 0.5rem 0 1rem 1.5rem; }
+        .article-image.full { width: 100%; float: none; clear: both; }
+        .article-content h2 { clear: both; }
+        @media (max-width: 768px) { .article-image.float-left, .article-image.float-right { float: none; width: 100%; margin: 2rem 0; } }
+        .video-container { position: relative; width: 100%; padding-bottom: 56.25%; height: 0; margin: 2rem 0; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0; }
+        .video-caption { font-size: 0.9rem; color: var(--charcoal-light); text-align: center; padding: 0.75rem; font-style: italic; }
+        .cta-box { background: linear-gradient(135deg, var(--color-brand-text) 0%, var(--color-brand-hover) 100%); color: var(--white); padding: 2rem; border-radius: 12px; text-align: center; margin: 2.5rem 0; }
+        .cta-box h3 { margin-bottom: 0.75rem; font-size: 1.35rem; color: var(--white); }
+        .cta-box p { color: rgba(255, 255, 255, 1) !important; margin-bottom: 1rem; }
+        .cta-button { display: inline-block; background: var(--white); color: var(--color-brand-text); padding: 0.875rem 2rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+        .cta-button:hover { opacity: 0.9; text-decoration: none; transform: translateY(-2px); }
+        .back-to-blog { max-width: 750px; margin: 0 auto; padding: 1.5rem 2rem; text-align: center; background: var(--white); }
+        .footer { text-align: center; padding: 2rem; color: var(--charcoal-light); font-size: 0.9rem; background: var(--white); border-top: 1px solid rgba(30,58,95,0.1); }
+        @media (max-width: 768px) { .article-header h1 { font-size: 1.75rem; } .article-header { padding: 2rem 1.5rem; } .article-container { padding: 2rem 1.5rem; } .hero-image { max-height: 280px; } }
+    
         .article-reviewer{font-size:0.9rem;opacity:0.8;font-style:italic;margin-top:0.5rem;}.article-reviewer a{color:rgba(255,255,255,0.95);text-decoration:underline;}
         .related-posts{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--sage-light);border-radius:12px;}
         .related-posts h3{margin:0 0 0.75rem;font-size:1.2rem;}.related-posts-list{list-style:none;padding:0;margin:0;}.related-posts-list li{padding:0.5rem 0;border-bottom:1px solid rgba(30,58,95,0.08);font-size:1rem;}.related-posts-list li:last-child{border-bottom:none;}
-        .article-container{max-width:750px;margin:0 auto;padding:3rem 2rem;background:var(--white);}
-        .article-content h2{font-size:1.6rem;margin:2.5rem 0 1rem;}.article-content p{margin-bottom:1.5rem;}
-        .article-content ul,.article-content ol{margin:1.5rem 0;padding-left:2rem;}.article-content li{margin-bottom:0.75rem;}
-        .article-image{width:100%;margin:2rem 0;border-radius:12px;overflow:hidden;}
-        .article-image img{width:100%;height:auto;display:block;}
-        .article-image figcaption{font-size:0.9rem;color:var(--charcoal-light);text-align:center;padding:0.75rem 1rem;background:var(--cream);font-style:italic;}
-        .article-image.float-left{float:left;width:45%;margin:0.5rem 1.5rem 1rem 0;}.article-image.float-right{float:right;width:45%;margin:0.5rem 0 1rem 1.5rem;}.article-image.full{width:100%;float:none;clear:both;}.article-content h2{clear:both;}
-        .video-container{position:relative;width:100%;padding-bottom:56.25%;height:0;margin:2rem 0;border-radius:12px;overflow:hidden;box-shadow:0 4px 15px rgba(0,0,0,0.1);}
-        .video-container iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:0;}
-        .video-caption{font-size:0.9rem;color:var(--charcoal-light);text-align:center;padding:0.75rem;font-style:italic;}
-        .cta-box{background:linear-gradient(135deg,var(--color-brand-text) 0%,var(--color-brand-hover) 100%);color:var(--white);padding:2rem;border-radius:12px;text-align:center;margin:2.5rem 0;}
-        .cta-box h3{margin-bottom:0.75rem;font-size:1.35rem;color:var(--white);}.cta-box p{color: rgba(255, 255, 255, 1)!important;margin-bottom:1rem;}
-        .cta-button{display:inline-block;background:var(--white);color: var(--color-brand-text);padding:0.875rem 2rem;border-radius:8px;text-decoration:none;font-weight:600;}
-        .cta-button:hover{opacity:0.9;text-decoration:none;transform:translateY(-2px);}
-        .back-to-blog{max-width:750px;margin:0 auto;padding:1.5rem 2rem;text-align:center;background:var(--white);}
-        .footer{text-align:center;padding:2rem;color:var(--charcoal-light);font-size:0.9rem;background:var(--white);border-top:1px solid rgba(30,58,95,0.1);}
-        @media(max-width:768px){.article-header h1{font-size:1.75rem;}.article-header{padding:2rem 1.5rem;}.article-container{padding:2rem 1.5rem;}.hero-image{max-height:280px;}.article-image.float-left,.article-image.float-right{float:none;width:100%;margin:2rem 0;}}
     </style>
 </head>
 <body>

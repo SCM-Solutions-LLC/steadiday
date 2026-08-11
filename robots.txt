@@ -24,11 +24,7 @@ Allow: /
 User-agent: Applebot
 Allow: /
 
-# Block duplicate blog posts (consolidated into newer versions)
-# These duplicates are being removed — canonical versions exist at later dates
-User-agent: *
-Disallow: /blog/2026-02-05-easy-hearthealthy-recipes-for-adults.html
-Disallow: /blog/2026-02-19-easy-hearthealthy-recipes-for-active.html
-Disallow: /blog/2026-02-23-easy-hearthealthy-recipes-for-adults.html
-Disallow: /blog/2026-02-16-morning-stretches-for-better-mobility.html
-Disallow: /blog/2026-02-17-breathing-exercises-to-reduce-stress.html
+# The duplicate posts previously listed here have since been deleted and now
+# return 404. Disallow rules were removed deliberately: a blocked URL cannot be
+# crawled, so search engines never see the 404 and the URL can linger in the
+# index. Letting crawlers reach the 404 is what actually removes them.
