@@ -30,6 +30,15 @@ PILLAR_POSTS = [
     "best-medication-reminder-apps-seniors.html",
 ]
 
+# Never list these in the sitemap. A sitemap should only advertise pages that
+# are meant to be indexed under their own URL - listing a page that carries a
+# canonical pointing elsewhere, or one that is disallowed in robots.txt, makes
+# Search Console report it as an error.
+EXCLUDED_PAGES = {
+    "404.html",
+    "preview.html",  # removed; kept here so a stray copy is never re-listed
+}
+
 
 def get_lastmod(filepath):
     """Get the last modified date of a file from git or filesystem."""
@@ -59,7 +68,8 @@ def find_all_pages():
     
     # Top-level pages
     for filename in os.listdir('.'):
-        if filename.endswith('.html') and not filename.startswith('_'):
+        if filename.endswith('.html') and not filename.startswith('_') \
+                and filename not in EXCLUDED_PAGES:
             config = PAGE_CONFIG.get(filename, {"priority": "0.5", "changefreq": "monthly"})
             pages.append({
                 "url": f"{WEBSITE_URL}/{filename}" if filename != "index.html" else WEBSITE_URL + "/",
