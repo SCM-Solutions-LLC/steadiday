@@ -72,8 +72,8 @@
         .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
         .nav-logo img { width: 44px; height: 44px; border-radius: 10px; box-shadow: var(--shadow-soft); }
         .nav-logo span { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 600; color: var(--text-dark); }
-        .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--sage); font-weight: 500; transition: color 0.2s ease; }
-        .nav-back:hover { color: var(--sage-dark); }
+        .nav-back { display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: var(--color-brand-text); font-weight: 500; transition: color 0.2s ease; }
+        .nav-back:hover { color: var(--color-brand-hover); }
         .nav-back svg { width: 20px; height: 20px; }
 
         .hero {
@@ -86,14 +86,14 @@
             display: flex; align-items: center; justify-content: center; margin: 0 auto 2rem;
             box-shadow: var(--shadow-medium);
         }
-        .hero-icon svg { width: 40px; height: 40px; color: var(--sage); }
+        .hero-icon svg { width: 40px; height: 40px; color: var(--color-brand-text); }
         .hero h1 { font-size: 2.75rem; margin-bottom: 1rem; }
         .hero p { font-size: 1.25rem; color: var(--charcoal-light); max-width: 600px; margin: 0 auto; }
 
         main { max-width: 900px; margin: 0 auto; padding: 4rem 2rem; }
         .section { margin-bottom: 4rem; }
         .section h2 { font-size: 1.75rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
-        .section h2 svg { width: 28px; height: 28px; color: var(--sage); }
+        .section h2 svg { width: 28px; height: 28px; color: var(--color-brand-text); }
         .section p { margin-bottom: 1rem; }
 
         .key-points { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin: 3rem 0; }
@@ -102,7 +102,7 @@
             width: 60px; height: 60px; background: var(--sage-light); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; margin: 0 auto 1rem;
         }
-        .key-point-icon svg { width: 30px; height: 30px; color: var(--sage-dark); }
+        .key-point-icon svg { width: 30px; height: 30px; color: var(--color-brand-hover); }
         .key-point h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
         .key-point p { font-size: 1rem; color: var(--charcoal); margin: 0; }
 
@@ -114,27 +114,27 @@
         .data-table th { background: var(--charcoal); color: var(--white); font-weight: 600; }
         .data-table tr:last-child td { border-bottom: none; }
         .data-table tr:hover { background: var(--cream); }
-        .status-yes { color: var(--green); font-weight: 600; }
-        .status-no { color: var(--red); font-weight: 600; }
+        .status-yes { color: var(--color-success-text); font-weight: 600; }
+        .status-no { color: var(--color-danger-text); font-weight: 600; }
 
         .do-dont-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 2rem; margin: 2rem 0; }
         .do-list, .dont-list { background: var(--white); padding: 2rem; border-radius: var(--radius-md); box-shadow: var(--shadow-soft); }
         .do-list { border-top: 4px solid var(--green); }
         .dont-list { border-top: 4px solid var(--red); }
         .do-list h3, .dont-list h3 { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1rem; }
-        .do-list h3 svg { color: var(--green); }
-        .dont-list h3 svg { color: var(--red); }
+        .do-list h3 svg { color: var(--color-success-text); }
+        .dont-list h3 svg { color: var(--color-danger-text); }
         .do-list ul, .dont-list ul { list-style: none; margin: 0; }
         .do-list li, .dont-list li { padding: 0.5rem 0; padding-left: 1.5rem; position: relative; }
-        .do-list li::before { content: '✓'; position: absolute; left: 0; color: var(--green); font-weight: bold; }
-        .dont-list li::before { content: '✗'; position: absolute; left: 0; color: var(--red); font-weight: bold; }
+        .do-list li::before { content: '✓'; position: absolute; left: 0; color: var(--color-success-text); font-weight: bold; }
+        .dont-list li::before { content: '✗'; position: absolute; left: 0; color: var(--color-danger-text); font-weight: bold; }
 
         .info-box {
             background: var(--sage-light); padding: 1.5rem 2rem; border-radius: var(--radius-md);
             border-left: 4px solid var(--sage); margin: 2rem 0;
         }
         .info-box h4 { font-size: 1.1rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .info-box h4 svg { width: 20px; height: 20px; color: var(--sage-dark); }
+        .info-box h4 svg { width: 20px; height: 20px; color: var(--color-brand-hover); }
         .info-box p { margin: 0; font-size: 1rem; }
 
         .photo-flow { display: flex; align-items: center; justify-content: space-between; gap: 1rem; margin: 2rem 0; flex-wrap: wrap; }
@@ -143,12 +143,12 @@
             background: var(--white); border-radius: var(--radius-md); box-shadow: var(--shadow-soft);
         }
         .photo-step-number {
-            width: 32px; height: 32px; background: var(--sage); color: var(--white); border-radius: 50%;
+            width: 32px; height: 32px; background: var(--color-brand-text); color: var(--white); border-radius: 50%;
             display: flex; align-items: center; justify-content: center; font-weight: 600; margin: 0 auto 0.75rem;
         }
         .photo-step h4 { font-size: 1rem; margin-bottom: 0.25rem; }
         .photo-step p { font-size: 0.95rem; color: var(--charcoal); margin: 0; }
-        .photo-arrow { font-size: 1.5rem; color: var(--sage); }
+        .photo-arrow { font-size: 1.5rem; color: var(--color-brand-text); }
 
         .cta-section { text-align: center; padding: 3rem; background: var(--charcoal); border-radius: var(--radius-lg); margin-top: 4rem; }
         .cta-section h2 { color: var(--white); margin-bottom: 1rem; }
@@ -156,7 +156,7 @@
         .btn {
             display: inline-flex; align-items: center; gap: 0.5rem; padding: 1rem 2rem;
             border-radius: var(--radius-md); font-size: 1.1rem; font-weight: 600; text-decoration: none;
-            background: var(--sage); color: var(--white); transition: all 0.3s ease;
+            background: var(--color-brand-text); color: var(--white); transition: all 0.3s ease;
         }
         .btn:hover { background: var(--sage-dark); transform: translateY(-2px); }
 
@@ -168,7 +168,7 @@
         .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; }
         .footer-links a { color: rgba(255, 255, 255, 0.7); text-decoration: none; font-size: 0.95rem; }
         .footer-links a:hover { color: var(--white); }
-        .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+        .footer-copy { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
 
         @media (max-width: 768px) {
             nav { padding: 1rem; }
@@ -187,6 +187,7 @@
     </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <nav>
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -215,7 +216,7 @@
         </div>
     </section>
 
-    <main>
+    <main id="main">
         <div class="key-points">
             <div class="key-point">
                 <div class="key-point-icon">
@@ -264,18 +265,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr><td>Medications & Schedules</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
-                    <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
-                    <tr><td>Check-ins &amp; Activity Summaries</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Only if signed in — synced securely for backup &amp; caregiver sharing</td></tr>
-                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Encrypted temporary safety/check-in records and Twilio message delivery</td></tr>
-                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: #FF9800; font-weight: 600;">⚠ Latest active-session GPS is stored for the private live link; ended sessions are deleted after about 24 hours</td></tr>
-                    <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: #FF9800; font-weight: 600;">⚠ Daily step count only, when caregiver activity sharing is enabled</td></tr>
+                    <tr><td>Medications & Schedules</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
+                    <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
+                    <tr><td>Check-ins &amp; Activity Summaries</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Only if signed in — synced securely for backup &amp; caregiver sharing</td></tr>
+                    <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Encrypted temporary safety/check-in records and Twilio message delivery</td></tr>
+                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Latest active-session GPS is stored for the private live link; ended sessions are deleted after about 24 hours</td></tr>
+                    <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Daily step count only, when caregiver activity sharing is enabled</td></tr>
                     <tr><td>Food & Water Logs</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Voice Recordings</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: #FF9800; font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
-                    <tr><td>Subscription Status</td><td class="status-yes">✓ Yes, on device</td><td style="color: #FF9800; font-weight: 600;">⚠ Pseudonymous purchase status and an app user identifier sent to RevenueCat. No health or app-content data included.</td></tr>
+                    <tr><td>Voice Recordings</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
+                    <tr><td>Subscription Status</td><td class="status-yes">✓ Yes, on device</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Pseudonymous purchase status and an app user identifier sent to RevenueCat. No health or app-content data included.</td></tr>
                     <tr><td>Doctor Information</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Insurance Card Details</td><td class="status-yes">✓ Text only, encrypted</td><td class="status-no">✗ Never</td></tr>
-                    <tr><td>Insurance Card &amp; Prescription Photos</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: #FF9800; font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
+                    <tr><td>Insurance Card &amp; Prescription Photos</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
                 </tbody>
             </table>
         </div>
@@ -333,7 +334,7 @@
                     </svg>
                     A note about analytics
                 </h4>
-                <p>SteadiDay™ collects pseudonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs. This data uses an app-installation identifier and technical device information; SteadiDay does not set your signed-in account ID as the Analytics user ID. Events intentionally exclude health data, medications, tasks, contacts, and content you enter. Our website also uses Google Analytics. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--sage-dark); text-decoration: underline;">Privacy Policy</a>.</p>
+                <p>SteadiDay™ collects pseudonymous analytics via Firebase Analytics (app usage events and feature usage patterns) and uses Firebase Crashlytics to identify and fix bugs. This data uses an app-installation identifier and technical device information; SteadiDay does not set your signed-in account ID as the Analytics user ID. Events intentionally exclude health data, medications, tasks, contacts, and content you enter. Our website also uses Google Analytics. For full details, see our <a href="privacy.html#app-analytics" style="color: var(--color-brand-hover); text-decoration: underline;">Privacy Policy</a>.</p>
             </div>
         </div>
 
@@ -394,8 +395,8 @@
             
             <div class="do-dont-grid">
                 <div class="do-list" style="border-top-color: var(--sage);">
-                    <h3 style="color: var(--sage);">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--sage);">
+                    <h3 style="color: var(--color-brand-text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--color-brand-text);">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
                         App Protection
@@ -411,8 +412,8 @@
                     </ul>
                 </div>
                 <div class="do-list" style="border-top-color: var(--sage);">
-                    <h3 style="color: var(--sage);">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--sage);">
+                    <h3 style="color: var(--color-brand-text);">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="24" height="24" style="color: var(--color-brand-text);">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/>
                         </svg>
                         Privacy Notifications
