@@ -64,8 +64,8 @@
         -webkit-font-smoothing: antialiased;
     }
     h1, h2, h3 { font-family: 'Poppins', sans-serif; font-weight: 700; line-height: 1.3; color: var(--text-dark); }
-    a { color: var(--sage); text-decoration: none; transition: color 0.2s ease; }
-    a:hover { color: var(--sage-dark); }
+    a { color: var(--color-brand-text); text-decoration: none; transition: color 0.2s ease; }
+    a:hover { color: var(--color-brand-hover); }
 
     nav {
         position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 1rem 0;
@@ -76,8 +76,8 @@
     .nav-logo { display: flex; align-items: center; gap: 0.75rem; text-decoration: none; }
     .nav-logo img { width: 48px; height: 48px; border-radius: 12px; box-shadow: var(--shadow-soft); }
     .nav-logo span { font-family: 'Poppins', sans-serif; font-size: 1.5rem; font-weight: 700; color: var(--text-dark); }
-    .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--sage); font-weight: 600; }
-    .nav-back:hover { color: var(--sage-dark); }
+    .nav-back { display: flex; align-items: center; gap: 0.5rem; color: var(--color-brand-text); font-weight: 600; }
+    .nav-back:hover { color: var(--color-brand-hover); }
 
     main { max-width: 800px; margin: 0 auto; padding: 8rem 2rem 4rem; }
     .page-header { margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 2px solid var(--sage); }
@@ -112,7 +112,7 @@
     .footer-links { display: flex; justify-content: center; gap: 2rem; margin-bottom: 1rem; flex-wrap: wrap; }
     .footer-links a { color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
     .footer-links a:hover { color: var(--white); }
-    .footer-copy { color: rgba(255, 255, 255, 0.5); font-size: 0.9rem; }
+    .footer-copy { color: rgba(255, 255, 255, 0.7); font-size: 0.9rem; }
 
     @media (max-width: 768px) {
         html { font-size: 16px; }
@@ -123,6 +123,7 @@
 </style>
 </head>
 <body>
+    <a class="skip-link" href="#main">Skip to main content</a>
     <nav>
         <div class="nav-container">
             <a href="index.html" class="nav-logo">
@@ -138,7 +139,7 @@
         </div>
     </nav>
 
-    <main>
+    <main id="main">
         <div class="page-header">
             <h1>Data Retention Policy</h1>
             <p class="last-updated">Last Updated: July 11, 2026</p>

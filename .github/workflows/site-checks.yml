@@ -1,0 +1,79 @@
+name: Site Checks
+
+# Guards against the three kinds of drift that have actually happened on this
+# site: accessibility regressions, homepage pricing going stale against
+# pricing.html, and blog posts diverging from the generator template.
+#
+# Runs on pull requests so problems are caught before merge, and on pushes to
+# main so an automated commit (blog generation, gtag injection) cannot quietly
+# break something.
+
+on:
+  pull_request:
+    paths:
+      - '**.html'
+      - '**.css'
+      - 'scripts/**'
+      - '.github/workflows/site-checks.yml'
+  push:
+    branches: [main]
+    paths:
+      - '**.html'
+      - '**.css'
+      - 'scripts/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  content-checks:
+    name: Content consistency
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      # Fast, dependency-free. Run both even if the first fails, so one report
+      # shows everything that needs fixing.
+      - name: Homepage pricing matches pricing.html
+        run: python3 scripts/check_pricing_sync.py
+
+      - name: Blog posts match the generator template
+        if: ${{ !cancelled() }}
+        run: python3 scripts/check_blog_consistency.py
+
+  accessibility:
+    name: Accessibility audit
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Playwright
+        run: |
+          npm install --no-save playwright@1.49.0
+          npx playwright install --with-deps chromium
+
+      - name: Serve the site
+        run: |
+          python3 -m http.server 8899 --directory . &
+          for _ in $(seq 1 30); do
+            curl -sf -o /dev/null http://localhost:8899/index.html && break
+            sleep 1
+          done
+          curl -sf -o /dev/null http://localhost:8899/index.html
+
+      # Audits every page: WCAG AA contrast against computed styles, plus skip
+      # link, <main> landmark and image alt text. External requests are blocked
+      # inside the audit, so results do not depend on third-party uptime.
+      - name: Audit
+        env:
+          BASE_URL: http://localhost:8899
+        run: node scripts/audit_a11y.mjs
