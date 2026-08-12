@@ -2,14 +2,23 @@
 /**
  * Accessibility audit for the SteadiDay site.
  *
- * Checks every page against WCAG 2.1 AA contrast, plus the structural
- * invariants the site relies on (skip link, main landmark, image alt text).
+ * Three layers, because no single one of them is sufficient:
  *
- * Contrast is measured against *computed* styles in a real browser rather than
- * by reading the CSS, which is what makes it trustworthy: it resolves CSS
- * custom properties, walks up for the effective background, picks the worst
- * stop of a gradient, and composites semi-transparent text over what is behind
- * it. Several real failures on this site were invisible to static analysis.
+ * 1. Contrast, measured against *computed* styles in a real browser rather
+ *    than by reading CSS. It resolves custom properties, walks up for the
+ *    effective background, picks the worst stop of a gradient, and composites
+ *    semi-transparent text. Several real failures here were invisible to
+ *    static analysis.
+ *
+ * 2. axe-core, for the things a bespoke check has no business reimplementing:
+ *    ARIA validity, accessible names, landmark and heading structure, form
+ *    labels, list and table semantics. Its own color-contrast rule is disabled
+ *    because layer 1 is stricter about gradients and alpha, and running both
+ *    just double-reports the same pixels.
+ *
+ * 3. A keyboard pass, which axe cannot do because it is static: it tabs
+ *    through the page looking for keyboard traps, tab order that diverges
+ *    from DOM order, and focused elements with no visible focus indicator.
  *
  *   node scripts/audit_a11y.mjs                  # audit everything
  *   node scripts/audit_a11y.mjs index.html …     # audit specific pages
@@ -17,14 +26,25 @@
  * Env:
  *   BASE_URL        default http://localhost:8899
  *   CHROMIUM_PATH   explicit browser binary (for playwright-core)
+ *   SKIP_AXE=1      skip layer 2 (useful when iterating on layers 1 and 3)
  *
  * Exits non-zero if anything fails.
  */
 
 import { readdirSync, existsSync } from "node:fs";
 import { join } from "node:path";
+import { createRequire as makeRequire } from "node:module";
 
 const BASE_URL = process.env.BASE_URL || "http://localhost:8899";
+const require = makeRequire(import.meta.url);
+
+function axeSourcePath() {
+  try {
+    return require.resolve("axe-core");
+  } catch {
+    return null;
+  }
+}
 
 async function loadChromium() {
   for (const mod of ["playwright", "playwright-core"]) {
@@ -146,8 +166,121 @@ function auditInPage() {
   };
 }
 
+/**
+ * Tab through the page and report keyboard problems.
+ *
+ * axe is a static analyser: it can flag a positive tabindex, but it cannot
+ * tell you whether focus actually moves, whether it moves in a sensible
+ * order, or whether you can see where it went. That needs real key presses.
+ */
+async function keyboardPass(tab, maxStops = 60) {
+  const problems = [];
+
+  const describe = () =>
+    tab.evaluate(() => {
+      const el = document.activeElement;
+      if (!el || el === document.body) return null;
+      const cs = getComputedStyle(el);
+      const outlineWidth = parseFloat(cs.outlineWidth) || 0;
+      const hasRing =
+        (outlineWidth > 0 && cs.outlineStyle !== "none") ||
+        (cs.boxShadow && cs.boxShadow !== "none");
+      // Position in document order, for detecting tab order that jumps around.
+      const all = [...document.querySelectorAll("*")];
+      return {
+        tag: el.tagName.toLowerCase(),
+        label: (el.getAttribute("aria-label") || el.textContent || "").trim().slice(0, 40),
+        docIndex: all.indexOf(el),
+        tabindex: el.getAttribute("tabindex"),
+        hasRing,
+        hidden: cs.visibility === "hidden" || cs.display === "none",
+        offscreen: el.getBoundingClientRect().bottom < 0,
+      };
+    });
+
+  // Settle transitions before measuring. Elements with `transition: all`
+  // animate outline-width from 0 to its final value, so sampling the computed
+  // style straight after a Tab reports "no focus ring" on a ring that is
+  // simply still fading in. Zeroing durations is faster and more reliable
+  // than sleeping after every key press.
+  await tab.addStyleTag({
+    content:
+      "*, *::before, *::after { transition-duration: 0s !important; " +
+      "animation-duration: 0s !important; }",
+  });
+
+  await tab.evaluate(() => {
+    window.scrollTo(0, 0);
+    document.body.focus();
+  });
+
+  const seen = [];
+  let previous = null;
+  let repeats = 0;
+
+  for (let i = 0; i < maxStops; i++) {
+    await tab.keyboard.press("Tab");
+    const current = await describe();
+    if (!current) break; // focus left the document
+
+    const key = `${current.tag}:${current.docIndex}`;
+    if (previous && key === previous) {
+      repeats += 1;
+      if (repeats >= 2) {
+        problems.push(`keyboard trap: focus stuck on <${current.tag}> "${current.label}"`);
+        break;
+      }
+    } else {
+      repeats = 0;
+    }
+    previous = key;
+
+    if (seen.some((s) => s.key === key)) break; // wrapped around
+    seen.push({ key, ...current });
+  }
+
+  for (const stop of seen) {
+    if (stop.tabindex && Number(stop.tabindex) > 0) {
+      problems.push(
+        `positive tabindex="${stop.tabindex}" on <${stop.tag}> "${stop.label}" ` +
+          `overrides natural order`
+      );
+    }
+    if (stop.hidden) {
+      problems.push(`focusable but hidden: <${stop.tag}> "${stop.label}"`);
+    }
+    // Tabbing to an <iframe> moves focus into the embedded document, which
+    // draws its own indicator and which the parent page cannot style. The
+    // outer element never matches :focus, so requiring a ring on it would be
+    // a permanent false positive.
+    if (!stop.hasRing && stop.tag !== "iframe") {
+      problems.push(`no visible focus indicator on <${stop.tag}> "${stop.label}"`);
+    }
+  }
+
+  // Tab order should follow document order. The skip link is deliberately
+  // first, so compare from the second stop onward.
+  for (let i = 2; i < seen.length; i++) {
+    if (seen[i].docIndex < seen[i - 1].docIndex) {
+      problems.push(
+        `tab order diverges from DOM order: <${seen[i].tag}> "${seen[i].label}" ` +
+          `comes after <${seen[i - 1].tag}> "${seen[i - 1].label}" when tabbing, ` +
+          `but before it in the document`
+      );
+      break; // one report is enough; they cascade
+    }
+  }
+
+  return { problems, stops: seen.length };
+}
+
 const chromium = await loadChromium();
 const pages = process.argv.slice(2).length ? process.argv.slice(2) : discoverPages();
+const AXE_PATH = process.env.SKIP_AXE ? null : axeSourcePath();
+
+if (!process.env.SKIP_AXE && !AXE_PATH) {
+  console.log("note: axe-core is not installed, skipping rule checks (npm install axe-core)");
+}
 
 const launchOptions = process.env.CHROMIUM_PATH
   ? { executablePath: process.env.CHROMIUM_PATH }
@@ -170,11 +303,35 @@ for (const page of pages) {
   const jsErrors = [];
   tab.on("pageerror", (e) => jsErrors.push(e.message));
 
-  let report;
+  let report, axeViolations = [], keyboard = { problems: [], stops: 0 };
   try {
     await tab.goto(`${BASE_URL}/${page}`, { waitUntil: "domcontentloaded", timeout: 30000 });
     await tab.waitForTimeout(250);
     report = await tab.evaluate(auditInPage);
+
+    if (AXE_PATH) {
+      // Injected from disk, so it does not need a network request and is not
+      // affected by the route blocking above.
+      await tab.addScriptTag({ path: AXE_PATH });
+      const axeResult = await tab.evaluate(async () => {
+        const res = await window.axe.run(document, {
+          runOnly: { type: "tag", values: ["wcag2a", "wcag2aa", "wcag21a", "wcag21aa"] },
+          // Layer 1 owns contrast and handles gradients and alpha better.
+          rules: { "color-contrast": { enabled: false } },
+          resultTypes: ["violations"],
+        });
+        return res.violations.map((v) => ({
+          id: v.id,
+          impact: v.impact,
+          help: v.help,
+          nodes: v.nodes.slice(0, 3).map((n) => n.html.slice(0, 110)),
+          count: v.nodes.length,
+        }));
+      });
+      axeViolations = axeResult;
+    }
+
+    keyboard = await keyboardPass(tab);
   } catch (err) {
     console.log(`\n✗ ${page}\n    could not audit: ${err.message}`);
     problemPages.push(page);
@@ -189,7 +346,9 @@ for (const page of pages) {
   if (report.imagesWithoutAlt) structural.push(`${report.imagesWithoutAlt} image(s) without alt`);
   if (jsErrors.length) structural.push(`JS error: ${jsErrors[0]}`);
 
-  const bad = report.failures.length + structural.length;
+  const axeCount = axeViolations.reduce((n, v) => n + v.count, 0);
+  const bad =
+    report.failures.length + structural.length + axeCount + keyboard.problems.length;
   totalFailures += bad;
 
   if (bad) {
@@ -198,10 +357,15 @@ for (const page of pages) {
     for (const s of structural) console.log(`    ${s}`);
     for (const f of report.failures) {
       console.log(
-        `    ${f.ratio}:1 (needs ${f.required}) ${f.size}px "${f.text}"\n` +
+        `    contrast ${f.ratio}:1 (needs ${f.required}) ${f.size}px "${f.text}"\n` +
           `        ${f.fg} on ${f.bg}`
       );
     }
+    for (const v of axeViolations) {
+      console.log(`    axe/${v.id} [${v.impact}] ${v.help} (${v.count} node(s))`);
+      for (const n of v.nodes) console.log(`        ${n}`);
+    }
+    for (const k of keyboard.problems) console.log(`    keyboard: ${k}`);
   }
   await tab.close();
 }

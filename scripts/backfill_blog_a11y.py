@@ -127,6 +127,24 @@ def fix_gold_rating(html):
     return html.replace(old, ".rating {\n            color: #8A6412;"), True
 
 
+def semantic_breadcrumbs(html):
+    """A breadcrumb trail is navigation, so it belongs in a labelled <nav>.
+
+    As a plain <div> it was announced as anonymous text, and screen reader
+    users had no way to identify or skip it.
+    """
+    if 'aria-label="Breadcrumb"' in html:
+        return html, False
+    m = re.search(r'( *)<div class="breadcrumbs">(.*?)</div>\n', html, re.DOTALL)
+    if not m:
+        return html, False
+    indent, inner = m.group(1), m.group(2)
+    replacement = (
+        f'{indent}<nav class="breadcrumbs" aria-label="Breadcrumb">{inner}</nav>\n'
+    )
+    return html.replace(m.group(0), replacement, 1), True
+
+
 def add_skip_link(html):
     if 'class="skip-link"' in html:
         return html, False
@@ -163,7 +181,7 @@ def blank_hero_alt(html):
 # blank_hero_alt runs before add_main_landmark: the landmark is anchored on the
 # hero <img> tag, so the alt attribute must be well-formed first.
 STEPS = [add_shared_css, fix_teal_palette, fix_sage_palette, fix_sage_fills,
-         fix_faint_text, fix_gold_rating,
+         fix_faint_text, fix_gold_rating, semantic_breadcrumbs,
          add_skip_link, blank_hero_alt, add_main_landmark]
 
 
