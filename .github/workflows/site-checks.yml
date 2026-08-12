@@ -56,9 +56,9 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install Playwright
+      - name: Install Playwright and axe-core
         run: |
-          npm install --no-save playwright@1.49.0
+          npm install --no-save playwright@1.49.0 axe-core@4.13.0
           npx playwright install --with-deps chromium
 
       - name: Serve the site
@@ -70,9 +70,11 @@ jobs:
           done
           curl -sf -o /dev/null http://localhost:8899/index.html
 
-      # Audits every page: WCAG AA contrast against computed styles, plus skip
-      # link, <main> landmark and image alt text. External requests are blocked
-      # inside the audit, so results do not depend on third-party uptime.
+      # Audits every page in three layers: WCAG AA contrast against computed
+      # styles, axe-core rule checks (ARIA, names, landmarks, semantics), and a
+      # real keyboard pass for traps, tab order and focus indicators. External
+      # requests are blocked inside the audit, so results do not depend on
+      # third-party uptime.
       - name: Audit
         env:
           BASE_URL: http://localhost:8899

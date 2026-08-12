@@ -197,6 +197,22 @@ h1, h2, h3, h4, h5, h6 {
 a { color: var(--color-brand-text); text-decoration: none; }
 a:hover { color: var(--green-600); }
 
+/* Links sitting inside running text must be distinguishable without relying
+   on colour (WCAG 1.4.1). Navigation, buttons and cards are exempt: they are
+   identifiable by position and shape, so they keep the undecorated style. */
+p a,
+li a,
+.breadcrumbs a {
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+}
+
+/* A list of post titles is a link list, not a block of prose - the links are
+   the content, so there is nothing to distinguish them from. */
+.related-posts-list a {
+    text-decoration: none;
+}
+
 img { max-width: 100%; height: auto; }
 
 /* Anchor targets clear the sticky navbar instead of hiding beneath it */
@@ -211,6 +227,12 @@ img { max-width: 100%; height: auto; }
     outline: 3px solid var(--color-focus);
     outline-offset: 2px;
     border-radius: 3px;
+}
+
+/* Embedded video sits in a rounded, overflow-hidden frame, which clips an
+   outward focus ring away entirely. Drawing it inside keeps it visible. */
+iframe:focus-visible {
+    outline-offset: -3px;
 }
 
 /* Older engines without :focus-visible still get a ring */

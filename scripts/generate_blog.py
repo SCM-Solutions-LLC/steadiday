@@ -1374,7 +1374,7 @@ def get_html_template():
 <body>
     <a class="skip-link" href="#main">Skip to main content</a>
     <nav class="nav"><div class="nav-container"><a href="index.html">&larr; Back to Blog</a><a href="{website_url}">SteadiDay Home</a></div></nav>
-    <div class="breadcrumbs"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">{title}</span></div>
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">{title}</span></nav>
     <main id="main">
     <img src="{hero_image}" alt="" class="hero-image" loading="eager">
     <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div><div class="article-reviewer">Editorially reviewed by <a href="{reviewer_url}">{reviewer_name}</a></div></header>
