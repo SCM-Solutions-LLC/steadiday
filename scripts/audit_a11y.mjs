@@ -20,12 +20,16 @@
  *    through the page looking for keyboard traps, tab order that diverges
  *    from DOM order, and focused elements with no visible focus indicator.
  *
- *   node scripts/audit_a11y.mjs                  # audit everything
- *   node scripts/audit_a11y.mjs index.html …     # audit specific pages
+ * Needs a server already running at BASE_URL. `scripts/audit.sh` starts one,
+ * installs the two dependencies if they are missing, and is the easier way in:
+ *
+ *   scripts/audit.sh                             # audit everything
+ *   scripts/audit.sh index.html pricing.html     # audit specific pages
+ *   node scripts/audit_a11y.mjs                  # if a server is already up
  *
  * Env:
  *   BASE_URL        default http://localhost:8899
- *   CHROMIUM_PATH   explicit browser binary (for playwright-core)
+ *   CHROMIUM_PATH   explicit browser binary; otherwise auto-discovered
  *   SKIP_AXE=1      skip layer 2 (useful when iterating on layers 1 and 3)
  *
  * Exits non-zero if anything fails.
@@ -55,6 +59,42 @@ async function loadChromium() {
     }
   }
   throw new Error("Install `playwright` or `playwright-core` to run this audit.");
+}
+
+/**
+ * Locate a Chromium binary.
+ *
+ * Returns null when Playwright already knows where its own download is, which
+ * is the normal case in CI after `npx playwright install`. The fallback exists
+ * for environments that ship a browser but no Playwright download - notably
+ * `playwright-core`, which never downloads one - where launching without an
+ * explicit path fails with "executable doesn't exist".
+ */
+function findChromium(chromium) {
+  if (process.env.CHROMIUM_PATH) return process.env.CHROMIUM_PATH;
+
+  try {
+    const bundled = chromium.executablePath();
+    if (bundled && existsSync(bundled)) return null;
+  } catch {
+    /* playwright-core throws here rather than returning a path */
+  }
+
+  const roots = [process.env.PLAYWRIGHT_BROWSERS_PATH, "/opt/pw-browsers"].filter(Boolean);
+  for (const root of roots) {
+    if (!existsSync(root)) continue;
+    // Prefer headless_shell: it is smaller and this audit never needs a head.
+    for (const leaf of ["chrome-linux/headless_shell", "chrome-linux/chrome"]) {
+      const hit = readdirSync(root)
+        .filter((d) => d.startsWith("chromium"))
+        .sort()
+        .reverse()
+        .map((d) => join(root, d, leaf))
+        .find(existsSync);
+      if (hit) return hit;
+    }
+  }
+  return null;
 }
 
 function discoverPages() {
@@ -282,10 +322,8 @@ if (!process.env.SKIP_AXE && !AXE_PATH) {
   console.log("note: axe-core is not installed, skipping rule checks (npm install axe-core)");
 }
 
-const launchOptions = process.env.CHROMIUM_PATH
-  ? { executablePath: process.env.CHROMIUM_PATH }
-  : {};
-const browser = await chromium.launch(launchOptions);
+const executablePath = findChromium(chromium);
+const browser = await chromium.launch(executablePath ? { executablePath } : {});
 
 let totalFailures = 0;
 const problemPages = [];

@@ -31,6 +31,23 @@ python3 -m http.server 8000
 # → http://localhost:8000
 ```
 
+## Checks
+
+The same three checks CI runs on every pull request, runnable locally:
+
+```bash
+scripts/audit.sh                      # accessibility: contrast, axe-core, keyboard pass
+python3 scripts/check_pricing_sync.py # homepage prices match pricing.html
+python3 scripts/check_blog_consistency.py  # posts match the generator template
+```
+
+`scripts/audit.sh` installs its two npm dependencies on first run, serves the
+site, and audits every page. Pass filenames to narrow it:
+
+```bash
+scripts/audit.sh index.html pricing.html
+```
+
 ## Deployment
 
 Pushes to `main` deploy automatically via GitHub Actions to GitHub Pages. The `CNAME` file routes traffic from `scm-solutions-llc.github.io/steadiday` to `steadiday.com`.
@@ -43,11 +60,16 @@ python3 scripts/generate_sitemap.py
 
 ## Adding a blog post
 
-1. Create a new `.html` file in `blog/`
-2. Follow the structure of an existing post
-3. Add the entry to the blog index in `index.html`
-4. Regenerate `sitemap.xml`
-5. Push to `main`
+`scripts/generate_blog.py` owns the post template — hand-written posts drift
+from it and `check_blog_consistency.py` will fail the build.
+
+1. Add the post to `scripts/generate_blog.py` and run it
+2. Add the entry to the blog index in `index.html`
+3. Regenerate `sitemap.xml`
+4. Push to `main`
+
+Template changes belong in the generator, then get backfilled across existing
+posts with `scripts/backfill_blog_a11y.py`.
 
 ## SEO / Search verification
 
