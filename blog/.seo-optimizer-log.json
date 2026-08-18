@@ -212,5 +212,15 @@
     ],
     "notes": "No post optimizations this run. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (optimized 2026-08-04, inside the 21-day cooldown) and 2026-06-22-the-first-mrna-flu-vaccine.html, whose named GSC queries are all flu-timing intent at position 78+ and whose ~400 remaining impressions are anonymized and untargetable. That post also carries a now-past FDA decision date (August 5, 2026) in its FAQ and body; correcting it would change a medical/factual statement, so it is flagged for Saawan rather than edited. detect_quick_wins returned 0 opportunities at position 8-25 / >=20 impressions.",
     "baseline": null
+  },
+  {
+    "date": "2026-08-18",
+    "file": "blog/2026-08-13-breast-screening-guidelines-for-women.html (campaign URL swap \u2014 not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL"
+    ],
+    "notes": "No post optimizations this run. detect_quick_wins returned 0 at position 8-25/>=20 impressions. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (808 imp, 0 clicks, pos 36.8 \u2014 inside 21-day cooldown from 2026-08-04, and its position is improving 55.5->43.5->36.8, so left alone) and 2026-06-22-the-first-mrna-flu-vaccine.html (302 imp, 1 click, pos 9.4 \u2014 title/meta already rewritten 2026-07-19; its remaining ~300 impressions are anonymized and its stale FDA decision date of August 5, 2026 is now in the past, a factual correction the optimizer is barred from making). Third consecutive run where the newest generated post shipped with the plain App Store URL \u2014 the post generator should be fixed at source. Homepage 'From the Blog' section is still absent from index.html (no blog-section/blog-grid/blog-card markup at all), so Step 5a was skipped again.",
+    "baseline": null
   }
 ]
