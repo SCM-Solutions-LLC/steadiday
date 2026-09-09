@@ -142,7 +142,7 @@
     <main id="main">
         <div class="page-header">
             <h1>Privacy Policy</h1>
-            <p class="last-updated">Last Updated: July 11, 2026</p>
+            <p class="last-updated">Last Updated: September 9, 2026</p>
         </div>
 
         <div class="toc">
@@ -219,18 +219,44 @@
             <p><strong>Important:</strong> We use OpenAI's API solely to read text from your photos. OpenAI does not use API business data to train its models by default and may retain API inputs and outputs for up to 30 days for service delivery and abuse prevention, unless a shorter retention control applies. SteadiDay does not save the source photo to its application database. See <a href="#third-party-services">Section 5.2</a> for more details on our use of third-party services.</p>
 
             <h3>2.4 Location Data</h3>
-            <p>If you enable location-based features (such as weather or emergency SOS location sharing), your location is processed on your device. Location data is shared only with your designated emergency contacts in the following cases: (1) when you explicitly trigger the Emergency SOS feature, (2) if fall detection activates and you do not respond within the countdown period, and (3) when you start a Safety Session (see Section 2.5 below). Location data is never shared with advertisers or data brokers.</p>
+            <p>If you enable location-based features (such as weather or emergency SOS location sharing), your location is processed on your device. Location data is shared with your designated emergency contacts only in these cases: (1) when you explicitly trigger the Emergency SOS feature, (2) if fall detection activates and you do not respond within the countdown period, and (3) when you choose to send someone your live-location link while Always-on Protection is running (see Section 2.5 below). Location data is never shared with advertisers or data brokers.</p>
 
-            <h3>2.5 Live Location Sharing During Safety Sessions</h3>
-            <p>When you start a Safety Session, SteadiDay may share your real-time location with your designated emergency contacts via a secure, tokenized link. Here is what you should know:</p>
+            <h3>2.5 Live Location Sharing During Always-on Protection</h3>
+            <p>Always-on Protection is SteadiDay's fall-detection feature. It replaced the earlier
+            "Safety Session," which you had to start by hand each time. Because it now runs on its own
+            once enabled, this section describes exactly when location data leaves your phone.</p>
             <ol>
-                <li><strong>Opt-in only</strong> — Live location sharing begins only when you explicitly start a Safety Session. It is never activated automatically or without your knowledge.</li>
-                <li><strong>Who can see your location</strong> — Only the emergency contacts you have designated in the app can view your location, and only through a unique, time-limited link that expires when the session ends.</li>
-                <li><strong>What is shared</strong> — Your approximate GPS coordinates are transmitted to our server and displayed on a map visible to your emergency contacts. No other personal data is included on the shared page.</li>
-                <li><strong>Data retention</strong> — The server keeps the most recent Safety Session coordinates so the private live link can work. Ended sessions are automatically deleted after approximately 24 hours. Abandoned active sessions expire after seven days and are then deleted by the next cleanup cycle.</li>
-                <li><strong>No tracking outside sessions</strong> — Outside of an active Safety Session, no location data is transmitted to our servers or shared with anyone. The app does not build a location history or movement profile.</li>
-                <li><strong>Background location use (iOS)</strong> — While a Safety Session is active, the app uses iOS background location services to continue sharing your position even when the app is not in the foreground. This stops immediately when the session ends.</li>
-                <li><strong>Your control</strong> — You can end a Safety Session at any time, which immediately stops all location sharing and invalidates the shared link. You can also choose not to use Safety Sessions at all — the rest of the app functions without location access.</li>
+                <li><strong>You opt in once, not each time</strong> &mdash; Always-on Protection is off until you
+                turn it on in Safety settings or during setup, and it needs at least one trusted emergency
+                contact and your permission for iOS Location "Always". Turning it on is the consent. From
+                that point protection starts on its own shortly after the app launches and again each time
+                the app returns to the foreground, without asking again.</li>
+                <li><strong>What happens automatically</strong> &mdash; When protection starts, SteadiDay registers the
+                session with our server and the server issues a unique, unguessable live-location link.
+                While the session runs, your approximate GPS coordinates are transmitted to our server so
+                that link can show a current position if it is ever needed.</li>
+                <li><strong>Nobody receives the link automatically</strong> &mdash; Creating the link is not the same as
+                sharing it. The link is sent to another person only when you tap Share to send it yourself,
+                or when a fall alert or Emergency SOS text goes out to your trusted contacts. Until then it
+                exists only on your phone and our server.</li>
+                <li><strong>Who can see your location</strong> &mdash; Only someone holding the link. It is not listed,
+                indexed, or searchable, and it stops working when the session ends.</li>
+                <li><strong>What is shared</strong> &mdash; Your approximate GPS coordinates, displayed on a map. No
+                other personal data appears on the shared page.</li>
+                <li><strong>Data retention</strong> &mdash; The server keeps only the most recent coordinates, so the
+                link can work. Ended sessions are deleted after approximately 24 hours. Sessions left active
+                expire after seven days and are deleted by the next cleanup cycle.</li>
+                <li><strong>Background location use (iOS)</strong> &mdash; While protection is running, the app uses
+                iOS background location services so it keeps watching for falls when it is not in the
+                foreground. If you refuse background location, protection still runs while the app is open,
+                but the app will tell you protection is limited rather than let you assume otherwise.</li>
+                <li><strong>Turning it off</strong> &mdash; Switch Always-on Protection off in Safety settings. That
+                ends the session, stops all location transmission, and invalidates the link. You can also
+                deny or revoke location permission in iOS Settings at any time. The rest of the app works
+                without location access.</li>
+                <li><strong>No tracking when protection is off</strong> &mdash; With Always-on Protection off, no
+                location data is transmitted to our servers or shared with anyone. SteadiDay does not build
+                a location history or movement profile in either state.</li>
             </ol>
 
             <h3>2.6 Audio and Voice Input</h3>
@@ -436,7 +462,7 @@
             <p>To stop emergency SMS messages from being sent, remove your trusted contacts from the app or disable the fall detection feature. Trusted contacts who receive emergency alerts can reply STOP to the sending number to opt out of future messages from SteadiDay™. For help, trusted contacts can reply HELP or contact us at <a href="mailto:support@steadiday.com">support@steadiday.com</a>.</p>
 
             <h3>10.7 SMS Data Privacy</h3>
-            <p>Mobile phone numbers and opt-in data collected for the SteadiDay™ SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes. Phone numbers are stored locally and may be temporarily stored in encrypted SteadiDay safety/check-in records so alerts can operate. Completed records are automatically deleted after approximately 24 hours; an abandoned active Safety Session may remain for up to eight days. Twilio retains message records according to its account settings and legal obligations.</p>
+            <p>Mobile phone numbers and opt-in data collected for the SteadiDay™ SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes. Phone numbers are stored locally and may be temporarily stored in encrypted SteadiDay safety/check-in records so alerts can operate. Completed records are automatically deleted after approximately 24 hours; a protection session left active may remain for up to eight days. Twilio retains message records according to its account settings and legal obligations.</p>
         </div>
 
         <div class="section">

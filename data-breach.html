@@ -142,7 +142,7 @@
     <main id="main">
         <div class="page-header">
             <h1>Data Breach Response Plan</h1>
-            <p class="last-updated">Last Updated: July 11, 2026</p>
+            <p class="last-updated">Last Updated: September 9, 2026</p>
         </div>
 
         <div class="toc">
@@ -191,7 +191,7 @@
                 <li>Third-party service credentials: Twilio API keys (could allow unauthorized SMS sending), OpenAI API keys (could allow unauthorized AI API usage), and RevenueCat configuration</li>
                 <li>Synced account data (if you signed in): medications, tasks, check-ins, and activity summaries — sensitive fields are encrypted with AES-256-GCM</li>
                 <li>Caregiver sharing data: encrypted activity snapshots stored temporarily on our backend (auto-expire after 90 days)</li>
-                <li>Temporary encrypted safety, check-in, escalation, contact, and recent Safety Session location records</li>
+                <li>Temporary encrypted safety, check-in, escalation, contact, and recent Always-on Protection location records</li>
             </ul>
             <p>The following data could <strong>NOT</strong> be affected by a breach of our infrastructure because we never have it:</p>
             <ul>
@@ -272,7 +272,7 @@
                 <li>Regular review of third-party service configurations</li>
                 <li>Minimal data collection philosophy — we only collect what we need</li>
                 <li>Third-party API keys stored securely on our backend — never embedded in the app</li>
-                <li>Automatic expiration of temporary data (Safety Sessions, caregiver shares, escalation data)</li>
+                <li>Automatic expiration of temporary data (protection sessions, caregiver shares, escalation data)</li>
                 <li>SOC 2 Type II certified cloud infrastructure (Supabase)</li>
             </ul>
         </div>
