@@ -77,7 +77,7 @@ gtag('config', 'G-LF8H890XTV');
     "@type": "SoftwareApplication",
     "name": "SteadiDay",
     "alternateName": "SteadiDay App",
-    "description": "Free all-in-one wellness and safety app for adults 50+. Medication reminders, emergency SOS, fall detection, Apple Health integration, daily tasks, food and water tracking, mind games, magnifier, Find My Car, and calendar sync. Large buttons, simple navigation, no account required.",
+    "description": "Free all-in-one wellness and safety app for adults 50+. Medication reminders, emergency SOS, always-on fall detection, Apple Health integration, daily tasks, food and water tracking, mind games, magnifier, Find My Car, and calendar sync. Large buttons and simple navigation. Free to use with no card; a free account switches on automatic alert texts and caregiver sharing.",
     "applicationCategory": "HealthApplication",
     "operatingSystem": "iOS",
     "url": "https://apps.apple.com/app/steadiday/id6758526744",
@@ -87,13 +87,25 @@ gtag('config', 'G-LF8H890XTV');
             "@type": "Offer",
             "price": "0",
             "priceCurrency": "USD",
-            "description": "Essentials — free forever (medications, reminders, SOS, fall detection)"
+            "description": "Essentials — free forever (up to 5 medications, 7 reminders, 1 trusted contact, SOS, fall detection, daily check-ins)"
         },
         {
             "@type": "Offer",
             "price": "3.99",
             "priceCurrency": "USD",
-            "description": "Premium monthly — unlimited medications, Family Link, health tracking, and more"
+            "description": "Premium monthly — unlimited medications and trusted contacts, Family Link, health tracking, Steady Moves, tools, and backup"
+        },
+        {
+            "@type": "Offer",
+            "price": "29.99",
+            "priceCurrency": "USD",
+            "description": "Premium annual — the same Premium features, billed once a year"
+        },
+        {
+            "@type": "Offer",
+            "price": "99.99",
+            "priceCurrency": "USD",
+            "description": "Lifetime — every Premium feature with a single payment and no renewals"
         }
     ],
     "author": {
@@ -107,7 +119,7 @@ gtag('config', 'G-LF8H890XTV');
         "Apple Calendar & Reminders Sync",
         "General Reminders & Scheduling",
         "Emergency SOS with Quick Calling",
-        "Fall Detection",
+        "Always-on Fall Detection",
         "Apple Health Integration",
         "Food & Water Intake Tracking",
         "Health Metrics Dashboard",
@@ -118,10 +130,9 @@ gtag('config', 'G-LF8H890XTV');
         "Google Calendar Sync",
         "Mind Breaks & Relaxing Games",
         "Magnifier Tool for Small Text",
-        "Find My iPhone Quick Access",
+        "Find My Car Parking Reminder",
         "Flashlight & Everyday Utilities",
         "Senior-Friendly Large Buttons (48pt+)",
-        "No Account Required",
         "Private and Secure Data"
     ],
     "screenshot": "https://www.steadiday.com/assets/screenshot-home.png",
@@ -176,7 +187,7 @@ gtag('config', 'G-LF8H890XTV');
             "name": "Does my parent need to create an account?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "No. Just download SteadiDay and they can start right away — no sign-up, no password. You can optionally have them sign in to enable backup and caregiver sharing."
+                "text": "Not to use it. They can add medicines, set reminders, use Simple Mode, press SOS to call 911, and call a trusted contact without signing up. A free account is needed for the features that reach other people: the automatic alert texts sent when a fall is detected or SOS is pressed, the live-location link, and Family Link. It costs nothing and takes about a minute."
             }
         },
         {
@@ -184,7 +195,7 @@ gtag('config', 'G-LF8H890XTV');
             "name": "Is SteadiDay really free?",
             "acceptedAnswer": {
                 "@type": "Answer",
-                "text": "The safety essentials are completely free: Emergency SOS, fall detection, medication reminders (up to 7), daily tasks, and check-ins. Premium ($3.99/mo or $29.99/yr) unlocks unlimited medications, Family Link caregiver sharing, health tracking, tools, and more."
+                "text": "The safety essentials are completely free: Emergency SOS, fall detection, medication reminders (up to 5), task reminders (up to 7), one trusted contact, and daily check-ins. Premium ($3.99/mo or $29.99/yr) unlocks unlimited medications and trusted contacts, Family Link caregiver sharing, Apple Health, Steady Moves, the tools, and backup. There is also a $99.99 lifetime option."
             }
         },
         {
@@ -716,6 +727,17 @@ gtag('config', 'G-LF8H890XTV');
         font-size: 18px;
         color: var(--text-body);
         line-height: 1.7;
+    }
+
+    /* The conditions a safety promise depends on. Smaller than the claim it
+       qualifies, but never hidden behind a tooltip or a hover. */
+    .showcase-text p.showcase-note {
+        font-size: 16px;
+        color: var(--text-muted);
+        line-height: 1.6;
+        margin-top: 0.875rem;
+        padding-left: 0.875rem;
+        border-left: 3px solid var(--border);
     }
 
     .showcase-compact {
@@ -1654,7 +1676,8 @@ gtag('config', 'G-LF8H890XTV');
             <div class="showcase-text">
                 <span class="showcase-tag free">Free</span>
                 <h3>Fall Detection</h3>
-                <p>Start a Safety Session and the app monitors for hard falls in the background. If a fall is detected and there's no response within 30 seconds, all trusted contacts are texted automatically with your location.</p>
+                <p>Turn on Always-on Protection once and it stays on &mdash; there is no session to remember to start. SteadiDay watches for hard falls in the background, and if one is detected with no response within 30 seconds, your trusted contacts are texted automatically with your location.</p>
+                <p class="showcase-note">Needs a free SteadiDay account to send the texts, and iPhone Location set to Always so the app keeps watching in the background. If either is missing, the app tells you protection is limited rather than letting you assume you are covered.</p>
             </div>
         </div>
 
@@ -1663,6 +1686,7 @@ gtag('config', 'G-LF8H890XTV');
                 <span class="showcase-tag free">Free</span>
                 <h3>Medication Reminders</h3>
                 <p>Never miss a dose. Add medications by scanning the label or typing the name, set reminder times, and get gentle notifications. Track adherence over time and share it with a caregiver through Family Link.</p>
+                <p class="showcase-note">Free covers up to 5 medications and 7 reminders &mdash; enough for most daily routines. Premium removes both limits.</p>
             </div>
             <div class="showcase-phone media-frame">
                 <img src="assets/screenshot-02-medicines.png" alt="SteadiDay medication reminders screen" loading="lazy" width="1320" height="2868">
@@ -1676,7 +1700,7 @@ gtag('config', 'G-LF8H890XTV');
             <div class="showcase-text">
                 <span class="showcase-tag premium">Premium</span>
                 <h3>Family Link</h3>
-                <p>Share a private Care Summary with a caregiver — they see medication adherence, daily check-ins, and activity at a glance. No app needed on their side; it's a simple, private web link.</p>
+                <p>Share a private Care Summary with a caregiver — they see the week's medication streak, today's medicines and reminders, the daily check-in, and step count at a glance. No app to install and no account to set up on their side; it's a simple, private web link that can be turned off at any time.</p>
             </div>
         </div>
 
@@ -1694,7 +1718,7 @@ gtag('config', 'G-LF8H890XTV');
         <div class="container reveal">
             <div class="section-header" style="margin-top: 1rem;">
                 <h3 class="tools-grid-heading">And more everyday tools</h3>
-                <p>Track food, play brain games, sync your calendar, and more.</p>
+                <p>Track food and water, play brain games, sync your calendar, and more. These are Premium features &mdash; the safety essentials above stay free.</p>
             </div>
         </div>
 
@@ -1718,7 +1742,7 @@ gtag('config', 'G-LF8H890XTV');
                     <img src="assets/screenshot-standard-home.png" alt="SteadiDay Standard Mode home screen" loading="lazy" width="1320" height="2868">
                 </div>
                 <div class="showcase-compact-label">Standard Mode</div>
-                <div class="showcase-compact-desc">Full-featured home with 6-tab navigation</div>
+                <div class="showcase-compact-desc">Bottom tabs for Home, Reminders, Meds and Health, with everything else in More</div>
             </div>
         </div>
 
@@ -1735,6 +1759,22 @@ gtag('config', 'G-LF8H890XTV');
                 <li>
                     <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
                     <strong>Calendar Sync</strong> &mdash; Connect Apple Reminders, Apple Calendar, or Google Calendar
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Helpful Tools</strong> &mdash; Magnifier, flashlight, and notes, always a tap away
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Backup &amp; Restore</strong> &mdash; Reminders, medicines and settings come back on a new phone
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Ready-Made Task Ideas</strong> &mdash; Pre-written reminders for check-ups, home safety, and more
+                </li>
+                <li>
+                    <svg class="tools-extra-check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                    <strong>Make It Yours</strong> &mdash; Choose the home screen cards, button colors, and reminder sounds
                 </li>
             </ul>
         </div>
@@ -1758,9 +1798,10 @@ gtag('config', 'G-LF8H890XTV');
                     <p class="mode-desc">A clean, uncluttered home screen with large buttons for the features that matter most.</p>
                     <ul>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Big SOS button front and center</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Medications and daily tasks</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> All other features in a simple "More" menu</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Nothing to learn — just tap and go</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Today's medicines and reminders, right on the home screen</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> A plain-language line saying whether fall protection is on</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> One tap to call a trusted contact, one to check in for the day</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Everything else in a simple &ldquo;More&rdquo; menu</li>
                     </ul>
                 </div>
                 <div class="mode-card">
@@ -1771,9 +1812,9 @@ gtag('config', 'G-LF8H890XTV');
                     </div>
                     <p class="mode-desc">Tab-based navigation with quick access to every feature — health, tools, games, and more.</p>
                     <ul>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bottom tabs: Home, Reminders, Meds, Care Team, Health, Tools</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Health dashboard with Apple Health sync</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Mind Breaks, magnifier, flashlight</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Bottom tabs: Home, Reminders, Meds, Health and More</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Health dashboard with Apple Health sync (Premium)</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Care Team, Tools and Mind Breaks under More</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg> Switch to Simple Mode any time</li>
                     </ul>
                 </div>
@@ -1787,7 +1828,7 @@ gtag('config', 'G-LF8H890XTV');
             <div class="section-header">
                 <div class="section-tag">How It Works</div>
                 <h2>Get started in four simple steps</h2>
-                <p>No complicated setup. No account required. Just download and go.</p>
+                <p>No complicated setup, no card, nothing to configure. About five minutes from download to covered.</p>
             </div>
             <div class="phases-grid">
                 <div class="phase-card">
@@ -1796,7 +1837,7 @@ gtag('config', 'G-LF8H890XTV');
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
                     </div>
                     <h3>Download</h3>
-                    <p>Get SteadiDay free from the App Store. Open it right away — no account, no sign-up.</p>
+                    <p>Get SteadiDay free from the App Store and open it right away. Pick Simple or Standard &mdash; you can switch later.</p>
                 </div>
                 <div class="phase-card">
                     <span class="phase-watermark" aria-hidden="true">02</span>
@@ -1804,7 +1845,7 @@ gtag('config', 'G-LF8H890XTV');
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
                     </div>
                     <h3>Add Contacts</h3>
-                    <p>Enter trusted emergency contacts. Scan medication labels to save typing. Set your preferences.</p>
+                    <p>Add the people who should be told if something happens, then create a free account so SteadiDay can text them. It takes a minute and there is no charge.</p>
                 </div>
                 <div class="phase-card">
                     <span class="phase-watermark" aria-hidden="true">03</span>
@@ -1812,7 +1853,7 @@ gtag('config', 'G-LF8H890XTV');
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
                     </div>
                     <h3>Set Reminders</h3>
-                    <p>Choose when to be reminded about medications and tasks. Notifications are gentle and private.</p>
+                    <p>Scan a medication label or type the name, and choose when to be reminded. Notifications are gentle and private.</p>
                 </div>
                 <div class="phase-card">
                     <span class="phase-watermark" aria-hidden="true">04</span>
@@ -1820,7 +1861,7 @@ gtag('config', 'G-LF8H890XTV');
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
                     </div>
                     <h3>Live Confidently</h3>
-                    <p>Go about your day knowing help is right there when you need it. SOS and fall detection are always ready.</p>
+                    <p>Turn on Always-on Protection and leave it on. SOS is one tap, fall detection runs in the background, and nobody has to remember to start anything.</p>
                 </div>
             </div>
         </div>
@@ -1832,18 +1873,19 @@ gtag('config', 'G-LF8H890XTV');
             <div class="section-header">
                 <div class="section-tag">Pricing</div>
                 <h2>Simple, honest pricing</h2>
-                <p>The safety essentials are free forever — no account, no card. Premium unlocks the full wellness toolkit.</p>
+                <p>The safety essentials are free forever, and there is no card to enter. Premium unlocks the full wellness toolkit.</p>
             </div>
             <div class="plan-grid">
                 <div class="plan-card">
                     <div class="plan-tier">Free</div>
                     <div class="plan-price">$0<span class="plan-period"> forever</span></div>
-                    <p class="plan-summary">Essential safety tools, with no account needed.</p>
+                    <p class="plan-summary">Essential safety tools, free forever.</p>
                     <ul class="plan-list">
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Emergency SOS</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Fall Detection</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Medication reminders (up to 7)</li>
-                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Daily check-ins</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Medication reminders (up to 5)</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Task reminders (up to 7)</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Daily check-ins &amp; 1 trusted contact</li>
                     </ul>
                 </div>
                 <div class="plan-card is-featured">
@@ -1855,6 +1897,7 @@ gtag('config', 'G-LF8H890XTV');
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Family Link caregiver sharing</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Steady Moves &amp; Apple Health</li>
                         <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Food, water &amp; calendar sync</li>
+                        <li><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Tools, Mind Breaks &amp; backup</li>
                     </ul>
                 </div>
                 <div class="plan-card">
@@ -1899,7 +1942,7 @@ gtag('config', 'G-LF8H890XTV');
                         </button>
                     </h3>
                     <div class="faq-answer" id="faq-a-2" role="region" aria-labelledby="faq-q-2">
-                        <p>No. Just download SteadiDay and they can start right away — no sign-up, no password. You can optionally have them sign in to enable backup and caregiver sharing.</p>
+                        <p>No — not to use it. Download SteadiDay and they can add medicines, set reminders, use Simple Mode, press SOS to call 911, and call a trusted contact without signing up for anything. A free account is needed for the features that reach other people: the automatic alert texts sent when a fall is detected or SOS is pressed, the live-location link, and Family Link. It costs nothing and takes about a minute — it is how we make sure an alert text is coming from a real phone and not a stranger. Worth doing during setup rather than after something happens.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -1910,7 +1953,7 @@ gtag('config', 'G-LF8H890XTV');
                         </button>
                     </h3>
                     <div class="faq-answer" id="faq-a-3" role="region" aria-labelledby="faq-q-3">
-                        <p>The safety essentials are completely free: Emergency SOS, fall detection, medication reminders (up to 7), daily tasks, and check-ins. Premium ($3.99/mo or $29.99/yr) unlocks unlimited medications, Family Link caregiver sharing, health tracking, tools, and more. There is also a $99.99 lifetime option.</p>
+                        <p>The safety essentials are completely free: Emergency SOS, fall detection, medication reminders (up to 5), task reminders (up to 7), one trusted contact, and daily check-ins. Premium ($3.99/mo or $29.99/yr) unlocks unlimited medications and trusted contacts, Family Link caregiver sharing, Apple Health, Steady Moves, the tools, and backup. There is also a $99.99 lifetime option.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -1921,7 +1964,7 @@ gtag('config', 'G-LF8H890XTV');
                         </button>
                     </h3>
                     <div class="faq-answer" id="faq-a-4" role="region" aria-labelledby="faq-q-4">
-                        <p>You're alerted the moment your parent uses the SOS button or a fall is detected. If they choose to share a Care Summary, you'll also get a daily "everything's okay" without having to check in. Their day-to-day data stays private unless they decide to share it.</p>
+                        <p>You&rsquo;re alerted the moment your parent uses the SOS button or a fall is detected. If they choose to share a Care Summary, you also get a private web page showing the week&rsquo;s medication streak, today&rsquo;s medicines and reminders, their daily check-in and step count — no app to install and no account on your side. Their day-to-day data stays private unless they decide to share it.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -1943,7 +1986,7 @@ gtag('config', 'G-LF8H890XTV');
                         </button>
                     </h3>
                     <div class="faq-answer" id="faq-a-6" role="region" aria-labelledby="faq-q-6">
-                        <p>Simple Mode gives your parent a clean, uncluttered home screen with large buttons for SOS, medications, and daily tasks. Everything else is tucked into a simple "More" menu. You can switch between Simple Mode and Standard Mode any time in Settings.</p>
+                        <p>Simple Mode gives your parent a clean, uncluttered home screen: today&rsquo;s medicines and reminders, a plain-language line saying whether fall protection is on, a big SOS button, and one tap each to call a trusted contact or check in for the day. Everything else is tucked into a simple &ldquo;More&rdquo; menu. You can switch between Simple Mode and Standard Mode any time in Settings.</p>
                     </div>
                 </div>
                 <div class="faq-item">
@@ -1979,7 +2022,7 @@ gtag('config', 'G-LF8H890XTV');
     <section class="cta-band" id="download">
         <div class="container">
             <h2>Set it up for the parent you worry about</h2>
-            <p>Safety essentials are free — forever. No account needed. Five minutes to set up. Premium unlocks even more.</p>
+            <p>Safety essentials are free — forever. No card, five minutes to set up. Premium unlocks even more.</p>
             <div class="cta-band-buttons">
                 <a href="https://apps.apple.com/app/apple-store/id6758526744?pt=128322452&ct=homepage&mt=8" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                     <img src="assets/app-store-badge.svg" alt="Download on the App Store" />

@@ -212,7 +212,7 @@
             </div>
             <h1>Your Data Is Private and Secure</h1>
             <p>We built SteadiDay™ with privacy as the foundation, not an afterthought. Your data is protected by encryption on your device, in transit, and at rest on our servers.</p>
-            <p style="font-size: 0.95rem; color: var(--charcoal-light); margin-top: 1rem;">Last Updated: July 11, 2026</p>
+            <p style="font-size: 0.95rem; color: var(--charcoal-light); margin-top: 1rem;">Last Updated: September 9, 2026</p>
         </div>
     </section>
 
@@ -269,7 +269,7 @@
                     <tr><td>Tasks & Reminders</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Only if signed in — synced securely for backup & sharing</td></tr>
                     <tr><td>Check-ins &amp; Activity Summaries</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Only if signed in — synced securely for backup &amp; caregiver sharing</td></tr>
                     <tr><td>Trusted Contacts</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Encrypted temporary safety/check-in records and Twilio message delivery</td></tr>
-                    <tr><td>Location (Safety Sessions)</td><td class="status-yes">✓ On-device when idle</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Latest active-session GPS is stored for the private live link; ended sessions are deleted after about 24 hours</td></tr>
+                    <tr><td>Location (Always-on Protection)</td><td class="status-yes">✓ On-device when idle</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Latest active-session GPS is stored for the private live link; ended sessions are deleted after about 24 hours</td></tr>
                     <tr><td>Health Metrics</td><td class="status-yes">✓ Yes, encrypted</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Daily step count only, when caregiver activity sharing is enabled</td></tr>
                     <tr><td>Food & Water Logs</td><td class="status-yes">✓ Yes, encrypted</td><td class="status-no">✗ Never</td></tr>
                     <tr><td>Voice Recordings</td><td class="status-no">✗ Not saved in SteadiDay's database</td><td style="color: var(--color-warning-text); font-weight: 600;">⚠ Sent to OpenAI; API data may be retained for up to 30 days unless shorter controls apply</td></tr>
@@ -304,7 +304,7 @@
                         <li>Show generic notifications only</li>
                         <li>Let you export your data anytime</li>
                         <li>Let you request complete account and app-data deletion</li>
-                        <li>Share live location only during opt-in Safety Sessions via secure, tokenized links</li>
+                        <li>Share live location only while opt-in Always-on Protection is running, via secure, tokenized links</li>
                         <li>Give you full control over what syncs</li>
                     </ul>
                 </div>
@@ -467,7 +467,7 @@
                 <li><strong>Encryption at rest:</strong> Synced data is encrypted at rest on our cloud infrastructure (Supabase, SOC 2 Type II certified)</li>
                 <li><strong>Field-level encryption:</strong> Sensitive data on our backend (user names, contact information, caregiver activity snapshots) is encrypted with AES-256-GCM before storage</li>
                 <li><strong>Tokenized sharing:</strong> Caregiver activity views and live location sharing use secure, time-limited tokens — not direct database access</li>
-                <li><strong>Automatic expiration:</strong> Ended Safety Sessions are deleted after approximately 24 hours. Caregiver sharing data expires after 90 days without an update. Abandoned sessions expire automatically and are removed by the next cleanup cycle.</li>
+                <li><strong>Automatic expiration:</strong> Ended protection sessions are deleted after approximately 24 hours. Caregiver sharing data expires after 90 days without an update. Abandoned sessions expire automatically and are removed by the next cleanup cycle.</li>
                 <li><strong>API key protection:</strong> All third-party API keys (OpenAI, Twilio) are stored securely on our backend servers — never in the app itself</li>
             </ul>
         </div>
