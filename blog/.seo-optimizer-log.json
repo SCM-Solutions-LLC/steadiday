@@ -273,5 +273,36 @@
     ],
     "notes": "Campaign-URL regression again: BOTH posts shipped since the last run carried the plain App Store URL. That is five regressions in seven runs; the post generator is the root cause and should be fixed at source rather than patched weekly here. All 44 posts verified on the campaign URL after the swap. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the sixth consecutive week. CTR laggards >=50 impressions: best-medication-reminder-apps-seniors.html (851 imp, 1 click, 0.12%, pos 36.9 \u2014 position trend 55.5 -> 43.5 -> 36.8 -> 36.9 -> 38.2 -> 36.9, flat for four runs; every named caregiver query still sits at position 52-63, so the constraint is domain authority, not on-page, and it was left alone for the third run) and 2026-06-22-the-first-mrna-flu-vaccine.html (54 imp, 0 clicks, pos 9.57 \u2014 53 of 54 impressions anonymized, only named query 'flu vaccine' at 1 impression; its stale FDA decision date of August 5, 2026 remains in body and FAQ, a factual correction the optimizer is barred from making, flagged for Saawan for the fourth run). Homepage 'From the Blog' section still absent from index.html (zero blog-section/blog-grid/blog-card markup) for the sixth consecutive run \u2014 Step 5a skipped. GA4 MCP server still failing to connect (ENOENT on google-analytics-mcp); GA4 pulled via REST fallback using an openssl-signed JWT because the local google-auth install is x86_64 on an arm64 Mac.",
     "baseline": null
+  },
+  {
+    "date": "2026-09-15",
+    "file": "blog/2026-04-30-medication-routine-tips-that-actually.html",
+    "target_queries": [],
+    "edits_made": [
+      "fixed_broken_related_link_2026-05-14-why-morning-naps-may-signal_404_replaced_with_best-medication-reminder-apps-seniors",
+      "added_related_link_2026-07-09-health-screenings-over-50-you",
+      "linked_in_context_SteadiDay_mention_to_ct=blog_campaign_url",
+      "article_jsonld_dateModified_2026-09-15",
+      "sitemap_lastmod_2026-09-15"
+    ],
+    "notes": "Priority 3 pick (highest-impression never-optimized post: 27 imp, pos 9.07, 0 clicks). All 27 impressions anonymized, so title/meta/H1/FAQ left untouched - no real query to target. Edits are link hygiene + funnel: the related block pointed to a 404 and nothing linked to the medication-reminder pillar page. Broken why-morning-naps-may-signal link still present in 9 other posts (generator bug) - flagged, not fixed (2-post limit).",
+    "baseline": {
+      "window": "2026-08-17_to_2026-09-13",
+      "clicks": 0,
+      "impressions": 27,
+      "ctr": 0.0,
+      "position": 9.074074074074074
+    }
+  },
+  {
+    "date": "2026-09-15",
+    "file": "blog/2026-09-10-gut-health-trends-for-seniors.html, blog/2026-09-14-new-fall-vaccine-rules-every.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in both new posts",
+      "homepage From the Blog cards refreshed to 09-14/09-10/09-07/09-03/08-27"
+    ],
+    "notes": "Sixth campaign-URL regression in eight runs; both new posts shipped plain URL again. Homepage blog section now exists (was absent through 2026-09-08) - Step 5a ran for the first time. detect_quick_wins 0 for seventh week.",
+    "baseline": null
   }
 ]
