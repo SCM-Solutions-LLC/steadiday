@@ -185,7 +185,7 @@
       "article_jsonld_dateModified",
       "article_modified_time_meta"
     ],
-    "notes": "Title/meta left untouched \u2014 2026-07-06 rewrite moved avg position 55.5 to 43.5, so the targeting is working; this run deepens topical coverage of the tracker/reporting caregiver queries instead of re-cutting the title.",
+    "notes": "Title/meta left untouched — 2026-07-06 rewrite moved avg position 55.5 to 43.5, so the targeting is working; this run deepens topical coverage of the tracker/reporting caregiver queries instead of re-cutting the title.",
     "baseline": {
       "window": "2026-07-06_to_2026-08-02",
       "clicks": 0,
@@ -196,7 +196,7 @@
   },
   {
     "date": "2026-08-04",
-    "file": "blog/*.html (campaign URL swap \u2014 not a post optimization)",
+    "file": "blog/*.html (campaign URL swap — not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in 7 posts: 2026-07-09, 2026-07-13, 2026-07-16, 2026-07-20, 2026-07-23, 2026-07-27, 2026-07-30"
@@ -205,7 +205,7 @@
   },
   {
     "date": "2026-08-11",
-    "file": "blog/2026-08-06-driving-safety-for-seniors-5.html (campaign URL swap \u2014 not a post optimization)",
+    "file": "blog/2026-08-06-driving-safety-for-seniors-5.html (campaign URL swap — not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL"
@@ -215,31 +215,31 @@
   },
   {
     "date": "2026-08-18",
-    "file": "blog/2026-08-13-breast-screening-guidelines-for-women.html (campaign URL swap \u2014 not a post optimization)",
+    "file": "blog/2026-08-13-breast-screening-guidelines-for-women.html (campaign URL swap — not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL"
     ],
-    "notes": "No post optimizations this run. detect_quick_wins returned 0 at position 8-25/>=20 impressions. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (808 imp, 0 clicks, pos 36.8 \u2014 inside 21-day cooldown from 2026-08-04, and its position is improving 55.5->43.5->36.8, so left alone) and 2026-06-22-the-first-mrna-flu-vaccine.html (302 imp, 1 click, pos 9.4 \u2014 title/meta already rewritten 2026-07-19; its remaining ~300 impressions are anonymized and its stale FDA decision date of August 5, 2026 is now in the past, a factual correction the optimizer is barred from making). Third consecutive run where the newest generated post shipped with the plain App Store URL \u2014 the post generator should be fixed at source. Homepage 'From the Blog' section is still absent from index.html (no blog-section/blog-grid/blog-card markup at all), so Step 5a was skipped again.",
+    "notes": "No post optimizations this run. detect_quick_wins returned 0 at position 8-25/>=20 impressions. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (808 imp, 0 clicks, pos 36.8 — inside 21-day cooldown from 2026-08-04, and its position is improving 55.5->43.5->36.8, so left alone) and 2026-06-22-the-first-mrna-flu-vaccine.html (302 imp, 1 click, pos 9.4 — title/meta already rewritten 2026-07-19; its remaining ~300 impressions are anonymized and its stale FDA decision date of August 5, 2026 is now in the past, a factual correction the optimizer is barred from making). Third consecutive run where the newest generated post shipped with the plain App Store URL — the post generator should be fixed at source. Homepage 'From the Blog' section is still absent from index.html (no blog-section/blog-grid/blog-card markup at all), so Step 5a was skipped again.",
     "baseline": null
   },
   {
     "date": "2026-08-25",
-    "file": "(no post optimizations \u2014 report-only run)",
+    "file": "(no post optimizations — report-only run)",
     "target_queries": [],
     "edits_made": [],
-    "notes": "Fourth consecutive no-edit run. detect_quick_wins returned 0 at position 8-25/>=20 impressions. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (830 imp, 1 click, pos 36.9 \u2014 flat vs 36.8 last run despite the 2026-08-04 caregiver-FAQ deepening; the caregiver queries that edit targeted are now at pos 58.9 and 61.6, so that pattern did NOT work and is not being repeated) and 2026-06-22-the-first-mrna-flu-vaccine.html (235 imp, 0 clicks, pos 9.25 \u2014 234 of 235 impressions anonymized, only named query is 'flu vaccine' at 1 imp; nothing targetable). 2026-04-27-daytime-naps-after-56 (21 imp, pos 8, 0 clicks) has 100% anonymized queries. All 41 blog posts verified carrying the ct=blog campaign URL \u2014 the newest post (2026-08-20) shipped correct, breaking the three-run streak of plain-URL regressions. sitemap.xml verified complete (all 41 posts plus /blog/); resubmitted to GSC via REST fallback after the gsc MCP submit_sitemap returned 'Insufficient Permission'. Homepage 'From the Blog' section still absent from index.html for the fourth run \u2014 Step 5a skipped. Blog index status: 08-20 indexed, 08-13 Discovered-not-indexed, 08-06 indexed, 07-30 Discovered-not-indexed (no referring URLs at all), 07-27 indexed.",
+    "notes": "Fourth consecutive no-edit run. detect_quick_wins returned 0 at position 8-25/>=20 impressions. Only two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (830 imp, 1 click, pos 36.9 — flat vs 36.8 last run despite the 2026-08-04 caregiver-FAQ deepening; the caregiver queries that edit targeted are now at pos 58.9 and 61.6, so that pattern did NOT work and is not being repeated) and 2026-06-22-the-first-mrna-flu-vaccine.html (235 imp, 0 clicks, pos 9.25 — 234 of 235 impressions anonymized, only named query is 'flu vaccine' at 1 imp; nothing targetable). 2026-04-27-daytime-naps-after-56 (21 imp, pos 8, 0 clicks) has 100% anonymized queries. All 41 blog posts verified carrying the ct=blog campaign URL — the newest post (2026-08-20) shipped correct, breaking the three-run streak of plain-URL regressions. sitemap.xml verified complete (all 41 posts plus /blog/); resubmitted to GSC via REST fallback after the gsc MCP submit_sitemap returned 'Insufficient Permission'. Homepage 'From the Blog' section still absent from index.html for the fourth run — Step 5a skipped. Blog index status: 08-20 indexed, 08-13 Discovered-not-indexed, 08-06 indexed, 07-30 Discovered-not-indexed (no referring URLs at all), 07-27 indexed.",
     "baseline": null
   },
   {
     "date": "2026-09-01",
-    "file": "blog/2026-08-27-how-seniors-can-start-walking.html (campaign URL swap \u2014 not a post optimization)",
+    "file": "blog/2026-08-27-how-seniors-can-start-walking.html (campaign URL swap — not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL",
       "sitemap lastmod 2026-09-01"
     ],
-    "notes": "Fifth consecutive no-optimization run. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the fifth week running. Two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (798 imp, 1 click, CTR 0.13%, pos 38.2 \u2014 out of the 21-day cooldown but NOT re-edited: its position trend is 55.5 -> 43.5 -> 36.8 -> 36.9 -> 38.2, i.e. the 2026-07-06 title/meta rewrite worked and the 2026-08-04 caregiver-FAQ deepening did not, and every named caregiver query it targets still sits at position 50-63. At page 4 no title/meta edit converts impressions to clicks; the constraint is authority, not on-page) and 2026-06-22-the-first-mrna-flu-vaccine.html (247 imp, 0 clicks, pos 9.35 \u2014 246 of 247 impressions anonymized, only named query is 'flu vaccine' at 1 imp; retitled 2026-07-19, re-cutting six weeks later with no query signal would be churn. Its stale FDA decision date of August 5, 2026 is still in the body and FAQ \u2014 a factual correction the optimizer is barred from making, flagged for Saawan for the third run). 2026-04-27-daytime-naps-after-56 (23 imp, pos 8.5, 0 clicks, never optimized) has 100% anonymized queries \u2014 nothing truthful to target. Campaign URL regression returned: the newest post (2026-08-27) shipped with the plain App Store URL, the fourth such regression in six runs; the post generator should be fixed at source. Homepage 'From the Blog' section still absent from index.html (zero blog-section/blog-grid/blog-card markup) for the fifth consecutive run \u2014 Step 5a skipped. GA4 MCP server failed to connect (broken pipx venv python symlink); GA4 pulled via REST fallback.",
+    "notes": "Fifth consecutive no-optimization run. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the fifth week running. Two pages cleared the >=50-impression CTR-laggard bar: best-medication-reminder-apps-seniors.html (798 imp, 1 click, CTR 0.13%, pos 38.2 — out of the 21-day cooldown but NOT re-edited: its position trend is 55.5 -> 43.5 -> 36.8 -> 36.9 -> 38.2, i.e. the 2026-07-06 title/meta rewrite worked and the 2026-08-04 caregiver-FAQ deepening did not, and every named caregiver query it targets still sits at position 50-63. At page 4 no title/meta edit converts impressions to clicks; the constraint is authority, not on-page) and 2026-06-22-the-first-mrna-flu-vaccine.html (247 imp, 0 clicks, pos 9.35 — 246 of 247 impressions anonymized, only named query is 'flu vaccine' at 1 imp; retitled 2026-07-19, re-cutting six weeks later with no query signal would be churn. Its stale FDA decision date of August 5, 2026 is still in the body and FAQ — a factual correction the optimizer is barred from making, flagged for Saawan for the third run). 2026-04-27-daytime-naps-after-56 (23 imp, pos 8.5, 0 clicks, never optimized) has 100% anonymized queries — nothing truthful to target. Campaign URL regression returned: the newest post (2026-08-27) shipped with the plain App Store URL, the fourth such regression in six runs; the post generator should be fixed at source. Homepage 'From the Blog' section still absent from index.html (zero blog-section/blog-grid/blog-card markup) for the fifth consecutive run — Step 5a skipped. GA4 MCP server failed to connect (broken pipx venv python symlink); GA4 pulled via REST fallback.",
     "baseline": null
   },
   {
@@ -255,7 +255,7 @@
       "article_jsonld_dateModified_2026-09-08",
       "sitemap_lastmod_2026-09-08"
     ],
-    "notes": "First post optimization in six runs. Chosen under priority 3 (highest-impression post not yet optimized) \u2014 20 impressions, position 20.25, indexed 2026-08-29, and it carried ZERO internal links to other posts. Title/meta/H1/FAQ left untouched: they already target the post's real queries and the FAQPage JSON-LD is present and valid. No factual or dosage/distance claim added \u2014 the named query 'how far should an 80 year old walk' (pos 69) was deliberately NOT answered with an invented distance; the post cites CDC minutes-per-week guidance and that was left alone. The four outbound links also give 2026-09-03 and 2026-09-07 their first non-sitemap referring URLs, which is the concrete lever available for their 'Discovered - currently not indexed' status.",
+    "notes": "First post optimization in six runs. Chosen under priority 3 (highest-impression post not yet optimized) — 20 impressions, position 20.25, indexed 2026-08-29, and it carried ZERO internal links to other posts. Title/meta/H1/FAQ left untouched: they already target the post's real queries and the FAQPage JSON-LD is present and valid. No factual or dosage/distance claim added — the named query 'how far should an 80 year old walk' (pos 69) was deliberately NOT answered with an invented distance; the post cites CDC minutes-per-week guidance and that was left alone. The four outbound links also give 2026-09-03 and 2026-09-07 their first non-sitemap referring URLs, which is the concrete lever available for their 'Discovered - currently not indexed' status.",
     "baseline": {
       "window": "2026-08-10_to_2026-09-06",
       "clicks": 0,
@@ -266,12 +266,12 @@
   },
   {
     "date": "2026-09-08",
-    "file": "blog/2026-09-03-5-balance-lessons-that-could.html, blog/2026-09-07-a-simple-blood-test-now.html (campaign URL swap \u2014 not a post optimization)",
+    "file": "blog/2026-09-03-5-balance-lessons-that-could.html, blog/2026-09-07-a-simple-blood-test-now.html (campaign URL swap — not a post optimization)",
     "target_queries": [],
     "edits_made": [
       "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in both new posts"
     ],
-    "notes": "Campaign-URL regression again: BOTH posts shipped since the last run carried the plain App Store URL. That is five regressions in seven runs; the post generator is the root cause and should be fixed at source rather than patched weekly here. All 44 posts verified on the campaign URL after the swap. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the sixth consecutive week. CTR laggards >=50 impressions: best-medication-reminder-apps-seniors.html (851 imp, 1 click, 0.12%, pos 36.9 \u2014 position trend 55.5 -> 43.5 -> 36.8 -> 36.9 -> 38.2 -> 36.9, flat for four runs; every named caregiver query still sits at position 52-63, so the constraint is domain authority, not on-page, and it was left alone for the third run) and 2026-06-22-the-first-mrna-flu-vaccine.html (54 imp, 0 clicks, pos 9.57 \u2014 53 of 54 impressions anonymized, only named query 'flu vaccine' at 1 impression; its stale FDA decision date of August 5, 2026 remains in body and FAQ, a factual correction the optimizer is barred from making, flagged for Saawan for the fourth run). Homepage 'From the Blog' section still absent from index.html (zero blog-section/blog-grid/blog-card markup) for the sixth consecutive run \u2014 Step 5a skipped. GA4 MCP server still failing to connect (ENOENT on google-analytics-mcp); GA4 pulled via REST fallback using an openssl-signed JWT because the local google-auth install is x86_64 on an arm64 Mac.",
+    "notes": "Campaign-URL regression again: BOTH posts shipped since the last run carried the plain App Store URL. That is five regressions in seven runs; the post generator is the root cause and should be fixed at source rather than patched weekly here. All 44 posts verified on the campaign URL after the swap. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the sixth consecutive week. CTR laggards >=50 impressions: best-medication-reminder-apps-seniors.html (851 imp, 1 click, 0.12%, pos 36.9 — position trend 55.5 -> 43.5 -> 36.8 -> 36.9 -> 38.2 -> 36.9, flat for four runs; every named caregiver query still sits at position 52-63, so the constraint is domain authority, not on-page, and it was left alone for the third run) and 2026-06-22-the-first-mrna-flu-vaccine.html (54 imp, 0 clicks, pos 9.57 — 53 of 54 impressions anonymized, only named query 'flu vaccine' at 1 impression; its stale FDA decision date of August 5, 2026 remains in body and FAQ, a factual correction the optimizer is barred from making, flagged for Saawan for the fourth run). Homepage 'From the Blog' section still absent from index.html (zero blog-section/blog-grid/blog-card markup) for the sixth consecutive run — Step 5a skipped. GA4 MCP server still failing to connect (ENOENT on google-analytics-mcp); GA4 pulled via REST fallback using an openssl-signed JWT because the local google-auth install is x86_64 on an arm64 Mac.",
     "baseline": null
   },
   {
@@ -303,6 +303,58 @@
       "homepage From the Blog cards refreshed to 09-14/09-10/09-07/09-03/08-27"
     ],
     "notes": "Sixth campaign-URL regression in eight runs; both new posts shipped plain URL again. Homepage blog section now exists (was absent through 2026-09-08) - Step 5a ran for the first time. detect_quick_wins 0 for seventh week.",
+    "baseline": null
+  },
+  {
+    "date": "2026-09-22",
+    "file": "blog/2026-05-11-daytime-napping-and-mortality-risk.html",
+    "target_queries": [],
+    "edits_made": [
+      "title_shortened_70_to_59_chars_incl_suffix",
+      "og_title",
+      "twitter_title",
+      "faqpage_jsonld_questions_rephrased_as_natural_search_questions_answers_untouched",
+      "added_4th_related_link_2026-05-21-sleep-apnea",
+      "article_jsonld_dateModified_2026-09-22",
+      "sitemap_lastmod_2026-09-22"
+    ],
+    "notes": "Priority 3 pick (highest-impression never-optimized post: 30 imp, pos 8.4, 0 clicks). All impressions anonymized, so no query to retarget - the title was simply 70 chars and truncating in SERPs. FAQ answers and every statistic left byte-identical.",
+    "baseline": {
+      "window": "2026-08-24_to_2026-09-20",
+      "clicks": 0,
+      "impressions": 30,
+      "ctr": 0.0,
+      "position": 8.4
+    }
+  },
+  {
+    "date": "2026-09-22",
+    "file": "blog/2026-04-27-daytime-naps-after-56-what.html",
+    "target_queries": [],
+    "edits_made": [
+      "faqpage_jsonld_added_4_qas_derived_verbatim_from_existing_body_text",
+      "added_4th_related_link_2026-05-21-sleep-apnea",
+      "article_jsonld_dateModified_2026-09-22",
+      "sitemap_lastmod_2026-09-22"
+    ],
+    "notes": "Priority 3 pick (28 imp, pos 7.1, 0 clicks, never optimized, 100% anonymized queries). Post had Article JSON-LD but no FAQPage despite five myth sections that are already Q&A-shaped. Answers lifted from the existing body - no new fact, statistic or study claim introduced. Title (52 chars) and meta left alone.",
+    "baseline": {
+      "window": "2026-08-24_to_2026-09-20",
+      "clicks": 0,
+      "impressions": 28,
+      "ctr": 0.0,
+      "position": 7.107142857142857
+    }
+  },
+  {
+    "date": "2026-09-22",
+    "file": "blog/2026-09-17-fire-safety-myths-that-put.html, blog/2026-09-21-how-your-diet-affects-biological.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in both new posts",
+      "homepage From the Blog cards refreshed to 09-21/09-17/09-14/09-10/09-07"
+    ],
+    "notes": "Seventh campaign-URL regression in nine runs; both posts shipped since the last run carried the plain URL again. Root cause is the post generator, not the blog. index.html itself still carries the plain App Store URL in its own CTA - out of this skill's edit scope, flagged for Saawan. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the eighth consecutive week. Sole CTR laggard >=50 imp is best-medication-reminder-apps-seniors.html (835 imp, 2 clicks, pos 32.0) - best numbers it has ever posted and out of cooldown, but left alone for the fifth run: its named caregiver queries all sit at position 49-65, so the constraint is domain authority, not on-page copy. Previously-flagged broken link 2026-05-14-why-morning-naps-may-signal is now gone from all posts.",
     "baseline": null
   }
 ]
