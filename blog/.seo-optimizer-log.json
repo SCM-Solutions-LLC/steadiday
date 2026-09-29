@@ -356,5 +356,50 @@
     ],
     "notes": "Seventh campaign-URL regression in nine runs; both posts shipped since the last run carried the plain URL again. Root cause is the post generator, not the blog. index.html itself still carries the plain App Store URL in its own CTA - out of this skill's edit scope, flagged for Saawan. detect_quick_wins returned 0 at position 8-25 / >=20 impressions for the eighth consecutive week. Sole CTR laggard >=50 imp is best-medication-reminder-apps-seniors.html (835 imp, 2 clicks, pos 32.0) - best numbers it has ever posted and out of cooldown, but left alone for the fifth run: its named caregiver queries all sit at position 49-65, so the constraint is domain authority, not on-page copy. Previously-flagged broken link 2026-05-14-why-morning-naps-may-signal is now gone from all posts.",
     "baseline": null
+  },
+  {
+    "date": "2026-09-29",
+    "file": "blog/2026-05-18-rsv-vaccine-rules-for-adults.html",
+    "target_queries": [
+      "rsv vaccine how often to get",
+      "how often do you need a rsv shot after 65",
+      "rsv shot how often",
+      "cdc rsv vaccine recommendations adults 2026"
+    ],
+    "edits_made": [
+      "title_retargeted_to_who_qualifies_and_how_often_54_chars",
+      "meta_description",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "h1",
+      "article_jsonld_headline_description",
+      "h2_which_vaccine_renamed_to_include_how_often",
+      "faqpage_jsonld_added_how_often_question_answer_verbatim_from_body",
+      "faqpage_question_rephrased_which_rsv_vaccine",
+      "article_jsonld_dateModified_2026-09-29",
+      "article_modified_time",
+      "sitemap_lastmod_2026-09-29"
+    ],
+    "notes": "Priority 2 pick (CTR laggard): 178 imp, 0 clicks, pos 6.86 - impressions up 2.5x since the July edit but still zero clicks. Visible queries are frequency questions ('how often'); the post already answers them (not annual, one dose protects at least two years) but the title/meta never said so. Meta now surfaces that answer, using only facts already in the body. No statistic or claim changed; lastReviewed left untouched. Second slot left empty: walking post is at the 21-day cooldown line with anonymized queries; pillar skipped for the 6th run (caregiver queries at pos 49-66, authority-bound).",
+    "baseline": {
+      "window": "2026-08-31_to_2026-09-27",
+      "clicks": 0,
+      "impressions": 178,
+      "ctr": 0.0,
+      "position": 6.859550561797753
+    }
+  },
+  {
+    "date": "2026-09-29",
+    "file": "blog/2026-09-24-hearing-aids-may-slow-brain.html, blog/2026-09-28-how-loneliness-cuts-healthy-years.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with pt=128322452&ct=blog campaign URL in both new posts",
+      "homepage From the Blog cards refreshed to 09-28/09-24/09-21/09-17/09-14"
+    ],
+    "notes": "Eighth campaign-URL regression in ten runs; both posts shipped since last run carried the plain URL again. Generator is the root cause. 09-28 post is Discovered - currently not indexed (1 day old).",
+    "baseline": null
   }
 ]
