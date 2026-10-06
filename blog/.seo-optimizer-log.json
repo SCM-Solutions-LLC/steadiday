@@ -401,5 +401,62 @@
     ],
     "notes": "Eighth campaign-URL regression in ten runs; both posts shipped since last run carried the plain URL again. Generator is the root cause. 09-28 post is Discovered - currently not indexed (1 day old).",
     "baseline": null
+  },
+  {
+    "date": "2026-10-06",
+    "file": "blog/best-medication-reminder-apps-seniors.html",
+    "target_queries": [
+      "best app for caregivers"
+    ],
+    "edits_made": [
+      "meta_description_retargeted_to_best_app_for_caregivers_146_chars",
+      "og_description",
+      "h2_verdict_renamed_to_include_person_you_care_for",
+      "article_jsonld_dateModified_2026-10-06",
+      "sitemap_lastmod_2026-10-06"
+    ],
+    "notes": "Priority 1 (quick win): 'best app for caregivers' 32 imp at pos 9.5 - first page-1 query with volume this page has ever had. Title left alone: page position is at its best ever (29.5) after the July title rewrite. No FAQ added (the Aug FAQ-deepening pattern did not work).",
+    "baseline": {
+      "window": "2026-09-07_to_2026-10-04",
+      "clicks": 2,
+      "impressions": 627,
+      "ctr": 0.003189792663476874,
+      "position": 29.539074960127593
+    }
+  },
+  {
+    "date": "2026-10-06",
+    "file": "blog/2026-09-14-new-fall-vaccine-rules-every.html",
+    "target_queries": [],
+    "edits_made": [
+      "title_72_to_59_chars_suffix_dropped",
+      "meta_description_172_to_136_chars",
+      "og_title",
+      "og_description",
+      "twitter_title",
+      "twitter_description",
+      "article_jsonld_headline_description_dateModified",
+      "related_reading_aside_3_internal_links_rsv_mrna_flu_xocova",
+      "sitemap_lastmod_2026-10-06"
+    ],
+    "notes": "Priority 2 (CTR laggard): 52 imp, 0 clicks, pos 6.9, never optimized, all queries anonymized. Title and meta were truncating in SERPs; meta now names the three changes using only facts from the body. Post had zero internal links. H1 and all medical content untouched.",
+    "baseline": {
+      "window": "2026-09-07_to_2026-10-04",
+      "clicks": 0,
+      "impressions": 52,
+      "ctr": 0.0,
+      "position": 6.9423076923076925
+    }
+  },
+  {
+    "date": "2026-10-06",
+    "file": "blog/2026-10-01-gentle-yoga-for-seniors-busting.html, blog/2026-10-05-walk-faster-to-live-longer.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with ct=blog campaign URL in both new posts",
+      "homepage From the Blog cards refreshed to 10-05/10-01/09-28/09-24/09-21"
+    ],
+    "notes": "Ninth campaign-URL regression in eleven runs. GitHub MCP token expired; commits made via gh-authenticated git push. GA4 shows only 12 blog page_views in 28 days vs GSC search clicks - blog tagging likely under-counting.",
+    "baseline": null
   }
 ]
