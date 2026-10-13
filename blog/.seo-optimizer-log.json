@@ -458,5 +458,60 @@
     ],
     "notes": "Ninth campaign-URL regression in eleven runs. GitHub MCP token expired; commits made via gh-authenticated git push. GA4 shows only 12 blog page_views in 28 days vs GSC search clicks - blog tagging likely under-counting.",
     "baseline": null
+  },
+  {
+    "date": "2026-10-13",
+    "file": "blog/2026-08-27-how-seniors-can-start-walking.html",
+    "target_queries": [
+      "walking for seniors",
+      "walking exercise for seniors"
+    ],
+    "edits_made": [
+      "title_64_to_58_chars_retargeted_walking_for_seniors",
+      "og_title",
+      "twitter_title",
+      "article_jsonld_dateModified_2026-10-13",
+      "sitemap_lastmod_2026-10-13"
+    ],
+    "notes": "Priority 2 (CTR laggard): 93 imp, 0 clicks, pos 8.55 - position up from 20.25 after 09-08 internal links. All queries anonymized this window; title leads with the head term from the existing meta. H1, meta, body untouched.",
+    "baseline": {
+      "window": "2026-09-14_to_2026-10-11",
+      "clicks": 0,
+      "impressions": 93,
+      "ctr": 0.0,
+      "position": 8.548387096774194
+    }
+  },
+  {
+    "date": "2026-10-13",
+    "file": "blog/2026-04-30-medication-routine-tips-that-actually.html",
+    "target_queries": [
+      "how do i structure a routine around a prescription cream?",
+      "routine medications"
+    ],
+    "edits_made": [
+      "faqpage_jsonld_added_3_qas_lifted_from_existing_body",
+      "article_jsonld_dateModified_2026-10-13",
+      "sitemap_lastmod_2026-10-13"
+    ],
+    "notes": "Priority 2 (CTR laggard): 87 imp, 0 clicks, pos 8.55 - impressions 3x since 09-15. Same FAQ-from-body pattern that gave naps-after-56 its first click. No new claim; title/meta untouched.",
+    "baseline": {
+      "window": "2026-09-14_to_2026-10-11",
+      "clicks": 0,
+      "impressions": 87,
+      "ctr": 0.0,
+      "position": 8.551724137931036
+    }
+  },
+  {
+    "date": "2026-10-13",
+    "file": "blog/2026-10-08-vitamin-b12-deficiency-and-fracture.html, blog/2026-10-12-walk-this-way-to-ease.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "replaced plain App Store URL with ct=blog campaign URL in both new posts",
+      "homepage From the Blog cards refreshed to 10-12/10-08/10-05/10-01/09-28"
+    ],
+    "notes": "Tenth campaign-URL regression in twelve runs. GitHub MCP still expired; commits via gh git push. Blog search clicks 2 in 28 days.",
+    "baseline": null
   }
 ]
