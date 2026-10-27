@@ -524,5 +524,35 @@
     ],
     "notes": "No post optimizations: only quick win (best app for caregivers, pillar) edited 10-06; RSV edited twice already, intent is CDC-seeking; napping-mortality edited 09-22 with no query data. Blog search clicks 2 in 28 days (1,721 imp). Run fired Thursday, not Tuesday.",
     "baseline": null
+  },
+  {
+    "date": "2026-10-27",
+    "file": "blog/2026-10-15-sodium-and-your-heart-how.html",
+    "target_queries": [
+      "how much sodium should i eat per day 2300 1500",
+      "how much sodium in a heart healthy diet"
+    ],
+    "edits_made": [
+      "title trimmed 61->56 chars",
+      "meta/og/twitter/JSON-LD description now lead with 2,300/1,500 mg daily limits",
+      "3 contextual internal links (diet/biological age, walking pace, medication routine)",
+      "Article dateModified 2026-10-27"
+    ],
+    "baseline": {
+      "window": "2026-09-28_to_2026-10-25",
+      "clicks": 0,
+      "impressions": 95,
+      "ctr": 0.0,
+      "position": 9.6
+    }
+  },
+  {
+    "date": "2026-10-27",
+    "file": "blog/2026-10-26-fish-oil-and-brain-health.html (campaign URL swap - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "plain App Store URL -> campaign URL"
+    ],
+    "baseline": null
   }
 ]
