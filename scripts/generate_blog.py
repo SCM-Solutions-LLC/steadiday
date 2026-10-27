@@ -1323,6 +1323,7 @@ def get_html_template():
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../steadiday-shared.css">
+    <link rel="stylesheet" href="../steadiday-assistant.css">
     <script type="application/ld+json">
     {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{reviewer_jsonld},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
@@ -1388,6 +1389,7 @@ def get_html_template():
     <footer class="footer"><p>&copy; {year} SCM Solutions LLC. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p></footer>
 <!-- GTAG_CONVERSION_INJECTED -->
 <script>document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(link){{link.addEventListener('click',function(){{gtag('event','conversion',{{'send_to':'AW-17929124014/gDbcCLbkio4cEK7xouVC','value':1.0,'currency':'USD'}});}});}});}});</script>
+<script src="../steadiday-assistant.js" defer></script>
 </body></html>'''
 
 
