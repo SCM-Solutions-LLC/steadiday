@@ -11,6 +11,8 @@ Marketing and informational site for the [SteadiDay iOS app](https://github.com/
 | `blog/` | Blog posts |
 | `assets/` | Images, icons, screenshots |
 | `scripts/` | Python utilities (sitemap generation, blog tooling) |
+| `steadiday-assistant.css` | Styles for the on-page assistant |
+| `steadiday-assistant.js` | On-page assistant: knowledge base + search |
 | `privacy.html` | Privacy policy |
 | `terms.html` | Terms of service |
 | `security.html` | Security policy |
@@ -39,6 +41,7 @@ The same three checks CI runs on every pull request, runnable locally:
 scripts/audit.sh                      # accessibility: contrast, axe-core, keyboard pass
 python3 scripts/check_pricing_sync.py # homepage prices match pricing.html
 python3 scripts/check_blog_consistency.py  # posts match the generator template
+python3 scripts/inject_assistant.py --check  # every page carries the assistant
 ```
 
 `scripts/audit.sh` installs its two npm dependencies on first run, serves the
@@ -47,6 +50,49 @@ site, and audits every page. Pass filenames to narrow it:
 ```bash
 scripts/audit.sh index.html pricing.html
 ```
+
+## The on-page assistant
+
+Every page carries a floating **Ask a question** button. It opens a panel that
+searches a knowledge base compiled into `steadiday-assistant.js` and answers
+with text lifted from a real page, plus a link to it.
+
+There is no backend and no network call. This site is static, so an API key
+shipped to the browser would be a key anyone could spend — the assistant
+searches locally instead. That also means it cannot invent an answer: it either
+finds one in the knowledge base or says it did not.
+
+Scope is the product only — plans, features, accounts, privacy, setup. Health
+questions are routed to the blog and to a doctor rather than answered, which is
+deliberate given who this site is written for.
+
+**To add or change an answer**, edit the `KB` array at the top of
+`steadiday-assistant.js`. Each entry needs:
+
+| Field | Purpose |
+|-------|---------|
+| `q` | The canonical question, shown as the card heading |
+| `keys` | The words people actually type — synonyms and common phrasings |
+| `a` | The answer, which should match what the linked page says |
+| `link` / `linkText` | Where to read more. Written as if from the site root; blog pages get the `../` hop at runtime |
+
+Keep `a` in step with the page it links to. An answer that drifts from the page
+is worse than no answer.
+
+**To add the assistant to a new page**, run the injector — it is idempotent, so
+running it over the whole site is safe:
+
+```bash
+python3 scripts/inject_assistant.py           # add it wherever it is missing
+python3 scripts/inject_assistant.py --check   # report, change nothing
+```
+
+New blog posts get it automatically: the references are part of the template in
+`scripts/generate_blog.py`.
+
+Queries are reported to Google Analytics as an `assistant_query` event with the
+search term and the number of results. The ones returning zero results are the
+useful ones — they are the questions the site does not currently answer.
 
 ## Deployment
 
