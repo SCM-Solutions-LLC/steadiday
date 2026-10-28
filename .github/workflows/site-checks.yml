@@ -39,7 +39,7 @@ jobs:
 
       # Fast, dependency-free. Run both even if the first fails, so one report
       # shows everything that needs fixing.
-      - name: Homepage and assistant pricing match pricing.html
+      - name: Homepage and assistant prices and caps match pricing.html
         run: python3 scripts/check_pricing_sync.py
 
       - name: Blog posts match the generator template
