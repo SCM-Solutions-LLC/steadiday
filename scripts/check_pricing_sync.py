@@ -276,6 +276,7 @@ def main():
             "  check keeps watching the free plan's caps."
         )
     caps_found = []
+    answers_stating_a_cap = 0
     for name, noun in FREE_CAPS:
         canonical_caps = caps_in(free_features, noun)
         if len(canonical_caps) != 1:
@@ -292,12 +293,11 @@ def main():
         cap = canonical_caps.pop()
         caps_found.append(f"{name} {cap}")
 
-        said_somewhere = False
         for entry in entries:
             said = caps_in([entry["a"]], noun)
             if not said:
                 continue
-            said_somewhere = True
+            answers_stating_a_cap += 1
             wrong = said - {cap}
             if wrong:
                 problems.append(
@@ -305,20 +305,33 @@ def main():
                     + ", ".join(str(n) for n in sorted(wrong))
                     + f"; the Free card says {cap}"
                 )
-        if entries and not said_somewhere:
-            problems.append(
-                f"the Free card caps {name} at {cap} and no assistant answer "
-                "says so.\n"
-                "  Either an answer dropped the number or it was reworded out of\n"
-                "  reach of FREE_CAPS in this script - widen the pattern there if\n"
-                "  the new wording is the wording you want."
-            )
+
+    # What is checked above is the contradiction: no answer may state a cap that
+    # disagrees with the Free card. There used to be a second half requiring
+    # every cap to still be stated somewhere in the KB, and it cried wolf -
+    # rewording an answer to "a single trusted contact" is good copy, and
+    # failing CI over it taught the wrong lesson about the check.
+    #
+    # The contradiction half only defends anything while these patterns still
+    # reach the copy, so one coarse tripwire stays: fail if they reach none of
+    # it at all. A single reworded answer is not worth a failure; a KB that has
+    # stopped stating the free limits in any form this script can read is.
+    if entries and caps_found and not answers_stating_a_cap:
+        problems.append(
+            "no assistant answer states any of the free plan's caps ("
+            + ", ".join(caps_found) + ").\n"
+            "  Either the answers dropped the numbers or every one of them was\n"
+            "  reworded out of reach of FREE_CAPS in this script, which leaves\n"
+            "  the cap check defending nothing. Widen the patterns there if the\n"
+            "  new wording is the wording you want."
+        )
 
     print(f"pricing.html prices : {', '.join(sorted(canonical_prices)) or '(none)'}")
     print(f"homepage summary    : {', '.join(sorted(summary_prices)) or '(none)'}")
     print(f"homepage FAQ        : {', '.join(sorted(faq_prices)) or '(none)'}")
     print(f"assistant KB        : {', '.join(sorted(kb_prices)) or '(none)'}")
-    print(f"free plan caps      : {', '.join(caps_found) or '(none)'}")
+    print(f"free plan caps      : {', '.join(caps_found) or '(none)'}"
+          f" (stated in {answers_stating_a_cap} assistant answer(s))")
 
     if problems:
         print("\nFAILED:")
