@@ -39,7 +39,7 @@ The same three checks CI runs on every pull request, runnable locally:
 
 ```bash
 scripts/audit.sh                      # accessibility: contrast, axe-core, keyboard pass
-python3 scripts/check_pricing_sync.py # homepage prices match pricing.html
+python3 scripts/check_pricing_sync.py # homepage + assistant prices match pricing.html
 python3 scripts/check_blog_consistency.py  # posts match the generator template
 python3 scripts/inject_assistant.py --check  # every page carries the assistant
 ```
