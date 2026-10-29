@@ -255,21 +255,6 @@
         box-shadow: var(--shadow-card);
     }
 
-    .pricing-card.featured::before {
-        content: 'Most Popular';
-        position: absolute;
-        top: -12px;
-        left: 50%;
-        transform: translateX(-50%);
-        background: var(--color-brand-text);
-        color: white;
-        font-family: var(--font-heading);
-        font-size: var(--text-xs);
-        font-weight: 600;
-        padding: 0.25rem 1rem;
-        border-radius: 999px;
-        white-space: nowrap;
-    }
 
     .card-tier {
         font-family: var(--font-heading);
@@ -671,8 +656,8 @@
     <!-- ==================== HERO ==================== -->
     <section class="pricing-hero">
         <div class="container">
-            <h1>Simple, honest pricing</h1>
-            <p>Safety essentials are free, forever. Upgrade to Premium for the full experience.</p>
+            <h1>Pricing</h1>
+            <p>The safety features are free, with no card to enter. Premium adds Family Link, Apple Health and the wellness tools.</p>
 
             <div class="billing-toggle">
                 <label for="billingToggle" id="monthlyLabel" class="active">Monthly</label>
@@ -696,7 +681,7 @@
                         <span class="amount">$0</span>
                         <span class="period">forever</span>
                     </div>
-                    <p class="card-desc">Essential safety tools, free forever. A free account is needed to send automatic alerts.</p>
+                    <p class="card-desc">SOS, fall detection and reminders. Sending the automatic alert texts needs a free account.</p>
                     <ul class="card-features">
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Emergency SOS</li>
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Fall Detection</li>
@@ -716,7 +701,7 @@
                         <span class="amount">$3.99</span>
                         <span class="period">/month</span>
                     </div>
-                    <p class="card-desc">Everything in Free, plus the full wellness toolkit.</p>
+                    <p class="card-desc">Everything in Free, plus Family Link and the wellness tools.</p>
                     <ul class="card-features">
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Everything in Free</li>
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Unlimited Medications</li>
@@ -742,25 +727,23 @@
                         <span class="amount">$99.99</span>
                         <span class="period">one time</span>
                     </div>
-                    <p class="card-desc">Every Premium feature, forever. One payment, no renewals.</p>
+                    <p class="card-desc">Every Premium feature for a single payment.</p>
                     <ul class="card-features">
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Everything in Premium</li>
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> No monthly or annual fees</li>
                         <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> All future updates included</li>
-                        <li><svg class="check" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg> Best value for long-term use</li>
                     </ul>
                     <a href="https://apps.apple.com/app/apple-store/id6758526744?pt=128322452&ct=pricing&mt=8" class="card-btn card-btn-outline">Get Lifetime</a>
                 </div>
             </div>
 
             <p class="plans-note">
-                <strong>About accounts:</strong> SteadiDay works straight out of the box &mdash; no
-                sign-up needed to add medicines and reminders, use Simple Mode, call 911, or call a
-                trusted contact. Creating a free SteadiDay account takes a minute and switches on the
-                parts that reach other people: the <strong>automatic alert texts</strong> sent when a
-                fall is detected or SOS is pressed, the live-location link, and Family Link. There is
-                no charge for the account &mdash; it is how we make sure an alert is coming from a real
-                phone and not a stranger.
+                <strong>About accounts:</strong> SteadiDay works without one. You can add medicines and
+                reminders, use Simple Mode, call 911 or call a trusted contact without signing up.
+                A free SteadiDay account takes a minute and switches on the parts that reach other
+                people: the <strong>automatic alert texts</strong> sent when a fall is detected or SOS
+                is pressed, the live-location link, and Family Link. The account costs nothing. It is
+                how we make sure an alert is coming from a real phone and not a stranger.
             </p>
         </div>
     </section>
@@ -768,8 +751,7 @@
     <!-- ==================== FEATURE COMPARISON ==================== -->
     <section class="feature-compare">
         <div class="container">
-            <h2>Compare plans side by side</h2>
-            <p>See exactly what's included in each plan.</p>
+            <h2>Compare the plans</h2>
 
             <table class="compare-table">
                 <thead>
@@ -888,15 +870,11 @@
     <!-- ==================== CTA ==================== -->
     <section class="pricing-cta">
         <div class="container">
-            <h2>Ready to give your parent peace of mind?</h2>
-            <p>Download SteadiDay free. Upgrade to Premium any time from within the app.</p>
+            <h2>Start with the free plan</h2>
+            <p>You can upgrade to Premium from inside the app whenever you like.</p>
             <a href="https://apps.apple.com/app/apple-store/id6758526744?pt=128322452&ct=pricing&mt=8" class="app-store-badge" aria-label="Download SteadiDay on the App Store">
                 <img src="assets/app-store-badge.svg" alt="Download on the App Store" />
             </a>
-            <p class="cta-privacy">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>
-                Safety essentials free. Your data is private and secure.
-            </p>
         </div>
     </section>
 
