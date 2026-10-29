@@ -39,7 +39,7 @@ POST_RULES = [
     ("skip link", 'class="skip-link"', None),
     ("main landmark", '<main id="main">', None),
     ("shared stylesheet", "steadiday-shared.css", None),
-    ("brand heading font", "Atkinson Hyperlegible Next", None),
+    ("brand heading font", "Schibsted Grotesk", None),
     ("no old heading font", None, "Poppins"),
     ("no reviewer claim", None, "Editorially reviewed"),
     ("no reviewedBy schema", None, '"reviewedBy"'),

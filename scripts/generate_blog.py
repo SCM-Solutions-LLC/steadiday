@@ -1388,7 +1388,7 @@ def get_html_template():
     <meta name="twitter:description" content="{meta_description}"><meta name="twitter:image" content="{hero_image}">
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg"><link rel="apple-touch-icon" href="../assets/icon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../steadiday-shared.css">
     <link rel="stylesheet" href="../steadiday-assistant.css">
     <script type="application/ld+json">
@@ -1399,7 +1399,7 @@ def get_html_template():
         :root {{ --cream: #FFFBF5; --sage: #4A9D7E; --sage-dark: #3B8468; --sage-light: rgba(74, 157, 126, 0.08); --text-dark: #111827; --navy-light: #2D4A6F; --charcoal: #2D3436; --charcoal-light: #5A6266; --white: #FFFFFF; }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: 'Source Sans 3', -apple-system, sans-serif; font-size: 1.125rem; line-height: 1.8; color: var(--charcoal); background: var(--cream); }}
-        h1, h2, h3 {{ font-family: 'Atkinson Hyperlegible Next', sans-serif; font-weight: 700; color: var(--text-dark); line-height: 1.3; }}
+        h1, h2, h3 {{ font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; color: var(--text-dark); line-height: 1.3; }}
         a {{ color: var(--color-brand-text); text-decoration: none; }} a:hover {{ color: var(--color-brand-hover); text-decoration: underline; }}
         .nav {{ background: var(--white); padding: 1rem 0; border-bottom: 1px solid rgba(30,58,95,0.1); position: sticky; top: 0; z-index: 100; }}
         .nav-container {{ max-width: 900px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }}
