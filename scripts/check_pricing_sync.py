@@ -2,7 +2,9 @@
 """Fail if the homepage or the on-page assistant drifts from pricing.html.
 
 Covers two kinds of number: the prices, and the free plan's caps - how many
-medications, reminders and trusted contacts the free tier allows.
+medications, reminders and trusted contacts the free tier allows. It also
+covers one kind of sentence: a page description that calls the app free and
+names a Premium feature without ever saying Premium.
 
 pricing.html is the source of truth: it carries the full comparison and the
 monthly/annual toggle. index.html repeats the headline numbers in a summary
@@ -27,6 +29,7 @@ because nothing checked it.
 Exits non-zero on a mismatch.
 """
 
+from html import unescape
 import pathlib
 import re
 import sys
@@ -73,6 +76,31 @@ WORD_NUMBERS = {
 }
 COUNT = r"(\d+|" + "|".join(WORD_NUMBERS) + r")"
 
+# Features that sit on the Premium card and not the Free one, each as the
+# wording the page descriptions use for it. The homepage's structured data
+# once read "Free all-in-one wellness and safety app ... Apple Health
+# integration, food and water tracking, mind games, magnifier, Find My Car,
+# and calendar sync", and no price or cap in it was wrong, so the checks
+# above passed it.
+#
+# Each pattern must match a bullet on the Premium card and none on the Free
+# card; main() fails loudly otherwise, so a feature that moves to Free cannot
+# go on failing good copy. Same rule as FREE_CAPS: short and literal.
+PREMIUM_ONLY = [
+    ("Family Link", r"family\s+link|caregiver\s+sharing"),
+    ("Apple Health", r"apple\s+health|health\s+tracking"),
+    ("Steady Moves", r"steady\s+moves|balance\s+exercises?"),
+    ("food and water tracking", r"food\s+(?:and|&)\s+water"),
+    ("calendar sync", r"calendar\s+(?:sync|(?:and|&)\s+reminders?\s+sync)"),
+    ("Mind Breaks", r"mind\s+(?:breaks|games)|brain\s+games"),
+    ("helpful tools", r"helpful\s+tools|magnifier|flashlight|find\s+my\s+car"),
+]
+FREE_RE = re.compile(r"\bfree\b", re.I)
+# Any of these means the description admits a paid tier exists. Deliberately
+# loose: the check is only after descriptions that never mention one, and
+# "a subscription adds Apple Health" is good copy even without the word.
+PAID_RE = re.compile(r"\bpremium\b|\bsubscri|\bupgrad", re.I)
+
 
 def section(html, start_marker, end_marker):
     try:
@@ -103,21 +131,36 @@ def head_copy(html):
     return JSONLD_PRICE_RE.sub(lambda m: '"price": "$%s"' % m.group(1), head)
 
 
-def free_card_features(canonical_body):
-    """The Free plan's feature list, one line of plain text per bullet.
+def card_features(canonical_body, tier_name):
+    """One plan card's feature list, one line of plain text per bullet.
 
-    Scoped to the Free card on purpose: "Unlimited Medications" sits on the
+    Scoped to a single card on purpose: "Unlimited Medications" sits on the
     Premium card, and a cap check that read the whole page would compare the
     free limits against it.
     """
-    tier = re.search(r'<div class="card-tier">\s*Free\s*</div>', canonical_body)
+    tier = re.search(r'<div class="card-tier">\s*%s\s*</div>' % re.escape(tier_name),
+                     canonical_body)
     if not tier:
         return []
     features = section(canonical_body[tier.end():], '<ul class="card-features"', "</ul>")
     if features is None:
         return []
-    return [re.sub(r"<[^>]+>", " ", li) for li in
+    return [unescape(re.sub(r"<[^>]+>", " ", li)) for li in
             re.findall(r"<li>(.*?)</li>", features, re.S)]
+
+
+def head_descriptions(head):
+    """Every description a page gives of itself in head_copy() output: meta
+    description, og:description, twitter:description and each JSON-LD
+    "description". FAQ answers are left out: "a free account is needed for
+    Family Link" is true, and an answer is not where a search result gets
+    its one-line summary of the app.
+    """
+    found = [unescape(c) for c in re.findall(
+        r'<meta\b[^>]*?(?:name|property)="[^"]*description"[^>]*?content="([^"]*)"',
+        head)]
+    found += re.findall(r'"description"\s*:\s*"((?:[^"\\]|\\.)*)"', head)
+    return found
 
 
 def caps_in(texts, noun_re):
@@ -313,11 +356,11 @@ def main():
     # people how many medications, reminders and contacts the free plan
     # allows, in three different answers, and those numbers come off the
     # same Free card.
-    free_features = free_card_features(canonical_body)
+    free_features = card_features(canonical_body, "Free")
     if not free_features:
         problems.append(
             "no Free plan feature list found in pricing.html.\n"
-            "  The pricing cards changed shape; fix free_card_features() so this\n"
+            "  The pricing cards changed shape; fix card_features() so this\n"
             "  check keeps watching the free plan's caps."
         )
     caps_found = []
@@ -380,11 +423,63 @@ def main():
             "  new wording is the wording you want."
         )
 
+    # ---- Premium features described as free ----
+    # A description that calls the app free and lists Apple Health alongside
+    # SOS tells a search result that Apple Health is free. The rule is narrow
+    # on purpose: it fires only when the description never mentions a paid
+    # tier at all. One that says "free SOS ... plus premium health tracking"
+    # passes, even though a mis-sorted list in it would too; telling which
+    # half of a sentence a feature belongs to is not a job for a regex.
+    premium_features = card_features(canonical_body, "Premium")
+    if not premium_features:
+        problems.append(
+            "no Premium plan feature list found in pricing.html.\n"
+            "  The pricing cards changed shape; fix card_features() so this\n"
+            "  check keeps watching for Premium features described as free."
+        )
+    premium_only = []
+    for name, pattern in PREMIUM_ONLY:
+        feature_re = re.compile(pattern, re.I)
+        on_premium = any(feature_re.search(f) for f in premium_features)
+        on_free = any(feature_re.search(f) for f in free_features)
+        if premium_features and (on_free or not on_premium):
+            problems.append(
+                f'PREMIUM_ONLY lists {name}, but pricing.html '
+                + ("puts it on the Free card" if on_free else
+                   "has no Premium card bullet it matches")
+                + ".\n  Update PREMIUM_ONLY in this script so the check stops"
+                " defending the old plan."
+            )
+            continue
+        premium_only.append((name, feature_re))
+
+    descriptions_checked = 0
+    for label, text in head_copies:
+        descriptions = head_descriptions(text)
+        if not descriptions:
+            problems.append(
+                f"no meta or structured-data description found in the {label}.\n"
+                "  Fix head_descriptions() so this check keeps reading them."
+            )
+        descriptions_checked += len(descriptions)
+        for desc in descriptions:
+            if not FREE_RE.search(desc) or PAID_RE.search(desc):
+                continue
+            named = [name for name, feature_re in premium_only if feature_re.search(desc)]
+            if named:
+                problems.append(
+                    f'a description in the {label} calls the app free and names '
+                    f'Premium features ({", ".join(named)}) without saying they '
+                    f'are Premium:\n    "{desc[:120]}..."'
+                )
+
     print(f"pricing.html prices : {', '.join(sorted(canonical_prices)) or '(none)'}")
     print(f"homepage summary    : {', '.join(sorted(summary_prices)) or '(none)'}")
     print(f"homepage FAQ        : {', '.join(sorted(faq_prices)) or '(none)'}")
     print(f"assistant KB        : {', '.join(sorted(kb_prices)) or '(none)'}")
     print(f"page <head> copies  : {', '.join(sorted(head_prices)) or '(none)'}")
+    print(f"head descriptions   : {descriptions_checked} checked for Premium features"
+          f" described as free ({len(premium_only)} feature(s) watched)")
     print(f"free plan caps      : {', '.join(caps_found) or '(none)'}"
           f" (stated in {answers_stating_a_cap} assistant answer(s))")
 
