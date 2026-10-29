@@ -1,6 +1,10 @@
 name: Inject Google Ads Tag
 on:
+  # main only: on a feature branch, rebasing onto main rewrites the branch and
+  # conflicts with whatever main already merged. Branches pick up the tag when
+  # they merge; blog posts are generated with it.
   push:
+    branches: [main]
     paths:
       - '**.html'
   workflow_dispatch:
@@ -27,14 +31,23 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add -A
-          git diff --cached --quiet || git commit -m "Auto-inject Google Ads gtag + conversion tracking"
-          git pull --rebase origin main
+          if git diff --cached --quiet; then
+            echo "Every page already has the tag; nothing to push."
+            exit 0
+          fi
+          git commit -m "Auto-inject Google Ads gtag + conversion tracking"
           for i in 1 2 3; do
-            if git push; then
+            if ! git pull --rebase origin "$GITHUB_REF_NAME"; then
+              git rebase --abort
+              echo "::error::Rebase onto $GITHUB_REF_NAME conflicted; re-run this workflow to inject on the latest $GITHUB_REF_NAME."
+              exit 1
+            fi
+            if git push origin "HEAD:$GITHUB_REF_NAME"; then
               echo "Push successful on attempt $i"
-              break
+              exit 0
             fi
             echo "Push failed on attempt $i, retrying..."
             sleep 5
-            git pull --rebase origin main
           done
+          echo "::error::Push failed after 3 attempts."
+          exit 1
