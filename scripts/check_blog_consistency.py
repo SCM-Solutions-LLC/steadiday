@@ -14,6 +14,11 @@ History this is guarding against:
   * 7 posts shipped without the shared stylesheet, so they had no focus rings
   * 30 of 38 posts rendered an off-brand teal accent (hue 173 vs the brand 158)
   * no post had a skip link or a <main> landmark until #32
+  * every post claimed an "Editorially reviewed by" team that did not exist,
+    and a CTA saying every feature was free after Premium launched
+  * the generator's prompt asked for "Here's the thing..." and invented
+    patients, so posts read as machine-written; the prose rules below come
+    from scripts/slop_rules.py, the same list the generator lints against
 
 Exits non-zero on drift.
 """
@@ -21,6 +26,9 @@ Exits non-zero on drift.
 import pathlib
 import re
 import sys
+
+sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
+from slop_rules import find_slop, plain_text  # noqa: E402
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 BLOG = ROOT / "blog"
@@ -31,7 +39,11 @@ POST_RULES = [
     ("skip link", 'class="skip-link"', None),
     ("main landmark", '<main id="main">', None),
     ("shared stylesheet", "steadiday-shared.css", None),
-    ("brand heading font", "Poppins", None),
+    ("brand heading font", "Schibsted Grotesk", None),
+    ("no old heading font", None, "Poppins"),
+    ("no reviewer claim", None, "Editorially reviewed"),
+    ("no reviewedBy schema", None, '"reviewedBy"'),
+    ("no 'every feature is free' claim", None, "Every feature is completely free"),
     ("no off-brand teal token", None, "--teal:"),
     ("no serif heading font", None, "Merriweather"),
     ("decorative hero alt", 'alt="" class="hero-image"', None),
@@ -54,6 +66,20 @@ def check(html, rules, label):
     return problems
 
 
+def prose_problems(html):
+    """Slop in what a reader sees: the title, the description and the article
+    body up to the CTA. CSS, JSON-LD and the shared chrome are not prose."""
+    title = re.search(r"<h1>(.*?)</h1>", html, re.S)
+    meta = re.search(r'<meta name="description" content="([^"]*)"', html)
+    body = re.search(r'<div class="article-content">(.*?)(?:<div class="cta-box"|</article>)', html, re.S)
+    text = ". ".join(plain_text(m.group(1)) for m in (title, meta, body) if m)
+    hits = find_slop(text)
+    shown = [f'{label}: "{sentence[:90]}"' for label, sentence in hits[:3]]
+    if len(hits) > 3:
+        shown.append(f"... and {len(hits) - 3} more")
+    return shown
+
+
 def main():
     if not BLOG.is_dir():
         print("FAILED: blog/ directory not found")
@@ -66,7 +92,8 @@ def main():
 
     failed = {}
     for path in posts:
-        problems = check(path.read_text(encoding="utf-8"), POST_RULES, path.name)
+        html = path.read_text(encoding="utf-8")
+        problems = check(html, POST_RULES, path.name) + prose_problems(html)
         if problems:
             failed[path.name] = problems
 

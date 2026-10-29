@@ -4,8 +4,10 @@ backfill_post_enhancements.py
 
 Apply the v5.7 SEO enhancements to already-published blog posts:
 
-  1. Reviewer line in the article header + reviewedBy / MedicalWebPage
-     fields in the Article JSON-LD.
+  1. MedicalWebPage typing on the Article JSON-LD. Also strips the
+     "Editorially reviewed by" line and the reviewedBy / lastReviewed
+     fields that v5.7 added: no one reviews posts before they publish,
+     so the claim was false.
   2. "Related from the SteadiDay Blog" footer block (3 same-category
      posts when possible, falling back to the curated related-category
      graph, then most-recent).
@@ -32,10 +34,8 @@ from pathlib import Path
 # consistent with what new posts emit.
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from generate_blog import (  # noqa: E402
-    EDITORIAL_REVIEWER,
     RELATED_POSTS_COUNT,
     build_faq_jsonld,
-    build_reviewer_jsonld,
     pick_related_posts,
     render_related_posts_block,
     _RELATED_CATEGORIES,
@@ -135,28 +135,20 @@ def extract_faqs_from_h2s(content: str, limit: int = 4) -> list[dict]:
     return faqs
 
 
-def add_reviewer_to_header(content: str) -> str:
-    """Insert the reviewer line inside the article-header just after
-    article-meta. Idempotent — no-op if already present."""
-    if REVIEWER_MARKER in content:
-        return content
-    reviewer_html = (
-        f'<div class="article-reviewer">Editorially reviewed by '
-        f'<a href="{EDITORIAL_REVIEWER["url"]}">{escape(EDITORIAL_REVIEWER["name"])}</a></div>'
-    )
-    pattern = re.compile(r'(<div class="article-meta">[^<]*</div>)')
-    return pattern.sub(r'\1' + reviewer_html, content, count=1)
+def strip_reviewer(content: str) -> str:
+    """Remove the reviewer line from the header and its CSS. Idempotent."""
+    content = re.sub(r'<div class="article-reviewer">.*?</div>', '', content, count=1, flags=re.S)
+    content = re.sub(r'\.article-reviewer\{[^}]*\}(?:\.article-reviewer a\{[^}]*\})?', '', content)
+    return re.sub(r'\n[ \t]*\n(?=[ \t]*\.related-posts\{)', '\n', content)
 
 
-def add_reviewer_css(content: str) -> str:
-    """Append the reviewer + related-posts CSS rules inside the existing
-    <style> block if they aren't already there. Idempotent."""
-    if ".article-reviewer" in content:
+def add_related_css(content: str) -> str:
+    """Append the related-posts CSS inside the existing <style> block if it
+    isn't already there. Idempotent."""
+    if ".related-posts{" in content:
         return content
     extra = (
-        "\n        .article-reviewer{font-size:0.9rem;opacity:0.8;font-style:italic;margin-top:0.5rem;}"
-        ".article-reviewer a{color:rgba(255,255,255,0.95);text-decoration:underline;}"
-        "\n        .related-posts{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--teal-light);border-radius:12px;}"
+        "\n        .related-posts{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--sage-light);border-radius:12px;}"
         "\n        .related-posts h3{margin:0 0 0.75rem;font-size:1.2rem;}.related-posts-list{list-style:none;padding:0;margin:0;}"
         ".related-posts-list li{padding:0.5rem 0;border-bottom:1px solid rgba(30,58,95,0.08);font-size:1rem;}"
         ".related-posts-list li:last-child{border-bottom:none;}"
@@ -165,45 +157,15 @@ def add_reviewer_css(content: str) -> str:
 
 
 def upgrade_article_jsonld(content: str) -> str:
-    """Convert the existing Article JSON-LD into a multi-typed
-    MedicalWebPage/Article block with reviewedBy + lastReviewed.
-    Idempotent — no-op if MedicalWebPage is already in the JSON-LD.
-    Re-runnable when EDITORIAL_REVIEWER changes: the existing
-    reviewedBy + lastReviewed fields are stripped first, then the
-    fresh ones are inserted, so swapping in a named clinician later
-    just requires re-running the backfill."""
-    is_first_run = 'MedicalWebPage' not in content
-
-    if is_first_run:
-        # Convert "@type":"Article" to multi-type. Only on first run —
-        # re-runs would otherwise double-wrap.
+    """Type the Article JSON-LD as MedicalWebPage/Article and drop any
+    reviewedBy / lastReviewed fields an earlier run injected. Idempotent."""
+    if 'MedicalWebPage' not in content:
         pattern = re.compile(r'("@type"\s*:\s*)"Article"')
         if not pattern.search(content):
             return content
         content = pattern.sub(r'\1["MedicalWebPage","Article"]', content, count=1)
-    else:
-        # Re-run: strip any previously-injected reviewedBy + lastReviewed
-        # so the freshly-built fragment can replace them. Robust against
-        # both Person and Organization shapes from earlier runs.
-        content = re.sub(
-            r'"reviewedBy"\s*:\s*\{[^{}]*\}\s*,',
-            '',
-            content,
-            count=1,
-        )
-        content = re.sub(
-            r'"lastReviewed"\s*:\s*"[^"]*"\s*,',
-            '',
-            content,
-            count=1,
-        )
-
-    reviewer_obj = f'"reviewedBy":{build_reviewer_jsonld()},'
-    date_m = re.search(r'"datePublished"\s*:\s*"([^"]+)"', content)
-    iso_date = date_m.group(1) if date_m else ""
-    extra = reviewer_obj + (f'"lastReviewed":"{iso_date}",' if iso_date else "")
-    content = content.replace('"publisher":', extra + '"publisher":', 1)
-    return content
+    content = re.sub(r'"reviewedBy"\s*:\s*\{[^{}]*\}\s*,', '', content, count=1)
+    return re.sub(r'"lastReviewed"\s*:\s*"[^"]*"\s*,', '', content, count=1)
 
 
 def inject_faq_jsonld(content: str, faqs: list[dict]) -> str:
@@ -259,14 +221,10 @@ def process_file(path: Path, index_map: dict, existing_posts: list[dict]) -> dic
 
     actions = {"reviewer": False, "related": False, "faq": False, "schema": False}
 
-    if REVIEWER_MARKER not in content:
-        content = add_reviewer_css(content)
-        content = add_reviewer_to_header(content)
+    if REVIEWER_MARKER in content:
+        content = strip_reviewer(content)
         actions["reviewer"] = True
 
-    # Always run — upgrade_article_jsonld handles first-run vs re-run
-    # internally so changes to EDITORIAL_REVIEWER propagate without
-    # needing to revert files first.
     before = content
     content = upgrade_article_jsonld(content)
     if content != before:
@@ -279,6 +237,7 @@ def process_file(path: Path, index_map: dict, existing_posts: list[dict]) -> dic
             actions["faq"] = len(faqs)
 
     if RELATED_MARKER not in content:
+        content = add_related_css(content)
         category = index_map.get(path.name, {}).get("category", "")
         related = pick_related_posts(
             category, existing_posts, current_filename=path.name, n=RELATED_POSTS_COUNT,
@@ -322,8 +281,8 @@ def main():
 
     print()
     print("=" * 60)
-    print(f"  reviewer line added: {totals['reviewer']}")
-    print(f"  MedicalWebPage / reviewedBy added: {totals['schema']}")
+    print(f"  reviewer line removed: {totals['reviewer']}")
+    print(f"  Article JSON-LD updated: {totals['schema']}")
     print(f"  FAQPage schema added: {totals['faq']}")
     print(f"  related-posts block added: {totals['related']}")
 

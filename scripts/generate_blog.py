@@ -1,6 +1,21 @@
 #!/usr/bin/env python3
 """
-SteadiDay Blog Generator v5.7
+SteadiDay Blog Generator v5.8
+
+v5.8 changes (copy that reads as written by a person):
+- No invented people, anecdotes or first-person experience. The old
+  styles asked for "a composite character like 'When Maria, 62...'" and
+  "5 things I wish I'd known", which on health content is a made-up
+  source, not a style.
+- Banned phrases live in slop_rules.py. Each post is linted against
+  them, the model revises the sentences that hit, and any em dash left
+  after that is replaced. check_blog_consistency.py enforces the same
+  list on published posts.
+- No "Editorially reviewed by" line or reviewedBy schema: nobody reviews
+  posts before they publish, so claiming a review was false.
+- The CTA no longer says every feature is free, and the feature list a
+  post may call free now matches the Free plan on pricing.html.
+
 
 v5.7 changes (SEO / E-E-A-T enhancements):
 - FAQPage JSON-LD on every post. The content prompt now asks for an
@@ -9,10 +24,8 @@ v5.7 changes (SEO / E-E-A-T enhancements):
   page AND are emitted as a separate FAQPage JSON-LD block in <head>.
   Earns rich-result / AI-Overview eligibility without duplicating
   content for users.
-- MedicalWebPage typing + reviewedBy on the Article schema. Health
-  content (YMYL) is ranked partly on whether an identifiable reviewer
-  stands behind it. The EDITORIAL_REVIEWER constant is the seam to
-  swap in a real named clinician once one is engaged.
+- MedicalWebPage typing on the Article schema. (v5.7 also added a
+  reviewedBy field naming an editorial team; v5.8 removed it, see above.)
 - "Related from the blog" footer block. Each post now surfaces up to
   3 same-category posts (falling back to the curated _RELATED_CATEGORIES
   graph, then most-recent) before the CTA. Compounds crawl depth and
@@ -92,24 +105,17 @@ from anthropic import APIStatusError
 import random, re, os, sys, glob, json, time, urllib.request, subprocess
 from datetime import datetime, timedelta
 from difflib import SequenceMatcher
+from slop_rules import find_slop, plain_text
 
 CLAUDE_MODEL = "claude-sonnet-4-6"
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
 
-# E-E-A-T signals for medical/health content. Replace with a real named
-# clinician when one is engaged (set "type" to "Person" and use their real
-# name + credential, e.g. "Dr. Jane Doe, MD"). Google's health-content
-# ranking weighs identifiable expert reviewers heavily; an Organization-
-# typed editorial team is the honest floor (and validates cleanly against
-# schema.org, which expects Person names to actually be a person's name).
-EDITORIAL_REVIEWER = {
-    "type": "Organization",
-    "name": "SteadiDay Health Editorial Team",
-    "jobTitle": "Editorial Review",
-    "url": f"{WEBSITE_URL}/#about",
-}
+# No reviewer is claimed on posts. If a named clinician starts reviewing
+# them, add a Person-typed "reviewedBy" to the Article JSON-LD in
+# get_html_template() and a visible byline in the article header, and
+# only for posts that person has read.
 
 # How many same-category posts to surface in the "Related from the blog"
 # footer block. 3 is enough to spread internal-link weight without
@@ -129,14 +135,18 @@ VALID_CATEGORIES = [
     "Women's Health", "Men's Health", "Preventive Care",
 ]
 
+# Every style writes to the reader in second person and works from real
+# sources. None may invent a person, quote, anecdote or experience: on
+# health content a composite "Maria, 62" is a made-up source.
 WRITING_STYLES = [
-    {"name": "narrative", "instruction": """WRITING STYLE: Open with a short, vivid scene or anecdote (you can invent a composite character like "When Maria, 62, noticed..."). Weave practical advice into the story. Use transitions like "Here's the thing..." or "What surprised researchers was..." to move between sections. Close by returning to the opening character or scene. Do NOT use bullet points for the main advice — embed it in flowing paragraphs. This should read like a magazine feature, not a how-to list."""},
-    {"name": "myth_busting", "instruction": """WRITING STYLE: Structure this as a myth-busting piece. Open with "You've probably heard that..." and then challenge 4-5 common misconceptions about the topic. Each section should be framed as a common belief followed by the evidence-based reality. Use a conversational, slightly surprising tone. Close with a clear "bottom line" takeaway."""},
-    {"name": "qa_format", "instruction": """WRITING STYLE: Frame this as answering real questions people ask their doctors. Open with "These are the questions we hear most often about [topic]." Each section heading should be a specific question in natural language (e.g., "Is it normal to wake up at 3 AM every night?"). Answer each question directly in the first sentence, then expand with evidence and practical steps."""},
-    {"name": "day_in_life", "instruction": """WRITING STYLE: Walk through a typical day showing where the topic fits into real life. Open with a morning scenario and move through the day chronologically. Each section is a time of day with practical, specific advice woven in. This should feel like a friend sharing their routine, not a lecture."""},
-    {"name": "news_hook", "instruction": """WRITING STYLE: Open with a recent finding, guideline change, or health news item related to the topic (reference a real source if possible). Use the news as a hook to explain what changed, why it matters for adults 50+, and what to do about it. Sections should progress: what happened, why it matters, what the evidence says, what you can do today. This should read like health journalism, not a pamphlet."""},
-    {"name": "lessons_learned", "instruction": """WRITING STYLE: Frame this as practical lessons — "5 things I wish I'd known about [topic] sooner." Use first-person plural ("we") to create warmth. Each section is a genuine insight, not obvious advice. Include at least one counterintuitive point. Use phrases like "What most people get wrong is..." This should feel like wisdom from someone who's been through it."""},
+    {"name": "situation", "instruction": """WRITING STYLE: Open with a concrete, common situation the reader may recognise, written in second person ("You notice you're out of breath on the stairs you used to take two at a time."). Do NOT invent a named person, an age, a quote or a story about someone. Move from the situation to what the evidence says and what to do. Advice goes in paragraphs, not bullet lists."""},
+    {"name": "myth_busting", "instruction": """WRITING STYLE: Take 4-5 common beliefs about the topic. Each section names one belief in its heading, then states what the evidence shows, with the source. Open with the belief you hear most often, stated plainly. End on the most useful practical step, not a summary."""},
+    {"name": "qa_format", "instruction": """WRITING STYLE: Each section heading is a specific question a reader would ask their doctor, in natural language (e.g., "Is it normal to wake up at 3 AM every night?"). Answer it in the first sentence, then give the evidence and the practical steps. Open with the most important question, not a sentence about questions."""},
+    {"name": "day_in_life", "instruction": """WRITING STYLE: Walk through a day in second person, morning to night, showing where the topic fits. Each section is a time of day with specific, practical advice. Do not write as if the author lives this routine."""},
+    {"name": "news_hook", "instruction": """WRITING STYLE: Open with the recent finding, guideline change or health news item, naming the source and date. Then explain what changed, what it means for adults 50+, what the evidence does and does not show, and what to do about it. This should read like health journalism, not a pamphlet."""},
+    {"name": "checklist", "instruction": """WRITING STYLE: Give 5-7 specific steps the reader can take, one per section, each with the reason and the source behind it. Steps must be concrete enough to act on today ("Put the pill organiser next to the kettle"), not general advice ("Build good habits")."""},
 ]
+
 
 
 # =============================================================================
@@ -709,7 +719,10 @@ CATEGORY_VIDEOS = {
     "Preventive Care": [{"id":"QB1kk0p_E0I","title":"Health Screenings Guide","channel":"Cleveland Clinic"},{"id":"3PycZtfns_U","title":"Preventive Wellness","channel":"Mayo Clinic"},{"id":"TLWGn5HD_0I","title":"Health Checklist","channel":"AARP"}],
 }
 
-STEADIDAY_FEATURES = {"free": ["Emergency SOS button","Fall Detection","Trusted Contacts","Medication reminders","Apple Health integration","Food and water logging","Mind Breaks games","Calendar sync","Magnifier tool","Find My Car","Flashlight"]}
+# Features the prompt may describe as free. Keep in step with the Free card
+# on pricing.html: everything else there is Premium, and a post that calls
+# a Premium feature free is a pricing error nobody will catch by eye.
+STEADIDAY_FEATURES = {"free": ["Emergency SOS button","Fall Detection","Medication reminders","Daily check-ins","Simple Mode"]}
 
 _RELATED_CATEGORIES = {
     "Mental Wellness": ["Wellness","Sleep","Brain Health","Relationships"],
@@ -1083,20 +1096,6 @@ def _json_escape(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
-def build_reviewer_jsonld(reviewer=EDITORIAL_REVIEWER):
-    """Inner JSON object for the Article's reviewedBy field. Person and
-    Organization carry different valid properties under schema.org —
-    jobTitle is a Person property and would be a soft-warning on an
-    Organization. This builds the right shape per type so Google's
-    Rich Results test stays clean."""
-    obj = {"@type": reviewer["type"], "name": reviewer["name"]}
-    if reviewer.get("url"):
-        obj["url"] = reviewer["url"]
-    if reviewer["type"] == "Person" and reviewer.get("jobTitle"):
-        obj["jobTitle"] = reviewer["jobTitle"]
-    return json.dumps(obj, ensure_ascii=False)
-
-
 def pick_related_posts(category, existing_posts, current_filename=None, n=RELATED_POSTS_COUNT):
     """Choose up to n related posts for the footer block. Preference order:
     same category, then categories from _RELATED_CATEGORIES, then recency.
@@ -1151,6 +1150,61 @@ def render_related_posts_block(related_posts):
     )
 
 
+def remove_slop(client, title, meta, content, max_passes=2):
+    """Lint a draft against slop_rules and have the model fix what hits.
+
+    The prompt bans these phrases, and the model uses them anyway often
+    enough to matter, so the draft is checked rather than trusted. Each
+    pass sends only the offending sentences back; anything still left
+    after max_passes fails the run rather than shipping, except em dashes,
+    which have a safe mechanical fix.
+    """
+    for _ in range(max_passes):
+        hits = find_slop(plain_text(f"{title}. {meta}. {content}"))
+        if not hits:
+            return title, meta, content
+        print(f"  Revising {len(hits)} sentence(s) that read as machine-written")
+        listed = "\n".join(f"- [{label}] {sentence}" for label, sentence in hits)
+        prompt = f"""Revise this blog post. Only the sentences listed below need to change.
+Rewrite each one without the flagged pattern. Keep every fact, number, link,
+quote and HTML tag exactly as it is, and leave every other sentence untouched.
+Do not use an em dash anywhere.
+
+FLAGGED SENTENCES:
+{listed}
+
+Return the post in exactly this format:
+TITLE: ...
+META_DESCRIPTION: ...
+CONTENT:
+...
+
+TITLE: {title}
+META_DESCRIPTION: {meta}
+CONTENT:
+{content}"""
+        msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=6000, messages=[{"role": "user", "content": prompt}]))
+        r = msg.content[0].text
+        t = re.search(r'TITLE:\s*(.+?)(?:\n|$)', r)
+        m = re.search(r'META_DESCRIPTION:\s*(.+?)(?:\n|$)', r)
+        c = re.search(r'CONTENT:\s*(.+)', r, re.DOTALL)
+        if not c:
+            break
+        title = t.group(1).strip() if t else title
+        meta = m.group(1).strip() if m else meta
+        content = c.group(1).strip()
+
+    # An em dash has a safe mechanical fix; the phrases do not.
+    title, meta, content = (re.sub(r"\s*\u2014\s*", ", ", x) for x in (title, meta, content))
+    left = find_slop(plain_text(f"{title}. {meta}. {content}"))
+    if left:
+        raise RuntimeError(
+            "Draft still reads as machine-written after revision:\n"
+            + "\n".join(f"  [{label}] {sentence}" for label, sentence in left)
+        )
+    return title, meta, content
+
+
 def generate_blog_post(topic_data, existing_posts, client):
     topic, keyword, category = topic_data["topic"], topic_data["keyword"], topic_data.get("category","Wellness")
     images = get_images_for_category(category, topic=topic, client=client)
@@ -1193,14 +1247,24 @@ Write a blog post about: "{topic}"
 {style['instruction']}
 
 TONE GUIDELINES:
-- Write like a knowledgeable friend, not a textbook
-- Vary sentence length — mix short punchy with longer flowing
-- Use contractions naturally (you'll, it's, don't)
-- Include specific, concrete details and real numbers
-- Avoid clichés like "in today's world" or "it's no secret"
+- Write to the reader as "you". Plain, specific, calm. Contractions are fine.
+- State facts directly. Name the specific thing: the study, the number, the step.
+- Vary sentence length naturally. No one-line dramatic paragraphs or fragments for effect.
+- Evidence-based only, no political opinions.
+- NEVER invent people, ages, quotes, anecdotes or personal experience. No "we"
+  speaking as people who lived through the condition. No "these are the
+  questions we hear most often".
+- NEVER use an em dash (—). Use a comma, a colon, parentheses or a new sentence.
+- NEVER use these: "Here's the thing", "Here's what/why/how", "The truth is",
+  "The reality is", "It turns out", "Let that sink in", "Make no mistake",
+  "At the end of the day", "In today's world", "When it comes to",
+  "It's worth noting", "game-changer", "the bottom line", "the good news",
+  "What most people get wrong", "the sweet spot".
+- NEVER use contrast setups: "This isn't about X. It's about Y.", "not just X
+  but Y", "X isn't the problem. Y is.". Say what Y is.
+- Skip intensifiers and hedges: genuinely, truly, literally, incredibly,
+  really, actually, simply, just.
 - DO NOT start paragraphs with "In fact," "Additionally," "Furthermore," "Moreover"
-- Use conversational transitions, not formal connectors
-- Evidence-based only — no political opinions
 {studies_instruction}
 
 EXISTING POSTS (do NOT duplicate):
@@ -1216,14 +1280,16 @@ TITLE RULES (CRITICAL):
 - Include the primary keyword naturally.
 
 SEO REQUIREMENTS:
-- META_DESCRIPTION must include the keyword and a compelling reason to click (150-160 chars)
-- Use the primary keyword in the first paragraph and at least 2 section headings
+- META_DESCRIPTION must include the keyword and say what the reader will learn (150-160 chars)
+- Use the primary keyword once in the first paragraph and once in a section heading.
+  If the keyword is not grammatical as written (e.g. "chronic worry seniors"),
+  use a natural form of it ("chronic worry in seniors"). Never use it more than 3 times.
 - Include 2-3 internal links to related posts on steadiday.com/blog/ if relevant topics exist
 - Primary keyword for SEO: "{keyword}"
 
 CONTENT REQUIREMENTS:
 1. 1000-1500 words, 6-7 sections with <h2> tags
-2. Mention SteadiDay's {feature} feature naturally (it's free)
+2. Mention SteadiDay's {feature} feature once, where it helps the reader (it is on the free plan)
 3. Include at least 2 specific statistics with their sources
 4. Advice must be DISTINCT from existing posts
 5. END the article with a section titled "Common Questions" using exactly this format:
@@ -1263,6 +1329,7 @@ CONTENT:
     rt = (re.search(r'READ_TIME:\s*(\d+)', r) or type('',(),{'group':lambda s,n:"7"})).group(1)
     content_match = re.search(r'CONTENT:\s*(.+)', r, re.DOTALL)
     content = content_match.group(1).strip() if content_match else r
+    title, meta, content = remove_slop(client, title, meta, content)
 
     # Soft warning only — NEVER truncate. A bad-but-complete title is
     # infinitely better than a fragment ending in "...". Google SERP
@@ -1321,18 +1388,18 @@ def get_html_template():
     <meta name="twitter:description" content="{meta_description}"><meta name="twitter:image" content="{hero_image}">
     <link rel="icon" type="image/jpeg" href="../assets/icon.jpeg"><link rel="apple-touch-icon" href="../assets/icon.jpeg">
     <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Schibsted+Grotesk:wght@600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../steadiday-shared.css">
     <link rel="stylesheet" href="../steadiday-assistant.css">
     <script type="application/ld+json">
-    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"reviewedBy":{reviewer_jsonld},"lastReviewed":"{iso_date}","publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
+    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
     {faq_jsonld}
     <style>
         :root {{ --cream: #FFFBF5; --sage: #4A9D7E; --sage-dark: #3B8468; --sage-light: rgba(74, 157, 126, 0.08); --text-dark: #111827; --navy-light: #2D4A6F; --charcoal: #2D3436; --charcoal-light: #5A6266; --white: #FFFFFF; }}
         * {{ margin: 0; padding: 0; box-sizing: border-box; }}
         body {{ font-family: 'Source Sans 3', -apple-system, sans-serif; font-size: 1.125rem; line-height: 1.8; color: var(--charcoal); background: var(--cream); }}
-        h1, h2, h3 {{ font-family: 'Poppins', sans-serif; font-weight: 700; color: var(--text-dark); line-height: 1.3; }}
+        h1, h2, h3 {{ font-family: 'Schibsted Grotesk', sans-serif; font-weight: 700; color: var(--text-dark); line-height: 1.3; }}
         a {{ color: var(--color-brand-text); text-decoration: none; }} a:hover {{ color: var(--color-brand-hover); text-decoration: underline; }}
         .nav {{ background: var(--white); padding: 1rem 0; border-bottom: 1px solid rgba(30,58,95,0.1); position: sticky; top: 0; z-index: 100; }}
         .nav-container {{ max-width: 900px; margin: 0 auto; padding: 0 2rem; display: flex; justify-content: space-between; align-items: center; }}
@@ -1341,9 +1408,9 @@ def get_html_template():
         .breadcrumbs a {{ color: var(--charcoal-light); }} .breadcrumbs span {{ color: var(--charcoal-light); margin: 0 0.5rem; }}
         .breadcrumbs .current {{ color: var(--text-dark); font-weight: 500; }}
         .hero-image {{ width: 100%; max-height: 450px; object-fit: cover; }}
-        .article-header {{ background: linear-gradient(135deg, var(--text-dark) 0%, var(--navy-light) 100%); color: var(--white); padding: 3rem 2rem; text-align: center; }}
-        .article-header h1 {{ max-width: 800px; margin: 0 auto 1rem; font-size: 2.25rem; color: var(--white); }}
-        .article-meta {{ font-size: 1rem; opacity: 0.9; }}
+        .article-header {{ background: var(--cream); color: var(--text-dark); padding: 3rem 2rem 2rem; text-align: center; border-bottom: 1px solid var(--cream-dark); }}
+        .article-header h1 {{ max-width: 800px; margin: 0 auto 1rem; font-size: 2.25rem; color: var(--text-dark); }}
+        .article-meta {{ font-size: 1rem; color: var(--charcoal-light); }}
         .article-container {{ max-width: 750px; margin: 0 auto; padding: 3rem 2rem; background: var(--white); }}
         .article-content h2 {{ font-size: 1.6rem; margin: 2.5rem 0 1rem; }} .article-content p {{ margin-bottom: 1.5rem; }}
         .article-content ul, .article-content ol {{ margin: 1.5rem 0; padding-left: 2rem; }} .article-content li {{ margin-bottom: 0.75rem; }}
@@ -1367,7 +1434,6 @@ def get_html_template():
         .footer {{ text-align: center; padding: 2rem; color: var(--charcoal-light); font-size: 0.9rem; background: var(--white); border-top: 1px solid rgba(30,58,95,0.1); }}
         @media (max-width: 768px) {{ .article-header h1 {{ font-size: 1.75rem; }} .article-header {{ padding: 2rem 1.5rem; }} .article-container {{ padding: 2rem 1.5rem; }} .hero-image {{ max-height: 280px; }} }}
     
-        .article-reviewer{{font-size:0.9rem;opacity:0.8;font-style:italic;margin-top:0.5rem;}}.article-reviewer a{{color:rgba(255,255,255,0.95);text-decoration:underline;}}
         .related-posts{{max-width:750px;margin:2.5rem auto 0;padding:1.75rem 2rem;background:var(--sage-light);border-radius:12px;}}
         .related-posts h3{{margin:0 0 0.75rem;font-size:1.2rem;}}.related-posts-list{{list-style:none;padding:0;margin:0;}}.related-posts-list li{{padding:0.5rem 0;border-bottom:1px solid rgba(30,58,95,0.08);font-size:1rem;}}.related-posts-list li:last-child{{border-bottom:none;}}
     </style>
@@ -1378,10 +1444,10 @@ def get_html_template():
     <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="../index.html">Home</a><span>&rsaquo;</span><a href="index.html">Blog</a><span>&rsaquo;</span><span class="current">{title}</span></nav>
     <main id="main">
     <img src="{hero_image}" alt="" class="hero-image" loading="eager">
-    <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div><div class="article-reviewer">Editorially reviewed by <a href="{reviewer_url}">{reviewer_name}</a></div></header>
+    <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div></header>
     <article class="article-container"><div class="article-content">
         {content}
-        <div class="cta-box"><h3>Ready to Take Control of Your Daily Wellness?</h3><p>SteadiDay helps you manage medications, track your health, and stay connected with loved ones. Every feature is completely free.</p><a href="{app_store_url}" class="cta-button">Download Free on the App Store</a></div>
+        <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds Family Link, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
     </div></article>
     {related_posts_block}
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
@@ -1409,9 +1475,6 @@ def create_blog_html(post_data):
         read_time=post_data['read_time'],
         content=post_data['content'],
         year=datetime.now().year,
-        reviewer_name=EDITORIAL_REVIEWER["name"],
-        reviewer_url=EDITORIAL_REVIEWER["url"],
-        reviewer_jsonld=build_reviewer_jsonld(),
         faq_jsonld=build_faq_jsonld(post_data.get("faqs", [])),
         related_posts_block=render_related_posts_block(post_data.get("related_posts", [])),
     )
