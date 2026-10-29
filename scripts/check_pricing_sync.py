@@ -8,7 +8,9 @@ pricing.html is the source of truth: it carries the full comparison and the
 monthly/annual toggle. index.html repeats the headline numbers in a summary
 section, the homepage FAQ states them again in prose, and the assistant's
 knowledge base in steadiday-assistant.js quotes them a fourth time to answer
-"how much does it cost". Four copies means four chances to go stale.
+"how much does it cost". Four copies means four chances to go stale - five,
+counting what the pages tell search engines before <body>: pricing.html's
+meta description and the homepage's structured data.
 
 The assistant is the copy most likely to be forgotten: it is one JavaScript
 file rather than a visible section of a page, so a price change can ship with
@@ -39,6 +41,9 @@ PRICE_RE = re.compile(r"\$\d[\d,]*(?:\.\d{2})?")
 # swaps in. Narrower than PRICE_RE on purpose: a price quoted in prose
 # somewhere on pricing.html is not a price we charge for a plan.
 PLAN_PRICE_RE = re.compile(r'<span class="amount">(\$[\d,]+(?:\.\d{2})?)</span>')
+# Structured data states prices as bare numbers ("price": "3.99"), so
+# PRICE_RE alone never sees them. Quotes optional: a number is valid JSON-LD.
+JSONLD_PRICE_RE = re.compile(r'"price"\s*:\s*"?(\d[\d,]*(?:\.\d{2})?)"?')
 
 # The free plan's numeric caps. Prices are not the only figure the assistant
 # repeats: it also tells people how many medications, reminders and contacts
@@ -80,6 +85,22 @@ def section(html, start_marker, end_marker):
 
 def prices_in(text):
     return set(PRICE_RE.findall(text or ""))
+
+
+def head_copy(html):
+    """What a page says about itself before <body>: meta tags and JSON-LD.
+
+    Search results, link previews and crawlers read this and visitors never
+    do, so nobody notices when it goes stale. <style> and ordinary <script>
+    are dropped; JSON-LD is kept, with each bare "price" rewritten as "$3.99"
+    so the same price checks apply to it.
+    """
+    end = html.find("<body")
+    head = html[:end] if end != -1 else ""
+    head = re.sub(r"<style\b.*?</style>", " ", head, flags=re.S)
+    head = re.sub(r"<script\b(?![^>]*application/ld\+json)[^>]*>.*?</script>",
+                  " ", head, flags=re.S)
+    return JSONLD_PRICE_RE.sub(lambda m: '"price": "$%s"' % m.group(1), head)
 
 
 def free_card_features(canonical_body):
@@ -208,6 +229,30 @@ def main():
     if 'href="pricing.html"' not in summary:
         problems.append("the homepage pricing summary does not link to pricing.html")
 
+    # ---- What the pages say before <body> ----
+    # pricing.html's meta description quotes the Premium prices, and the
+    # homepage's structured data lists every plan's price and the free caps.
+    # Search engines show these; nobody browsing the site ever sees them.
+    head_copies = [("pricing.html <head>", head_copy(canonical_html)),
+                   ("index.html <head>", head_copy(summary_html))]
+    head_prices = set()
+    for label, text in head_copies:
+        found = prices_in(text)
+        head_prices |= found
+        unknown = found - canonical_prices
+        if unknown:
+            problems.append(
+                f"price(s) in the {label} (meta tags or structured data) that "
+                "do not appear in pricing.html: " + ", ".join(sorted(unknown))
+            )
+        # Same loud-failure rule as kb_entries(): structured data offering a
+        # plan with no price this script can read means the check went blind.
+        if '"offers"' in text and '"price": "$' not in text:
+            problems.append(
+                f"the {label} has structured-data offers but no price this\n"
+                "  check can read. Fix JSONLD_PRICE_RE so it keeps watching them."
+            )
+
     # ---- The assistant's knowledge base ----
     kb_prices = set()
     entries = []
@@ -306,6 +351,15 @@ def main():
                     + f"; the Free card says {cap}"
                 )
 
+        for label, text in head_copies:
+            wrong = caps_in([text], noun) - {cap}
+            if wrong:
+                problems.append(
+                    f"the {label} caps {name} at "
+                    + ", ".join(str(n) for n in sorted(wrong))
+                    + f"; the Free card says {cap}"
+                )
+
     # What is checked above is the contradiction: no answer may state a cap that
     # disagrees with the Free card. There used to be a second half requiring
     # every cap to still be stated somewhere in the KB, and it cried wolf -
@@ -330,6 +384,7 @@ def main():
     print(f"homepage summary    : {', '.join(sorted(summary_prices)) or '(none)'}")
     print(f"homepage FAQ        : {', '.join(sorted(faq_prices)) or '(none)'}")
     print(f"assistant KB        : {', '.join(sorted(kb_prices)) or '(none)'}")
+    print(f"page <head> copies  : {', '.join(sorted(head_prices)) or '(none)'}")
     print(f"free plan caps      : {', '.join(caps_found) or '(none)'}"
           f" (stated in {answers_stating_a_cap} assistant answer(s))")
 
@@ -337,8 +392,8 @@ def main():
         print("\nFAILED:")
         for p in problems:
             print(f"  - {p}")
-        print("\npricing.html is the source of truth; update the homepage and the\n"
-              "assistant knowledge base to match.")
+        print("\npricing.html is the source of truth; update the homepage, the\n"
+              "assistant knowledge base and the page <head> copies to match.")
         return 1
 
     print("\nPASSED: homepage and assistant pricing and caps are consistent with\n"
