@@ -102,15 +102,24 @@ jobs:
           git commit -m "Blog draft: $BLOG_TITLE"
           git push -u origin "$BRANCH"
 
+          # The live address 404s until merge, so link a rendered preview of
+          # the branch instead. raw.githack serves the repo's files with real
+          # content types, so the post loads with the site's CSS. The repo is
+          # public; a private repo would need another preview host.
+          PREVIEW="https://raw.githack.com/$GITHUB_REPOSITORY/$BRANCH/blog/$BLOG_FILENAME"
+          echo "preview=$PREVIEW" >> "$GITHUB_OUTPUT"
+
           {
             echo "Draft written by the scheduled blog generator. It is not live until this is merged."
+            echo
+            echo "**Preview the draft:** $PREVIEW"
             echo
             echo "Before merging, check:"
             echo "- every number, date and study against the linked source"
             echo "- that no claim says a Premium feature is free"
             echo "- the date in the post, if this sat for a few days"
             echo
-            echo "Merging publishes https://www.steadiday.com/blog/$BLOG_FILENAME. The sitemap and search pings run on merge."
+            echo "After merge it goes live at \`https://www.steadiday.com/blog/$BLOG_FILENAME\`. That address shows a 404 until then. The sitemap and search pings run on merge."
             echo "A Buttondown email draft was also created. Send it only after the post is live."
           } > "$RUNNER_TEMP/pr-body.md"
 
@@ -143,10 +152,12 @@ jobs:
 
             Title: ${{ env.BLOG_TITLE }}
             Date: ${{ env.BLOG_DATE }}
+            Preview: ${{ steps.pr.outputs.preview }}
             Review: ${{ steps.pr.outputs.url }}
 
-            Merging the pull request publishes it at
+            After you merge the pull request it goes live at
             https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
+            (that address shows a 404 until then)
 
             A Buttondown email draft has been created for this post.
             Send it only after the post is live: https://buttondown.com/emails
