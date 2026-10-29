@@ -16,8 +16,17 @@ on:
         required: false
         type: boolean
         default: false
+# Drafts go to a branch and a pull request, never straight to main, so a
+# person reads every post before it is live.
+#   contents: write       push the draft branch
+#   pull-requests: write  open the pull request
+#   actions: write        start Site Checks on the draft branch (see below)
+# The repo setting "Allow GitHub Actions to create and approve pull
+# requests" (Settings > Actions > General) must be on.
 permissions:
   contents: write
+  pull-requests: write
+  actions: write
 env:
   ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
   BUTTONDOWN_API_KEY: ${{ secrets.BUTTONDOWN_API_KEY }}
@@ -29,7 +38,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
         with:
-          # Fetch latest to avoid push conflicts
+          # Full history: generate_sitemap.py reads lastmod dates from git log
           fetch-depth: 0
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -70,58 +79,77 @@ jobs:
           else
             python scripts/generate_blog.py
           fi
-      - name: Commit and push to main
+      - name: Open a pull request for the draft
+        id: pr
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "github-actions[bot]@users.noreply.github.com"
-          # Stage the blog directory AND the sitemap (which generate_sitemap.py
-          # writes to the repo root). Without staging sitemap.xml, the rebase
-          # below fails with "cannot pull with rebase: You have unstaged changes".
+          # Stage the blog directory AND the sitemap, which generate_sitemap.py
+          # writes to the repo root.
           git add blog/ sitemap.xml
-          
-          # Check if there are changes to commit
+
           if git diff --cached --quiet; then
             echo "No changes to commit"
             exit 0
           fi
-          
-          git commit -m "📝 Auto-publish blog: ${{ env.BLOG_TITLE }}"
-          
-          # Pull with rebase to handle any concurrent commits (e.g., inject workflow)
-          git pull --rebase origin main
-          
-          # Retry push up to 3 times in case of race conditions
-          for i in 1 2 3; do
-            if git push; then
-              echo "Push successful on attempt $i"
-              break
-            fi
-            echo "Push failed on attempt $i, retrying..."
-            sleep 5
-            git pull --rebase origin main
-          done
+
+          # BLOG_TITLE comes from model output, so it is only ever used as a
+          # quoted shell variable, never interpolated into the script.
+          BRANCH="blog-draft/${BLOG_FILENAME%.html}-${GITHUB_RUN_NUMBER}"
+          git switch -c "$BRANCH"
+          git commit -m "Blog draft: $BLOG_TITLE"
+          git push -u origin "$BRANCH"
+
+          {
+            echo "Draft written by the scheduled blog generator. It is not live until this is merged."
+            echo
+            echo "Before merging, check:"
+            echo "- every number, date and study against the linked source"
+            echo "- that no claim says a Premium feature is free"
+            echo "- the date in the post, if this sat for a few days"
+            echo
+            echo "Merging publishes https://www.steadiday.com/blog/$BLOG_FILENAME. The sitemap and search pings run on merge."
+            echo "A Buttondown email draft was also created. Send it only after the post is live."
+          } > "$RUNNER_TEMP/pr-body.md"
+
+          if ! PR_URL=$(gh pr create --base main --head "$BRANCH" \
+              --title "Blog draft: $BLOG_TITLE" --body-file "$RUNNER_TEMP/pr-body.md"); then
+            echo "::error::Could not open the pull request. If the message above says GitHub Actions is not permitted to create pull requests, turn on Settings > Actions > General > 'Allow GitHub Actions to create and approve pull requests'. The draft is on $BRANCH: https://github.com/$GITHUB_REPOSITORY/compare/main...$BRANCH"
+            exit 1
+          fi
+          echo "url=$PR_URL" >> "$GITHUB_OUTPUT"
+
+          # A pull request opened with GITHUB_TOKEN does not start
+          # pull_request workflows. workflow_dispatch is the exception, so
+          # start Site Checks on the branch directly; its results attach to
+          # the PR's head commit.
+          gh workflow run site-checks.yml --ref "$BRANCH" \
+            || echo "::warning::Could not start Site Checks on $BRANCH. Run it by hand from the Actions tab."
       - name: Send email notification
-        if: success()
+        if: success() && steps.pr.outputs.url != ''
         uses: dawidd6/action-send-mail@v3
         with:
           server_address: smtp.gmail.com
           server_port: 465
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: "📝 New SteadiDay Blog Published: ${{ env.BLOG_TITLE }}"
+          subject: "📝 SteadiDay blog draft ready for review: ${{ env.BLOG_TITLE }}"
           to: mehta.saawan@gmail.com
           from: SteadiDay Blog Bot <${{ secrets.EMAIL_USERNAME }}>
           body: |
-            A new blog post has been auto-published to steadiday.com!
-            
+            A new blog draft is waiting for review. It is not live yet.
+
             Title: ${{ env.BLOG_TITLE }}
             Date: ${{ env.BLOG_DATE }}
-            URL: https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
-            
-            The post is now live on your website.
-            
+            Review: ${{ steps.pr.outputs.url }}
+
+            Merging the pull request publishes it at
+            https://www.steadiday.com/blog/${{ env.BLOG_FILENAME }}
+
             A Buttondown email draft has been created for this post.
-            Review and send it at: https://buttondown.com/emails
-            
+            Send it only after the post is live: https://buttondown.com/emails
+
             ---
             This is an automated notification from your SteadiDay blog workflow.

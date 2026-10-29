@@ -4,17 +4,15 @@
 # whenever the site is updated (new blog posts, page changes, etc.)
 #
 # Triggers:
-#   - After the blog generator workflow completes
-#   - After any push to main that changes HTML files
+#   - After any push to main that changes HTML files, including merging a
+#     blog draft pull request
 #   - Manual trigger
+#
+# The blog generator no longer pushes to main; it opens a pull request.
+# Running when the generator finishes would only re-ping search engines
+# for a post that isn't live yet, so there is no workflow_run trigger.
 name: Update Sitemap & Index
 on:
-  # Trigger after blog generator completes — must match exact workflow name
-  workflow_run:
-    workflows: ["Generate Twice-Weekly Blog Post"]
-    types: [completed]
-    branches: [main]
-  
   # Trigger on direct HTML changes pushed to main
   push:
     branches: [main]
@@ -33,11 +31,6 @@ concurrency:
 jobs:
   update-sitemap:
     runs-on: ubuntu-latest
-    # Only run if the triggering workflow succeeded (or if triggered by push/manual)
-    if: >
-      github.event_name != 'workflow_run' || 
-      github.event.workflow_run.conclusion == 'success'
-    
     steps:
       - name: Checkout repo
         uses: actions/checkout@v4
