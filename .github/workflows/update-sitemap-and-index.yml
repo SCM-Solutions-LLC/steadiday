@@ -56,20 +56,24 @@ jobs:
           # Only commit if there are actual changes
           if git diff --cached --quiet; then
             echo "No sitemap changes to commit."
-          else
-            git commit -m "chore: auto-update sitemap.xml [skip ci]"
-            git pull --rebase origin main
-            for i in 1 2 3; do
-              if git push; then
-                echo "Push successful on attempt $i"
-                break
-              fi
-              echo "Push failed on attempt $i, retrying..."
-              sleep 5
-              git pull --rebase origin main
-            done
-            echo "Sitemap committed and pushed."
+            exit 0
           fi
+          git commit -m "chore: auto-update sitemap.xml [skip ci]"
+          for i in 1 2 3; do
+            if ! git pull --rebase origin "$GITHUB_REF_NAME"; then
+              git rebase --abort
+              echo "::error::Rebase onto $GITHUB_REF_NAME conflicted; re-run this workflow to regenerate the sitemap on the latest $GITHUB_REF_NAME."
+              exit 1
+            fi
+            if git push origin "HEAD:$GITHUB_REF_NAME"; then
+              echo "Sitemap committed and pushed on attempt $i."
+              exit 0
+            fi
+            echo "Push failed on attempt $i, retrying..."
+            sleep 5
+          done
+          echo "::error::Sitemap push failed after 3 attempts."
+          exit 1
       
       # ── Step 2: Submit sitemap to Google Search Console ──
       - name: Set up Node.js
