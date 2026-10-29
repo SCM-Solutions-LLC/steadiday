@@ -3,7 +3,7 @@
 
 Posts shipped in two generations:
 
-  brand look    Poppins headings, sage accent - matches the marketing site
+  brand look    brand heading font, sage accent - matches the marketing site
   editorial     Merriweather headings, teal #1A8A7D accent - a different hue
                 (173 deg vs the brand's 158 deg) and a different typeface
 
