@@ -6,7 +6,7 @@ What it does:
 1. Finds every .html file in the repo
 2. Injects the gtag.js base snippet after <head> (if not already present)
 3. Injects an App Store click conversion tracker before </body> (if not already present)
-4. Replaces any old placeholder conversion labels with the real one
+4. Replaces any old conversion labels with the current one
 
 Safe to run multiple times - skips files that already have the tags.
 """
@@ -19,11 +19,17 @@ import re
 
 GTAG_ID = "AW-17929124014"
 
-# The conversion event snippet from Google Ads
-CONVERSION_LABEL = "AW-17929124014/gtKACKzG_Y8cEK7xouVC"
+# The "App Store Click" conversion action in Google Ads (Primary, Outbound
+# clicks). generate_blog.py sends to the same label.
+CONVERSION_LABEL = "AW-17929124014/gDbcCLbkio4cEK7xouVC"
 
-# Old placeholder to find and replace in already-injected files
-OLD_PLACEHOLDER = "AW-17929124014/REPLACE_WITH_YOUR_CONVERSION_LABEL"
+# Old labels to find and replace in already-injected files: the original
+# placeholder, and the "Purchase" action's label, which non-blog pages used
+# by mistake (a Secondary action, so those clicks never reached campaign goals)
+OLD_LABELS = [
+    "AW-17929124014/REPLACE_WITH_YOUR_CONVERSION_LABEL",
+    "AW-17929124014/gtKACKzG_Y8cEK7xouVC",
+]
 
 GTAG_SNIPPET = f'''<!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id={GTAG_ID}"></script>
@@ -57,7 +63,9 @@ CONVERSION_SNIPPET = f'''<!-- Google Ads: App Store click conversion tracking --
 # --- Markers to detect existing injections ---
 
 GTAG_MARKER = f"googletagmanager.com/gtag/js?id={GTAG_ID}"
-CONVERSION_MARKER = "App Store click conversion tracking"
+# Blog posts carry generate_blog.py's own listener under the second marker;
+# adding ours as well would fire the conversion twice per click
+CONVERSION_MARKERS = ("App Store click conversion tracking", "GTAG_CONVERSION_INJECTED")
 
 # --- File discovery ---
 
@@ -98,13 +106,14 @@ def inject_into_file(filepath):
                 content = content[:insert_pos] + '\n' + GTAG_SNIPPET + content[insert_pos:]
                 modified = True
 
-    # 2. Replace placeholder conversion label if present
-    if OLD_PLACEHOLDER in content:
-        content = content.replace(OLD_PLACEHOLDER, CONVERSION_LABEL)
-        modified = True
+    # 2. Replace old conversion labels if present
+    for old_label in OLD_LABELS:
+        if old_label in content:
+            content = content.replace(old_label, CONVERSION_LABEL)
+            modified = True
 
     # 3. Inject conversion tracking before </body>
-    if CONVERSION_MARKER not in content:
+    if not any(marker in content for marker in CONVERSION_MARKERS):
         for tag in ['</body>', '</BODY>']:
             if tag in content:
                 content = content.replace(tag, CONVERSION_SNIPPET + '\n' + tag, 1)
