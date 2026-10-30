@@ -107,7 +107,12 @@ from datetime import datetime, timedelta
 from difflib import SequenceMatcher
 from slop_rules import find_slop, plain_text
 
-CLAUDE_MODEL = "claude-sonnet-4-6"
+CLAUDE_MODEL = "claude-sonnet-5-5"
+# Sonnet 4.6 ran these prompts with no thinking; low is the closest setting.
+# The post itself gets more room to think.
+EFFORT = "low"
+WRITING_EFFORT = "medium"
+WEB_SEARCH = {"type": "web_search_20260209", "name": "web_search"}
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
 APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
@@ -205,6 +210,35 @@ def call_with_retry(func, max_retries=7, base_delay=30):
                 time.sleep(delay)
             else:
                 raise
+
+
+def ask_claude(client, prompt, effort=EFFORT, web_search=False):
+    """Send one prompt and return the text of the reply.
+
+    Sonnet 5.5 thinks before it answers, so a reply can open with thinking
+    blocks: only text blocks are joined, and max_tokens leaves room for the
+    thinking (billing is for tokens used, not the cap). A web search that
+    reaches the server's step limit stops with pause_turn and is resumed.
+    A decline or a reply cut off at max_tokens raises rather than handing
+    back partial text. Server-side fallback retries cyber and frontier_llm
+    declines on another model; bio declines are not retried.
+    """
+    messages = [{"role": "user", "content": prompt}]
+    kwargs = dict(model=CLAUDE_MODEL, max_tokens=16000, output_config={"effort": effort},
+                  betas=["server-side-fallback-2026-07-01"], fallbacks="default", messages=messages)
+    if web_search:
+        kwargs["tools"] = [WEB_SEARCH]
+    for _ in range(4):
+        msg = call_with_retry(lambda: client.beta.messages.create(**kwargs))
+        if msg.stop_reason != "pause_turn":
+            break
+        messages.append({"role": "assistant", "content": msg.content})
+    if msg.stop_reason == "refusal":
+        category = msg.stop_details.category if msg.stop_details else None
+        raise RuntimeError(f"Model declined the request (category: {category})")
+    if msg.stop_reason == "max_tokens":
+        raise RuntimeError("Reply was cut off at max_tokens")
+    return "".join(b.text for b in msg.content if b.type == "text")
 
 
 def _index_categories(blog_dir="blog"):
@@ -378,8 +412,7 @@ Flag as DUPLICATE if the proposed post would:
 
 Reply with ONLY: UNIQUE or DUPLICATE OF: [existing title]"""
 
-    msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=200, messages=[{"role": "user", "content": prompt}]))
-    result = msg.content[0].text.strip()
+    result = ask_claude(client, prompt).strip()
     return (True, result) if result.startswith("DUPLICATE") else (False, "")
 
 
@@ -453,8 +486,7 @@ CATEGORY: [exactly one of: {"|".join(VALID_CATEGORIES)}]
 ANGLE: [what makes this timely — cite the specific source and date]
 SOURCE: [the news source, journal, or organization]"""
 
-    msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=1000, tools=[{"type": "web_search_20250305", "name": "web_search"}], messages=[{"role": "user", "content": prompt}]))
-    response_text = "".join(block.text for block in msg.content if hasattr(block, 'text'))
+    response_text = ask_claude(client, prompt, web_search=True)
     topic = re.search(r'TOPIC:\s*(.+?)(?:\n|$)', response_text)
     title = re.search(r'TITLE:\s*(.+?)(?:\n|$)', response_text)
     kw = re.search(r'KEYWORD:\s*(.+?)(?:\n|$)', response_text)
@@ -848,8 +880,7 @@ Requirements:
 Return ONLY a JSON array: [{{"url":"https://images.unsplash.com/photo-XXXXX?w=800&q=80","alt":"What this photo actually shows"}}]
 Or NONE if you cannot find good topic-specific matches."""
     try:
-        msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=1000, tools=[{"type":"web_search_20250305","name":"web_search"}], messages=[{"role":"user","content":prompt}]))
-        response_text = "".join(block.text for block in msg.content if hasattr(block,'text'))
+        response_text = ask_claude(client, prompt, web_search=True)
         if "NONE" in response_text: return None
         json_match = re.search(r'\[[\s\S]*?\]', response_text)
         if json_match:
@@ -892,11 +923,7 @@ Do NOT return generic yoga/nature/meditation unless the topic is literally about
 Format: https://images.unsplash.com/photo-XXXXX?w=1200&q=80
 Return ONLY the URL or NONE."""
     try:
-        msg = call_with_retry(lambda: client.messages.create(
-            model=CLAUDE_MODEL, max_tokens=500,
-            tools=[{"type":"web_search_20250305","name":"web_search"}],
-            messages=[{"role":"user","content":prompt}]))
-        response = "".join(b.text for b in msg.content if hasattr(b,'text'))
+        response = ask_claude(client, prompt, web_search=True)
         if "NONE" in response: return None
         m = re.search(r'https://images\.unsplash\.com/[^\s"\']+', response)
         url = m.group(0) if m else None
@@ -1001,8 +1028,7 @@ def find_youtube_video(client, topic, category):
 From reputable health channels (Mayo Clinic, Cleveland Clinic, AARP, etc.), under 15 min.
 Return ONLY: VIDEO_ID: [id]\nVIDEO_TITLE: [title]\nVIDEO_CHANNEL: [channel]\nOr: VIDEO_ID: NONE"""
     try:
-        msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=500, tools=[{"type":"web_search_20250305","name":"web_search"}], messages=[{"role":"user","content":prompt}]))
-        response_text = "".join(block.text for block in msg.content if hasattr(block,'text'))
+        response_text = ask_claude(client, prompt, web_search=True)
         vid_match = re.search(r'VIDEO_ID:\s*(\S+)', response_text)
         title_match = re.search(r'VIDEO_TITLE:\s*(.+?)(?:\n|$)', response_text)
         channel_match = re.search(r'VIDEO_CHANNEL:\s*(.+?)(?:\n|$)', response_text)
@@ -1055,12 +1081,7 @@ Return ONLY a JSON array with no other text:
 If you cannot find suitable sources, return: NONE"""
 
     try:
-        msg = call_with_retry(lambda: client.messages.create(
-            model=CLAUDE_MODEL, max_tokens=800,
-            tools=[{"type": "web_search_20250305", "name": "web_search"}],
-            messages=[{"role": "user", "content": prompt}]
-        ))
-        response_text = "".join(block.text for block in msg.content if hasattr(block, 'text'))
+        response_text = ask_claude(client, prompt, web_search=True)
         if "NONE" in response_text:
             return []
         json_match = re.search(r'\[[\s\S]*?\]', response_text)
@@ -1226,8 +1247,7 @@ TITLE: {title}
 META_DESCRIPTION: {meta}
 CONTENT:
 {content}"""
-        msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=6000, messages=[{"role": "user", "content": prompt}]))
-        r = msg.content[0].text
+        r = ask_claude(client, prompt)
         t = re.search(r'TITLE:\s*(.+?)(?:\n|$)', r)
         m = re.search(r'META_DESCRIPTION:\s*(.+?)(?:\n|$)', r)
         c = re.search(r'CONTENT:\s*(.+)', r, re.DOTALL)
@@ -1363,8 +1383,7 @@ CONTENT:
 <h2>Common Questions</h2>
 <h3>Question?</h3>
 <p>Answer.</p>"""
-    msg = call_with_retry(lambda: client.messages.create(model=CLAUDE_MODEL, max_tokens=4500, messages=[{"role":"user","content":prompt}]))
-    r = msg.content[0].text
+    r = ask_claude(client, prompt, effort=WRITING_EFFORT)
     title_match = re.search(r'TITLE:\s*(.+?)(?:\n|$)', r)
     title = title_match.group(1).strip() if title_match else topic
     meta = (re.search(r'META_DESCRIPTION:\s*(.+?)(?:\n|$)', r) or type('',(),{'group':lambda s,n:f"Tips about {topic} for adults 50+"})).group(1).strip()
