@@ -755,6 +755,16 @@ def _base_unsplash_url(url):
     return url.split('?')[0] if url else url
 
 
+# Inline photos are requested as fixed 3:2 crops so the <img> can carry exact
+# width/height and the article doesn't jump as lazy-loaded images arrive.
+INLINE_IMG_W, INLINE_IMG_H = 800, 533
+
+
+def _sized_inline_url(url):
+    """Return the Unsplash URL cropped server-side to INLINE_IMG_W x INLINE_IMG_H."""
+    return f"{_base_unsplash_url(url)}?w={INLINE_IMG_W}&h={INLINE_IMG_H}&fit=crop&crop=entropy&q=80"
+
+
 def get_recently_used_images(blog_dir="blog", n_recent=15):
     """Scan the N most recent post HTML files for Unsplash photo URLs.
     Returns a set of base URLs (query string stripped) so the next run
@@ -1350,7 +1360,7 @@ CONTENT:
     for i, img in enumerate(images["inline"]):
         layout_class = layout[i % len(layout)]
         css_class = "article-image" if layout_class == "full" else f"article-image {layout_class}"
-        content = content.replace(f"[IMAGE_{i+1}]", f'<figure class="{css_class}"><img src="{img["url"]}" alt="{img["alt"]}" loading="lazy"><figcaption>{img["alt"]}</figcaption></figure>')
+        content = content.replace(f"[IMAGE_{i+1}]", f'<figure class="{css_class}"><img src="{_sized_inline_url(img["url"])}" alt="{img["alt"]}" width="{INLINE_IMG_W}" height="{INLINE_IMG_H}" loading="lazy"><figcaption>{img["alt"]}</figcaption></figure>')
     if video:
         content = content.replace("[VIDEO]", f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>')
     content = re.sub(r'\[IMAGE_\d+\]','',content).replace("[VIDEO]",'')
