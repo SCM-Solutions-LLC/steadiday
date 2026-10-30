@@ -1407,7 +1407,7 @@ def get_html_template():
         .breadcrumbs {{ max-width: 900px; margin: 0 auto; padding: 1rem 2rem; font-size: 0.9rem; }}
         .breadcrumbs a {{ color: var(--charcoal-light); }} .breadcrumbs span {{ color: var(--charcoal-light); margin: 0 0.5rem; }}
         .breadcrumbs .current {{ color: var(--text-dark); font-weight: 500; }}
-        .hero-image {{ width: 100%; max-height: 450px; object-fit: cover; }}
+        .hero-image {{ width: 100%; aspect-ratio: 3 / 2; max-height: 450px; object-fit: cover; }}
         .article-header {{ background: var(--cream); color: var(--text-dark); padding: 3rem 2rem 2rem; text-align: center; border-bottom: 1px solid var(--cream-dark); }}
         .article-header h1 {{ max-width: 800px; margin: 0 auto 1rem; font-size: 2.25rem; color: var(--text-dark); }}
         .article-meta {{ font-size: 1rem; color: var(--charcoal-light); }}
