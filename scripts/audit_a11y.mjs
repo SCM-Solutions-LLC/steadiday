@@ -84,7 +84,13 @@ function findChromium(chromium) {
   for (const root of roots) {
     if (!existsSync(root)) continue;
     // Prefer headless_shell: it is smaller and this audit never needs a head.
-    for (const leaf of ["chrome-linux/headless_shell", "chrome-linux/chrome"]) {
+    // Newer Playwright builds use the *-linux64 layout.
+    for (const leaf of [
+      "chrome-linux/headless_shell",
+      "chrome-headless-shell-linux64/chrome-headless-shell",
+      "chrome-linux/chrome",
+      "chrome-linux64/chrome",
+    ]) {
       const hit = readdirSync(root)
         .filter((d) => d.startsWith("chromium"))
         .sort()
