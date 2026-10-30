@@ -1,4 +1,7 @@
-# GitHub Pages builds this site with Jekyll. promo-video/ is the Remotion
-# source for the app promo video, not part of the site, so keep it unpublished.
+# GitHub Pages builds this site with Jekyll. These are repo tooling and docs,
+# not part of the site, so keep them unpublished. promo-video/ is the Remotion
+# source for the app promo video.
 exclude:
   - promo-video/
+  - scripts/
+  - README.md
