@@ -46,9 +46,14 @@ SHARED_CSS = re.compile(
 
 
 def pages():
-    """Every page that links the shared stylesheet, which is all of them."""
+    """Every page that links the shared stylesheet, which is all of them.
+
+    404.html is left out: GitHub Pages serves it at any missing URL, so its
+    paths are root-absolute and the widget's relative links would break there.
+    """
     found = sorted(ROOT.glob("*.html")) + sorted((ROOT / "blog").glob("*.html"))
-    return [p for p in found if "steadiday-shared.css" in p.read_text(encoding="utf-8")]
+    return [p for p in found if p.name != "404.html"
+            and "steadiday-shared.css" in p.read_text(encoding="utf-8")]
 
 
 def add_stylesheet(html):
