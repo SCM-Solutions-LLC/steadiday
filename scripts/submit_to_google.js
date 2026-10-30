@@ -26,6 +26,7 @@ async function main() {
     if (!keyBase64) {
         console.error('❌ GOOGLE_SEARCH_CONSOLE_JSON_KEY environment variable not set.');
         console.error('   Skipping Google Search Console submission.');
+        console.log('::warning title=Google sitemap submission skipped::GOOGLE_SEARCH_CONSOLE_JSON_KEY is not set.');
         process.exit(0); // Exit gracefully so the workflow continues
     }
 
@@ -63,7 +64,9 @@ async function main() {
             console.error('   Status:', e.response.status);
             console.error('   Data:', JSON.stringify(e.response.data, null, 2));
         }
-        // Don't fail the workflow — log and continue
+        // Don't fail the workflow (IndexNow still runs), but flag it on the run summary
+        const status = e.response ? ` (HTTP ${e.response.status})` : '';
+        console.log(`::warning title=Google sitemap submission failed${status}::${e.message.replace(/%/g, '%25').replace(/\r/g, '%0D').replace(/\n/g, '%0A')}`);
         process.exit(0);
     }
 
