@@ -207,10 +207,29 @@ def call_with_retry(func, max_retries=7, base_delay=30):
                 raise
 
 
+def _index_categories(blog_dir="blog"):
+    """Map post filename -> category from the blog index cards. Posts do not
+    carry their category in their own HTML; the index is the only place it
+    survives after publish."""
+    try:
+        with open(os.path.join(blog_dir, "index.html"), 'r', encoding='utf-8') as f:
+            index = f.read()
+    except OSError:
+        return {}
+    cats = {}
+    for card in re.findall(r'<article class="blog-card[^"]*">.*?</article>', index, re.DOTALL):
+        href = re.search(r'href="([^"]+\.html)"', card)
+        tag = re.search(r'class="blog-card-tag">([^<]+)<', card)
+        if href and tag:
+            cats[href.group(1).strip()] = tag.group(1).strip()
+    return cats
+
+
 def get_existing_posts(blog_dir="blog"):
     existing = []
     if not os.path.exists(blog_dir):
         return existing
+    categories = _index_categories(blog_dir)
     for filepath in glob.glob(os.path.join(blog_dir, "*.html")):
         filename = os.path.basename(filepath)
         if filename == "index.html":
@@ -220,14 +239,16 @@ def get_existing_posts(blog_dir="blog"):
                 continue
         except OSError:
             pass
-        title = category = meta_desc = date_str = ""
+        title = meta_desc = date_str = ""
+        category = categories.get(filename, "")
         try:
             with open(filepath, 'r', encoding='utf-8') as f:
-                content = f.read(8000)
+                # Whole file: the <h1> now sits 9-12 KB in, past the 8 KB this
+                # used to read, so every title came back empty and the
+                # duplicate checks and related posts had nothing to work with.
+                content = f.read()
                 m = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL)
                 if m: title = re.sub(r'<[^>]+>', '', m.group(1)).strip()
-                cat_m = re.search(r'class="blog-card-tag">([^<]+)<', content)
-                if cat_m: category = cat_m.group(1).strip()
                 desc_m = re.search(r'<meta\s+name="description"\s+content="([^"]*)"', content)
                 if desc_m: meta_desc = desc_m.group(1).strip()
         except Exception:
@@ -282,7 +303,11 @@ def _days_between(date_str_a, date_str_b):
     return abs((a - b).days)
 
 
-def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.55, threshold_slug=0.65):
+def is_duplicate(new_title, new_slug, existing_posts, threshold_title=0.75, threshold_slug=0.65):
+    # threshold_title: distinct published posts reach 0.69 on shared phrasing
+    # ("Driving Safety for Seniors: 5 Things We Wish We'd Known" vs the
+    # semaglutide one), so 0.55 blocked 7 of 56 real posts. Rewordings of one
+    # story score 0.79 and up; paraphrases are left to the semantic check.
     ntl, nsl = normalize_text(new_title), normalize_text(new_slug)
     today_str = datetime.now().strftime('%Y-%m-%d')
     for post in existing_posts:
@@ -334,7 +359,7 @@ def check_semantic_duplicate(client, new_title, existing_posts):
     existing_info = [p['title'] + (f" — {p['meta_desc']}" if p.get('meta_desc') else "") for p in existing_posts if p['title']]
     if not existing_info:
         return False, ""
-    posts_list = "\n".join([f"- {info}" for info in existing_info[:25]])
+    posts_list = "\n".join([f"- {info}" for info in existing_info])
     prompt = f"""You are a blog content deduplication checker. Be STRICT about catching thematic overlap.
 
 PROPOSED NEW POST TITLE: "{new_title}"
@@ -367,10 +392,18 @@ def get_content_summaries(existing_posts, limit=15):
     return "\n".join(summaries) if summaries else "None yet."
 
 
-def generate_news_driven_topic(client, existing_posts, excluded_categories=None):
+def generate_news_driven_topic(client, existing_posts, excluded_categories=None, rejected=None):
     content_summaries = get_content_summaries(existing_posts)
+    # The summaries cover only the newest posts. Older titles are listed too,
+    # because news repeats: run 91 picked the mRNA flu vaccine story three
+    # times, which a June post had already covered.
+    older = [p['title'] for p in existing_posts[15:] if p['title']]
+    if older:
+        content_summaries += "\nOLDER POSTS (titles only, also do NOT duplicate):\n" + "\n".join(f"- {t}" for t in older)
     month, year = datetime.now().strftime('%B'), datetime.now().strftime('%Y')
     category_note = f"\nDO NOT use these categories (used recently): {', '.join(excluded_categories)}" if excluded_categories else ""
+    if rejected:
+        category_note += "\nALREADY REJECTED AS DUPLICATES THIS RUN (find a different story, not a new angle on these):\n" + "\n".join(f"- {t} ({why})" for t, why in rejected)
 
     forbidden = get_recent_theme_keywords(existing_posts)
     if forbidden:
@@ -1518,17 +1551,19 @@ def generate_rss_feed(blog_dir="blog"):
     rss_path = os.path.join(blog_dir,"rss.xml")
     if not os.path.exists(blog_dir): print(f"  Warning: {blog_dir} not found."); return
     posts = []
+    # Dated posts only. An undated page (the app comparison) sorts above every
+    # date in reverse order, so it sat at the top of the feed with no pubDate.
     for fname in sorted(os.listdir(blog_dir),reverse=True):
-        if fname.endswith('.html') and fname != 'index.html':
+        if fname.endswith('.html') and re.match(r'\d{4}-\d{2}-\d{2}-', fname):
             filepath = os.path.join(blog_dir,fname)
             try:
                 if os.path.getsize(filepath) < 1024: continue
             except OSError: continue
             try:
-                with open(filepath,'r',encoding='utf-8') as f: content = f.read(5000)
+                with open(filepath,'r',encoding='utf-8') as f: content = f.read()
             except: continue
-            title_match = re.search(r'<title>(.*?)\s*\|', content)
-            title = title_match.group(1).strip() if title_match else fname
+            title_match = re.search(r'<h1[^>]*>(.*?)</h1>', content, re.DOTALL)
+            title = re.sub(r'<[^>]+>', '', title_match.group(1)).strip() if title_match else fname
             desc_match = re.search(r'<meta\s+name="description"\s+content="(.*?)"', content)
             description = desc_match.group(1) if desc_match else ""
             date_match = re.match(r'(\d{4}-\d{2}-\d{2})', fname)
@@ -1615,6 +1650,30 @@ def _check_duplicate(client, title, slug, existing_posts):
     sem_dup,sem_reason = check_semantic_duplicate(client,title,existing_posts)
     return (True,sem_reason) if sem_dup else (False,"")
 
+def _slug_for(title):
+    return '-'.join(re.sub(r'[^a-z0-9\s]','',title.lower()).split()[:5])
+
+MAX_TOPIC_ATTEMPTS = 4
+
+def pick_news_topic(client, existing_posts, excluded_cats, rejected):
+    """Ask for news topics until one passes the duplicate checks.
+
+    The checks run on the suggested title, before images, video, studies and
+    the post itself are fetched and written. Run 91 only checked finished
+    posts, so it wrote three full posts on one story and then failed.
+    Rejected titles are appended to `rejected` and shown to the next search.
+    """
+    for attempt in range(1, MAX_TOPIC_ATTEMPTS + 1):
+        td = generate_news_driven_topic(client,existing_posts,excluded_categories=excluded_cats,rejected=rejected)
+        title = td['suggested_title'] or td['topic']
+        dup,reason = _check_duplicate(client,title,_slug_for(title),existing_posts)
+        if not dup:
+            print(f"  Topic: {td['topic']}\n  Category: {td['category']}")
+            return td
+        print(f"  Topic rejected (attempt {attempt}/{MAX_TOPIC_ATTEMPTS}): {title!r}: {reason}")
+        rejected.append((title,reason))
+    return None
+
 def main():
     topic_override = None; use_news = False
     if len(sys.argv) > 1:
@@ -1644,40 +1703,39 @@ def main():
 
     client = anthropic.Anthropic()
     excluded_cats = list(set(get_recent_categories(existing)))
+    rejected = []
 
     if topic_override:
         print(f"Custom topic: {topic_override}")
         td = {"topic":topic_override,"keyword":topic_override.lower(),"category":"Wellness"}
     elif use_news:
         print("Generating news-driven topic...")
-        td = generate_news_driven_topic(client,existing,excluded_categories=excluded_cats)
-        print(f"  Topic: {td['topic']}\n  Category: {td['category']}")
+        td = pick_news_topic(client,existing,excluded_cats,rejected)
     else:
         print("Selecting from topic pool...")
         td = select_unique_topic(existing)
         if td is None:
             print("All pool topics used! Switching to news-driven...")
-            td = generate_news_driven_topic(client,existing,excluded_categories=excluded_cats)
+            td = pick_news_topic(client,existing,excluded_cats,rejected)
         else: print(f"  Selected: {td['topic']}\n  Category: {td['category']}")
 
-    print("\nGenerating content...")
-    post = generate_blog_post(td,existing,client)
-    slug = '-'.join(re.sub(r'[^a-z0-9\s]','',post['title'].lower()).split()[:5])
-    dup,reason = _check_duplicate(client,post['title'],slug,existing)
-
-    if dup:
-        print(f"  Duplicate (attempt 1): {reason}\n  Retrying news-driven...")
-        td = generate_news_driven_topic(client,existing,excluded_categories=excluded_cats)
+    # The finished title can still land on a covered subject, so the post is
+    # checked again. A duplicate gets one more post on a fresh news topic.
+    MAX_POSTS = 2
+    for attempt in range(1, MAX_POSTS + 1):
+        if td is None:
+            print(f"  No unique news topic in {MAX_TOPIC_ATTEMPTS} searches"); sys.exit(1)
+        print("\nGenerating content...")
         post = generate_blog_post(td,existing,client)
-        slug = '-'.join(re.sub(r'[^a-z0-9\s]','',post['title'].lower()).split()[:5])
-        dup,reason = _check_duplicate(client,post['title'],slug,existing)
-    if dup:
-        print(f"  Duplicate (attempt 2): {reason}\n  Forcing different category...")
-        td = generate_news_driven_topic(client,existing,excluded_categories=list(set(excluded_cats+[td.get('category','')])))
-        post = generate_blog_post(td,existing,client)
-        slug = '-'.join(re.sub(r'[^a-z0-9\s]','',post['title'].lower()).split()[:5])
-        dup,reason = _check_duplicate(client,post['title'],slug,existing)
-    if dup: print(f"  Still duplicate after 3 attempts: {reason}"); sys.exit(1)
+        dup,reason = _check_duplicate(client,post['title'],_slug_for(post['title']),existing)
+        if not dup: break
+        print(f"  Duplicate post (attempt {attempt}/{MAX_POSTS}): {reason}")
+        rejected.append((post['title'],reason))
+        if attempt < MAX_POSTS:
+            print("  Retrying news-driven...")
+            td = pick_news_topic(client,existing,excluded_cats,rejected)
+    else:
+        print(f"  Still duplicate after {MAX_POSTS} posts: {reason}"); sys.exit(1)
 
     print(f"\n  Title: {post['title']} ({len(post['title'])} chars)\n  Category: {post['category']}\n  Duplicate check: PASS")
     html, fn = create_blog_html(post)
