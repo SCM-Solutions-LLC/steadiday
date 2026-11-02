@@ -2,9 +2,9 @@ name: Generate Twice-Weekly Blog Post
 on:
   schedule:
     # Monday: news-driven topic (timely, current events)
-    - cron: '0 9 * * 1'
+    - cron: '17 9 * * 1'
     # Thursday: topic pool (evergreen content)
-    - cron: '0 9 * * 4'
+    - cron: '17 9 * * 4'
   workflow_dispatch:
     inputs:
       topic_override:
