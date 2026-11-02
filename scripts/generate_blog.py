@@ -413,7 +413,25 @@ Flag as DUPLICATE if the proposed post would:
 Reply with ONLY: UNIQUE or DUPLICATE OF: [existing title]"""
 
     result = ask_claude(client, prompt).strip()
-    return (True, result) if result.startswith("DUPLICATE") else (False, "")
+    return parse_semantic_verdict(result)
+
+
+def parse_semantic_verdict(reply):
+    """Turn the model's dedup reply into (is_duplicate, reason). Fails closed.
+
+    Only a reply that starts with UNIQUE (ignoring case and leading markdown
+    or quotes) and never mentions DUPLICATE passes. Anything else, including
+    an empty or reworded reply, counts as a duplicate, so a format change in
+    the model's output cannot silently let a repeat topic through. The raw
+    reply is printed every time so a PASS in the log shows what it rested on.
+    """
+    print(f"  Model duplicate check: {reply[:200]!r}")
+    norm = re.sub(r'^[^A-Za-z]+', '', reply).upper()
+    if norm.startswith("UNIQUE") and "DUPLICATE" not in norm:
+        return False, ""
+    if norm.startswith("DUPLICATE"):
+        return True, reply
+    return True, f"Unrecognized duplicate-check reply (treated as duplicate): {reply[:200]!r}"
 
 
 def get_recent_categories(existing_posts, window=CATEGORY_COOLDOWN_WINDOW):
