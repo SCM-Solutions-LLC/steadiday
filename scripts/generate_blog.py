@@ -104,6 +104,7 @@ import anthropic
 from anthropic import APIStatusError
 import random, re, os, sys, glob, json, time, urllib.request, subprocess
 from datetime import datetime, timedelta
+from collections import Counter
 from difflib import SequenceMatcher
 from slop_rules import find_slop, plain_text
 
@@ -126,6 +127,16 @@ APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
 # footer block. 3 is enough to spread internal-link weight without
 # crowding the CTA.
 RELATED_POSTS_COUNT = 3
+# A post counts as on-topic for the related block when its title and
+# description share at least RELATED_MIN_SHARED_WORDS words with the new
+# post's, not counting words found in more than RELATED_COMMON_WORD_SHARE of
+# all posts. Category alone can't find these: the norovirus post is
+# Preventive Care, but the cyclosporiasis post is tagged Wellness. The
+# common-word cut matters more than the count: descriptions share template
+# words ("learn" is in 38 of 58, "new", "risk", "2026", "study" in 10+), and
+# without the cut a heart-guidelines post matched an Alzheimer's post on them.
+RELATED_MIN_SHARED_WORDS = 3
+RELATED_COMMON_WORD_SHARE = 0.08
 CATEGORY_COOLDOWN_WINDOW = 4
 # Posts within this many days are treated as "recent" for thematic dedup.
 # Any 2+ distinctive-keyword overlap with a recent post is a duplicate,
@@ -823,7 +834,9 @@ _RELATED_CATEGORIES = {
     "Relationships": ["Mental Wellness","Wellness","Healthy Aging"],
     "Women's Health": ["Nutrition","Exercise","Preventive Care","Wellness"],
     "Men's Health": ["Exercise","Heart Health","Preventive Care","Wellness"],
-    "Preventive Care": ["Healthy Aging","Medication Tips","Women's Health","Men's Health"],
+    # Not Women's/Men's Health: those lists fill with the newest post for one
+    # sex (a norovirus post got "Key Nutrients Women Over 50").
+    "Preventive Care": ["Healthy Aging","Chronic Conditions","Medication Tips"],
 }
 
 # Unified image-dedup set, populated from recent post HTML on startup
@@ -1178,15 +1191,51 @@ def _json_escape(s):
     return re.sub(r'\s+', ' ', s).strip()
 
 
-def pick_related_posts(category, existing_posts, current_filename=None, n=RELATED_POSTS_COUNT):
+def pick_related_posts(category, existing_posts, current_filename=None, n=RELATED_POSTS_COUNT,
+                       title="", description=""):
     """Choose up to n related posts for the footer block. Preference order:
-    same category, then categories from _RELATED_CATEGORIES, then recency.
+    posts sharing at least RELATED_MIN_SHARED_WORDS title/description words
+    with this one, ignoring words common across the blog (most shared first, then same category, then related
+    category), then same category, then categories from _RELATED_CATEGORIES,
+    then recency. Without a title or description the topic step is skipped.
     Excludes the current post and any post missing a title."""
     candidates = [
         p for p in existing_posts
         if p.get('title') and p.get('filename') != current_filename
     ]
     seen, ordered = set(), []
+    related_cats = set(_RELATED_CATEGORIES.get(category, []))
+
+    words = get_content_words(f"{title} {description}")
+    if words and candidates:
+        def category_rank(p):
+            if p.get('category') == category:
+                return 0
+            return 1 if p.get('category') in related_cats else 2
+
+        post_words = {
+            p['filename']: get_content_words(f"{p['title']} {p.get('meta_desc', '')}")
+            for p in candidates
+        }
+        # Count this post too, so a word in 5 posts counts as 5 here as well.
+        counts = Counter(w for ws in post_words.values() for w in ws)
+        counts.update(words)
+        # Floor of 4 so a young blog doesn't discard every word.
+        limit = max(4, (len(candidates) + 1) * RELATED_COMMON_WORD_SHARE)
+        words -= {w for w, c in counts.items() if c > limit}
+
+        scored = []
+        for p in candidates:
+            shared = len(words & post_words[p['filename']])
+            if shared >= RELATED_MIN_SHARED_WORDS:
+                scored.append((shared, p))
+        # Stable sort, so equal scores keep the newest-first input order.
+        scored.sort(key=lambda sp: (-sp[0], category_rank(sp[1])))
+        for _, p in scored[:n]:
+            seen.add(p['filename'])
+            ordered.append(p)
+        if len(ordered) >= n:
+            return ordered
 
     def take_from(cat_list):
         for p in candidates:
@@ -1201,8 +1250,7 @@ def pick_related_posts(category, existing_posts, current_filename=None, n=RELATE
 
     if take_from({category}):
         return ordered[:n]
-    related_cats = _RELATED_CATEGORIES.get(category, [])
-    if related_cats and take_from(set(related_cats)):
+    if related_cats and take_from(related_cats):
         return ordered[:n]
     # Final fallback: most recent, regardless of category. Posts already
     # arrive sorted by date desc from get_existing_posts().
@@ -1440,7 +1488,8 @@ CONTENT:
         print(f"  📋 Extracted {len(faqs)} FAQ pairs for FAQPage schema")
     else:
         print("  ⚠ No FAQ pairs found in content — FAQPage schema will be omitted")
-    related = pick_related_posts(category, existing_posts, current_filename=None)
+    related = pick_related_posts(category, existing_posts, current_filename=None,
+                                 title=title, description=meta)
     if related:
         print(f"  🔗 Related posts: {', '.join(p['filename'] for p in related)}")
     return {"title":title,"meta_description":meta,"keywords":kws,"read_time":rt,"content":content,"slug":slug,"category":category,"hero_image":images["hero"],"video":video,"num_images":num_images,"date":datetime.now().strftime('%Y-%m-%d'),"faqs":faqs,"related_posts":related}

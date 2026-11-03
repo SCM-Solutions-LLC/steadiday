@@ -51,7 +51,7 @@ FAQ_MARKER = '"@type":"FAQPage"'
 
 
 def parse_index_categories(index_path: Path) -> dict[str, dict[str, str]]:
-    """Return {filename: {"title": ..., "category": ...}} pulled from the
+    """Return {filename: {"title": ..., "category": ..., "description": ...}} pulled from the
     blog index cards. The index is the only place category survives after
     publish, so it's the source of truth for backfilling related-posts."""
     if not index_path.exists():
@@ -67,12 +67,14 @@ def parse_index_categories(index_path: Path) -> dict[str, dict[str, str]]:
         href_m = re.search(r'href="([^"]+\.html)"', card)
         tag_m = re.search(r'class="blog-card-tag">([^<]+)</span>', card)
         title_m = re.search(r'<h2><a [^>]+>([^<]+)</a></h2>', card)
+        desc_m = re.search(r'class="blog-excerpt">([^<]*)</p>', card)
         if not href_m:
             continue
         fname = href_m.group(1).strip()
         out[fname] = {
             "title": title_m.group(1).strip() if title_m else "",
             "category": tag_m.group(1).strip() if tag_m else "",
+            "description": desc_m.group(1).strip() if desc_m else "",
         }
     return out
 
@@ -207,6 +209,7 @@ def collect_existing_posts(index_map: dict) -> list[dict]:
             "filename": fname,
             "title": meta.get("title", ""),
             "category": meta.get("category", ""),
+            "meta_desc": meta.get("description", ""),
             "slug": re.sub(r'^\d{4}-\d{2}-\d{2}-', '', fname.replace('.html', '')),
             "date": date_m.group(1) if date_m else "",
         })
@@ -238,9 +241,11 @@ def process_file(path: Path, index_map: dict, existing_posts: list[dict]) -> dic
 
     if RELATED_MARKER not in content:
         content = add_related_css(content)
-        category = index_map.get(path.name, {}).get("category", "")
+        card = index_map.get(path.name, {})
         related = pick_related_posts(
-            category, existing_posts, current_filename=path.name, n=RELATED_POSTS_COUNT,
+            card.get("category", ""), existing_posts, current_filename=path.name,
+            n=RELATED_POSTS_COUNT, title=card.get("title", ""),
+            description=card.get("description", ""),
         )
         related_html = render_related_posts_block(related)
         new_content = inject_related_posts(content, related_html)
