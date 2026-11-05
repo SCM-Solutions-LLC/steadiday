@@ -111,7 +111,7 @@ export const Wellness: React.FC = () => {
         >
           <Img
             name="Share Activity screenshot"
-            src={staticFile("screenshot-03-family-link.png")}
+            src={staticFile("screenshot-03-share-activity.png")}
             style={{
               height: 600,
               borderRadius: 36,

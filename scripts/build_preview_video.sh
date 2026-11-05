@@ -16,7 +16,7 @@ SLIDES=(
   assets/screenshot-01-simple-home.png
   assets/screenshot-02-medicines.png
   assets/screenshot-07-fall-detection.png
-  assets/screenshot-03-family-link.png
+  assets/screenshot-03-share-activity.png
   assets/screenshot-04-steady-moves.png
   assets/screenshot-05-sos.png
   assets/screenshot-06-premium.png
