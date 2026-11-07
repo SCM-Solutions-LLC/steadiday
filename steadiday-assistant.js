@@ -33,7 +33,7 @@
         {
             q: 'What do I get with Premium?',
             keys: ['premium', 'paid', 'upgrade', 'unlimited', 'full version', 'whats included', 'features included'],
-            a: 'Premium adds unlimited medications and trusted contacts, Family Link caregiver sharing, Apple Health sync, Steady Moves exercises, food and water tracking, calendar sync, Mind Breaks, the helpful tools (magnifier, flashlight, notes, Find My Car), backup and restore, ready-made task ideas, and home screen customisation.',
+            a: 'Premium adds unlimited medications and trusted contacts, Share Activity (a private caregiver page), Apple Health sync, Steady Moves exercises, food and water tracking, calendar sync, Mind Breaks, the helpful tools (magnifier, flashlight, notes, Find My Car), backup and restore, ready-made task ideas, and home screen customisation.',
             link: 'pricing.html',
             linkText: 'See the full feature comparison'
         },
@@ -54,14 +54,14 @@
         {
             q: 'Why are the safety features free?',
             keys: ['why free', 'free forever', 'catch', 'really free', 'how is it free', 'make money'],
-            a: 'Everyone deserves access to emergency safety tools regardless of budget, so the SOS button, fall detection, medication reminders and daily check-ins will always be free. Premium features like unlimited medications, Family Link sharing and health tracking fund ongoing development.',
+            a: 'Everyone deserves access to emergency safety tools regardless of budget, so the SOS button, fall detection, medication reminders and daily check-ins will always be free. Premium features like unlimited medications, Share Activity and health tracking fund ongoing development.',
             link: 'index.html#faq',
             linkText: 'Read the FAQ'
         },
         {
             q: 'Does my parent need to create an account?',
             keys: ['account', 'sign up', 'signup', 'register', 'login', 'log in', 'sign in', 'email required'],
-            a: 'Not to use the app. They can add medicines, set reminders, use Simple Mode, press SOS to call 911 and call a trusted contact without signing up. A free account switches on the features that reach other people: the automatic alert texts sent when a fall is detected or SOS is pressed, the live-location link, and Family Link. It costs nothing, takes about a minute, and is how we confirm an alert is coming from a real phone and not a stranger.',
+            a: 'Not to use the app. They can add medicines, set reminders, use Simple Mode, press SOS to call 911 and call a trusted contact without signing up. A free account switches on the features that reach other people: the automatic alert texts sent when a fall is detected or SOS is pressed, the live-location link, and Share Activity. It costs nothing, takes about a minute, and is how we confirm an alert is coming from a real phone and not a stranger.',
             link: 'index.html#faq',
             linkText: 'Read the FAQ'
         },
@@ -89,16 +89,16 @@
         {
             q: 'How do medication reminders work?',
             keys: ['medication', 'medicine', 'meds', 'pill', 'prescription', 'dose', 'reminder', 'remind', 'scan label', 'adherence'],
-            a: 'Add medications by scanning the label or typing the name, set reminder times, and get gentle notifications. You can track adherence over time and share it with a caregiver through Family Link. Free covers up to 5 medications and 7 reminders; Premium removes both limits.',
+            a: 'Add medications by scanning the label or typing the name, set reminder times, and get gentle notifications. You can track adherence over time and share it with a caregiver through Share Activity. Free covers up to 5 medications and 7 reminders; Premium removes both limits.',
             link: 'index.html#features',
             linkText: 'See medication reminders'
         },
         {
-            q: 'What is Family Link?',
-            keys: ['family link', 'caregiver', 'care summary', 'share', 'sharing', 'adult child', 'son', 'daughter', 'check on', 'monitor parent', 'can i see', 'keep an eye', 'see my mom', 'see my dad', 'see my parent', 'see their medication', 'remotely', 'from my phone'],
-            a: 'Family Link shares a private Care Summary with a caregiver: the week’s medication streak, today’s medicines and reminders, the daily check-in and step count at a glance. There is no app to install and no account to set up on the caregiver’s side — it is a simple, private web link that can be turned off at any time. Family Link is a Premium feature.',
+            q: 'What is Share Activity?',
+            keys: ['share activity', 'family link', 'caregiver', 'care summary', 'share', 'sharing', 'adult child', 'son', 'daughter', 'check on', 'monitor parent', 'can i see', 'keep an eye', 'see my mom', 'see my dad', 'see my parent', 'see their medication', 'remotely', 'from my phone'],
+            a: 'Share Activity sends a caregiver a private Care Summary link: the week’s medication streak, today’s medicines and reminders, the daily check-in and step count at a glance. There is no app to install and no account to set up on the caregiver’s side — it is a simple, private web link that can be turned off at any time. Share Activity is a Premium feature.',
             link: 'index.html#features',
-            linkText: 'See how Family Link works'
+            linkText: 'See how Share Activity works'
         },
         {
             q: 'What can I see as a trusted contact?',
@@ -494,7 +494,7 @@
             announce('This assistant answers questions about the app only. Health questions are better for a doctor.');
         } else {
             body.appendChild(noticeCard('No answer for that one', [
-                'Nothing in here matched that. Try asking about pricing, the free plan, Emergency SOS, fall detection, medication reminders, Family Link, Simple Mode, privacy or setup — or email ',
+                'Nothing in here matched that. Try asking about pricing, the free plan, Emergency SOS, fall detection, medication reminders, Share Activity, Simple Mode, privacy or setup — or email ',
                 { href: 'mailto:' + SUPPORT, text: SUPPORT },
                 ' and a real person will reply.'
             ]));

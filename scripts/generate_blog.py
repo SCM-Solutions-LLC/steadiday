@@ -1576,12 +1576,12 @@ def get_html_template():
     <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div></header>
     <article class="article-container"><div class="article-content">
         {content}
-        <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds Family Link, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
+        <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds Share Activity, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
     </div></article>
     {related_posts_block}
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
     </main>
-    <footer class="footer"><p>&copy; {year} SCM Solutions LLC. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p></footer>
+    <footer class="footer"><p>&copy; {year} SCM Solutions LLC. SteadiDay&trade; is a trademark of SCM Solutions LLC. | <a href="{website_url}">Home</a> | <a href="{website_url}/privacy.html">Privacy</a> | <a href="{website_url}/terms.html">Terms</a></p></footer>
 <!-- GTAG_CONVERSION_INJECTED -->
 <script>document.addEventListener('DOMContentLoaded',function(){{document.querySelectorAll('a[href*="apps.apple.com"]').forEach(function(link){{link.addEventListener('click',function(){{gtag('event','conversion',{{'send_to':'AW-17929124014/gDbcCLbkio4cEK7xouVC','value':1.0,'currency':'USD'}});}});}});}});</script>
 <script src="../steadiday-assistant.js" defer></script>

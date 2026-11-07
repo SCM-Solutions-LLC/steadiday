@@ -87,7 +87,7 @@ COUNT = r"(\d+|" + "|".join(WORD_NUMBERS) + r")"
 # card; main() fails loudly otherwise, so a feature that moves to Free cannot
 # go on failing good copy. Same rule as FREE_CAPS: short and literal.
 PREMIUM_ONLY = [
-    ("Family Link", r"family\s+link|caregiver\s+sharing"),
+    ("Share Activity", r"share\s+activity|family\s+link|caregiver\s+(?:sharing|page)"),
     ("Apple Health", r"apple\s+health|health\s+tracking"),
     ("Steady Moves", r"steady\s+moves|balance\s+exercises?"),
     ("food and water tracking", r"food\s+(?:and|&)\s+water"),
@@ -153,7 +153,7 @@ def head_descriptions(head):
     """Every description a page gives of itself in head_copy() output: meta
     description, og:description, twitter:description and each JSON-LD
     "description". FAQ answers are left out: "a free account is needed for
-    Family Link" is true, and an answer is not where a search result gets
+    Share Activity" is true, and an answer is not where a search result gets
     its one-line summary of the app.
     """
     found = [unescape(c) for c in re.findall(
