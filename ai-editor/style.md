@@ -2,7 +2,7 @@
 
 Claude reads this before every edit. Edit it freely: it is your taste, written down.
 
-Seeded from one reference (a 9:16 "1-minute setup" explainer reel, 88s). One
+Originally seeded from one reference (a 9:16 "1-minute setup" explainer reel, 88s). One
 reference is a thin sample. Add 2–4 reels you like to `references/` and run
 Prompt 2 again to refine this file.
 
@@ -11,20 +11,23 @@ Prompt 2 again to refine this file.
 - Length 45–90s. One idea per video.
 
 ## Structure
-1. **Hook (0–3s):** a bold promise on screen in the first frame ("1:00 — the whole setup"). No intro, no logo.
-2. **Numbered steps:** each beat gets a pill tag top-left, e.g. `01 · App`, `02 · Folder`. Steps are short, under 8s each.
-3. **Payoff:** a recap card listing every step as a checklist.
-4. **CTA:** one line ("Follow — next up: …"), then end. No long outro.
+No talking head. Videos are stock footage + AI voiceover (ElevenLabs) + music, built in `promo-video/` (composition `StockPromo`).
+1. **Hook (0–5s):** an emotional line over a confident, positive senior shot. No intro, no logo.
+2. **Feature beats (5–8s each):** stock footage that matches the line, with the real app screenshot sliding in on top.
+3. **End card (~7s):** brand green, app icon, "SteadiDay. Peace of mind, every day.", App Store badge. No long outro.
 
-## Layout (top to bottom)
-- **Top 55%:** a graphic panel (dark UI card, app screenshot, list, folder diagram) illustrating what's being said *right now*.
-- **Middle:** captions.
-- **Bottom 30%:** the speaker in a rounded-corner card (radius ~24px, subtle shadow), centred, about 45% of the frame width. Never full-screen except the first 1–2s.
+## Layout (9:16)
+- **Full bleed:** Pexels stock clip (`promo-video/public/stock/`), muted, cover-fit.
+- **Upper 60%:** app screenshot card (white border, 48px radius, soft shadow), slow 4% push-in.
+- **Bottom:** caption over a dark gradient scrim.
 
 ## Captions
-- Serif display face, large (~64px at 1080w), one short phrase at a time (2–5 words).
-- Karaoke style: spoken words white, **the current word in brand green and italic**, upcoming words dim gray.
-- Captions come from Whisper word timestamps and must match the speech exactly. Fix misheard brand words: "SteadiDay" (not "Steady Day").
+- Poppins Bold ~68px at 1080w, white with a soft shadow, max two short lines, centred.
+- Words match the voiceover script exactly. Brand word is always "SteadiDay" (not "Steady Day").
+
+## Stock footage (Pexels)
+- Positive framing only: active, confident seniors and connected families. **Never show a fall, injury or distress**: Pexels' license forbids showing identifiable people in a bad light, and it's off-brand.
+- Prefer portrait clips, 1080p+, natural light, real homes. No obvious stock clichés (thumbs up to camera).
 
 ## Graphics
 - Background: near-black `#111111` with a soft radial vignette.
@@ -34,9 +37,8 @@ Prompt 2 again to refine this file.
 - Motion: elements ease and slide in 6–10 frames; list items highlight one by one as they're mentioned. No spins, no bounces, no stock transitions.
 
 ## Pacing and cuts
-- Remove every silence over 0.3s, plus filler words ("um", "uh", "so yeah") and restarts.
-- Keep the speaker's energy: never cut mid-word; leave 2–3 frames of breathing room.
-- The graphic changes on every new idea, roughly every 2–4s.
+- Time every beat to the voiceover line; cut on the pause between lines, never mid-word.
+- Change the shot on every new idea, roughly every 3–5s (split long beats into two clips).
 
 ## Audience fit (SteadiDay specific)
 - Viewers are often 60+ or adult children of aging parents: keep captions large and high-contrast, and hold each caption at least 0.8s.
@@ -45,4 +47,4 @@ Prompt 2 again to refine this file.
 
 ## Don'ts
 - Don't copy a reference's exact words, layout, or handle. Take the structure, not the content.
-- No music louder than -20 dB under speech. No watermarks.
+- Music sits at least 20 dB under the voiceover. No watermarks.
