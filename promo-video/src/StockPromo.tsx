@@ -22,22 +22,33 @@ type Beat = {
   start?: number; // seconds into the clip
   shot?: string;
   caption: string;
+  vo: [number, number]; // seconds into public/vo.mp3 for this beat's line
 };
 
 export const BEATS: Beat[] = [
-  { sec: 5, query: "senior woman walking stairs", clip: "beat4.mp4", caption: "Mom lives alone.\nYou live three hours away." },
-  { sec: 5, query: "man looking at phone smiling", clip: "beat2.mp4", caption: "You can't be there\nevery day.\nBut you can stay close." },
-  { sec: 7, query: "senior climbing stairs home", clip: "beat1.mp4", shot: "screenshot-07-fall-detection.png", caption: "If SteadiDay senses a fall,\nit can alert family." },
-  { sec: 6, query: "senior kitchen morning", clip: "beat4.mp4", start: 12, shot: "screenshot-02-medicines.png", caption: "The right medicine,\non time." },
-  { sec: 8, query: "grandmother phone video chat", clip: "beat5.mp4", shot: "screenshot-05-sos.png", caption: "One tap sends an SOS.\nShare how her day\nis going." },
-  { sec: 7, query: "senior balance exercise", clip: "beat6.mp4", shot: "screenshot-04-steady-moves.png", caption: "Gentle balance exercises,\nevery day." },
+  { sec: 5, query: "senior woman walking stairs", clip: "beat4.mp4", caption: "Mom lives alone.\nYou live three hours away.", vo: [0, 3.14] },
+  { sec: 5, query: "man looking at phone smiling", clip: "beat2.mp4", caption: "You can't be there\nevery day.\nBut you can stay close.", vo: [3.14, 6.76] },
+  { sec: 7, query: "senior climbing stairs home", clip: "beat1.mp4", shot: "screenshot-07-fall-detection.png", caption: "If SteadiDay senses a fall,\nit can alert family.", vo: [6.76, 9.97] },
+  { sec: 6, query: "senior kitchen morning", clip: "beat4.mp4", start: 12, shot: "screenshot-02-medicines.png", caption: "The right medicine,\non time.", vo: [9.97, 12.2] },
+  { sec: 8, query: "grandmother phone video chat", clip: "beat5.mp4", shot: "screenshot-05-sos.png", caption: "One tap sends an SOS.\nShare how her day\nis going.", vo: [12.2, 15.94] },
+  { sec: 7, query: "senior balance exercise", clip: "beat6.mp4", shot: "screenshot-04-steady-moves.png", caption: "Gentle balance exercises,\nevery day.", vo: [15.94, 18.81] },
 ];
 const END_SEC = 7;
 export const STOCK_PROMO_FRAMES =
   (BEATS.reduce((s, b) => s + b.sec, 0) + END_SEC) * FPS;
 
-// shortcut: flip to true once public/vo.mp3 exists, then retime BEATS to the VO.
-const HAS_VO = false;
+const END_VO: [number, number] = [18.81, 22.05];
+
+// One VO take, cut at the pauses between lines, so each line starts with its beat.
+const VoLine: React.FC<{ vo: [number, number] }> = ({ vo }) => (
+  <Sequence from={10} layout="none">
+    <Audio
+      src={staticFile("vo.mp3")}
+      trimBefore={Math.round(vo[0] * FPS)}
+      trimAfter={Math.round(vo[1] * FPS)}
+    />
+  </Sequence>
+);
 
 const ease = (frame: number, start: number, end: number) =>
   interpolate(frame, [start, end], [0, 1], {
@@ -192,6 +203,7 @@ export const StockPromo: React.FC = () => {
         const seq = (
           <Sequence key={beat.query} from={from} durationInFrames={frames}>
             <BeatScene beat={beat} frames={frames} />
+            <VoLine vo={beat.vo} />
           </Sequence>
         );
         from += frames;
@@ -199,8 +211,8 @@ export const StockPromo: React.FC = () => {
       })}
       <Sequence from={from} durationInFrames={END_SEC * FPS}>
         <EndCard />
+        <VoLine vo={END_VO} />
       </Sequence>
-      {HAS_VO ? <Audio src={staticFile("vo.mp3")} /> : null}
     </AbsoluteFill>
   );
 };
