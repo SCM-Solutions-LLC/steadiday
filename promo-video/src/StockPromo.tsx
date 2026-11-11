@@ -19,17 +19,18 @@ type Beat = {
   sec: number;
   query: string;
   clip: string | null;
+  start?: number; // seconds into the clip
   shot?: string;
   caption: string;
 };
 
 export const BEATS: Beat[] = [
-  { sec: 5, query: "senior woman walking stairs", clip: null, caption: "Mom lives alone.\nYou live three hours away." },
-  { sec: 5, query: "man looking at phone smiling", clip: null, caption: "You can't be there every day.\nBut you can stay close." },
-  { sec: 7, query: "senior climbing stairs home", clip: null, shot: "screenshot-07-fall-detection.png", caption: "If SteadiDay senses a fall,\nit can alert family." },
-  { sec: 6, query: "senior kitchen morning", clip: null, shot: "screenshot-02-medicines.png", caption: "The right medicine,\non time." },
-  { sec: 8, query: "grandmother phone video chat", clip: null, shot: "screenshot-05-sos.png", caption: "One tap sends an SOS.\nShare how her day is going." },
-  { sec: 7, query: "senior balance exercise", clip: null, shot: "screenshot-04-steady-moves.png", caption: "Gentle balance exercises,\nevery day." },
+  { sec: 5, query: "senior woman walking stairs", clip: "beat4.mp4", caption: "Mom lives alone.\nYou live three hours away." },
+  { sec: 5, query: "man looking at phone smiling", clip: "beat2.mp4", caption: "You can't be there\nevery day.\nBut you can stay close." },
+  { sec: 7, query: "senior climbing stairs home", clip: "beat1.mp4", shot: "screenshot-07-fall-detection.png", caption: "If SteadiDay senses a fall,\nit can alert family." },
+  { sec: 6, query: "senior kitchen morning", clip: "beat4.mp4", start: 12, shot: "screenshot-02-medicines.png", caption: "The right medicine,\non time." },
+  { sec: 8, query: "grandmother phone video chat", clip: "beat5.mp4", shot: "screenshot-05-sos.png", caption: "One tap sends an SOS.\nShare how her day\nis going." },
+  { sec: 7, query: "senior balance exercise", clip: "beat6.mp4", shot: "screenshot-04-steady-moves.png", caption: "Gentle balance exercises,\nevery day." },
 ];
 const END_SEC = 7;
 export const STOCK_PROMO_FRAMES =
@@ -55,6 +56,7 @@ const BeatScene: React.FC<{ beat: Beat; frames: number }> = ({ beat, frames }) =
         <OffthreadVideo
           src={staticFile(`stock/${beat.clip}`)}
           muted
+          trimBefore={(beat.start ?? 0) * FPS}
           style={{ width: "100%", height: "100%", objectFit: "cover" }}
         />
       ) : (
@@ -166,6 +168,17 @@ const EndCard: React.FC = () => {
         src={staticFile("app-store-badge.svg")}
         style={{ width: 480, opacity: ease(frame, 24, 36) }}
       />
+      <div
+        style={{
+          fontFamily: sourceSans,
+          fontWeight: 600,
+          fontSize: 52,
+          color: "#FFFFFF",
+          opacity: ease(frame, 32, 44),
+        }}
+      >
+        or visit www.steadiday.com
+      </div>
     </AbsoluteFill>
   );
 };
