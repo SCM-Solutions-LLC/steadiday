@@ -5,6 +5,7 @@ import { CallToAction } from "./scenes/CallToAction";
 import { Intro } from "./scenes/Intro";
 import { Safety } from "./scenes/Safety";
 import { Wellness } from "./scenes/Wellness";
+import { STOCK_PROMO_FRAMES, StockPromo } from "./StockPromo";
 
 export const RemotionRoot: React.FC = () => {
   return (
@@ -16,6 +17,14 @@ export const RemotionRoot: React.FC = () => {
         fps={30}
         width={1920}
         height={1080}
+      />
+      <Composition
+        id="StockPromo"
+        component={StockPromo}
+        durationInFrames={STOCK_PROMO_FRAMES}
+        fps={30}
+        width={1080}
+        height={1920}
       />
       <Folder name="SteadiDayPromo-Scenes">
         <Composition
