@@ -1,0 +1,7 @@
+# This repo is public (GitHub Pages). Never commit recordings, downloaded
+# reference reels, or renders: they're large and may be someone else's content.
+raw/*
+references/*
+done/*
+!*/.gitkeep
+!references/*.md

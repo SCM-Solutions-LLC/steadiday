@@ -3,5 +3,6 @@
 # source for the app promo video.
 exclude:
   - promo-video/
+  - ai-editor/
   - scripts/
   - README.md
