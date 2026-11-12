@@ -385,3 +385,8 @@ iframe:focus-visible {
         --text-3xl: 36px;
     }
 }
+
+/* Inline links inside the green CTA panels: the default link colour is the
+   panel's own green, so they would be invisible. */
+.cta-box p a, .cta-section p a { color: #fff; text-decoration: underline; }
+.cta-box p a:hover, .cta-section p a:hover { color: #fff; text-decoration-thickness: 2px; }
