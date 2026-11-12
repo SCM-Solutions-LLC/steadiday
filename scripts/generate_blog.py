@@ -107,6 +107,7 @@ from datetime import datetime, timedelta
 from collections import Counter
 from difflib import SequenceMatcher
 from slop_rules import find_slop, plain_text
+from sources_block import citation_jsonld, extract_sources, render_sources_block
 
 CLAUDE_MODEL = "claude-sonnet-5-5"
 # Sonnet 4.6 ran these prompts with no thinking; low is the closest setting.
@@ -1522,7 +1523,7 @@ def get_html_template():
     <link rel="stylesheet" href="../steadiday-shared.css">
     <link rel="stylesheet" href="../steadiday-assistant.css">
     <script type="application/ld+json">
-    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}","mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
+    {{"@context":"https://schema.org","@type":["MedicalWebPage","Article"],"headline":"{title}","description":"{meta_description}","image":"{hero_image}","author":{{"@type":"Organization","name":"SteadiDay Team","url":"{website_url}"}},"publisher":{{"@type":"Organization","name":"SteadiDay","logo":{{"@type":"ImageObject","url":"{website_url}/assets/icon.jpeg"}}}},"datePublished":"{iso_date}","dateModified":"{iso_date}",{citation_jsonld}"mainEntityOfPage":{{"@type":"WebPage","@id":"{canonical_url}"}}}}
     </script>
     {faq_jsonld}
     <style>
@@ -1577,6 +1578,7 @@ def get_html_template():
     <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div></header>
     <article class="article-container"><div class="article-content">
         {content}
+        {sources_block}
         <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds <a href="medication-tracker-app-for-caregivers.html">Share Activity for caregivers</a>, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
     </div></article>
     {related_posts_block}
@@ -1604,6 +1606,8 @@ def create_blog_html(post_data):
         formatted_date=d.strftime('%B %d, %Y'),
         read_time=post_data['read_time'],
         content=post_data['content'],
+        sources_block=render_sources_block(extract_sources(post_data['content'])),
+        citation_jsonld=citation_jsonld(extract_sources(post_data['content'])),
         year=datetime.now().year,
         faq_jsonld=build_faq_jsonld(post_data.get("faqs", [])),
         related_posts_block=render_related_posts_block(post_data.get("related_posts", [])),
