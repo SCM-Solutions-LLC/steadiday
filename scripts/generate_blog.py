@@ -116,7 +116,8 @@ WRITING_EFFORT = "medium"
 WEB_SEARCH = {"type": "web_search_20260209", "name": "web_search"}
 WEBSITE_URL = "https://www.steadiday.com"
 BLOG_BASE_URL = f"{WEBSITE_URL}/blog"
-APP_STORE_URL = "https://apps.apple.com/app/steadiday/id6758526744"
+# Campaign link for href= targets only. JSON-LD "url"/"downloadUrl" must stay the plain canonical URL.
+APP_STORE_URL = "https://apps.apple.com/app/apple-store/id6758526744?pt=128322452&ct=blog&mt=8"
 
 # No reviewer is claimed on posts. If a named clinician starts reviewing
 # them, add a Person-typed "reviewedBy" to the Article JSON-LD in
@@ -1576,7 +1577,7 @@ def get_html_template():
     <header class="article-header"><h1>{title}</h1><div class="article-meta">{formatted_date} &bull; By SteadiDay Team &bull; {read_time} min read</div></header>
     <article class="article-container"><div class="article-content">
         {content}
-        <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds Share Activity, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
+        <div class="cta-box"><h3>SteadiDay for iPhone</h3><p>Emergency SOS, fall detection and medication reminders are free, with no card to enter. Premium adds <a href="medication-tracker-app-for-caregivers.html">Share Activity for caregivers</a>, Apple Health and the wellness tools.</p><a href="{app_store_url}" class="cta-button">Download on the App Store</a></div>
     </div></article>
     {related_posts_block}
     <div class="back-to-blog"><a href="index.html">&larr; See all blog posts</a></div>
