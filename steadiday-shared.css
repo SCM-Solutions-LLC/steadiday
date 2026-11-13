@@ -412,13 +412,15 @@ ul.checklist li::before { content: ""; position: absolute; left: 0; top: 0.2em; 
 .post-table caption { text-align: left; font-weight: 600; padding-bottom: 0.5rem; }
 .post-table th, .post-table td { border: 1px solid var(--color-success-border); padding: 0.6rem 0.75rem; text-align: left; vertical-align: top; }
 .post-table thead th { background: var(--color-success-bg); color: var(--color-brand-text); }
+.post-table tbody th[scope="row"] { white-space: nowrap; }
 .print-btn { display: inline-block; margin-top: 0.5rem; padding: 0.75rem 1.5rem; border: 2px solid var(--color-brand-text); border-radius: 8px; background: #fff; color: var(--color-brand-text); font: inherit; font-weight: 600; cursor: pointer; min-height: 44px; }
 .print-btn:hover { background: var(--color-success-bg); }
 @media print {
     .print-btn { display: none !important; }
     .post-tool { border: 1px solid #999; background: #fff; }
-    body.printing-section * { visibility: hidden; }
-    body.printing-section .printable.is-printing, body.printing-section .printable.is-printing * { visibility: visible; }
-    body.printing-section .printable.is-printing { position: absolute; left: 0; top: 0; width: 100%; margin: 0; }
+    /* Drop everything that is not the chosen section, its contents or an ancestor of it,
+       so the printout is only that section (no blank pages). Browsers without :has() print the page. */
+    body.printing-section *:not(:has(.is-printing)):not(.is-printing):not(.is-printing *) { display: none !important; }
+    body.printing-section .printable.is-printing { margin: 0; }
     ul.checklist li { break-inside: avoid; }
 }
