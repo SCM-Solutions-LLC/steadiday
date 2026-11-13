@@ -1,8 +1,9 @@
 name: Site Checks
 
-# Guards against the three kinds of drift that have actually happened on this
+# Guards against the four kinds of drift that have actually happened on this
 # site: accessibility regressions, homepage pricing going stale against
-# pricing.html, and blog posts diverging from the generator template.
+# pricing.html, blog posts diverging from the generator template, and blog
+# posts linking to internal URLs that do not exist.
 #
 # Runs on pull requests so problems are caught before merge, and on pushes to
 # main so an automated commit (blog generation, gtag injection) cannot quietly
@@ -45,6 +46,10 @@ jobs:
       - name: Blog posts match the generator template
         if: ${{ !cancelled() }}
         run: python3 scripts/check_blog_consistency.py
+
+      - name: Blog internal links resolve
+        if: ${{ !cancelled() }}
+        run: python3 scripts/check_internal_links.py
 
   accessibility:
     name: Accessibility audit
