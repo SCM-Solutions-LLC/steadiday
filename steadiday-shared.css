@@ -385,3 +385,14 @@ iframe:focus-visible {
         --text-3xl: 36px;
     }
 }
+
+/* Inline links inside the green CTA panels: the default link colour is the
+   panel's own green, so they would be invisible. */
+.cta-box p a, .cta-section p a { color: #fff; text-decoration: underline; }
+.cta-box p a:hover, .cta-section p a:hover { color: #fff; text-decoration-thickness: 2px; }
+
+/* Sources list at the end of blog posts (scripts/sources_block.py) */
+.post-sources { margin-top: 2.5rem; padding-top: 1rem; border-top: 1px solid rgba(30, 58, 95, 0.1); font-size: 0.95rem; }
+.post-sources h2 { font-size: 1.3rem; margin: 0 0 0.5rem; padding: 0; border: 0; }
+.post-sources ol { padding-left: 1.5rem; margin: 0; }
+.post-sources li { margin-bottom: 0.4rem; overflow-wrap: anywhere; }
