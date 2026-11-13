@@ -202,6 +202,9 @@ a:hover { color: var(--green-600); }
    identifiable by position and shape, so they keep the undecorated style. */
 p a,
 li a,
+td a,
+th a,
+caption a,
 .breadcrumbs a {
     text-decoration: underline;
     text-underline-offset: 0.15em;
