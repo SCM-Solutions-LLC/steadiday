@@ -47,7 +47,7 @@ jobs:
         if: ${{ !cancelled() }}
         run: python3 scripts/check_blog_consistency.py
 
-      - name: Blog internal links resolve
+      - name: Internal links resolve
         if: ${{ !cancelled() }}
         run: python3 scripts/check_internal_links.py
 

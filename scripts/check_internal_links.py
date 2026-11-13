@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Fail if a blog page links to a page, file or #anchor on this site that does not exist.
+"""Fail if a site page links to a page, file or #anchor on this site that does not exist.
 
-Covers every href/src in blog/*.html (posts and blog/index.html) that points at
-this site: relative paths, root-relative paths, and absolute steadiday.com URLs.
+Covers every href/src in every published *.html page (any folder except the
+Jekyll `exclude:` list in _config.yml and dot/underscore folders) that points
+at this site: relative paths, root-relative paths, and absolute steadiday.com URLs.
 External sites are not checked, so the result never depends on third-party uptime.
 
 History this is guarding against:
@@ -55,17 +56,30 @@ def problem(page, url):
     return None
 
 
+def site_pages():
+    """Every *.html GitHub Pages publishes; mirrors Jekyll's default and _config.yml excludes."""
+    config = (ROOT / "_config.yml").read_text(encoding="utf-8")
+    excluded = {e.strip("/") for e in re.findall(r"^\s+-\s+(\S+)", config, re.M)} | {"node_modules"}
+    return sorted(
+        p for p in ROOT.rglob("*.html")
+        if not any(part in excluded or part[0] in "._" for part in p.relative_to(ROOT).parts[:-1])
+    )
+
+
 def self_check():
     page = BLOG / "index.html"
     assert problem(page, "https://steadiday.com/blog/no-such-slug-here/") == "no such file"
     assert problem(page, "#definitely-not-an-anchor-id") is not None
     assert problem(page, "https://example.com/missing") is None
     assert problem(page, "mailto:someone@example.com") is None
+    found = site_pages()
+    assert ROOT / "index.html" in found and page in found
+    assert not any(".git" in p.parts or "promo-video" in p.parts for p in found)
 
 
 def main():
     self_check()
-    pages = sorted(BLOG.glob("*.html"))
+    pages = site_pages()
     broken = []
     for page in pages:
         lines = page.read_text(encoding="utf-8", errors="replace").splitlines()
@@ -73,13 +87,13 @@ def main():
             for url in re.findall(r'\b(?:href|src)="([^"]*)"', line):
                 why = problem(page, url)
                 if why:
-                    broken.append(f"  blog/{page.name}:{n}  {url}  ({why})")
+                    broken.append(f"  {page.relative_to(ROOT)}:{n}  {url}  ({why})")
 
-    print(f"checked internal links in {len(pages)} blog page(s)")
+    print(f"checked internal links in {len(pages)} page(s)")
     if broken:
         print("\nFAILED: broken internal links:")
         print("\n".join(broken))
-        print("\nPoint each one at the real file in blog/ (YYYY-MM-DD-slug.html), or unlink it.")
+        print("\nPoint each one at the real file (blog posts are blog/YYYY-MM-DD-slug.html), or unlink it.")
         return 1
     print("PASSED: every internal link resolves")
     return 0
