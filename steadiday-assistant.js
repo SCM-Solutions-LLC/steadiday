@@ -405,6 +405,15 @@
         card.appendChild(el('p', null, entry.a));
         var a = el('a', null, entry.linkText);
         a.href = resolve(entry.link);
+        // The page's App Store conversion listener only binds links present at load,
+        // so links added here report the click themselves. Label matches scripts/inject_gtag.py.
+        if (a.href.indexOf('apps.apple.com') !== -1) {
+            a.addEventListener('click', function () {
+                if (typeof gtag === 'function') {
+                    gtag('event', 'conversion', { send_to: 'AW-17929124014/gDbcCLbkio4cEK7xouVC' });
+                }
+            });
+        }
         card.appendChild(a);
         return card;
     }
