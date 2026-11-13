@@ -167,7 +167,7 @@
             q: 'Where do I download SteadiDay?',
             keys: ['download', 'app store', 'get the app', 'install', 'iphone', 'ios', 'link to app'],
             a: 'SteadiDay is free on the App Store for iPhone. Premium can be added later from inside the app — you do not need to decide at download.',
-            link: 'https://apps.apple.com/app/steadiday/id6758526744',
+            link: 'https://apps.apple.com/app/apple-store/id6758526744?pt=128322452&ct=assistant&mt=8',
             linkText: 'Get SteadiDay on the App Store'
         },
         {
