@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
-"""Fail if a blog page links to a page, file or #anchor on this site that does not exist.
+"""Fail if a site page links to a page, file or #anchor on this site that does not exist.
 
-Covers every href/src in blog/*.html (posts and blog/index.html) that points at
-this site: relative paths, root-relative paths, and absolute steadiday.com URLs.
+Covers every href/src in the top-level pages (*.html) and blog/*.html that
+points at this site: relative paths, root-relative paths, and absolute steadiday.com URLs.
 External sites are not checked, so the result never depends on third-party uptime.
 
 History this is guarding against:
@@ -65,7 +65,7 @@ def self_check():
 
 def main():
     self_check()
-    pages = sorted(BLOG.glob("*.html"))
+    pages = sorted(ROOT.glob("*.html")) + sorted(BLOG.glob("*.html"))
     broken = []
     for page in pages:
         lines = page.read_text(encoding="utf-8", errors="replace").splitlines()
@@ -73,13 +73,13 @@ def main():
             for url in re.findall(r'\b(?:href|src)="([^"]*)"', line):
                 why = problem(page, url)
                 if why:
-                    broken.append(f"  blog/{page.name}:{n}  {url}  ({why})")
+                    broken.append(f"  {page.relative_to(ROOT)}:{n}  {url}  ({why})")
 
-    print(f"checked internal links in {len(pages)} blog page(s)")
+    print(f"checked internal links in {len(pages)} page(s)")
     if broken:
         print("\nFAILED: broken internal links:")
         print("\n".join(broken))
-        print("\nPoint each one at the real file in blog/ (YYYY-MM-DD-slug.html), or unlink it.")
+        print("\nPoint each one at the real file (blog posts are blog/YYYY-MM-DD-slug.html), or unlink it.")
         return 1
     print("PASSED: every internal link resolves")
     return 0
