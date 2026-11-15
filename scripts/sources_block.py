@@ -32,6 +32,7 @@ PUBLISHERS = {
     "www.federalregister.gov": "Federal Register", "doi.org": "DOI", "www.sciencedirect.com": "ScienceDirect",
     "www.frontiersin.org": "Frontiers",
     "www.skincancer.org": "The Skin Cancer Foundation",
+    "www.epa.gov": "EPA",
     "bjsm.bmj.com": "British Journal of Sports Medicine", "bmcpsychiatry.biomedcentral.com": "BMC Psychiatry",
     "www.jvir.org": "Journal of Vascular and Interventional Radiology", "www.pharmacytimes.com": "Pharmacy Times",
     "www.kctv5.com": "KCTV5 News", "www.eisai.com": "Eisai", "www.shionogi.com": "Shionogi",
