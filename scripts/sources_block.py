@@ -36,6 +36,8 @@ PUBLISHERS = {
     "www.niddk.nih.gov": "NIDDK (NIH)",
     "ods.od.nih.gov": "NIH Office of Dietary Supplements", "www.heart.org": "American Heart Association",
     "www.mskcc.org": "Memorial Sloan Kettering Cancer Center", "www.arthritis.org": "Arthritis Foundation",
+    "www.bls.gov": "US Bureau of Labor Statistics", "www.hhs.gov": "US Department of Health and Human Services",
+    "988lifeline.org": "988 Suicide & Crisis Lifeline",
     "bjsm.bmj.com": "British Journal of Sports Medicine", "bmcpsychiatry.biomedcentral.com": "BMC Psychiatry",
     "www.jvir.org": "Journal of Vascular and Interventional Radiology", "www.pharmacytimes.com": "Pharmacy Times",
     "www.kctv5.com": "KCTV5 News", "www.eisai.com": "Eisai", "www.shionogi.com": "Shionogi",
