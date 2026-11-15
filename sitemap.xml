@@ -1,31 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
+    <loc>https://www.steadiday.com/data-retention.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
     <loc>https://www.steadiday.com/</loc>
     <lastmod>2026-11-13</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.steadiday.com/security.html</loc>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.steadiday.com/terms.html</loc>
+    <loc>https://www.steadiday.com/privacy.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.steadiday.com/pricing.html</loc>
-    <lastmod>2026-11-05</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.5</priority>
-  </url>
-  <url>
-    <loc>https://www.steadiday.com/privacy.html</loc>
+    <loc>https://www.steadiday.com/terms.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
@@ -37,13 +31,19 @@
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.steadiday.com/data-retention.html</loc>
+    <loc>https://www.steadiday.com/security.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://www.steadiday.com/data-breach.html</loc>
+    <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.steadiday.com/pricing.html</loc>
     <lastmod>2026-11-05</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
@@ -68,7 +68,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-11-12-strengthening-your-marriage-in-retirement.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -128,7 +128,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-10-01-gentle-yoga-for-seniors-busting.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -266,7 +266,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-06-25-the-real-health-benefits-of.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -278,7 +278,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-06-18-how-to-build-a-bedtime.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -302,7 +302,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-06-04-community-gardens-growing-food-and.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -314,7 +314,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-05-28-travel-insurance-after-50-a.html</loc>
-    <lastmod>2026-11-12</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -338,7 +338,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-05-14-smart-home-devices-that-help.html</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -386,7 +386,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-04-18-your-smile-after-50-a.html</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -398,7 +398,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-04-09-from-workmate-to-soul-mate.html</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -410,7 +410,7 @@
   </url>
   <url>
     <loc>https://www.steadiday.com/blog/2026-03-26-social-connection-your-brains-best.html</loc>
-    <lastmod>2026-11-13</lastmod>
+    <lastmod>2026-11-15</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
