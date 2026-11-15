@@ -34,6 +34,8 @@ PUBLISHERS = {
     "www.skincancer.org": "The Skin Cancer Foundation",
     "www.epa.gov": "EPA",
     "www.niddk.nih.gov": "NIDDK (NIH)",
+    "ods.od.nih.gov": "NIH Office of Dietary Supplements", "www.heart.org": "American Heart Association",
+    "www.mskcc.org": "Memorial Sloan Kettering Cancer Center", "www.arthritis.org": "Arthritis Foundation",
     "bjsm.bmj.com": "British Journal of Sports Medicine", "bmcpsychiatry.biomedcentral.com": "BMC Psychiatry",
     "www.jvir.org": "Journal of Vascular and Interventional Radiology", "www.pharmacytimes.com": "Pharmacy Times",
     "www.kctv5.com": "KCTV5 News", "www.eisai.com": "Eisai", "www.shionogi.com": "Shionogi",
