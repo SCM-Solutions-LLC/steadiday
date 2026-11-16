@@ -905,7 +905,12 @@ NEVER return generic nature, yoga, or meditation photos unless the topic is lite
 
 Requirements:
 - Each URL from images.unsplash.com
-- Each alt text must describe what the photo ACTUALLY shows
+- Each alt text must describe what the photo ACTUALLY shows, as ONE plain
+  sentence fragment of 6-15 words, written for someone who cannot see it
+  (e.g. "Older woman checking her blood pressure at the kitchen table")
+- Alt text must NOT be a keyword list: no comma-separated tags, no SEO
+  terms like "seniors, elderly, healthy aging", and do not copy Unsplash's
+  own tag list or title. Do not start with "Image of" or "Photo of".
 - Varied subjects, not all the same scene
 - Warm and positive for adults 50+
 - URL format: https://images.unsplash.com/photo-XXXXX?w=800&q=80
