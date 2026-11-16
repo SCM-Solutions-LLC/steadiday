@@ -297,14 +297,14 @@
             <p>Your personal data is used to power the app's features:</p>
             <ul>
                 <li><strong>Medication Reminders:</strong> Your medication schedules drive local notifications on your device</li>
-                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app; apart from the Premium cloud backup described below, only the daily step count can leave the device, when you enable caregiver activity sharing</li>
+                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app; only the daily step count can leave the device, when you enable caregiver activity sharing</li>
                 <li><strong>Task Management:</strong> Your tasks and calendar data are processed on-device to show your daily schedule</li>
                 <li><strong>Emergency SOS:</strong> When you tap SOS, the app opens your phone's own messaging app with a pre-written text to your trusted contacts, including your location if available. You send that text yourself, from your own number</li>
                 <li><strong>Fall Detection Alerts:</strong> While Always-on Protection is running, your display name and your trusted contacts' names and phone numbers are held, encrypted, on our server so it can text those contacts through Twilio if a fall is detected and you do not respond</li>
                 <li><strong>Daily Check-In Texts:</strong> If you turn on missed check-in alerts or check-in sharing, your display name and your trusted contacts' names and phone numbers are sent to our server so it can text those contacts when you check in or when a check-in is missed</li>
                 <li><strong>Notifications:</strong> All reminders are generated locally on your device</li>
                 <li><strong>Account Sync:</strong> If signed in, medications, tasks, check-ins, and activity summaries sync securely to enable caregiver sharing, backup, and multi-device access</li>
-                <li><strong>Cloud Backup (Premium):</strong> If you are signed in with Premium, the app backs up a copy of the data saved in the app to your account on our servers (hosted on Supabase), automatically and when you tap Back Up Now, so it can be restored on another device. This copy includes your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, health records saved in the app, and settings</li>
+                <li><strong>Cloud Backup (Premium):</strong> If you are signed in with Premium, the app backs up a copy of the data saved in the app to your account on our servers (hosted on Supabase), automatically and when you tap Back Up Now, so it can be restored on another device. This copy includes your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, and settings. It does not include your daily health readings (such as heart rate, sleep, weight or blood pressure), whether read from Apple Health or Health Connect or entered by hand; those stay on your device</li>
             </ul>
             <p>Pseudonymous analytics data (such as app opens and sessions) is used to:</p>
             <ul>
@@ -325,7 +325,7 @@
             <ul>
                 <li><strong>What syncs:</strong> Medications, tasks, check-ins, and activity summaries</li>
                 <li><strong>What does not enter account sync:</strong> Apple Health and Health Connect records other than the optional daily step count, and source photos. A source photo is separately transmitted for scanning only when you choose that feature.</li>
-                <li><strong>Cloud backup (Premium):</strong> If you are signed in with Premium, a copy of the data saved in the app is also backed up to your account, including your profile and trusted contacts, doctors, insurance card details, food and water logs, health records saved in the app, and settings</li>
+                <li><strong>Cloud backup (Premium):</strong> If you are signed in with Premium, a copy of the data saved in the app is also backed up to your account, including your profile and trusted contacts, doctors, insurance card details, food and water logs, and settings. Daily health readings are not included in the backup</li>
                 <li><strong>Why:</strong> To enable caregiver sharing, account recovery, and multi-device access</li>
                 <li><strong>Encryption:</strong> All synced data is encrypted in transit (TLS) and at rest</li>
                 <li><strong>Your control:</strong> You can delete your account and all synced data at any time from within the app</li>

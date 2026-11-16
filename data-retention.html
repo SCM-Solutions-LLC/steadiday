@@ -143,7 +143,7 @@
     <main id="main">
         <div class="page-header">
             <h1>Data Retention Policy</h1>
-            <p class="last-updated">Last Updated: September 9, 2026</p>
+            <p class="last-updated">Last Updated: November 16, 2026</p>
         </div>
 
         <div class="toc">
@@ -164,7 +164,7 @@
         <div class="section" id="overview">
             <h2>1. Overview</h2>
             <div class="highlight-box">
-                <p><strong>The short version:</strong> SteadiDay does not require an account. Your data is stored on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to our servers for backup and caregiver sharing. Apple Health records remain on your device except for an optional daily step count when caregiver activity sharing is enabled. You can delete your account and active synced data from within the app.</p>
+                <p><strong>The short version:</strong> SteadiDay does not require an account. Your data is stored on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) syncs securely to our servers for backup and caregiver sharing. If you are signed in with Premium, the cloud backup also stores a copy of the data saved in the app. Apple Health records remain on your device except for an optional daily step count when caregiver activity sharing is enabled. You can delete your account and active synced data from within the app.</p>
             </div>
             <p>This policy explains how long different types of data exist and how you can manage them.</p>
         </div>
@@ -180,11 +180,10 @@
                 <li>Health data synced from Apple Health (iOS) or Health Connect (Android)</li>
                 <li>App settings and preferences</li>
                 <li>Insurance card details (plan name, member ID, group number)</li>
-                <li>Medical records (lab results, diagnoses, procedures, allergies)</li>
                 <li>Doctor and care team information</li>
                 <li>Notes and parking spot locations</li>
             </ul>
-            <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. If you are not signed in, it is never uploaded to our servers. If you are signed in, some of this data (medications, tasks, check-ins, activity summaries) is synced to our servers — see Section 2.1 below. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
+            <p><strong>How long it's kept:</strong> This data remains on your device for as long as the app is installed. If you are not signed in, it is never uploaded to our servers. If you are signed in, some of this data (medications, tasks, check-ins, activity summaries) is synced to our servers, and the Premium cloud backup stores a wider copy — see Section 2.1 below. You can delete individual items at any time within the app, or remove all data by uninstalling the app.</p>
 
             <h3>2.1 Synced Account Data (If Signed In)</h3>
             <p>If you create an account and sign in, the following data is synced to our servers (hosted on Supabase):</p>
@@ -195,14 +194,15 @@
                 <li>Activity summaries</li>
             </ul>
             <p><strong>How long it's kept:</strong> Synced data is retained for as long as your account exists. The in-app deletion action removes active account records from SteadiDay's application databases immediately; infrastructure backups, security logs, and provider records may remain for a limited period under provider retention schedules or legal requirements.</p>
-            <p><strong>What is not stored in account sync:</strong> Apple Health and Health Connect records other than an optional shared daily step count, source photos, and insurance card details. A source photo is still transmitted through our backend to OpenAI when you choose an AI scanning feature.</p>
+            <p><strong>Cloud backup (Premium):</strong> If you are signed in with Premium, the app also backs up a copy of the data saved in the app to your account on our servers (hosted on Supabase), automatically and when you tap Back Up Now. This copy includes your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, and settings. It does not include daily health readings. Each backup replaces the previous one, and the copy is kept for as long as your account exists; deleting your account deletes it.</p>
+            <p><strong>What is not stored on our servers:</strong> Apple Health and Health Connect records other than an optional shared daily step count, and source photos. A source photo is still transmitted through our backend to OpenAI when you choose an AI scanning feature.</p>
 
             <h3>2.2 Backend Data Retention Periods</h3>
             <p>Our backend server temporarily stores certain data to provide safety and sharing features. This data has specific retention periods and is automatically cleaned up:</p>
             <ul>
                 <li><strong>Always-on Protection data (live location):</strong> The most recent GPS coordinates are stored so the private live link can work. Ended sessions are deleted after approximately 24 hours. Abandoned active sessions expire after seven days and are deleted by the following cleanup cycle.</li>
                 <li><strong>Caregiver activity snapshots:</strong> Encrypted activity data shared with a caregiver (medication adherence, task completion, step counts) is retained for up to 90 days without an update, then automatically deleted. Daily activity history is kept for 30 days.</li>
-                <li><strong>Emergency escalation data:</strong> User names and contact information used during fall detection escalation are encrypted with AES-256-GCM and retained for 24 hours after the session ends, then automatically deleted.</li>
+                <li><strong>Emergency escalation and check-in data:</strong> User names and trusted contacts' names and phone numbers used for fall detection escalation and missed check-in alerts are encrypted with AES-256-GCM. They are held while Always-on Protection is running or a check-in alert is pending, and for about 24 hours after it ends, then automatically deleted. Because protection restarts whenever the app is opened, these details generally remain on our server for as long as the feature is turned on.</li>
                 <li><strong>AI-processed data (photos and audio):</strong> SteadiDay does not save source photos or audio in its application database. OpenAI may retain API inputs and outputs for up to 30 days for service delivery and abuse prevention, unless a shorter retention control applies.</li>
             </ul>
         </div>
@@ -222,9 +222,9 @@
 
         <div class="section" id="emergency-sms">
             <h2>4. Emergency SMS Data</h2>
-            <p>When you use the Emergency SOS feature or fall detection activates, the app sends an SMS to your trusted contacts via Twilio, a third-party messaging service. The message includes your display name, GPS coordinates, and an alert.</p>
-            <p><strong>How long it's kept:</strong> The relay transmits the message and does not store your data afterward. Twilio may retain message delivery logs (phone numbers and timestamps) for up to 13 months in accordance with their data retention policies and telecommunications regulations.</p>
-            <p>The app also sends optional check-in notification SMS messages to trusted contacts (if you enable this feature) via the same Twilio relay service, subject to the same retention practices.</p>
+            <p>When fall detection activates and you do not respond, our server sends an SMS to your trusted contacts via Twilio, a third-party messaging service. The message includes your display name, location links, and an alert. The same service sends test alerts you request. The manual Emergency SOS button does not use Twilio: it opens your phone's own Messages app and the text is sent from your own number.</p>
+            <p><strong>How long it's kept:</strong> Our server does not keep the message text after sending. It keeps a delivery status record (a message ID and whether it was delivered) for about 24 hours. Twilio may retain message delivery logs (phone numbers and timestamps) for up to 13 months in accordance with their data retention policies and telecommunications regulations.</p>
+            <p>Optional check-in updates and missed check-in alerts to trusted contacts (if you enable this feature) are sent via the same Twilio service, subject to the same retention practices.</p>
         </div>
 
         <div class="section" id="website">
@@ -265,7 +265,7 @@
 
         <div class="section" id="your-control">
             <h2>8. Your Control</h2>
-            <p>Because your data lives on your device, you have complete control:</p>
+            <p>Because most of your data lives on your device, you have control over it:</p>
             <ul>
                 <li><strong>View:</strong> All your data is visible to you within the app at any time</li>
                 <li><strong>Delete:</strong> Remove individual medications, tasks, or contacts from within the app</li>
