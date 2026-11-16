@@ -1480,7 +1480,9 @@ CONTENT:
     for i, img in enumerate(images["inline"]):
         layout_class = layout[i % len(layout)]
         css_class = "article-image" if layout_class == "full" else f"article-image {layout_class}"
-        content = content.replace(f"[IMAGE_{i+1}]", f'<figure class="{css_class}"><img src="{_sized_inline_url(img["url"])}" alt="{img["alt"]}" width="{INLINE_IMG_W}" height="{INLINE_IMG_H}" loading="lazy"><figcaption>{img["alt"]}</figcaption></figure>')
+        # alt text skips the em dash scrub above, so scrub it here too
+        alt = re.sub(r"\s*\u2014\s*", ", ", img["alt"])
+        content = content.replace(f"[IMAGE_{i+1}]", f'<figure class="{css_class}"><img src="{_sized_inline_url(img["url"])}" alt="{alt}" width="{INLINE_IMG_W}" height="{INLINE_IMG_H}" loading="lazy"><figcaption>{alt}</figcaption></figure>')
     if video:
         content = content.replace("[VIDEO]", f'<div class="video-container"><iframe src="https://www.youtube-nocookie.com/embed/{video["id"]}" title="{video["title"]}" frameborder="0" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe></div><p class="video-caption">Video: {video["title"]} -- {video["channel"]}</p>')
     content = re.sub(r'\[IMAGE_\d+\]','',content).replace("[VIDEO]",'')
