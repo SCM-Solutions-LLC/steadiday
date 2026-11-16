@@ -143,7 +143,7 @@
     <main id="main">
         <div class="page-header">
             <h1>Data Breach Response Plan</h1>
-            <p class="last-updated">Last Updated: September 9, 2026</p>
+            <p class="last-updated">Last Updated: November 16, 2026</p>
         </div>
 
         <div class="toc">
@@ -167,7 +167,7 @@
             <h2>1. Our Commitment</h2>
             <p>We take data security seriously and have procedures in place to respond quickly if any part of our infrastructure is ever compromised. This plan outlines what we would do and what you should know.</p>
             <div class="highlight-box">
-                <p><strong>Important context:</strong> SteadiDay stores most app data on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) is also synced securely to our servers. Apple Health and Health Connect records remain on your device except for an optional daily step count when caregiver activity sharing is enabled. Optional safety, check-in, AI, SMS, and weather features also process the limited information described in our Privacy Policy.</p>
+                <p><strong>Important context:</strong> SteadiDay stores most app data on your device. If you sign in, some data (medications, tasks, check-ins, and activity summaries) is also synced securely to our servers, and if you are signed in with Premium the cloud backup stores a copy of the data saved in the app. Apple Health and Health Connect records remain on your device except for an optional daily step count when caregiver activity sharing is enabled. Optional safety, check-in, AI, SMS, and weather features also process the limited information described in our Privacy Policy.</p>
             </div>
         </div>
 
@@ -175,11 +175,12 @@
             <h2>2. Our Architecture</h2>
             <p>Understanding what we do and don't have access to is important context for any security incident:</p>
             <ul>
-                <li><strong>Not stored in account sync:</strong> Apple Health and Health Connect records other than an optional shared daily step count, source photos, and your device settings. Source photos are transmitted through our backend to OpenAI only when you choose AI scanning; SteadiDay does not save them in its application database.</li>
-                <li><strong>We may have (if you signed in):</strong> Medications, tasks, check-ins, and activity summaries synced to our servers (hosted on Supabase, SOC 2 Type II certified). Sensitive fields (user names, contact info, caregiver activity snapshots) are encrypted with AES-256-GCM at rest.</li>
+                <li><strong>Not stored in account sync:</strong> Apple Health and Health Connect records other than an optional shared daily step count, and source photos. Source photos are transmitted through our backend to OpenAI only when you choose AI scanning; SteadiDay does not save them in its application database.</li>
+                <li><strong>We may have (if you signed in):</strong> Medications, tasks, check-ins, and activity summaries synced to our servers (hosted on Supabase, SOC 2 Type II certified, encrypted at rest). On our own backend, sensitive safety and caregiver fields (user names, contact info, caregiver activity snapshots) are additionally encrypted with AES-256-GCM.</li>
+                <li><strong>We may have (if you signed in with Premium):</strong> A cloud backup copy of the data saved in the app, including your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, and settings (hosted on Supabase). It does not include daily health readings.</li>
                 <li><strong>Other infrastructure data:</strong> Depending on the features used, our systems or providers may process pseudonymous Firebase analytics and crash reports, website contact form submissions, temporary encrypted safety/check-in records, SMS message records, and AI requests.</li>
             </ul>
-            <p>If you have not signed in, account-sync data is not present, but data from optional network features you use could still be affected. If you have signed in, synced account data (medications, tasks, check-ins, and activity summaries) could also be affected. Apple Health and Health Connect records other than an optional shared daily step count are not stored in our account database.</p>
+            <p>If you have not signed in, account-sync data is not present, but data from optional network features you use could still be affected. If you have signed in, synced account data (medications, tasks, check-ins, and activity summaries), your account email address, and any Premium cloud backup could also be affected. Apple Health and Health Connect records other than an optional shared daily step count are not stored in our account database.</p>
         </div>
 
         <div class="section" id="what-could-be-affected">
@@ -190,7 +191,8 @@
                 <li>Crash reports that may include technical device, app-state, and error details</li>
                 <li>Website contact form submissions (name, email, message text)</li>
                 <li>Third-party service credentials: Twilio API keys (could allow unauthorized SMS sending), OpenAI API keys (could allow unauthorized AI API usage), and RevenueCat configuration</li>
-                <li>Synced account data (if you signed in): medications, tasks, check-ins, and activity summaries — sensitive fields are encrypted with AES-256-GCM</li>
+                <li>Synced account data (if you signed in): your account email address, medications, tasks, check-ins, and activity summaries</li>
+                <li>Premium cloud backup (if you signed in with Premium): your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, and settings</li>
                 <li>Caregiver sharing data: encrypted activity snapshots stored temporarily on our backend (auto-expire after 90 days)</li>
                 <li>Temporary encrypted safety, check-in, escalation, contact, and recent Always-on Protection location records</li>
             </ul>
@@ -198,7 +200,6 @@
             <ul>
                 <li>Your Apple Health or Health Connect records other than an optional daily step count you chose to share</li>
                 <li>Source photos in SteadiDay's application database; AI providers may retain request data according to their policies</li>
-                <li>Your app settings and preferences (stored only on your device)</li>
                 <li>Your subscription payment information (processed and stored by Apple/Google, not by us)</li>
             </ul>
         </div>
@@ -236,13 +237,13 @@
                 <li>Steps you should take to protect yourself (if any)</li>
                 <li>How to contact us with questions</li>
             </ul>
-            <p><strong>Note:</strong> Because SteadiDay does not require an account and we do not have your email address (unless you submitted our website contact form), our primary notification method is through the app itself and our website. We recommend checking steadiday.com/security.html periodically or following our updates.</p>
+            <p><strong>Note:</strong> Because SteadiDay does not require an account, we only have your email address if you created an account or submitted our website contact form, so our primary notification method is through the app itself and our website. We recommend checking steadiday.com/security.html periodically or following our updates.</p>
         </div>
 
         <div class="section" id="health-data">
             <h2>7. Health Data Protection</h2>
             <p>Health data accessed through Apple Health (iOS) or Health Connect (Android) is stored locally on your device and protected by your operating system's security architecture.</p>
-            <p>In the event of a breach of our infrastructure, your Apple Health data remains secure on your device because it is never transmitted to or stored on our servers. This includes steps, heart rate, sleep data, exercise minutes, and any other health metrics from your device's health platform.</p>
+            <p>In the event of a breach of our infrastructure, your Apple Health data remains secure on your device because it is not transmitted to or stored on our servers, with one exception: your daily step count, if you sign in and enable caregiver activity sharing. Data that stays on your device includes heart rate, sleep data, exercise minutes, and any other health metrics from your device's health platform.</p>
         </div>
 
         <div class="section" id="your-steps">
