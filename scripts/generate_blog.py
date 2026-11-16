@@ -754,8 +754,8 @@ CATEGORY_IMAGES = {
 }
 
 # Hero and inline images use dynamic Unsplash search as primary source.
-# These hardcoded pools are the fallback — kept intentionally lean since
-# the dynamic search handles variety. 10 hero + 12 inline per category.
+# These hardcoded pools are the hero fallback only (inline has none) —
+# 5 to 10 photos per category after the cap below.
 HERO_IMAGES = {cat: urls[:10] if len(urls) > 10 else urls for cat, urls in {
     "Mental Wellness": ["https://images.unsplash.com/photo-1518241353330-0f7941c2d9b5?w=1200&q=80","https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=1200&q=80","https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=1200&q=80","https://images.unsplash.com/photo-1474418397713-7ede21d49118?w=1200&q=80","https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200&q=80","https://images.unsplash.com/photo-1529693662653-9d480530a697?w=1200&q=80","https://images.unsplash.com/photo-1470252649378-9c29740c9fa8?w=1200&q=80","https://images.unsplash.com/photo-1501854140801-50d01698950b?w=1200&q=80","https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=1200&q=80","https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1200&q=80","https://images.unsplash.com/photo-1502082553048-f009c37129b9?w=1200&q=80","https://images.unsplash.com/photo-1433086966358-54859d0ed716?w=1200&q=80"],
     "Medication Tips": ["https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=1200&q=80","https://images.unsplash.com/photo-1587854692152-cbe660dbde88?w=1200&q=80","https://images.unsplash.com/photo-1631549916768-4119b2e5f926?w=1200&q=80","https://images.unsplash.com/photo-1585435557343-3b092031a831?w=1200&q=80","https://images.unsplash.com/photo-1471864190281-a93a3070b6de?w=1200&q=80","https://images.unsplash.com/photo-1576602976047-174e57a47881?w=1200&q=80","https://images.unsplash.com/photo-1550831107-1553da8c8464?w=1200&q=80","https://images.unsplash.com/photo-1607619056574-7b8d3ee536b2?w=1200&q=80","https://images.unsplash.com/photo-1583912267550-d974311a9a6e?w=1200&q=80","https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=1200&q=80"],
