@@ -143,7 +143,7 @@
     <main id="main">
         <div class="page-header">
             <h1>Privacy Policy</h1>
-            <p class="last-updated">Last Updated: September 9, 2026</p>
+            <p class="last-updated">Last Updated: November 16, 2026</p>
         </div>
 
         <div class="toc">
@@ -297,11 +297,14 @@
             <p>Your personal data is used to power the app's features:</p>
             <ul>
                 <li><strong>Medication Reminders:</strong> Your medication schedules drive local notifications on your device</li>
-                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app; only the daily step count can leave the device when you enable caregiver activity sharing</li>
+                <li><strong>Health Dashboard:</strong> Apple Health data is read and displayed within the app; apart from the Premium cloud backup described below, only the daily step count can leave the device, when you enable caregiver activity sharing</li>
                 <li><strong>Task Management:</strong> Your tasks and calendar data are processed on-device to show your daily schedule</li>
-                <li><strong>Emergency SOS:</strong> Your trusted contacts are stored locally and only contacted when you trigger SOS</li>
+                <li><strong>Emergency SOS:</strong> When you tap SOS, the app opens your phone's own messaging app with a pre-written text to your trusted contacts, including your location if available. You send that text yourself, from your own number</li>
+                <li><strong>Fall Detection Alerts:</strong> While Always-on Protection is running, your display name and your trusted contacts' names and phone numbers are held, encrypted, on our server so it can text those contacts through Twilio if a fall is detected and you do not respond</li>
+                <li><strong>Daily Check-In Texts:</strong> If you turn on missed check-in alerts or check-in sharing, your display name and your trusted contacts' names and phone numbers are sent to our server so it can text those contacts when you check in or when a check-in is missed</li>
                 <li><strong>Notifications:</strong> All reminders are generated locally on your device</li>
                 <li><strong>Account Sync:</strong> If signed in, medications, tasks, check-ins, and activity summaries sync securely to enable caregiver sharing, backup, and multi-device access</li>
+                <li><strong>Cloud Backup (Premium):</strong> If you are signed in with Premium, the app backs up a copy of the data saved in the app to your account on our servers (hosted on Supabase), automatically and when you tap Back Up Now, so it can be restored on another device. This copy includes your profile and trusted contacts, medications, tasks, check-ins, food and water logs, doctors, insurance card details, health records saved in the app, and settings</li>
             </ul>
             <p>Pseudonymous analytics data (such as app opens and sessions) is used to:</p>
             <ul>
@@ -321,7 +324,8 @@
             <p>If you create an account and sign in, some data is securely synced to our servers hosted on Supabase (a SOC 2 Type II certified cloud platform):</p>
             <ul>
                 <li><strong>What syncs:</strong> Medications, tasks, check-ins, and activity summaries</li>
-                <li><strong>What does not enter account sync:</strong> Apple Health and Health Connect records other than the optional daily step count, source photos, and insurance card details. A source photo is separately transmitted for scanning only when you choose that feature.</li>
+                <li><strong>What does not enter account sync:</strong> Apple Health and Health Connect records other than the optional daily step count, and source photos. A source photo is separately transmitted for scanning only when you choose that feature.</li>
+                <li><strong>Cloud backup (Premium):</strong> If you are signed in with Premium, a copy of the data saved in the app is also backed up to your account, including your profile and trusted contacts, doctors, insurance card details, food and water logs, health records saved in the app, and settings</li>
                 <li><strong>Why:</strong> To enable caregiver sharing, account recovery, and multi-device access</li>
                 <li><strong>Encryption:</strong> All synced data is encrypted in transit (TLS) and at rest</li>
                 <li><strong>Your control:</strong> You can delete your account and all synced data at any time from within the app</li>
@@ -352,7 +356,7 @@
             <ul>
                 <li><strong>Firebase Analytics &amp; Crashlytics (Google):</strong> Pseudonymous app usage analytics and crash reporting associated with an app-installation identifier and technical device information. No health data or app content is intentionally included. See <a href="#app-analytics">Section 8</a> for details.</li>
                 <li><strong>OpenAI:</strong> Processes photos of medication labels and insurance cards to extract text, and transcribes voice input to text. SteadiDay does not save source photos or audio to its application database. OpenAI may retain API inputs and outputs for up to 30 days for service delivery and abuse prevention, unless a shorter retention control applies. No Apple HealthKit or Health Connect records are sent to OpenAI.</li>
-                <li><strong>Twilio:</strong> Delivers emergency SMS text messages to your trusted contacts during SOS and fall detection events, and check-in notifications when you opt in. See <a href="#sms">Section 10</a> for details.</li>
+                <li><strong>Twilio:</strong> Delivers SMS text messages to your trusted contacts for fall detection alerts and test alerts, and check-in notifications when you opt in. See <a href="#sms">Section 10</a> for details.</li>
                 <li><strong>Supabase:</strong> Provides secure cloud infrastructure for optional account sync, authentication, and data backup. Supabase is SOC 2 Type II certified. Data synced to Supabase is encrypted in transit and at rest.</li>
                 <li><strong>RevenueCat:</strong> Manages optional in-app subscriptions. RevenueCat receives pseudonymous purchase data from the App Store or Google Play (such as subscription status, purchase dates, and an app user identifier) but does not receive your health data, medications, or app content.</li>
                 <li><strong>Apple Sign-In / Google Sign-In:</strong> If you choose to sign in, we receive your name, email address, and profile information from the authentication provider you select. We do not receive your password.</li>
@@ -362,7 +366,7 @@
             <p>We do not sell, rent, or trade your personal data to any third party. These services receive only the minimum data necessary to provide their specific functionality.</p>
 
             <h3>5.3 Emergency SOS, Fall Detection Alerts &amp; SMS Messaging</h3>
-            <p>When you activate Emergency SOS or when fall detection activates and you do not respond within the countdown period, the app automatically sends SMS text messages to your designated trusted contacts via Twilio, a third-party messaging service. These messages include your display name, GPS coordinates (as a Google Maps link), and an alert that you may need help. SteadiDay temporarily stores encrypted session/contact data to operate the alert and private live link; ended sessions are deleted after approximately 24 hours. Twilio maintains message records according to its own retention settings and legal obligations. Message and data rates may apply. See <a href="#sms">Section 10</a> for full details.</p>
+            <p>When fall detection activates and you do not respond within the countdown period, SteadiDay automatically sends SMS text messages to your designated trusted contacts via Twilio, a third-party messaging service. These messages include your display name, GPS coordinates (as Apple Maps and Google Maps links), a link to your live location when available, and an alert that you may need help. Emergency SOS texts are instead sent by you from your own phone's messaging app. SteadiDay temporarily stores encrypted session/contact data to operate the alert and private live link; ended sessions are deleted after approximately 24 hours. Twilio maintains message records according to its own retention settings and legal obligations. Message and data rates may apply. See <a href="#sms">Section 10</a> for full details.</p>
 
             <h3>5.4 Legal Requirements</h3>
             <p>Most of your personal data is on your device and not accessible to us. If you have signed in and data has been synced, we may be required to disclose that data in response to valid legal requests. If required by law, we would disclose only the data we maintain (synced account data, safety/sharing records, website contact form submissions, and pseudonymous analytics).</p>
@@ -445,25 +449,33 @@
             <h2>10. SMS Text Messaging</h2>
 
             <h3>10.1 SMS Program Description</h3>
-            <p>SteadiDay™ ("the Program") sends emergency SMS text messages to user-designated trusted contacts when the app's fall detection feature activates and the user does not respond within the countdown period, or when the user manually triggers the Emergency SOS feature. Messages are sent on behalf of SCM Solutions LLC via Twilio, a third-party messaging service.</p>
+            <p>SteadiDay™ ("the Program") sends SMS text messages to user-designated trusted contacts. Messages are sent on behalf of SCM Solutions LLC via Twilio, a third-party messaging service. The Program sends these kinds of messages:</p>
+            <ul>
+                <li><strong>Fall alerts:</strong> when the app's fall detection feature activates and the user does not respond within the countdown period</li>
+                <li><strong>Test alerts:</strong> when the user chooses to send a test alert to a trusted contact to confirm the contact can receive alerts</li>
+                <li><strong>Check-in updates:</strong> if the user has turned on check-in sharing, a message saying the user has checked in for the day</li>
+                <li><strong>Missed check-in alerts:</strong> if the user has turned on missed check-in alerts, a message saying the user has not checked in by their daily deadline</li>
+                <li><strong>Contact confirmation:</strong> a trusted contact may receive a one-time message confirming they were added as an emergency contact</li>
+            </ul>
+            <p>Texts sent with the manual Emergency SOS button are not part of the Program: the user sends them from their own phone's messaging app and their own number, not through Twilio.</p>
 
             <h3>10.2 Consent and Opt-In</h3>
-            <p>By adding a trusted contact and enabling the fall detection or Emergency SOS features within the SteadiDay™ app, you expressly consent to the app sending SMS text messages to your designated trusted contacts on your behalf in emergency situations. This consent is collected in-app at the time you configure your trusted contacts. You may withdraw consent at any time by removing your trusted contacts from the app or by disabling the fall detection feature in app settings.</p>
+            <p>By adding a trusted contact and enabling the fall detection or Emergency SOS features within the SteadiDay™ app, you expressly consent to the app sending SMS text messages to your designated trusted contacts on your behalf in emergency situations. Check-in updates and missed check-in alerts are sent only if you separately turn those options on. This consent is collected in-app at the time you configure your trusted contacts and those options. You may withdraw consent at any time by removing your trusted contacts from the app or by disabling the fall detection and check-in options in app settings.</p>
 
             <h3>10.3 Message Frequency</h3>
-            <p>Message frequency varies. SMS messages are sent only during emergency events (fall detection alerts or manual SOS activation). Under normal use, no messages are sent. In an emergency event, each trusted contact will receive one SMS message per incident.</p>
+            <p>Message frequency varies. If check-in texts are turned off, messages are sent only for fall alerts (one message to each trusted contact per incident), for test alerts the user chooses to send, and for the one-time contact confirmation. If check-in sharing or missed check-in alerts are turned on, each trusted contact typically receives one check-in message per day.</p>
 
             <h3>10.4 Message Content</h3>
-            <p>Emergency SMS messages include: the SteadiDay™ program name, the user's display name, a notification that the user may have had a fall or triggered an emergency alert, and the user's GPS location as a Google Maps link so the trusted contact can locate them.</p>
+            <p>Fall alert messages include: the SteadiDay™ program name, the user's display name, a notification that the user may have had a fall and has not responded, the user's GPS location as Apple Maps and Google Maps links, and, when available, a link to the user's live location so the trusted contact can locate them. Test alerts are clearly marked as a test and say that no one needs help. Check-in messages include the program name, the user's display name, and either the check-in status the user chose or a notice that the user has not checked in; they do not include location.</p>
 
             <h3>10.5 Message and Data Rates</h3>
             <p>Message and data rates may apply. SteadiDay™ does not charge for SMS messages, but your mobile carrier's standard messaging rates apply to messages sent from or received on your device.</p>
 
             <h3>10.6 Opt-Out</h3>
-            <p>To stop emergency SMS messages from being sent, remove your trusted contacts from the app or disable the fall detection feature. Trusted contacts who receive emergency alerts can reply STOP to the sending number to opt out of future messages from SteadiDay™. For help, trusted contacts can reply HELP or contact us at <a href="mailto:support@steadiday.com">support@steadiday.com</a>.</p>
+            <p>To stop SMS messages from being sent, remove your trusted contacts from the app or disable the fall detection feature and the check-in text options. Trusted contacts who receive emergency alerts can reply STOP to the sending number to opt out of future messages from SteadiDay™. For help, trusted contacts can reply HELP or contact us at <a href="mailto:support@steadiday.com">support@steadiday.com</a>.</p>
 
             <h3>10.7 SMS Data Privacy</h3>
-            <p>Mobile phone numbers and opt-in data collected for the SteadiDay™ SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes. Phone numbers are stored locally and may be temporarily stored in encrypted SteadiDay safety/check-in records so alerts can operate. Completed records are automatically deleted after approximately 24 hours; a protection session left active may remain for up to eight days. Twilio retains message records according to its account settings and legal obligations.</p>
+            <p>Mobile phone numbers and opt-in data collected for the SteadiDay™ SMS program will not be shared with or sold to third parties or affiliates for marketing or promotional purposes. Trusted contacts' names and phone numbers are stored on your device. They are also held on our server, encrypted, in SteadiDay safety/check-in records while Always-on Protection is running or a missed check-in alert is pending, so alerts can be sent even if your phone cannot send them. Because protection restarts whenever the app is opened, these details generally remain on our server for as long as those features are turned on. Ended or completed records are automatically deleted after approximately 24 hours; a protection session left active may remain for up to eight days. If you are signed in with Premium, your trusted contacts are also included in your cloud backup (see Section 4.2). Twilio retains message records according to its account settings and legal obligations.</p>
         </div>
 
         <div class="section">
