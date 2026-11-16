@@ -1017,7 +1017,8 @@ def get_images_for_category(category, topic=None, client=None):
     if not hero:
         pool = HERO_IMAGES.get(category) or HERO_IMAGES.get("Wellness", [])
         for candidate in pool:
-            if _base_unsplash_url(candidate) not in _used_images:
+            if (_base_unsplash_url(candidate) not in _used_images
+                    and unsplash_url_is_live(candidate)):  # skip pool photos Unsplash has removed
                 hero = candidate
                 _used_images.add(_base_unsplash_url(hero))
                 print(f"  📎 Hero from {category} category pool")
