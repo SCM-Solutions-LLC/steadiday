@@ -938,6 +938,7 @@ The image MUST visually represent this specific topic. Examples:
 - "Photo Sharing" -> grandparents with tablet, family video call, sharing photos
 
 Do NOT return generic yoga/nature/meditation unless the topic is literally about that.
+Readers are adults 50+: if people appear, they should look 50 or older (clinicians excepted).
 Format: https://images.unsplash.com/photo-XXXXX?w=1200&q=80
 Return ONLY the URL or NONE."""
     try:
