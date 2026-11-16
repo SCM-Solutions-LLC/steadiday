@@ -1033,7 +1033,13 @@ def get_images_for_category(category, topic=None, client=None):
 
 def get_category_thumbnail(category):
     options = CATEGORY_IMAGES.get(category, CATEGORY_IMAGES["Wellness"])
-    return random.choice(options) if isinstance(options, list) else options
+    if not isinstance(options, list):
+        return options
+    # skip photos Unsplash has removed; random order keeps thumbnails varied
+    for url in random.sample(options, len(options)):
+        if unsplash_url_is_live(url):
+            return url
+    return DEFAULT_HERO.replace('w=1200', 'w=800')
 
 def verify_youtube_video(video_id):
     try:
