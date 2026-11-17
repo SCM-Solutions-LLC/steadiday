@@ -29,7 +29,7 @@
       #safety { background: #F8FAF9; gap: 56px; padding-top: 40px; }
       #wellness { background: #F0FAF5; gap: 56px; padding-top: 40px; }
 
-      #cta { background: #4A9D7E; gap: 56px; }
+      #cta { background: #3A7D64; gap: 56px; } /* darker than brand #4A9D7E: white text 4.9:1 vs 3.3:1 */
       #cta-head { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 130px; color: #FFFFFF; }
       #cta-sub { font-size: 60px; color: #F0FAF5; }
       #cta-badge { width: 480px; }
@@ -88,11 +88,16 @@
       tl.from("#safety", { opacity: 0, duration: 0.5, ease: "none" }, 4.5);
       tl.from("#safety .headline", { opacity: 0, duration: 0.5, ease }, 4.5);
       tl.from("#safety .card", { opacity: 0, y: 80, duration: 0.5, ease, stagger: 0.33 }, 4.83);
+      // Hold motion: slow push-in, then each card lifts in turn as the VO names it
+      tl.fromTo("#safety .cards", { scale: 1 }, { scale: 1.05, duration: 5.5, ease: "none" }, 5.0);
+      tl.to("#safety .card", { y: -16, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 1.2 }, 6.4);
 
       // Wellness (10s): slides in from the right
       tl.from("#wellness", { x: 1920, duration: 0.5, ease: "none" }, 10);
       tl.from("#wellness .headline", { opacity: 0, duration: 0.5, ease }, 10);
       tl.from("#wellness .card", { opacity: 0, y: 80, duration: 0.5, ease, stagger: 0.33 }, 10.33);
+      tl.fromTo("#wellness .cards", { scale: 1 }, { scale: 1.05, duration: 5.5, ease: "none" }, 10.5);
+      tl.to("#wellness .card", { y: -16, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 1.2 }, 11.9);
 
       // CTA (15.5s): crossfade in
       tl.from("#cta", { opacity: 0, duration: 0.5, ease: "none" }, 15.5);
