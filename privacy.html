@@ -453,14 +453,15 @@
             <ul>
                 <li><strong>Fall alerts:</strong> when the app's fall detection feature activates and the user does not respond within the countdown period</li>
                 <li><strong>Test alerts:</strong> when the user chooses to send a test alert to a trusted contact to confirm the contact can receive alerts</li>
-                <li><strong>Check-in updates:</strong> if the user has turned on check-in sharing, a message saying the user has checked in for the day</li>
-                <li><strong>Missed check-in alerts:</strong> if the user has turned on missed check-in alerts, a message saying the user has not checked in by their daily deadline</li>
+                <li><strong>Check-in invitation:</strong> if the user turns on check-in sharing or missed check-in alerts, a one-time message asking the contact to reply YES to receive check-in messages</li>
+                <li><strong>Check-in updates:</strong> if the user has turned on check-in sharing and the contact replied YES, a message saying the user has checked in for the day</li>
+                <li><strong>Missed check-in alerts:</strong> if the user has turned on missed check-in alerts and the contact replied YES, a message saying the user has not checked in by their daily deadline</li>
                 <li><strong>Contact confirmation:</strong> a trusted contact may receive a one-time message confirming they were added as an emergency contact</li>
             </ul>
             <p>Texts sent with the manual Emergency SOS button are not part of the Program: the user sends them from their own phone's messaging app and their own number, not through Twilio.</p>
 
             <h3>10.2 Consent and Opt-In</h3>
-            <p>By adding a trusted contact and enabling the fall detection feature within the SteadiDay™ app, you expressly consent to the app sending SMS text messages to your designated trusted contacts on your behalf in emergency situations. Check-in updates and missed check-in alerts are sent only if you separately turn those options on. This consent is collected in-app at the time you configure your trusted contacts and those options. You may withdraw consent at any time by removing your trusted contacts from the app or by disabling the fall detection and check-in options in app settings.</p>
+            <p>By adding a trusted contact and enabling the fall detection feature within the SteadiDay™ app, you expressly consent to the app sending SMS text messages to your designated trusted contacts on your behalf in emergency situations. Check-in updates and missed check-in alerts are sent only if you separately turn those options on, and only to a contact who has replied YES to our invitation text. The contact's own YES is their consent to those messages; they can withdraw it at any time by replying STOP. We record each contact's reply against your account using a one-way keyed hash of their number, not the number itself. This consent is collected in-app at the time you configure your trusted contacts and those options. You may withdraw consent at any time by removing your trusted contacts from the app or by disabling the fall detection and check-in options in app settings.</p>
 
             <h3>10.3 Message Frequency</h3>
             <p>Message frequency varies. If check-in texts are turned off, messages are sent only for fall alerts (one message to each trusted contact per incident), for test alerts the user chooses to send, and for the one-time contact confirmation. If check-in sharing or missed check-in alerts are turned on, each trusted contact typically receives one check-in message per day.</p>
