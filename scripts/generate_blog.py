@@ -1498,7 +1498,7 @@ def get_html_template():
 <head>
 <!-- GTAG_INJECTED -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17929124014"></script>
-<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','AW-17929124014');</script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){{dataLayer.push(arguments);}}gtag('js',new Date());gtag('config','AW-17929124014');gtag('config','G-LF8H890XTV');</script>
     <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{title} | SteadiDay Blog</title>
     <meta name="description" content="{meta_description}"><meta name="keywords" content="{keywords}">
