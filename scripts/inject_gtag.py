@@ -7,6 +7,7 @@ What it does:
 2. Injects the gtag.js base snippet after <head> (if not already present)
 3. Injects an App Store click conversion tracker before </body> (if not already present)
 4. Replaces any old conversion labels with the current one
+5. Adds the GA4 config call next to the Ads config call (if not already present)
 
 Safe to run multiple times - skips files that already have the tags.
 """
@@ -18,6 +19,11 @@ import re
 # --- Configuration ---
 
 GTAG_ID = "AW-17929124014"
+
+# GA4 web stream of property 519208517. One gtag.js load serves both IDs, so
+# pages only need a second config call. Without it a page sends nothing to GA4.
+GA4_ID = "G-LF8H890XTV"
+ADS_CONFIG_RE = re.compile(r"gtag\(\s*'config'\s*,\s*'" + GTAG_ID + r"'\s*\)\s*;")
 
 # The "App Store Click" conversion action in Google Ads (Primary, Outbound
 # clicks). generate_blog.py sends to the same label.
@@ -38,6 +44,7 @@ GTAG_SNIPPET = f'''<!-- Google tag (gtag.js) -->
   function gtag(){{dataLayer.push(arguments);}}
   gtag('js', new Date());
   gtag('config', '{GTAG_ID}');
+  gtag('config', '{GA4_ID}');
 </script>'''
 
 CONVERSION_SNIPPET = f'''<!-- Google Ads: App Store click conversion tracking -->
@@ -105,6 +112,15 @@ def inject_into_file(filepath):
                 insert_pos = head_match.end()
                 content = content[:insert_pos] + '\n' + GTAG_SNIPPET + content[insert_pos:]
                 modified = True
+
+    # 1b. Add the GA4 config call after the Ads one
+    if GA4_ID not in content:
+        content, n = ADS_CONFIG_RE.subn(
+            lambda m: m.group(0) + f"gtag('config','{GA4_ID}');", content, count=1)
+        if n:
+            modified = True
+        else:
+            print(f"  WARNING: no Ads config call to attach GA4 to: {filepath}")
 
     # 2. Replace old conversion labels if present
     for old_label in OLD_LABELS:
