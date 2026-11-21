@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+    <style>
+      @font-face { font-family: "Poppins"; font-weight: 600; src: url("assets/fonts/Poppins-SemiBold.woff2") format("woff2"); }
+      @font-face { font-family: "Poppins"; font-weight: 700; src: url("assets/fonts/Poppins-Bold.woff2") format("woff2"); }
+      @font-face { font-family: "Source Sans 3"; font-weight: 400 600; src: url("assets/fonts/SourceSans3.woff2") format("woff2"); }
+
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #FFFBF5; }
+      body { font-family: "Source Sans 3", sans-serif; }
+
+      .clip { position: absolute; inset: 0; }
+      .scene { display: flex; flex-direction: column; justify-content: center; align-items: center; }
+      .headline { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 110px; color: #111827; }
+      .cards { display: flex; gap: 110px; align-items: flex-start; }
+      .card { display: flex; flex-direction: column; align-items: center; gap: 28px; }
+      .card img { height: 600px; border-radius: 36px; box-shadow: 0 16px 48px rgba(0, 0, 0, 0.14); }
+      .label { font-weight: 600; font-size: 48px; color: #1F2937; }
+
+      #intro { background: #FFFBF5; gap: 48px; }
+      #intro img { width: 260px; height: 260px; border-radius: 58px; box-shadow: 0 24px 64px rgba(74, 157, 126, 0.35); }
+      #brand { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 150px; color: #4A9D7E; }
+      #tagline { font-size: 64px; color: #1F2937; }
+
+      #safety { background: #F8FAF9; gap: 56px; padding-top: 40px; }
+      #wellness { background: #F0FAF5; gap: 56px; padding-top: 40px; }
+
+      #cta { background: #3A7D64; gap: 56px; } /* darker than brand #4A9D7E: white text 4.9:1 vs 3.3:1 */
+      #cta-head { font-family: "Poppins", sans-serif; font-weight: 700; font-size: 130px; color: #FFFFFF; }
+      #cta-sub { font-size: 60px; color: #F0FAF5; }
+      #cta-badge { width: 480px; }
+      #cta-url { font-weight: 600; font-size: 52px; color: #FFFFFF; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-duration="22.05" data-width="1920" data-height="1080">
+      <!-- Scenes overlap by 0.5s for the transitions; later tracks paint on top. -->
+      <div id="intro" class="clip scene" data-start="0" data-duration="5" data-track-index="1">
+        <img id="icon" src="assets/icon.jpeg" alt="SteadiDay app icon" />
+        <div id="brand">SteadiDay</div>
+        <div id="tagline">Help, right when you need it.</div>
+      </div>
+
+      <div id="safety" class="clip scene" data-start="4.5" data-duration="6" data-track-index="2">
+        <div class="headline">Free safety essentials</div>
+        <div class="cards">
+          <div class="card"><img src="assets/screenshot-05-sos.png" alt="Emergency SOS screen" /><div class="label" style="color:#DC2626">Emergency SOS</div></div>
+          <div class="card"><img src="assets/screenshot-07-fall-detection.png" alt="Fall detection screen" /><div class="label">Fall Detection</div></div>
+          <div class="card"><img src="assets/screenshot-02-medicines.png" alt="Medication reminders screen" /><div class="label" style="color:#4A9D7E">Medication Reminders</div></div>
+        </div>
+      </div>
+
+      <div id="wellness" class="clip scene" data-start="10" data-duration="6" data-track-index="3">
+        <div class="headline">Wellness, made simple</div>
+        <div class="cards">
+          <div class="card"><img src="assets/screenshot-04-steady-moves.png" alt="Balance exercises screen" /><div class="label">Balance Exercises</div></div>
+          <div class="card"><img src="assets/screenshot-03-share-activity.png" alt="Family Link sharing screen" /><div class="label" style="color:#5B8FC4">Family Link Sharing</div></div>
+          <div class="card"><img src="assets/screenshot-01-simple-home.png" alt="Simple Mode home screen" /><div class="label" style="color:#4A9D7E">Simple Mode</div></div>
+        </div>
+      </div>
+
+      <!-- CTA holds to the end of the voiceover (22.05s) so the VO isn't cut off. -->
+      <div id="cta" class="clip scene" data-start="15.5" data-duration="6.55" data-track-index="4">
+        <div id="cta-head">Peace of mind, free.</div>
+        <div id="cta-sub">Designed for adults 50+ and the families who love them.</div>
+        <img id="cta-badge" src="assets/app-store-badge.svg" alt="Download on the App Store" />
+        <div id="cta-url">steadiday.com</div>
+      </div>
+
+      <audio id="vo" src="assets/vo.mp3" data-start="0" data-duration="22.05" data-track-index="5" data-volume="1"></audio>
+    </div>
+
+    <script>
+      const ease = "expo.out"; // ≈ the Remotion bezier(0.16, 1, 0.3, 1)
+      const rise = (t, sel, at, y) => t.from(sel, { opacity: 0, y, duration: 0.6, ease }, at);
+      const tl = gsap.timeline({ paused: true });
+
+      // Intro (0–5s)
+      tl.from("#icon", { scale: 0, duration: 0.85, ease: "power3.out" }, 0);
+      rise(tl, "#brand", 0.5, 40);
+      rise(tl, "#tagline", 1.0, 40);
+
+      // Safety (4.5s): crossfade in, cards stagger up
+      tl.from("#safety", { opacity: 0, duration: 0.5, ease: "none" }, 4.5);
+      tl.from("#safety .headline", { opacity: 0, duration: 0.5, ease }, 4.5);
+      tl.from("#safety .card", { opacity: 0, y: 80, duration: 0.5, ease, stagger: 0.33 }, 4.83);
+      // Hold motion: slow push-in, then each card lifts in turn as the VO names it
+      tl.fromTo("#safety .cards", { scale: 1 }, { scale: 1.05, duration: 5.5, ease: "none" }, 5.0);
+      tl.to("#safety .card", { y: -16, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 1.2 }, 6.4);
+
+      // Wellness (10s): slides in from the right
+      tl.from("#wellness", { x: 1920, duration: 0.5, ease: "none" }, 10);
+      tl.from("#wellness .headline", { opacity: 0, duration: 0.5, ease }, 10);
+      tl.from("#wellness .card", { opacity: 0, y: 80, duration: 0.5, ease, stagger: 0.33 }, 10.33);
+      tl.fromTo("#wellness .cards", { scale: 1 }, { scale: 1.05, duration: 5.5, ease: "none" }, 10.5);
+      tl.to("#wellness .card", { y: -16, duration: 0.6, ease: "sine.inOut", yoyo: true, repeat: 1, stagger: 1.2 }, 11.9);
+
+      // CTA (15.5s): crossfade in
+      tl.from("#cta", { opacity: 0, duration: 0.5, ease: "none" }, 15.5);
+      tl.from("#cta-head", { opacity: 0, y: 50, duration: 0.6, ease }, 15.5);
+      tl.from("#cta-sub", { opacity: 0, duration: 0.6, ease }, 15.9);
+      tl.from("#cta-badge", { scale: 0, duration: 0.67, ease: "power3.out" }, 16.33);
+      tl.from("#cta-url", { opacity: 0, duration: 0.6, ease }, 16.83);
+
+      window.__timelines = window.__timelines || {};
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
