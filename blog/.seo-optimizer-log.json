@@ -585,5 +585,39 @@
       "plain App Store URL -> campaign URL"
     ],
     "baseline": null
+  },
+  {
+    "date": "2026-11-24",
+    "file": "blog/2026-10-22-generic-hormone-therapy-patch-for.html",
+    "target_queries": [
+      "climara-pro dosage",
+      "climara pro patch generic",
+      "new hormone therapy patch",
+      "what is the newly approved generic menopause patch from the fda?"
+    ],
+    "edits_made": [
+      "title/meta/og/twitter rewritten around 'generic Climara Pro'",
+      "H1 + Article headline aligned",
+      "dateModified 2026-11-24",
+      "FAQ Q&A added: how often to change the patch (restates post's once-weekly/7-day text) + FAQPage JSON-LD",
+      "2 internal links: osteoporosis-drugs-and-dementia-risk, key-nutrients-women-over-50",
+      "mid-article soft CTA link (campaign URL) on Emergency SOS mention"
+    ],
+    "baseline": {
+      "window": "2026-10-26_to_2026-11-22",
+      "clicks": 0,
+      "impressions": 56,
+      "ctr": 0.0,
+      "position": 10.3
+    }
+  },
+  {
+    "date": "2026-11-24",
+    "file": "index.html (homepage From the Blog cards refresh - not a post optimization)",
+    "target_queries": [],
+    "edits_made": [
+      "added 2026-11-23 anti-VEGF card, dropped 2026-10-29 Mediterranean card"
+    ],
+    "baseline": null
   }
 ]
