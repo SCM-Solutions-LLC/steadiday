@@ -20,7 +20,7 @@ type Beat = {
   query: string;
   clip: string | null;
   start?: number; // seconds into the clip
-  shot?: string;
+  shot?: string; // app screen recording in public/ (gitignored, from Dropbox SteadiDay/app-clips)
   caption: string;
   vo: [number, number]; // seconds into public/vo.mp3 for this beat's line
 };
@@ -28,16 +28,26 @@ type Beat = {
 export const BEATS: Beat[] = [
   { sec: 4, query: "senior woman walking stairs", clip: "beat4.mp4", caption: "Mom lives alone.\nYou live three hours away.", vo: [0, 3.14] },
   { sec: 4.5, query: "man looking at phone smiling", clip: "beat2.mp4", caption: "You can't be there\nevery day.\nBut you can stay close.", vo: [3.14, 6.76] },
-  { sec: 4.5, query: "senior climbing stairs home", clip: "beat1.mp4", shot: "screenshot-07-fall-detection.png", caption: "If SteadiDay senses a fall,\nit can alert family.", vo: [6.76, 9.97] },
-  { sec: 3.5, query: "senior kitchen morning", clip: "beat4.mp4", start: 12, shot: "screenshot-02-medicines.png", caption: "The right medicine,\non time.", vo: [9.97, 12.2] },
-  { sec: 4.5, query: "grandmother phone video chat", clip: "beat5.mp4", shot: "screenshot-05-sos.png", caption: "One tap sends an SOS.\nShare how her day\nis going.", vo: [12.2, 15.94] },
-  { sec: 4, query: "senior balance exercise", clip: "beat6.mp4", shot: "screenshot-04-steady-moves.png", caption: "Gentle balance exercises,\nevery day.", vo: [15.94, 18.81] },
+  { sec: 4.5, query: "senior climbing stairs home", clip: "beat1.mp4", shot: "app-clips/fall.mp4", caption: "If SteadiDay senses a fall,\nit can alert family.", vo: [6.76, 9.97] },
+  { sec: 3.5, query: "senior kitchen morning", clip: "beat4.mp4", start: 12, shot: "app-clips/medicines.mp4", caption: "The right medicine,\non time.", vo: [9.97, 12.2] },
+  { sec: 4.5, query: "grandmother phone video chat", clip: "beat5.mp4", shot: "app-clips/sos.mp4", caption: "One tap sends an SOS.\nShare how her day\nis going.", vo: [12.2, 15.94] },
+  { sec: 4, query: "senior balance exercise", clip: "beat6.mp4", shot: "app-clips/moves.mp4", caption: "Gentle balance exercises,\nevery day.", vo: [15.94, 18.81] },
 ];
 const END_SEC = 5;
 export const STOCK_PROMO_FRAMES =
   (BEATS.reduce((s, b) => s + b.sec, 0) + END_SEC) * FPS;
 
 const END_VO: [number, number] = [18.81, 22.05];
+
+// Music sits low under the voice, lifts once the last line ends, then fades out.
+const VO_END = STOCK_PROMO_FRAMES - END_SEC * FPS + 10 + Math.round((END_VO[1] - END_VO[0]) * FPS);
+const musicVolume = (f: number) =>
+  interpolate(
+    f,
+    [0, 15, VO_END, VO_END + 12, STOCK_PROMO_FRAMES - 24, STOCK_PROMO_FRAMES],
+    [0, 0.15, 0.15, 0.35, 0.35, 0],
+    { extrapolateLeft: "clamp", extrapolateRight: "clamp" },
+  );
 
 // One VO take, cut at the pauses between lines, so each line starts with its beat.
 const VoLine: React.FC<{ vo: [number, number] }> = ({ vo }) => (
@@ -94,8 +104,9 @@ const BeatScene: React.FC<{ beat: Beat; frames: number }> = ({ beat, frames }) =
       />
       {beat.shot ? (
         <AbsoluteFill style={{ alignItems: "center", paddingTop: 220 }}>
-          <Img
+          <OffthreadVideo
             src={staticFile(beat.shot)}
+            muted
             style={{
               height: 1050,
               borderRadius: 48,
@@ -198,6 +209,7 @@ export const StockPromo: React.FC = () => {
   let from = 0;
   return (
     <AbsoluteFill style={{ backgroundColor: "#111111" }}>
+      <Audio src={staticFile("music.mp3")} volume={musicVolume} />
       {BEATS.map((beat) => {
         const frames = beat.sec * FPS;
         const seq = (
